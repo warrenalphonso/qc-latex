@@ -1,0 +1,238 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{braket}
+\usepackage{graphicx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Warren Alphonso}
+\lhead{Chapter 2}
+\cfoot{\thepage} 
+
+\setlength{\parindent}{0cm}
+
+\title{Chapter 2: Quantum Computation: General Features and Some Simple Examples} 
+\author{Warren Alphonso}
+\date{March 29, 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{The General Computational Process} 
+
+Suppose we have a quantum computer that we want to act on a number $x$ to produce another number $f(x)$ for some specified function $f$. If we specify $x$ as an $n$-bit integer and $f(x)$ as an $m$-bit integer, then we need at least $n+m$ Qbits; $n$ for the \textsl{input register} and $m$ for the \textsl{output register}. This is critical because if $f$ maps multiple inputs to the same output, it would not be reversible unless we kept track of the input. 
+
+Remember that any classically meaningful reversible transformation on Cbits will have a linear extension to a unitary transformation on Qbits that acts as the classical transformation when restricted to states of the classical basis. This fact is crucial for defining unitary transformations on Qbits.
+
+We can write the unitary transformation for $f$ as
+$$ U_{f} (\ket{x}_{n} \ket{y}_{m}) = \ket{x}_{n} \ket{y \oplus f(x)}_{m} $$
+where $\oplus$ again means the modulo-2 bitwise addition or XOR gate. (For example, $1101 \oplus 0111 = 1010 $. 
+
+Starting with an initial value of $y = 0$ in the output register, we have 
+$$ U_{f}(\ket{x}_{n} \ket{0}_{m} = \ket{x}_{n} \ket{f(x)}_{m} $$
+so we do indeed end up with $f(x)$ in the output register. 
+
+This transformation is invertible, since $U_{f}$ is its own inverse 
+$$ U_{f}U_{f}(\ket{x} \ket{y}) = \ket{x} \ket{y \oplus f(x) \oplus f(x)} = \ket{x} \ket{y} $$
+since $w \oplus w = 0$ for any w.
+
+Now we can apply an important trick of quantum computation: applying to each Qbit in the two-Qbit state $\vert 0 \rangle \vert 0 \rangle$ the 1-Qbit Hadamard transformation: 
+$$ (H \otimes H)(\ket{0} \ket{0}) = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) = \frac{1}{2} (\ket{0}_{2} + \ket{1}_{2} + \ket{2}_{2} + \ket{3}_{2})$$
+
+This generalizes to: 
+\begin{equation}
+ H^{\otimes n} \ket{0}_{n} = \frac{1}{2^{n / 2}} \sum_{0 \leq x < 2^{n}} \ket{x}_{n}
+\end{equation}
+
+The above tells us that if the initial state of the input register is $\vert 0 \rangle_{n}$ and we apply an $n$-fold Hadamard transformation on that register, its state becomes an \textbf{equally} weighted superposition of all possible $n$-Qbit inputs. 
+
+This allows us to take advantage of the power of quantum computing. For example, if we apply a Hadamard transformation to every Qbit in a 100 Qbit input register initially in the state $\vert 0 \rangle_{100}$, and then apply $U_{f}$, the final state can contain the results of $2^{100}$ evaluations of the function $f$: a billion billion trillion evaluations! This miracle is called \textsl{quantum parallelism}. 
+
+Before drawing extravagant conclusions from this, recall that when we have a collection of Qbits in a definite but unknown state, there is in general no way to find out what the state is. We are forced to collapse it to get any information. So although we can learn something from the output, it is nothing more than what we would have learned if we ran the computation on a classical computer with a random input. Still, a hint of a miracle remains: we notice that the random selection of $x$ when we collapse \textsl{only happens after} the computation has been carried out. This is what is called ``quantum weirdness."  
+
+If there were a way to make copies of the output state prior to making the measurement, without running the whole computation agian, then we could learn the values of $f$ (with high probability) for several random values of $x$. However, such copying is prohibited by the \textbf{no-cloning theorem}, which states there is no unitary transformation that can take a state $\ket{\psi}_{n} \ket{0}_{n}$ into the state $\ket{\psi} \ket{\psi}$ for arbitrary $\ket{\psi}_{n}$. 
+
+The theorem is a consequence of linearity. If 
+$$ U(\ket{\psi} \ket{0}) = \ket{\psi} \ket{\psi} $$ 
+then, we can apply $U$ after distributing the following: 
+$$ U(a \ket{\psi} + b \ket{\phi})\ket{0} = aU(\ket{\psi}\ket{0}) + bU(\ket{\phi}\ket{0}) = a\ket{\psi}\ket{\psi} + b\ket{\phi}\ket{\phi} $$
+
+However, because $U$ is linear, we can also apply it in a different order: 
+$$ U(a \ket{\psi} + b \ket{\phi})\ket{0} = (a\ket{\psi} + b\ket{\phi})(a\ket{\psi} + b\ket{\phi})$$ 
+$$ = a^{2}\ket{\psi}\ket{\psi} + b^{2}\ket{\phi}\ket{\phi} + ab\ket{\psi}\ket{\phi} + ab\ket{\phi}\ket{\psi}$$
+which differs from our first equation unless $a$ or $b$ is zero. Thus, we cannot clone inputs. 
+
+The uncertainty principle tells us that there will be a tradeoff in the information we attain and can attain. So it is wrong to say that the quantum computer has evaluated the function $f(x)$ for all $x$ in the entire range. There are still some tricks we can employ to permit quantum computers to compute things classical computers can never accomplish. 
+
+\section{Deutsch's Problem}
+Deutsch's problem is the simplest example of a tradeoff that sacrifices particular information for relational information. Here's how it works: Let both input and output registers contain only a single Qbit. We explore functions $f$ that take a single bit into a single bit. All of these functions are outlined in the table. 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|r|c|c|}
+\hline 
+ & \textbf{x = 0} & \textbf{x = 1} \\
+\hline
+$f_{0}$ & 0 & 0 \\
+\hline
+$f_{1}$ & 0 & 1 \\
+\hline 
+$f_{2}$ & 1 & 0 \\
+\hline 
+$f_{3}$ & 1 & 1 \\
+\hline
+\end{tabular}
+\end{table}
+
+The input to these functions are at the top of the table (either $x=0$ or $x=1$). The rest of the table denotes the one bit output attained by the output register of:
+$$U_{f}(\ket{x} \ket{y}) = \ket{x}\ket{y \oplus f(x)}
+$$
+Verify that the $f$ in the table above are: 
+$$ U_{f_{0}} = 1, U_{f_{1}} = C_{io}, U_{f_{2}} = C_{io}X_{o}, U_{f_{3}} = X_{o} $$
+
+To better visualize these operators, remember that the output register is initially in $\ket{0}$ state and use the following figure:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=.5]{gates.png}
+\end{figure}
+
+Suppose we are given a black box that executes $U_{f}$ for one of these four functions, but we don't know which it is. We can clearly find out by letting the black box act twice - first on $\ket{0} \ket{0}$ and then on $\ket{1} \ket{0}$. But what if we are only allowed to let the box act once?
+
+In a classical computer, we can either learn the value of $f(0)$ (by letting $U_{f}$ act on either $\ket{0}\ket{0}$ or $\ket{0}\ket{1}$). If we get $f(0) = 0$, we know it is either $f_{0}$ or $f_{1}$. If we instead learn the value of $f(1)$, and we find $f(1) = 0$, then we can restrict $U_{f}$ to be either $f_{0}$ or $f_{2}$. 
+
+Another approach we could use is to learn whether $f$ is constant $\Big(f(0) = f(1)$, satisfied by $f_{0}$ and $f_{3}\Big)$. To do this in a classical computer, we must evaluate both $f(0)$ and $f(1)$ and compare them. We have to run $U_{f}$ twice. 
+
+Remarkably, with a quantum computer, we can do this in a \textsl{single run}. When we do this, however, we learn nothing about the individual values of $f(0)$ and $f(1)$, but we are able to answer whether they are the same! 
+
+To do this we use our standard trick, preparing the input register in the superposition $\frac{1}{\sqrt{2}} (\ket{0} + \ket{1})$. The final state of the input and output registers would then be 
+$$ U_{f}(H \otimes 1)(\ket{0}\ket{0}) = \frac{1}{\sqrt{2}} \ket{0}\ket{f(0)} + \frac{1}{\sqrt{2}} \ket{1}\ket{f(1)}$$
+which derives from Figure 1. 
+
+However, all this does is tell us $f(x)$ for a certain $x$ and is thus not an improvement over the classical computer. 
+
+It was later noticed that there are unitary transformations one can apply to the state before carrying out the measurement, that, depending on the outcome, enable you half the time state with assurance whether or not $f(0) = f(1)$. Some time after that, it was discovered we can \textsl{always} answer the question, provided we apply the appropriate unitary transformations before and after running the computation. Here is how we execute this trick: 
+
+In our above quantum attempt, we made the input to $U_{f}$ to be the state 
+$$ (H \otimes 1)(\ket{0} \ket{0})$$
+
+Instead of this, we again start with both input and output registers in the state $\ket{0}$ but then we apply the NOT operation $X$ to both registers, followed by an application of the Hadamard transformation to both. Since $X\ket{0} = \ket{1}$ and $H\ket{1} = \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1}$, the input to $U_{f}$ is now described by the state 
+
+\begin{equation}
+\begin{aligned}
+(H \otimes H)(X \otimes X)(\ket{0} \ket{0}) & = (H \otimes H)(\ket{1} \ket{1}) \\ & = (\frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1}) (\frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1}) \\ & = \frac{1}{2} (\ket{0} \ket{0} - \ket{1} \ket{0} - \ket{0} \ket{1} + \ket{1} \ket{1}
+\end{aligned}
+\end{equation}
+
+If we use this state as input to $U_{f}$, then by linearity the resulting state is 
+
+$$ \frac{1}{2}(\ket{0}\ket{f(0)} - \ket{1}\ket{f(1)} - \ket{0} \ket{\bar{f}(0)} + \ket{1} \ket{\bar{f}(1)}) $$
+where $\bar{x} = 1 \oplus x $
+
+Thus, if $f(0) = f(1)$, the resulting state is 
+$$ \frac{1}{2} \Big( \ket{0} - \ket{1} \Big) \Big( \ket{f(0)} - \ket{\bar{f}(0)} \Big) $$
+assuming $f(0) = f(1)$
+
+However if $f(0) \neq f(1)$, then $f(1) = \bar{f}(0)$, so the resulting state is
+$$\frac{1}{2} \Big( \ket{0} + \ket{1} \Big) \Big( \ket{f(0)} - \ket{\bar{f}(0)} \Big)$$ assuming $f(0) \neq f(1)$.
+
+Finally, if we apply a Hadamard transformation to only the input register, these become 
+$$ \ket{1} \frac{1}{\sqrt{2}} \Big( \ket{f(0)} - \ket{\bar{f}(0)} \Big), f(0) = f(1) $$ 
+
+$$ \ket{0} \frac{1}{\sqrt{2}} \Big( \ket{f(0)} - \ket{\bar{f}(0)} \Big), f(0) \neq f(1) $$
+
+Putting together all the operations so far, we have 
+
+$$(H \otimes 1)U_{f}(H \otimes H)(X \otimes X)(\ket{0} \ket{0}) = 
+\begin{cases}
+\ket{1} \frac{1}{\sqrt{2}} \Big( \ket{f(0)} - \ket{\bar{f}(0)} \Big), f(0) = f(1) \\ \ket{0} \frac{1}{\sqrt{2}} \Big( \ket{f(0)} - \ket{\bar{f}(0)} \Big), f(0) \neq f(1)
+\end{cases}
+$$
+
+Thus, the state of the input register ends up as $\ket{1}$ or $\ket{0}$ depending on whether or not $f(0) = f(1)$, so by measuring the \textsl{input} register, we can determine if $f(0) = f(1)$. Notice that because the output registers are the same, one learns absolutely nothing by measuring it. This information still only narrows our search for what $U_{f}$ is to two functions, but it does this in 1 calculation whereas a classical computer requires 2 in order to compare $f(0)$ and $f(1)$. 
+
+Another way to think of this is as follows: Suppose $f(x) = $ millionth bit of $\sqrt{2 + x}$. Then, it is quite startling that we can determine whether the millionth bits of $\sqrt{2}$ and $\sqrt{3}$ are the same with the exact same effort as it takes to calculate the millionth bit of either $\sqrt{2}$ or $\sqrt{3}$!
+
+\section{Why Additional Subroutine Qbits Needn't Mess Things Up}
+
+In our secondary way of thinking of Deutsch's problem, we may need to use many more Qbits to represent the other bits of $\sqrt{2}$ and $\sqrt{3}$. Then the action of the computer must only induce a transformation on the input and output registers $n$ and $m$, while leaving the additional $r$ Qbits alone. Otherwise, the input and output registers will become entangled with the additional $r$ Qbits. 
+
+Let the additional $r$ Qbits start off in some initial state $\ket{\psi}_{r}$ so that we can define the initial state of the input register, output register, and additional Qbits as 
+$$\ket{\Psi}_{n+m+r} = \ket{x}_{n} \ket{y}_{m} \ket{\psi}_{r} $$ 
+
+Though the $r$ additional Qbits might become entangled with the input and output registers during the calculation (in fact, they \textsl{must} in order to serve any useful purpose) we require that the final state is of the form 
+$$ W\ket{\Psi}_{n+m+r} = \ket{x}_{n} \ket{y \oplus f(x)}_{m} \ket{\phi}_{r} $$
+where the additional $r$ Qbits have a state $\ket{\phi}_{r}$ which is independent of the initial state of the input and output registers.
+
+Because the initial and final states $\ket{\psi}_{r}$ and $\ket{\phi}_{r}$ of the additional Qbits are independent of the initial state of the input and output, we know the final states of the input and output registers will be related by a transformation $U_{f}$ that is linear. 
+
+Therefore, we can ignore the additional $r$ Qbits needed to compute the function $f$, provided both the initial and final states of the additional Qbits are \textsl{entirely independent} of the initial state of the input and output registers. This independence is achieved by taking advantage of the fact that unitary transformations are reversible. Actually, it is this very need to disentangle additional registers from input and output that is the \textbf{fundamental reason why quantum computation must be reversible}. 
+
+Concretely, we begin the computation by applying a unitary transformation $V$ that acts only on the input register and the $r$ additional Qbits, leaving the output register alone. This gives us $f(x)$ after acting on $x$. Now, we change the output register to $y \oplus f(x)$ without altering any Qbits outside the output register, by using $m$ cNOT gates. The $m$ control bits are among the $n + r$ that represent the result of the computation of $f(x)$. Since the state of the $n + r$ Qbits is not altered by cNOT gates, we can apply the inverse transformation $V^{\dagger}$ to restore them to their original state. 
+
+\section{Some More Substantial Speed-ups with a Quantum Computer} 
+\subsection{The Bernstein-Vazirani Problem}
+
+While this is not as applicable as Shor's algorithm, the significance of this problem is that is can be solved unambiguously faster on a quantum computer. 
+
+Let $a$ be an unknown non-negative integer less than $2^{n}$. Let $f(x)$ take any integer $x$ into the mod 2 sum of the products of corresponding bits of $a$ and $x$, which we denote by $a \cdot x$: 
+$$ a \cdot x = a_{0}x_{0} \oplus a_{1}x_{1} \oplus a_{2}x_{2} \cdots $$
+If we want to determine the value of $a$, how many times do we have to call $f(x)$?
+Notice that the $m$-th bit of $a$ is $a \cdot 2^{m}$ (with both terms in binary), since the binary expansion of $2^{m}$ has 1 in position $m$ and 0 in all the other positions. Thus, with a classical computer, we can learn the $n$ bits of $a$ by applying $f$ to the $n$ values $x = 2^{m}; 0 \leq m < n$, which requires $n$ different invocations of the subroutine. However, we will see that with a quantum computer a \textsl{single} invocation is enough to determine $a$ completely, regardless of how big $n$ is!
+
+If we prepare the 1-Qbit \textsl{output register} in the state $$HX\ket{0} = H\ket{1} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$$
+Then, since $U_{f}$ applied to basis $\ket{x}_{n}\ket{y}_{1}$ flips the value $y$ \textsl{only if} $f(x) = 1$, we have 
+$$U_{f}\ket{x}_{n} \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) =  \ket{x}_{n} \frac{1}{\sqrt{2}} (\ket{0} - (-1)^{f(x)}\ket{1}) $$
+This allows us to convert a bit flip to a change of sign. Thus, the action of $H$ on $\ket{x}_{1}$ can be written as: 
+$$ H\ket{x}_{1} = \frac{1}{\sqrt{2}} (\ket{0} + (-1)^{x} \ket{1}) = \frac{1}{\sqrt{2}} \sum^{1}_{y=0} (-1)^{xy} \ket{y} $$
+
+Generalizing $H^{\otimes n}$ to an $n$-Qbit $\ket{x}_{n}$ can be expressed as:
+$$H^{\otimes n} \ket{x}_{n} = \frac{1}{2^{n/2}} \sum_{y=0}^{2^{n} - 1} (-1)^{xy} \ket{y}_{n}$$
+
+Now if we start with the $n$-Qbit input register in the standard initial state $H^{\otimes n} \ket{0}$, put the 1-Qbit output register into the state $H\ket{1}$, apply $U_{f}$, and then apply $H^{\otimes n}$ to only the input register, we get 
+$$ (H^{\otimes n} \otimes 1)U_{f}(H^{\otimes n} \otimes H)\ket{0}_{n} \ket{1}_{1} = $$
+$$ (H^{\otimes n} \otimes 1)U_{f} \Big( \frac{1}{2^{n/2}} \sum_{x=0}^{2^{n} - 1} \ket{x} \Big) \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) =  $$
+$$ \frac{1}{2^{n/2}} \Big( H^{\otimes n}\sum_{x=0}^{2^{n} - 1} (-1)^{f(x)} \ket{x} \Big) \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) = $$
+$$ \frac{1}{2^{n}} \sum_{x=0}^{2^{n} - 1} \sum_{y=0}^{2^{n} - 1} (-1)^{f(x) + xy} \ket{y} \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) $$
+
+We'll do the sum over $x$ first. If the function $f(x)$ is $a \cdot x$, then 
+$$ \sum_{x=0}^{2^{n} - 1} (-1)^{ax} (-1)^{xy} = \prod_{j=1}^{n} \sum_{x_{j} = 1}^{1} (-1)^{(a_{j} + y_{j})x_{j}}$$
+
+At least one term in the product vanishes unless every bit $y_{j}$ of $y = a_{j}$ of $a$ (ie $y = a$). Therefore, the entire computation reduces to
+$$H^{\otimes (n+1)} U_{f} H^{\otimes (n+1)} \ket{0}_{n} \ket{1}_{1} = \ket{a}_{n} \ket{1}_{1} $$
+
+This means that by preprocessing the input register appropriately, we only need to call the subroutine once, followed by application of $H^{\otimes n}$ to the input register. This results in the input register becoming $\ket{a}$, so all $n$ bits of $a$ can be determined by measuring the input register. 
+
+Alternate way of looking at this with circuit... 
+
+\subsection{Simon's Problem}
+Simon's problem also has an $n$-bit non-zero number $a$ built into the action of subroutine $U_{f}$, and the aim is to learn the value of $a$ with as few invocations of the subroutine as possible. In the Bernstein-Vazirani problem, a classical computer had to invoke the subroutine $n$ times while a quantum computer invoked the subroutine 1 time. In Simon's problem, the difference is even more dramatic: a classical computer invokes $n^{2}$ times, while a quantum computer only invokes $n$ times. 
+
+The subroutine $U_{f}$ in Simon's problem evaluates a function $f$ on $n$ bits that is two to one ie a function from $n$ to $n-1$ bits. It is specifically constructed so that $f(x) = f(y)$ iff the $n$-bit integers $x$ and $y$ are related by $x = y \oplus a$, which is equivalently $x \oplus y = a$. $f$ is periodic under modulo-2 addition: 
+$f(x \oplus a) = f(x) $	for all $x$ and the problem is to find $a$. 
+
+To find $a$ in a classical computer, we must pass in $x_{1}$, $x_{2}$, $x_{3}$, ... to $f(x)$ until we stumble upon an $x_{j}$ that yields some previously computed value $f(x_{j})$, which means $a = x_{j} \oplus x_{i}$. If at some point we have picked $m$ different values and we know $a \neq x_{i} \oplus x_{j}$ for all pairs, then we have eliminated $\frac{1}{2}m(m-1)$ values of $a$. Since there are $2^{n}$ possible values, we are unlikely to find $a$ until $m = 2^{n/2}$. In contrast, a quantum computer can determine $a$ with high probability after calling the subroutine about $n$ times. Here's how:
+
+Like before, we apply $U_{f}$ only after applying $H^{\otimes n}$ to the input register: 
+$$\frac{1}{2^{n/2}} \sum_{x = 0}^{2^{n} - 1} \ket{x} \ket{f(x)} $$
+
+If we measure the input register, the generalized Born rule tells us that it is in the state 
+$$ \frac{1}{\sqrt{2}} (\ket{x_{0}} + \ket{x_{0} \oplus a}) $$ for some random $x_{0}$ for which $f(x_{0})$ agrees with the value given by output register measurement. This might seem like good progress but isn't really since we can't learn what the input state is. If we measure it, we get either $x_{0}$ or $x_{0} + a$ which are both random values. Instead, we must do something similar to what we did in Deutsch's problem and try to learn the relationship between the two, instead of something about each of them individually. 
+
+Let's apply a Hadamard transformation to the input:
+$$ H^{\otimes n} \frac{1}{\sqrt{2}} (\ket{x_{0}} + \ket{x_{0} \oplus a}) = \frac{1}{2^{(n+1) / 2}} \sum_{y = 0}^{2^{n} - 1} \Big( (-1)^{x_{0} \cdot y} + (-1)^{(x_{0} \oplus a) \cdot y} \ket{y} $$
+
+Since $(-1)^{(x_{0} \oplus a) \cdot y} = (-1)^{x_{0} \cdot y} (-1)^{a \cdot y}$, the coefficient for $\ket{y}$ is $0$ if $a \cdot y = 1$ and $2 (-1)^{x_{0} \cdot y}$ if $a \cdot y = 0$. Thus, we can simplify to
+$$ \frac{1}{2^{(n-1)/2}} \sum_{a \cdot y = 0} (-1)^{x_{0} \cdot y} \ket{y} $$
+
+So measuring the input register now gives us any of the values of $y$ for which $a \cdot y = 0$ ie for which 
+$$\sum_{i = 0}^{n - 1} y_{i} a_{i}= 0 \text{ (mod 2)} $$
+
+where $a_{i}$ and $y_{i}$ correspond to $i$th bit in binary expansions of $a$ and $y$. 
+
+
+
+\end{document}
