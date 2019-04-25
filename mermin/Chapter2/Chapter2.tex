@@ -233,6 +233,67 @@ $$\sum_{i = 0}^{n - 1} y_{i} a_{i}= 0 \text{ (mod 2)} $$
 
 where $a_{i}$ and $y_{i}$ correspond to $i$th bit in binary expansions of $a$ and $y$. 
 
+With this algorithm, we learn nothing only if we're unlucky enough to get $y = 0$ (which happens with probability $\frac{1}{2^{n-1}}$. So if we learn a nonzero value of $y$, if we get $n-1$ bits of $a$, we can figure out the last bit using $y$. Thus, we have cut the number of possible choices by a factor of 2. Thus, if we repeat the procedure a few more than $n$ times, we have a very high chance of learning $a$. 
+
+\section{The Importance of cNOT gates}
+While 1-Qbit unitary gates are relatively straightforward to construct, 2-Qbit gates are much tougher wince they require one to manipulate the interaction between 2 physical Qbits. The cNOT gate is the workhorse of 2-Qbit gates because any arithmetic operation can be carried out with 1-Qbit gates acting with 2-Qbit cNOT gates. This is because of: 
+\begin{enumerate}
+	\item Any arithmetic operation can be built on a reversible classical computer out of \textsl{three}-Cbit controlled-controlled-not gates (ccNOT gates, called \textsl{Toffoli gates}) 
+	\item The quantum ccNOT gate can be built out of cNOT gates and controlled-U gates, defined as $cU_{ij}$ does nothing to $j$ if $i$ is $\ket{0}$ but applies unitary transformation $U$ to $j$ if $i$ is $\ket{1}$. 
+	\item Controlled-U gates can be built out of cNOT gates and 1-Qbit unitary gates. 
+\end{enumerate}
+
+
+\subsection{Proving Part 1}
+In classical computation, the Toffoli gate flips the target bit if and only if \textsl{both} of the first two control bits are 1:
+$$x, y, z \rightarrow x, y, z \oplus xy$$
+We define its quantum extension as $T$. Since $T$ is its own inverse, it is reversible. In classical computing, the Toffoli gate allows us to calculate the AND of two bits by setting the target bit to $\ket{0}$. Since all Boolean operations can be built out of AND and NOT, and since all arithmetic can be built out of Boolean operators, Toffoli gates can build up all of classical computing through reversible operations. 
+
+\subsection{Proving Part 2}
+There is not way to construct a Toffoli gate out of 1-Cbit and 2-Cbit classical gates, but we can use a trick with quantum gates. 
+
+We begin by noting that we can create a quantum gate whose square is the NOT operator $X$. 
+$$ \sqrt{X} = \frac{1}{1 + i} 
+\begin{pmatrix}
+1 & i \\
+i & 1
+\end{pmatrix}
+$$
+$$
+(\sqrt{X})^{2} = 
+\begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix}
+= X
+$$
+We can also verify that it is unitary:
+$$\sqrt{X}^{\dagger}\sqrt{X} = 1$$
+
+To build a 3-Qbit Toffoli gate, we need a \textsl{controlled} square root of NOT gate. Given a controlled-U gate $cU_{ij}$ with Qbit $i$ the control, $j$ the target, and $U$ a 1-Qbit unitary transformation, a doubly controlled $U^{2}$ gate, controlled by Qbits 2 and 1 and targeting Qbit 0, can be constructed like so: 
+$$ cU_{10}C_{21}cU_{10}^{\dagger}C_{21}cU_{20}$$
+
+A circuit diagram of an implementation of a Quantum Toffoli:
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=.5]{toffoli.png}
+\end{figure}
+
+Verify that if both Qbits 2 and 1 are in state $\ket{1}$ the gate acts on Qbit 0 as $U^{2}$. An easier way to see this is to note that the middle three Qbits leaves Qbits 2 and 1 unchanged while acting on Qbit 0 as $1$ if those states are both $\ket{0}$ or both $\ket{1}$, and acting on Qbit 0 as $U^{\dagger}$ if only one state is $\ket{1}$. 
+
+\subsection{Proving Part 3}
+Finally, we show that a controlled-U gate can be built out of cNOT gates and 1-Qbit unitary gates. Let $V$ and $W$ be arbitrary 1-Qbit unitary transformations and consider their product: 
+$$V_{0}C_{10}V_{0}^{\dagger}W_{0}C_{10}W_{0}^{\dagger}$$
+If the control bit Qbit 1 is $\ket{0}$, then this reduces to $(VV^{\dagger})(WW^{\dagger}) = 1$. But if Qbit 1 is $\ket{1}$, then it instead becomes $(VXV^{\dagger})(WXW^{\dagger})$. Instead, let's think of $X$ as its equivalent form as the \textsl{Pauli operator} $X = \sigma_{x} = x \cdot \sigma $. It is possible (though I don't really understand the proof for why) to pick $U$ so that $U(x \cdot \sigma)U^{\dagger} = c \cdot \sigma$ for any unit vector $c$ by taking $U$ to be the transformation associated with a rotation of $x$ to $c$. Thus, we choose $V$ and $W$ so that 
+$$\Big( V(x \cdot \sigma)V^{\dagger} \Big) \Big( W(x \cdot \sigma)W^{\dagger} \Big) = (a \cdot \sigma)(b \cdot \sigma) = a \cdot b + \text{ i}a \otimes b \cdot \sigma$$
+for any desired unit vectors, $a$ and $b$. 
+
+Remember our goal is to produce a certain unitary transformation. An arbitrary 1-Qbit unitary transformation has the form 
+$$U(n, \theta) = e^{\frac{i}{2} \theta(n \cdot \sigma)} = cos \frac{1}{2} \theta + i(n \cdot \sigma) sin \frac{1}{2} \theta $$
+
+So by taking $a$ and $b$ to be in the plane perpendicular to $n$ and taking the angle between them to be $\frac{1}{2}\theta$, we can reproduce a similar unitary transformation. Look in Chapter 1 Appendix A2 for more information. 
+
+Ultimately, \textbf{eight} cNOT gates are required to construct a Toffoli gate in this way: the construction of a doubly-controlled $U^{2}$ gate that we outlined above needs two cNOT gates and three controlled-unitary gates, and each controlled-unitary gate as described above requires two cNOT gates
 
 
 \end{document}
