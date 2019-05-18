@@ -1,0 +1,230 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{graphicx}
+
+\usepackage{amsthm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Warren Alphonso}
+\cfoot{\thepage} 
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\setlength{\parindent}{0cm}
+
+\title{Linear Algebra} 
+\author{Warren Alphonso}
+\date{May 18, 2019}
+
+\begin{document}
+\maketitle
+A very reductionist summary of key Linear Algebra concepts. 
+
+\section{Systems of Linear Equations}
+\begin{definition}
+A \textbf{linear equation} is an equation that can be written in the form 
+$$ a_{1}x_{1} + ... + a_{n}x_{n} = b$$ 
+where $b$ and the coefficients $a_{k}$ are real or complex numbers. 
+\end{definition}
+
+We can record the important information of a system of linear equations in a matrix. Given the system
+$$x_1 - 2x_2 + x_3 = 0$$ 
+$$2x_2 - 8x_3 = 8 $$
+$$5x_1 - 5x_3 = 10 $$
+we place the coefficients of each variable aligned in columns
+$$\begin{bmatrix}
+1 && -2 && 1 \\
+0 && 2 && -8 \\
+5 && 0 && -5
+\end{bmatrix}$$
+This is called the \textbf{coefficient matrix} and 
+$$\begin{bmatrix}
+1 && -2 && 1 && 0 \\
+0 && 2 && -8 && 8 \\
+5 && 0 && -5 && 10
+\end{bmatrix}$$
+is called the \textbf{augmented matrix}. The size of a matrix is described as \textbf{ m x n} where $m$ denotes the number of rows and $n$ the number of columns. 
+
+\begin{definition}
+\textbf{Elementary Row Operations:}
+\begin{enumerate}
+	\item (Replacement) Replace one row by the sum of itself and a multiple of another row. 
+	\item (Interchange) Interchange two rows. 
+	\item (Scaling) Multiply all entries in a row by a nonzero constant. 
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\textbf{Row Echelon form} denotes a matrix with: 
+\begin{enumerate}
+	\item All nonzero rows are above any rows of all zeros.
+	\item Each leading entry of a row is in a column to the right of the leading entry of the row above it. 
+	\item All entries in  column below a leading entry are zeros. 
+\end{enumerate}
+\textbf{Reduced Row Echelon form} means the leading entry in nonzero rows is 1. 
+\end{definition}
+
+\textbf{Parallelogram Rule for Addition:} If \textbf{u} and \textbf{v} in $\mathbb{R}^2$ are represented as points on the plane, then \textbf{u} + \textbf{v} corresponds to the fourth vertex of the parallelogram whose other vertices are 0, \textbf{u}, and \textbf{v}. 
+
+\begin{definition}
+\textbf{Span}\{$v_1, ..., v_p$\} denotes the set of all vectors formed by $c_1 v_1 + ... + c_p v_p$. 
+\end{definition}
+
+\begin{definition}
+A set of vectors \{$v_1, ..., v_p$\} is said to be \textbf{linearly independent} if the equation 
+$$c_1 v_1 + ... + c_p v_p = 0$$ 
+has only the trivial solution. 
+\end{definition}
+
+\begin{theorem}
+If a set contains more vectors than there are entries in each vector, then the set is linearly independent. That is, the set $\{v_1, ..., v_p\}$ in $\mathbb{R}^n$ is linearly dependent if $p > n$. 
+\end{theorem}
+
+\begin{proof}
+Let $A = [v_1 \cdots v_p]$. Then $A$ is $n \times p$, and the equation $Ax = 0$ corresponds to a system of $n$ equations in $p$ unknowns. In $Ax = b$, the $x$ vector must have dimension $p$, so if $p>n$, then there are more variables than equations, so $Ax = 0$ has a nontrivial solution, and the columns of $A$ are linearly dependent. 
+\end{proof}
+
+An alternate way to conceptualize matrix multiplication: A \textbf{transformation} (or \textbf{function} or \textbf{mapping}) $T$ from $\mathbb{R}^n$ to $\mathbb{R}^m$ is a rule that assigns to each vector $x$ in $\mathbb{R}^n$ a vector $T(x)$ in $\mathbb{R}^m$. The set $\mathbb{R}^n$ is called the \textbf{domain} of $T$ and $\mathbb{R}^m$ is called the \textbf{codomain} of T. The set of all images $T(x)$ is called the \textbf{range} of $T$. 
+
+\begin{definition} 
+A transformation $T$ is \textbf{linear} if they preserve vector addition and scalar multiplication. That is:
+\begin{enumerate}
+	\item $T(u + v) = T(u) + T(v)$
+	\item $T(cu) = cT(u)$ for all scalars $c$
+\end{enumerate}
+Every matrix transformation is a linear transformation. These two requirements mean that $T(0) = 0$ for linear transformations. 
+\end{definition}
+
+\begin{theorem}
+Let $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ be a linear transformation. Then there exists a \textbf{unique} matrix $A$ such that 
+$$ T(x) = Ax $$
+In fact, $A$ is the $m \times n$ matrix whose $j$th column is the vector $T(e_j)$, where $e_j$ is the $j$th column of the identity matrix in $\mathbb{R}^n$: 
+$$A = [T(e_1) \cdots T(e_n)]$$
+\end{theorem}
+
+\begin{proof}
+Write $x = I_n x = [e_1 \cdots e_n]x = x_1 e_1 + \cdots + x_n e_n$, and use the linearity of $T$ to compute 
+$$T(x) = T(x_1 e_1 + \cdots x_n e_n) = x_1 T(e_1) + \cdots + x_n T(e_n)$$ 
+
+$$ \begin{bmatrix}
+T(e_1) \cdots T(e_n)
+\end{bmatrix} 
+\begin{bmatrix}
+x_1 \\
+\vdots \\
+x_n
+\end{bmatrix} 
+= Ax
+$$ 
+\end{proof}
+
+\begin{definition}
+A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is \textbf{onto} $\mathbb{R}^m$ if each $b$ in $\mathbb{R}^m$ is the image of at least one $x$ in $\mathbb{R}^n$. 
+\end{definition}
+
+\begin{definition}
+A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is \textbf{one-to-one} if each $b$ in $\mathbb{R}^m$ is the image of at most one $x$ in $\mathbb{R}^n$. 
+\end{definition}
+
+\section{Matrix Algebra} 
+\begin{definition}
+If $A$ is an $m \times n$ matrix and $B$ is an $n \times p$ matrix, then 
+$$AB = A
+\begin{bmatrix}
+b_1 & b_2 & \cdots & b_p
+\end{bmatrix}
+= \begin{bmatrix}
+Ab_1 & Ab_2 & \cdots & Ab_p
+\end{bmatrix}$$
+\end{definition}
+
+\begin{definition}
+Let $A$ be an $m \times n$ matrix and let $B$ and $C$ have sizes for which the indicated sums and products are defined. 
+\begin{enumerate}
+	\item $A(BC) = (AB)C$
+	\item $A(B + C) = AB + AC$
+	\item $(B + C)A = BA + CA $
+	\item $r(AB) = (rA)B = A(rB)$
+	\item $I_m A = A = AI_n$
+\end{enumerate}
+Warnings: 
+\begin{enumerate}
+	\item In general, $AB \neq BA$ 
+	\item If $AB = AC$, then it is \textbf{not true} in general that $B=C$
+	\item If $AB = 0$, then it is \textbf{not true} always that $A=0$ or $B=0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{transpose} of $A$ is the matrix whose columns are formed from the corresponding rows of $A$, denoted by $A^T$. 
+\begin{itemize}
+	\item $(A^T)^T = A$
+	\item $(A + B)^T = A^T + B^T$
+	\item $(cA)^T = rA^T$
+	\item $(AB)^T = B^T A^T$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A = I$. 
+\begin{itemize}
+	\item $(A^{-1})^{-1} = A$
+	\item If $A$ and $B$ are $n \times n$ invertible matrices then so is $AB$. And $(AB)^{-1} = B^{-1}A^{-1}$
+	\item $(A^T)^{-1} = (A^{-1})^T$
+\end{itemize}
+To compute the inverse, solve the equation  $AB = I$, by row-reducing the augmented matrix [A  I], until you get [I  B]. 
+\end{definition}
+
+\begin{definition} 
+A \textbf{subspace} of $\mathbb{R}^n$ is any set $H$ in $\mathbb{R}^n$ that is closed under addition and scalar multiplication. That is:
+\begin{enumerate}
+	\item The zero vector is in $H$ 
+	\item For each $u$ and $v$ in $H$, the sum $u + v$ is in $H$
+	\item For each $u$ in $H$ and each scalar $c$, the vector $cu$ is in $H$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{column space} of matrix $A$ is the set of all linear combinations of the columns of $A$, denoted by $Col(A)$.
+\end{definition}
+
+\begin{definition}
+The \textbf{null space} of a matrix $A$ is the set of all solutions for $Ax = 0$, denoted by $Nul(A)$. 
+\end{definition}
+
+\begin{definition}
+A \textbf{basis} for a subspace $H$ in $\mathbb{R}^n$ is a linearly independent set in $H$ that spans $H$. 
+\end{definition}
+
+Using the basis for a subspace $H$ is preferable because any vector in $H$ can only be written in one way as a linear combination of the basis vectors. 
+\begin{proof}
+Suppose $\mathbb{B}$ = \{ $b_1$ , ..., $b_p$\} is a basis for $H$, and suppose a vector $x$ in $H$ can be generated in two ways: 
+$$x = c_1 b_1 + \cdots + c_p b_p \text{ and } x = d_1 b_1 + \cdots + d_p b_p$$
+Subtracting gives us:
+$$0 = (c_1 - d_1)b_1 + \cdots + (c_p - d_p)b_p$$
+Since $\mathbb{B}$ is linearly independent, the weights must all be zero, so $c_j = d_j$ so the two representations are really just the same. 
+\end{proof}
+
+\begin{definition}
+The \textbf{dimension} of a nonzero subspace $H$ is the number of vectors in any basis for $H$. The dimension of the zero subspace $\{0\}$ is defined to be zero. 
+\end{definition}
+
+\begin{definition}
+The \textbf{rank} of a matrix $A$ is the dimension of the column space of $A$. 
+\end{definition}
+
+\begin{theorem}
+If a matrix $A$ has $n$ columns, then $Rank(A) + Dim(Nul(A)) = n$. 
+\end{theorem}
+\begin{proof}
+An intuitive understanding for this can be achieved by restating the theorem as follows:
+$$ \Big( \text{num of pivot columns} \Big) + \Big( \text{num of nonpivot columns} \Big) = \Big( \text{num of columns} \Big)   $$
+\end{proof}
+\end{document}
