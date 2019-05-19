@@ -17,6 +17,9 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
+\renewcommand\qedsymbol{$\blacksquare$}
+
+
 \setlength{\parindent}{0cm}
 
 \title{Linear Algebra} 
@@ -25,7 +28,7 @@
 
 \begin{document}
 \maketitle
-A very reductionist summary of key Linear Algebra concepts. 
+A very reductionist summary of key Linear Algebra concepts from \textit{Linear Algebra and its Applications} by Lay, Lay, and McDonald. 
 
 \section{Systems of Linear Equations}
 \begin{definition}
@@ -182,51 +185,6 @@ An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ ma
 To compute the inverse, solve the equation  $AB = I$, by row-reducing the augmented matrix [A  I], until you get [I  B]. 
 \end{definition}
 
-\begin{definition} 
-A \textbf{subspace} of $\mathbb{R}^n$ is any set $H$ in $\mathbb{R}^n$ that is closed under addition and scalar multiplication. That is:
-\begin{enumerate}
-	\item The zero vector is in $H$ 
-	\item For each $u$ and $v$ in $H$, the sum $u + v$ is in $H$
-	\item For each $u$ in $H$ and each scalar $c$, the vector $cu$ is in $H$
-\end{enumerate}
-\end{definition}
-
-\begin{definition}
-The \textbf{column space} of matrix $A$ is the set of all linear combinations of the columns of $A$, denoted by $Col(A)$.
-\end{definition}
-
-\begin{definition}
-The \textbf{null space} of a matrix $A$ is the set of all solutions for $Ax = 0$, denoted by $Nul(A)$. 
-\end{definition}
-
-\begin{definition}
-A \textbf{basis} for a subspace $H$ in $\mathbb{R}^n$ is a linearly independent set in $H$ that spans $H$. 
-\end{definition}
-
-Using the basis for a subspace $H$ is preferable because any vector in $H$ can only be written in one way as a linear combination of the basis vectors. 
-\begin{proof}
-Suppose $\mathbb{B}$ = \{ $b_1$ , ..., $b_p$\} is a basis for $H$, and suppose a vector $x$ in $H$ can be generated in two ways: 
-$$x = c_1 b_1 + \cdots + c_p b_p \text{ and } x = d_1 b_1 + \cdots + d_p b_p$$
-Subtracting gives us:
-$$0 = (c_1 - d_1)b_1 + \cdots + (c_p - d_p)b_p$$
-Since $\mathbb{B}$ is linearly independent, the weights must all be zero, so $c_j = d_j$ so the two representations are really just the same. 
-\end{proof}
-
-\begin{definition}
-The \textbf{dimension} of a nonzero subspace $H$ is the number of vectors in any basis for $H$. The dimension of the zero subspace $\{0\}$ is defined to be zero. 
-\end{definition}
-
-\begin{definition}
-The \textbf{rank} of a matrix $A$ is the dimension of the column space of $A$. 
-\end{definition}
-
-\begin{theorem}
-If a matrix $A$ has $n$ columns, then $Rank(A) + Dim(Nul(A)) = n$. 
-\end{theorem}
-\begin{proof}
-An intuitive understanding for this can be achieved by restating the theorem as follows:
-$$ \Big( \text{num of pivot columns} \Big) + \Big( \text{num of nonpivot columns} \Big) = \Big( \text{num of columns} \Big)   $$
-\end{proof}
 
 \section{Determinants}
 \begin{definition}
@@ -261,7 +219,7 @@ Then,
 $$det(A) = 3 \cdot det(\begin{bmatrix}
 4 & -1 \\ 
 0 & -8
-\end{bmatrix} = 3 \cdot -32 = -96 = 3 \cdot 4 \cdot -8$$
+\end{bmatrix}) = 3 \cdot -32 = -96 = 3 \cdot 4 \cdot -8$$
 \end{proof}
 
 \begin{definition}
@@ -287,7 +245,7 @@ We proceed by induction. The theorem is trivially true for $n = 1$. Assume the t
 If $A$ and $B$ are $n \times n$ matrices, then $det(AB) = det(A) det(B)$. 
 \end{theorem}
 
-\begin{theorem}{Cramer's Rule}
+\begin{theorem}{Cramer's Rule: }
 Let $A$ be an invertible $n \times n$ matrix. For any $b$ in $\mathbb{R}^n$, the unique solution $x$ of $Ax = b$ has entries given by 
 $$x_{i} = \frac{det(A_i(b))}{det(A)} \text{ for } i = 1, 2, ..., n$$
 where $A_i(b)$ denotes the matrix obtained by replacing $A$'s $i$th column with $b$. 
@@ -310,5 +268,144 @@ $$ (det(A)) (det(I_i(x))) = det(A_i (b))$$
 Since $det(I_i (x))$ is $x$, we just divide by $det(A)$. 
 \end{proof}
 
+\section{Vector Spaces}
+Some of this is from Chapter 1, but I think it makes more sense to define these concepts here. 
+\begin{definition} 
+A \textbf{subspace} of $\mathbb{R}^n$ is any set $H$ in $\mathbb{R}^n$ that is closed under addition and scalar multiplication. That is:
+\begin{enumerate}
+	\item The zero vector is in $H$ 
+	\item For each $u$ and $v$ in $H$, the sum $u + v$ is in $H$
+	\item For each $u$ in $H$ and each scalar $c$, the vector $cu$ is in $H$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{column space} of an $m \times n$ matrix $A$ is the set of all linear combinations of the columns of $A$, denoted by $Col(A)$. Since the columns of $A$ are in $\mathbb{R}^m$, the columns space is in $\mathbb{R}^m$. 
+\end{definition}
+
+\begin{definition}
+The \textbf{null space} of a matrix $A$ is the set of all solutions for $Ax = 0$, denoted by $Nul(A)$. When $Nul(A)$ contains nonzero vectors, the number of vectors in the nullspace equals the number of free variables in $Ax = 0$. 
+\end{definition}
+
+\begin{definition}
+A \textbf{basis} for a subspace $H$ in $\mathbb{R}^n$ is a linearly independent set in $H$ that spans $H$. 
+\end{definition}
+
+Using the basis for a subspace $H$ is preferable because any vector in $H$ can only be written in one way as a linear combination of the basis vectors. 
+\begin{proof}
+Suppose $\mathbb{B}$ = \{ $b_1$ , ..., $b_p$\} is a basis for $H$, and suppose a vector $x$ in $H$ can be generated in two ways: 
+$$x = c_1 b_1 + \cdots + c_p b_p \text{ and } x = d_1 b_1 + \cdots + d_p b_p$$
+Subtracting gives us:
+$$0 = (c_1 - d_1)b_1 + \cdots + (c_p - d_p)b_p$$
+Since $\mathbb{B}$ is linearly independent, the weights must all be zero, so $c_j = d_j$ so the two representations are really just the same. 
+\end{proof}
+
+\begin{theorem}
+The pivot columns of a matrix $A$ form a basis for $Col(A)$. 
+\end{theorem}
+
+\begin{proof}
+Let $B$ be the reduced echelon form of $A$. The set of pivot columns of $B$ is linearly independent, since no vector is a linear combination of the vectors that precede it. Since $A$ is \textit{row equivalent} to $B$, the pivot columns of $A$ are linearly independent as well. Thus, the nonpivot columns of $A$ can be discarded from the spanning set of $Col(A)$. 
+
+\textbf{Warning:} The pivot columns of $A$ are only evident when $A$ has been reduced to \textit{echelon} form. After reducing, make sure to use the \textbf{pivot columns of $A$ itself} for the basis of $Col(A)$. The columns of an echelon form of $A$ are often not in the column space of $A$. 
+\end{proof}
+
+\begin{theorem}{Unique Representation Theorem: }
+Let $\mathbb{B} = \{ b_1 , ..., b_n \}$ be a basis for a vector space $V$. Then for each $x$ in $V$, there exists a unique set of scalars $c_1 ,..., c_n$ such that 
+$$x = c_1 b_1 + \cdots + c_n b_n$$
+\end{theorem}
+
+\begin{proof}
+Since $\mathbb{B}$ spans $V$, we know there exist scalars such that we can form $x$. Assume $x$ also has the representation 
+$$ x = d_1 b_1 + \cdots + d_n b_n$$
+Then, after subtracting we have
+$$ 0 = (c_1 - d_1) b_1 + \cdots + (c_n - d_n) b_n$$
+Since $\mathbb{B}$ is linearly independent, these weights must all be zero so $c_j = d_j$. 
+\end{proof}
+
+Because of the unique representation of each vector $x$ in a basis, we can define the coordinates of $x$ relative to the basis $\mathbb{B}$ as the weights $c_1 , ..., c_n$. 
+
+\begin{definition}{Changing coordinates: }
+$$x = \mathbb{B} [x]_{\mathbb{B}}$$
+where $\mathbb{B}$ denotes the matrix whose columns are basis vectors, and $x_{\mathbb{B}}$ denotes the $x$ vector represented by basis coordinates. 
+
+To understand this, let $b_1 = \begin{bmatrix}
+2 \\
+1
+\end{bmatrix} , b_2 = \begin{bmatrix}
+-1 \\
+1
+\end{bmatrix} , x = \begin{bmatrix}
+4 \\
+5
+\end{bmatrix} , \text{ and }\mathbb{B} = \{b_1, b_2\}$. To find $[x]_{\mathbb{B}}$ of $x$ relative to $\mathbb{B}$,
+
+$$ c_1 \begin{bmatrix}
+2 \\
+1
+\end{bmatrix} + c_2 \begin{bmatrix}
+-1 \\ 
+1
+\end{bmatrix} = \begin{bmatrix}
+4 \\
+5
+\end{bmatrix}
+$$
+
+or
+
+$$ \begin{bmatrix}
+2 & -1 \\
+1 & 1
+\end{bmatrix} 
+\begin{bmatrix}
+c_1 \\
+c_2
+\end{bmatrix} 
+= \begin{bmatrix}
+4 \\
+5
+\end{bmatrix}
+$$ 
+
+Since we know the columns of $\mathbb{B}$ are linearly independent, it must be invertible so we can multiply $x$ by $\mathbb{B}^{-1}$ to get $[x]_{\mathbb{B}}$. 
+\end{definition}
+
+\begin{definition}{Change of basis: }
+We can generalize the above further. Let $\mathbb{B} = \{ b_1 , ..., b_n \}$ and $\mathbb{C} = \{ c_1 , ..., c_n \}$ be bases of a vector space $V$. Then there is a \textit{unique} $n \times n$ matrix $\underset{\mathbb{C} \rightarrow \mathbb{B}}{P}$ such that
+$$[x]_{\mathbb{C}} = \underset{\mathbb{C} \rightarrow \mathbb{B}}{P} [x]_{\mathbb{B}} $$
+
+The columns of $\underset{\mathbb{C} \rightarrow \mathbb{B}}{P}$ are the $\mathbb{C}$-coordinate vectors of the vectors in the basis $\mathbb{B}$, that is
+$$ \underset{\mathbb{C} \rightarrow \mathbb{B}}{P} = \begin{bmatrix}
+[b_1 ]_{\mathbb{C}} \cdots [b_n]_{\mathbb{C}}
+\end{bmatrix}$$
+
+\end{definition}
+
+\begin{definition}
+An \textbf{isomorphism} from $V$ to $W$ is a one-to-one linear transformation. 
+\end{definition}
+
+\begin{definition}
+The \textbf{dimension} of a nonzero subspace $H$ is the number of vectors in any basis for $H$. The dimension of the zero subspace $\{0\}$ is defined to be zero. 
+\end{definition}
+
+\begin{definition}
+The \textbf{rank} of a matrix $A$ is the dimension of the column space of $A$. 
+\end{definition}
+
+\begin{theorem}
+If a matrix $A$ has $n$ columns, then $Rank(A) + Dim(Nul(A)) = n$. 
+\end{theorem}
+\begin{proof}
+An intuitive understanding for this can be achieved by restating the theorem as follows:
+$$ \Big( \text{num of pivot columns} \Big) + \Big( \text{num of nonpivot columns} \Big) = \Big( \text{num of columns} \Big)   $$
+\end{proof}
+
+\begin{definition}
+If $A$ is an $m \times n$ matrix, each row has $n$ entries and can be understood as a vector in $\mathbb{R}^n$. The set of all linear combinations of the row vectors is called the \textbf{row space} of $A$, denoted by $Row(A)$. Note that $Row(A) = Col(A^{T})$. 
+\end{definition}
+
+\section{Eigenvalues and Eigenvectors}
 
 \end{document}
