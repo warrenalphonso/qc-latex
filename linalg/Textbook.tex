@@ -227,4 +227,88 @@ If a matrix $A$ has $n$ columns, then $Rank(A) + Dim(Nul(A)) = n$.
 An intuitive understanding for this can be achieved by restating the theorem as follows:
 $$ \Big( \text{num of pivot columns} \Big) + \Big( \text{num of nonpivot columns} \Big) = \Big( \text{num of columns} \Big)   $$
 \end{proof}
+
+\section{Determinants}
+\begin{definition}
+Let $A = \begin{bmatrix}
+a && b \\
+c && d
+\end{bmatrix}$. If $ad - bc \neq 0$, then $A$ is invertible and 
+$$A^{-1} = \frac{1}{ad - bc} \begin{bmatrix}
+d && -b \\
+-c && a
+\end{bmatrix}$$
+The quantity $ad - bc$ is the \textbf{determinant} of the matrix. If the determinant is 0, the matrix $A$ is not invertible. 
+\end{definition}
+
+\begin{definition}
+To generalize, the determinant of an $n \times n$ matrix $A$ can be computed using a \textbf{cofactor expansion} across any row or down any column. The expansion across the $i$th row is 
+$$det(A) = a_{i1}C_{i1} + a_{i2}C_{i2} + \cdots + a_{in}C_{in}$$ where $C_{ij} = (-1)^{i + j} det(A_{ij})$ 
+\end{definition} 
+
+\begin{theorem}
+If $A$ is an upper triangular matrix, then det(A) is the product of the entries on the main diagonal. 
+\end{theorem}
+
+\begin{proof}
+Cofactoring an upper triangular matrix by using the first column ultimately leads to continuously multiplying the upper left item by the determinant of the smaller matrix. For example, 
+$$ A = \begin{bmatrix}
+3 & 2 & 9 \\
+0 & 4 & -1 \\
+0 & 0 & -8
+\end{bmatrix}$$
+Then, 
+$$det(A) = 3 \cdot det(\begin{bmatrix}
+4 & -1 \\ 
+0 & -8
+\end{bmatrix} = 3 \cdot -32 = -96 = 3 \cdot 4 \cdot -8$$
+\end{proof}
+
+\begin{definition}
+Determinants after Row Operations
+\begin{enumerate}
+	\item If a multiple of a row in matrix $A$ is added to another row to produce matrix $B$, then $det(B) = det(A)$
+	\item If two rows in $A$ are swapped to produce $B$, then $det(B) = -det(A)$
+	\item If one row in $A$ is multiplied by $k$ to produce $B$, then $det(B) = k \cdot det(A)$
+\end{enumerate}
+\end{definition}
+
+These identities can be used to easily find determinants of square matrices. Once we reduce a matrix $A$ to upper triangular form $B$, we know $det(B) = (-1)^{r} det(A)$ if $r$ is the number of row swaps we performed. If we cannot reduce to row echelon form, we know the determinant must be 0 since $A$ must not be invertible. 
+
+\begin{theorem}
+If $A$ is an $n \times n$ matrix, then $det(A^T) = det(A)$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction. The theorem is trivially true for $n = 1$. Assume the theorem is true for $k \times k$ matrices. We will show it holds for $n = k +1$. The cofactor of $a_{1j}$ in $A$ equals the cofactor of $a_{j1}$ in $A^T$ because it is a $k \times k$ determinant. Thus, the cofactor of $det(A^T)$ down the first \textit{column} equals the cofactor of  $det(A)$ across the first \textit{row}, so $A$ and $A^T$ have equal determinants. Thus, the statement is true for all $n$. 
+\end{proof}
+
+\begin{theorem}
+If $A$ and $B$ are $n \times n$ matrices, then $det(AB) = det(A) det(B)$. 
+\end{theorem}
+
+\begin{theorem}{Cramer's Rule}
+Let $A$ be an invertible $n \times n$ matrix. For any $b$ in $\mathbb{R}^n$, the unique solution $x$ of $Ax = b$ has entries given by 
+$$x_{i} = \frac{det(A_i(b))}{det(A)} \text{ for } i = 1, 2, ..., n$$
+where $A_i(b)$ denotes the matrix obtained by replacing $A$'s $i$th column with $b$. 
+\end{theorem}
+
+\begin{proof}
+Denote the columns of $A$ by $a_1, ..., a_n$ and the columns of the $n \times n$ identity matrix by $e_1, ..., e_n$. If $Ax = b$, the definition of matrix multiplication tells us 
+$$A \cdot I_i (x) = A \begin{bmatrix}
+e_1 & \cdots & x & \cdots & e_n
+\end{bmatrix} = 
+\begin{bmatrix}
+Ae_1 & \cdots & Ax & \cdots & Ae_n
+\end{bmatrix}$$
+$$ = \begin{bmatrix}
+a_1 & \cdots & b & \cdots & a_n
+\end{bmatrix} = A_i (b)$$
+
+Using the multiplicative property of determinants, 
+$$ (det(A)) (det(I_i(x))) = det(A_i (b))$$
+Since $det(I_i (x))$ is $x$, we just divide by $det(A)$. 
+\end{proof}
+
+
 \end{document}
