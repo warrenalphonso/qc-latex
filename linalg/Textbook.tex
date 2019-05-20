@@ -7,26 +7,22 @@
 \usepackage{graphicx}
 
 \usepackage{amsthm}
-<<<<<<< HEAD
 \usepackage{mathtools}
-=======
->>>>>>> refs/remotes/origin/master
 
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{Warren Alphonso}
+\rhead{\leftmark}
 \cfoot{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
 
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
-<<<<<<< HEAD
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 
 
-=======
->>>>>>> refs/remotes/origin/master
 \renewcommand\qedsymbol{$\blacksquare$}
 
 
@@ -35,6 +31,9 @@
 \title{Linear Algebra} 
 \author{Warren Alphonso}
 \date{May 18, 2019}
+
+\linespread{1.3}
+\usepackage{kpfonts}
 
 \begin{document}
 \maketitle
@@ -483,7 +482,6 @@ Since these are equal and $P$ has an inverse because its columns are linearly in
 \end{proof}
 
 \section{Orthogonality and Least Squares}
-<<<<<<< HEAD
 \begin{definition}
 The \textbf{inner product} of $u$ and $v$ is 
 $$ u \cdot v = \begin{bmatrix}
@@ -573,6 +571,8 @@ An set is \textbf{orthonormal} if all its vectors are unit vectors and are ortho
 	\item $\norm{Ux} = \norm{x}$
 	\item $(Ux) \cdot (Uy) = x \cdot y$
 \end{enumerate}
+
+An orthonormal basis can be constructed easily from an orthogonal basis $\{v_1, ..., v_p\}$ by simply normalizing all the $v_k$. 
 \end{definition}
 
 \begin{theorem}
@@ -610,14 +610,68 @@ The vector $y$ is called the \textbf{orthogonal projection of $u$ onto $y$}.
 $$ y = proj_{L} y = \frac{y \cdot u}{y \cdot y} y$$
 \end{definition}
 
-\begin{definition}
+\begin{definition} {Orthogonal Decomposition}
 We can extend projections to subspaces. Let $W$ be a subspace of $\mathbb{R}^n$. Then each $y$ in $\mathbb{R}^n$ can be written 
 $$y = \hat{y} + z $$
 where $\hat{y}$ is in $W$ and $z$ is in $W^{\perp}$. If $\{ u_1 , ..., u_p \}$ is an orthogonal basis of $W$, then 
 $$\hat{y} = \frac{y \cdot u_1}{u_1 \cdot u_1} u_1 + \cdot + \frac{y \cdot u_p}{u_p \cdot u_p} u_p$$
 and $z = y - \hat{y}$. 
-\end{definition}
-=======
 
->>>>>>> refs/remotes/origin/master
+The vector $\hat{y}$ is called the \textbf{orthogonal projection of $y$ onto $W$} and is written as $proj_{W} y$.
+
+Note the the denominator $u_k \cdot u_k = 1$ if $W$ is an orthonormal basis. It follows that for orthonormal bases of $W$, 
+$$proj_{W}y = (y \cdot u_1) u_1 + (y \cdot u_2)u_2 + cdots + (y \cdot u_p) u_p = UU^{T}y$$ 
+\end{definition}
+
+\begin{theorem}{The Gram-Schmidt Process: }
+The Gram-Schmidt process is an algorithm for producing an orthogonal or orthonormal basis for a nonzero subspace of $\mathbb{R}^n$. 
+
+Given a basis $\{ x_1, ..., x_p\}$ for nonzero subspace $W$ of $\mathbb{R}^n$, define 
+$$v_1 = x_1$$
+$$v_2 = x_2 - \frac{x_2 \cdot v_1}{v_1 \cdot v_1} v_1$$
+$$v_3 = x_3 - \frac{x_3 \cdot v_1}{v_1 \cdot v_1} v_1 - \frac{x_3 \cdot v_2}{v_2 \cdot v_2} v_2$$
+$$\vdots$$
+$$v_p = x_p - \frac{x_p \cdot v_1}{v_1 \cdot v_1} v_1 - \cdots - \frac{x_p \cdot v_{p-1}}{v_{p-1} \cdot v_{p-1}} v_{p - 1}$$
+Then $\{v_1 , ..., v_p\}$ is an orthogonal basis for $W$. In addition
+$$Span(\{v_1 , ..., v_k\}) = Span(\{x_1, ..., x_k\}) \text{ for } 1 \leq k \leq p$$
+\end{theorem}
+
+\begin{proof}
+We proceed by induction. If we set $v_1 = x_1$, then $Span(\{v_1\}) = Span(\{x_1\})$. Suppose for some $k < p$, we construct $v_1 ,..., v_k$ so that $\{ v_1, ..., v_k\}$ is an orthogonal basis for $W_{k}$. Define
+$$v_{k+1} = x_{k+1} - proj_{W_k} x_{k+1}$$
+
+By Orthogonal Decomposition, $v_{k+1}$ is orthogonal to $W_k$. Since $proj_{W_k} x_{k+1}$ is in $W_k$, it is also in $W_{k+1}$, which means $v_{k+1}$ is also in $W_{k+1}$ since $W_{k+1}$ is a subspace which must be closed under subtraction. $v_{k+1} \neq 0$ because $x_{k+1}$ is not in $W_k = Span(\{x_1 , ..., x_k\})$. Thus, $\{v_1, ..., v_k\}$ is an orthogonal set of nonzero vectors in $k+1$-dimensional subspace $W_{k+1}$, so they must be a basis for $W_{k+1}$. Thus, the Gram-Schmidt algorithm yields an orthogonal basis by induction. 
+\end{proof}
+
+\begin{theorem}
+If $A$ is an $m \times n$ matrix with linearly independent columns, then we can factor $A = QR$, where $Q$ is an $m \times n$ matrix whose columns form an orthonormal basis for $Col(A)$ and $R$ is an $n \times n$ upper triangular invertible matrix with positive entries on its diagonal. 
+\end{theorem}
+
+\begin{proof}
+The columsn of $A$ form a basis $\{x_1, ..., x_n\}$ for $Col(A)$. We can use Gram-Schmidt to construct an orthogonal basis for $W=Col(A)$ and then scale this basis to get an orthonormal basis for $Col(A)$ $$Q = \begin{bmatrix}
+u_1 & u_2 & \cdots & u_n
+\end{bmatrix}$$
+For $1 \leq k \leq n$, $x_k \in Span(Q)$, that is, there are constants such that 
+$$x_k =r_{1k}u_{1} + \cdots + r_{kk}u_{k} + 0 \cdot u_{k+1} + \cdots + 0 \cdot u_{n}$$
+We can assume $r_{kk} \geq 0$, if it isn't, just multiply both $r_{kk}$ and $u_{k}$ by $-1$. Thus, 
+$$r_{k} = \begin{bmatrix}
+r_{1k} \\
+\vdots \\
+r_{kk} \\
+0 \\
+\vdots \\
+0
+\end{bmatrix}$$
+So, $x_{k} = Qr_{k}$. Let $R = \begin{bmatrix}
+r_{1} & \cdots & r_{n}
+\end{bmatrix}$. Finally, 
+$$A = \begin{bmatrix}
+x_{1} & \cdots & x_{n}
+\end{bmatrix} = \begin{bmatrix}
+Qr_{1} & \cdots & Qr_{n}
+\end{bmatrix} = QR$$
+\end{proof}
+
+
+
 \end{document}
