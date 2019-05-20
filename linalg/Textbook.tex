@@ -407,5 +407,71 @@ If $A$ is an $m \times n$ matrix, each row has $n$ entries and can be understood
 \end{definition}
 
 \section{Eigenvalues and Eigenvectors}
+\begin{definition}
+An \textbf{eigenvector} of an $n \times n$ matrix $A$ is a nonzero vector $x$ such that $Ax = \lambda x$. The scalar $\lambda$ is called an \textbf{eigenvalue} of $A$ if and only if the equation $$(A - \lambda I)x = 0$$ has a nontrivial solution. The set of all solutions to this equation is the null space of the matrix $A - \lambda I$; this subspace of $\mathbb{R}^n$ is called the \textbf{eigenspace} of $A$. 
+\end{definition}
+
+\begin{theorem}
+The eigenvalues of a triangular matrix are the entries on its main diagonal. 
+\end{theorem}
+
+\begin{proof}
+Consider the $3 \times 3$ case. If $A$ is upper triangular, then 
+$$ A - \lambda I = \begin{bmatrix}
+a_{11} - \lambda & a_{12} & a_{13} \\
+0 & a_{22} - \lambda & a_{23} \\
+0 & 0 & a_{33} - \lambda
+\end{bmatrix}$$
+The scalar $\lambda$ is an eigenvalue if and only if $(A - \lambda I)x = 0$ has a nontrivial solution, which means the equation must have a free variable, which would only occur if at least one of the values on the diagonal is zero. 
+\end{proof}
+
+\begin{theorem}
+The eigenvectors of $A$, $v_1 , ... , v_r$, that correspond to \textit{distinct} eigenvalues, $\lambda_1 , ..., \lambda_r$, are linearly independent. 
+\end{theorem}
+
+\begin{proof}
+Suppose $\{v_1, ..., v_r\}$ is linearly dependent. Let $p$ be the least index such that $v_{p+1}$ is a linear combination of the preceding linearly independent eigenvectors. Then there exist scalars such that 
+$$c_1 v_1 + \cdots + c_p v_p = v_{p+1}$$
+Multiply both sides by $A$, using the fact that $Av_k = \lambda_k v_k$, to get
+$$c_1 \lambda_1 v_1 + \cdots + c_p \lambda_p v_p = \lambda_{p+1} v_{p+1}$$
+We can also multiply both sides of our first equation by $\lambda_{p+1}$ and then subtract to get 
+$$c_1 (\lambda_1 - \lambda_{p+1})v_1 + \cdots + c_p (\lambda_p - \lambda_{p+1})v_p = 0$$
+Because we assumed $v_{p+1}$ was the first linearly dependent eigenvector, the set $\{v_1 , ..., v_p\}$ must be linearly independent. That means all $(\lambda_k - \lambda_{p+1})$ should be 0, but because the eigenvalues are distinct they cannot be. Thus, we arrive at a contradiction. 
+\end{proof}
+
+Remember that to find eigenvalues, we need to find scalars $\lambda$ such that 
+$$(A - \lambda I)x = 0$$
+has a nontrivial solution. This is equivalent to the matrix $A - \lambda I$ being not invertible, which is equivalent to $det(A - \lambda I) = 0$. Writing the determinant as a polynomial involving only $\lambda$ is called the characteristic equation of a matrix. 
+
+\begin{theorem}{Diagonalization Theorem: }
+An $n \times n$ matrix $A$ is \textbf{diagonalizable} if and only if $A$ has $n$ linearly independent eigenvectors. If this condition is met, we can write 
+$$A = PDP^{-1}$$
+where $P$ is a matrix whose columns are $n$ linearly independent eigenvectors of $A$, and $D$ is a diagonal matrix whose diagonal entries are corresponding eigenvalueus of $A$. 
+\end{theorem}
+
+\begin{proof}
+Right multiplying both sides by $P$ gives us $AP = PD$. 
+$$AP = A \begin{bmatrix}
+v_1 & \cdots & v_n
+\end{bmatrix} = \begin{bmatrix}
+Av_1 & \cdots & Av_n
+\end{bmatrix} = \begin{bmatrix}
+\lambda_1 v_1 & \cdots & \lambda_n v_n
+\end{bmatrix}$$
+
+$$PD = P \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots &   & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{bmatrix} = 
+\begin{bmatrix}
+\lambda_1 v_1 & \cdots & \lambda_n v_n
+\end{bmatrix}$$
+
+Since these are equal and $P$ has an inverse because its columns are linearly independent eigenvectors, $A = PDP^{-1}$.
+\end{proof}
+
+\section{Orthogonality and Least Squares}
 
 \end{document}
