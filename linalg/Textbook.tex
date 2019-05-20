@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 
 \usepackage{amsthm}
+\usepackage{mathtools}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -16,6 +17,9 @@
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
+
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
@@ -473,5 +477,129 @@ Since these are equal and $P$ has an inverse because its columns are linearly in
 \end{proof}
 
 \section{Orthogonality and Least Squares}
+\begin{definition}
+The \textbf{inner product} of $u$ and $v$ is 
+$$ u \cdot v = \begin{bmatrix}
+u_1 \cdots u_n
+\end{bmatrix} \begin{bmatrix}
+v_1 \\
+\vdots \\
+v_n
+\end{bmatrix} = u_1 v_1 + \cdots + u_n v_n$$
 
+\textbf{Properties of inner products: }Let $u$, $v$, and $w$ be vectors in $\mathbb{R}^n$. Then 
+\begin{enumerate}
+	\item $u \cdot v = v \cdot u$
+	\item $(u + v) \cdot w = u \cdot w + v \cdot w$
+	\item $u \cdot u \geq 0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition} 
+The \textbf{norm} of $v$ is $\norm{v}$ defined by 
+$$\norm{v} = \sqrt{v \cdot v}$$
+
+The distance between $v$ and $u$ is $\norm{u - v}$. 
+\end{definition}
+
+\begin{definition}
+Two vectors $u$ and $v$ are \textbf{orthogonal} if $u \cdot v = 0$. 
+
+Note the zero vector is orthogonal to every other vector. 
+
+The Pythagorean Theorem tells us that if $u$ and $v$ are orthogonal then $$\norm{u + v}^2 = \norm{u}^2 + \norm{v}^2$$.
+
+The set of all vectors $z$ that are orthogonal to $W$ is called the \textbf{orthogonal complement} of W, denoted by $W^{\perp}$.  
+\end{definition}
+
+\begin{theorem}
+Let $A$ be an $m \times n$ matrix. Then 
+$$(Row(A))^{\perp} = Nul(A) \text{ and } (Col(A))^{\perp} = Nul(A^T)$$
+\end{theorem}
+\begin{proof}
+If $x$ is in $Nul(A)$, then $\begin{bmatrix}
+Ax_1 & Ax_2 & \cdots & Ax_n
+\end{bmatrix}$, which implies that $x$ is orthogonal to all the rows in $A$. Conversely, if $x$ is orthogonal to $Row(A)$, then clearly $Ax = 0$. A similar proof can be shown for the second statement. 
+\end{proof}
+
+\begin{definition}
+In $\mathbb{R}^2$ or $\mathbb{R}^3$, $u \cdot v = \norm{u} \norm{v} cos(\theta)$. To see this, we can use the law of cosines, 
+$$\norm{u - v}^2 = \norm{u}^2 + \norm{v}^2 - 2 \norm{u} \norm{v} cos(\theta)$$
+\end{definition}
+
+\begin{definition}
+The set of vectors $\{ u_1 , ... , u_p \}$ is called an \textbf{orthogonal set} if each pair of distinct vectors is orthogonal. 
+\end{definition}
+
+\begin{theorem}
+If $S = \{ u_1 , ... , u_p \}$ is an orthogonal set of nonzero vectors, then $S$ is linearly independent. 
+\end{theorem}
+\begin{proof}
+We know $$ 0 = c_1 u_1 + \cdots + c_p u_p $$
+Multiplying by $u_1$, 
+$$0 = (c_1 u_1 + \cdots + c_p u_p) \cdot u_1$$
+$$0 = (c_1 u_1) \cdot u_1 + (c_2 u_2) \cdot u_1 + \cdots + (c_p u_p ) \cdot u_1 $$
+$$0 = c_1 (u_1 \cdot u_1) $$
+Since $u_1$ is nonzero, $(u_1 \cdot u_1)$ must be nonzero, so $c_1$ must be 0. A similar proof can be used to show $c_2, ..., c_p$ must be zero. Thus, $S$ is linearly independent. 
+\end{proof}
+
+\begin{definition}
+An \textbf{orthogonal basis} for subspace $W$ of $\mathbb{R}^n$ is a basis for $W$ that is also an orthogonal set. 
+\end{definition}
+
+\begin{theorem}
+Let $\{ u_1, ..., u_p\}$ be an orthogonal basis for subspace $W$ of $\mathbb{R}^n$. For each $y$ in $W$, the weights $c_k$ in 
+$$y = c_1 u_1 + \cdots + c_p u_p $$
+are given by 
+$$c_j = \frac{y \cdot u_j}{u_j \cdot u_j} \text{ for } (j = 1, ..., p)$$
+\end{theorem}
+
+\begin{proof}
+Taking the dot product of $u_1$ on both sides, 
+$$y \cdot u_1 = (c_1 u_1 + c_2 u_2 + \cdots c_p u_p) \cdot u_1 = c_1 (u_1 \cdot u_1)$$
+Since $u_1$ is nonzero, we can divide by $(u_1 \cdot u_1)$ to solve for $c_1$. The same proof can be used to solve $c_2 , ..., c_p$. 
+\end{proof}
+
+\begin{definition}
+An set is \textbf{orthonormal} if all its vectors are unit vectors and are orthogonal to one another. Let $U$ be an $m \times n$ matrix with orthonormal columns. Then, 
+\begin{enumerate}
+	\item $\norm{Ux} = \norm{x}$
+	\item $(Ux) \cdot (Uy) = x \cdot y$
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+An $m \times n$ matrix $U$ has orthonormal columns if and only if $U^T U = I$. If $U$ is a square matrix, then it is called an \textbf{orthogonal matrix} and has $U^{-1} = U^{T}$. 
+\end{theorem}
+
+\begin{proof}
+We will prove with a simpler version of $U$ with only three columns, but the proof can generalize. Let $U = \begin{bmatrix}
+u_1 & u_2 & u_3
+\end{bmatrix}$. Then 
+$$U^T U = \begin{bmatrix}
+u_{1}^{T} \\
+u_{2}^{T} \\
+u_{3}^{T}
+\end{bmatrix} \begin{bmatrix}
+u_1 & u_2 & u_3
+\end{bmatrix} = \begin{bmatrix}
+u_{1}^{T} u_{1} & u_{1}^{T} u_{2} & u_{1}^{T} u_{3} \\
+u_{2}^{T} u_{1} & u_{2}^{T} u_{2} & u_{2}^{T} u_{3} \\
+u_{3}^{T} u_{1} & u_{3}^{T} u_{2} & u_{3}^{T} u_{3}
+\end{bmatrix}$$
+
+By definition of orthonormal vectors, only the diagonal entries simplify to 1 and all other entries simplify to 0. 
+\end{proof}
+
+\begin{definition}{Orthogonal projection: }
+Consider representing a nonzero vector $u$ in $\mathbb{R}^n$ as the sum of two vectors, one a multiple of some vector $y$ and the other orthogonal to $y$. That is, 
+$$u = \alpha y + (u - \alpha y)$$
+This means $u - \alpha y$ is orthogonal to $y$ if and only if 
+$$ 0 = (u - \alpha y) \cdot y = u \cdot y - \alpha (y \cdot y)$$
+That is, in order for $(u - \alpha y)$ to be orthogonal to $y$, 
+$$\alpha = \frac{u \cdot y}{y \cdot y} \text{ and } y = \frac{u \cdot y}{y \cdot y} y$$
+
+The vector $y$ is called the \textbf{orthogonal projection of $u$ onto $y$}. 
+$$ y = proj_{L} y = \frac{y \cdot u}{y \cdot y} y$$
+\end{definition}
 \end{document}
