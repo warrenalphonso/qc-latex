@@ -21,6 +21,7 @@
 \newtheorem{definition}{Definition}[section]
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
 
 
 \renewcommand\qedsymbol{$\blacksquare$}
@@ -572,7 +573,7 @@ An set is \textbf{orthonormal} if all its vectors are unit vectors and are ortho
 	\item $(Ux) \cdot (Uy) = x \cdot y$
 \end{enumerate}
 
-An orthonormal basis can be constructed easily from an orthogonal basis $\{v_1, ..., v_p\}$ by simply normalizing all the $v_k$. 
+An orthonormal basis can be constructed from an orthogonal basis $\{v_1, ..., v_p\}$ by simply normalizing all the $v_k$.
 \end{definition}
 
 \begin{theorem}
@@ -620,7 +621,7 @@ and $z = y - \hat{y}$.
 The vector $\hat{y}$ is called the \textbf{orthogonal projection of $y$ onto $W$} and is written as $proj_{W} y$.
 
 Note the the denominator $u_k \cdot u_k = 1$ if $W$ is an orthonormal basis. It follows that for orthonormal bases of $W$, 
-$$proj_{W}y = (y \cdot u_1) u_1 + (y \cdot u_2)u_2 + cdots + (y \cdot u_p) u_p = UU^{T}y$$ 
+$$proj_{W}y = (y \cdot u_1) u_1 + (y \cdot u_2)u_2 + \cdots + (y \cdot u_p) u_p = UU^{T}y$$ 
 \end{definition}
 
 \begin{theorem}{The Gram-Schmidt Process: }
@@ -672,6 +673,87 @@ Qr_{1} & \cdots & Qr_{n}
 \end{bmatrix} = QR$$
 \end{proof}
 
+\begin{definition}
+If $A$ is an $m \times n$ matrix and $b$ is in $\mathbb{R}^m$, a \textbf{least-squares solution} of $Ax = b$ is an $\hat{x}$ in $\mathbb{R}^n$ such that 
+$$\norm{b - A\hat{x}} \leq \norm{b - Ax}$$
+for all $x$ in $\mathbb{R}^n$. This should hold even if $b$ is outside $Col(A)$. 
+\end{definition}
 
+\begin{theorem}
+Let $A$ be an $m \times n$ matrix. The following are logically equivalent:
+\begin{enumerate}
+	\item $Ax = b$ has a unique least-squares solution for each b in $\mathbb{R}^m$. 
+	\item The columns of $A$ are linearly independent. 
+	\item The matrix $A^{T}A$ is invertible
+\end{enumerate}
+When these are true, the least-squares solution $\hat{x}$ is given by 
+$$\hat{x} = (A^{T}A)^{-1}A^{T}b$$
+\end{theorem}
+
+\begin{proof}
+To get the best approximation of $b$ on $A$, we can take the projection 
+$$\hat{b} = proj_{Col(A)} b$$
+Now we know the equation $A\hat{x} = \hat{b}$ is consistent, and that $\hat{x}$ would be the least-squares solution. We know $b - \hat{b}$ is orthogonal to $Col(A)$, so $b - A\hat{x}$ is orthogonal to each column of $A$, that is 
+$$A^{T} (b - A\hat{x}) = 0$$
+Simplifying 
+$$A^{T}b - A^{T}A\hat{x} = 0$$
+$$A^{T}A\hat{x} = A^{T}b$$
+$$\hat{x} = (A^{T}A)^{-1} A^{T} b$$
+\end{proof}
+
+\begin{theorem}
+When the columns of $A$ are orthogonal, as they often are in linear regression problems, then we can use $QR$ factorization to produce a computationally easier calculation. 
+
+Given an $m \times n$ matrix $A$ with linearly independent columns, let $A = QR$ be the $QR$ factorization. For any $b$ in $\mathbb{R}^m$, the least-squares solution is given by 
+$$\hat{x} = R^{-1}Q^{T}b$$
+\end{theorem}
+
+\begin{proof}
+Let $\hat{x} = R^{-1}Q^{T}b$. Then 
+$$A\hat{x} = QR\hat{x} = QRR^{-1}Q^{T}b = QQ^{T}b$$
+Since the columns of $Q$ form an orthonormal basis for $Col(A)$, $QQ^{T}b$ is the orthogonal projection of $b$ onto $Col(A)$ by Definition 6.9. Hence, it is a least-squares solution. 
+\end{proof}
+
+\begin{definition}{Inner product: }
+\textbf{Inner products} on a vector space $V$ is a function that, to each pair of vectors $u$ and $v$, associates a real number $\inp{u}{v}$ and satisfies the following for vectors $u, v, w$ in $V$ and scalar $c$:
+\begin{enumerate}
+	\item $\inp{u}{v} = \inp{v}{u}$
+	\item $\inp{u + v}{w} = \inp{u}{w} + \inp{v}{w}$
+	\item $\inp{cu}{v} = c\inp{u}{v}$
+	\item $\inp{u}{u} \geq 0$
+\end{enumerate}
+A vector space with an inner product is called an \textbf{inner product space}. 
+\end{definition}
+
+\begin{theorem}{The Cauchy-Schwartz Inequality: }
+For all $u$, $v$ in $V$, 
+$$\mid \inp{u}{v} \mid \leq \norm{u} \ \norm{v}$$
+\end{theorem}
+
+\begin{proof}
+If $u = 0$, both sides are zero, so the inequality is true. If $u \neq 0$, let $W$ be the subspace spanned by $u$, then 
+$$\norm{proj_{W} v} = \norm{\frac{\inp{v}{u}}{\inp{u}{u}}u} = \frac{\mid \inp{v}{u} \mid}{\norm{u}^{2}} \norm{u} = \frac{\mid \inp{u}{v} \mid}{\norm{u}}$$
+
+Since $\norm{proj_{W}v} \leq \norm{v}$, we simplify the above to $$\frac{\mid \inp{u}{v} \mid}{\norm{u}} \leq \norm{v}$$, which proves the theorem. 
+\end{proof}
+
+\begin{theorem}{The Triangle Inequality: }
+For all $u$, $v$ in $V$, 
+$$\norm{u + v} \leq \norm{u} + \norm{v}$$
+\end{theorem}
+
+\begin{proof}
+\begin{equation}
+\begin{split}
+\norm{u + v}^{2} &= \inp{u + v}{u + v} = \inp{u}{u} + 2\inp{u}{v} + \inp{v}{v} \\
+&\leq \norm{u}^{2} + 2 \mid \inp{u}{v} \mid + \norm{v}^{2} \\
+&\leq \norm{u}^{2} + 2 \norm{u} \ \norm{v} + \norm{v}^{2} \\
+&= (\ \norm{u} + \norm{v} \ )^{2}
+\end{split}
+\end{equation}
+where the second to last step follows from the Cauchy-Schwartz Inequality. 
+\end{proof}
+
+\section{Symmetric Matrices and Quadratic Forms}
 
 \end{document}
