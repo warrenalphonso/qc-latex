@@ -23,9 +23,7 @@
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
 
-
 \renewcommand\qedsymbol{$\blacksquare$}
-
 
 \setlength{\parindent}{0cm}
 
@@ -755,5 +753,44 @@ where the second to last step follows from the Cauchy-Schwartz Inequality.
 \end{proof}
 
 \section{Symmetric Matrices and Quadratic Forms}
+\begin{definition}
+A \textbf{symmetric} matrix is a matrix $A$ such that $A^{T} = A$. This condition necessitates $A$ be a square matrix. Its main diagonal entries are arbitrary, but the other entries must occur in pairs on opposite sides of the main diagonal.
+\end{definition}
+
+\begin{theorem}
+If $A$ is symmetric, then any two eigenvectors from different eigenspaces are orthogonal. 
+\end{theorem}
+
+\begin{proof}
+Let $v_1$ and $v_2$ be eigenvectors that correspond to distinct eigenvalues $\lambda_1$ and $\lambda_2$.
+$$\lambda_1 v_1 \cdot v_2 = (\lambda_1 v_1)^{T} v_2 = (Av_1)^{T}v_2 = (v_{1}^{T} A^{T}) v_{2} = v_{1}^{T} (Av_{2}) = v_{1}^{T} (\lambda_{2} v_{2}) =\lambda_{2} v_{1} \cdot v_{2}$$
+
+Thus, $(\lambda_1 - \lambda_2) v_1 \cdot v_2 = 0$, so since the eigenvalues are distinct, the eigenvectors must be orthogonal. 
+\end{proof}
+
+Note that this means when we diagonalize into $A = PDP^{-1}$, $P$ is n orthogonal matrix so $P^{-1} = P^{T}$. If a matrix $A$ can be written as 
+$$A^{T} = PDP^{T} = PDP^{-1}$$
+then it is called \textbf{orthogonally diagonalizable}. 
+
+$A$ is orthogonally diagonalizable if and only if $A$ is symmetric. Proving ``if" is complicated but to prove ``only if" note that 
+$$A^{T} = (PDP^{T})^{T} = P^{TT}D^{T}P^{T} = PDP^{T} = A$$
+
+\begin{theorem}{The Spectral Theorem for Symmetric Matrices: }
+The set of eigenvalues of a matrix $A$ are sometimes referred to as the \textbf{spectrum} of $A$. 
+
+An $n \times n$ symmetric matrix $A$ has the following properties: 
+\begin{enumerate}
+	\item $A$ has $n$ real eigenvalues, counting multiplicities. 
+	\item The dimension of the eigenspace for each eigenvalue $\lambda$ equals the multiplicity of the $\lambda$. 
+	\item The eigenspaces are mutually orthogonal. 
+	\item $A$ is orthogonally diagonalizable. 
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+A \textbf{quadratic form} of $\mathbb{R}^n$ is a function $Q$ whose value at a vector $x$ can be computed by an expression of the form $Q(x) =x^{T} Ax$, where $A$ is an $n \times n$ symmetric matrix called the \textbf{matrix of the quadratic form}. 
+
+The simplest form of this is $Q(x) = x^{T} Ix = \norm{x}^{2}$. 
+\end{definition}
 
 \end{document}
