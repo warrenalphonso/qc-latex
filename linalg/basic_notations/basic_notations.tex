@@ -1,0 +1,244 @@
+\chapter{Basic Notations}
+\section{Vector Spaces}
+\begin{definition}
+A \textbf{vector space} $V$ is a collection of vectors, along with vector addition and scalar multiplication defined such that for vectors $u$, $v$, and $w$: 
+
+\begin{enumerate}
+	\item Commutative: $v + w = w + v$
+	\item Associative: $(u + v) + w = u + (v + w)$
+	\item Zero vector: $ v + 0 = v$
+	\item Additive inverse: $ v + w = 0$
+	\item Multiplicative identity: $ 1v = v$
+	\item Multiplicative associative: $ (\alpha \beta)v = \alpha(\beta v)$
+	\item Distribution of scalars: $ \alpha(u + v) = \alpha u + \alpha v$
+	\item Distribution of vectors: $ (\alpha + \beta)u = \alpha u + \beta u$
+\end{enumerate}
+\end{definition}
+
+These properties are simply to ensure that vector spaces are \textbf{abelian groups}.
+
+\begin{definition}
+An $m \times n$ \textbf{matrix} is an array with $m$ rows and $n$ columns. Elements of a matrix are called \textit{entries}. Given a matrix $A$, its \textbf{transpose} is defined as the matrix whose columns are $A$'s rows, so $A^{T}$ is an $n \times m$ matrix. 
+\end{definition}
+
+\section{Linear Combinations}
+\begin{definition}
+A \textbf{linear combination} of vectors $v_{1}, \cdots, v_{p} \in V$ is a sum of the form 
+$$\alpha_{1} v_{1} + \cdots + \alpha_{p} v_{p} = \sum_{k = 1}^{p} \alpha_{k} v_{k}$$
+\end{definition}
+
+\begin{definition}
+A set of vectors $v_{1}, \cdots, v_{n}$ is said to be \textbf{linearly independent} if the equation 
+$$\alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n} = 0$$
+has only the trivial solution. 
+\end{definition}
+
+\begin{definition}
+A \textbf{basis} is a set of vectors $v_{1}, \cdots , v_{n} \in V$ such that any vector $u \in V$ has a \textit{unique} representation as a linear combination 
+$$u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$$
+The coefficients $\alpha_{1}, \cdots, \alpha_{n}$ are called \textit{coordinates} of $u$.
+\end{definition}
+
+Fundamentally, our definition of basis states that a basis must be spanning and unique. In order for a representation to be unique, we know the basis must be linearly independent. 
+
+\begin{theorem}
+A set of vectors $v_{1}, \cdots, v_{p} \in V$ is a basis if and only if it is linearly independent and complete (spanning). 
+\end{theorem}
+
+\begin{proof}
+We already know basis must be linearly independent and spanning, so we just need to prove the other direction. 
+
+Suppose the set $v_{1}, \cdots, v_{p}$ is linearly independent. Then we know for some vector $u \in V$:
+$$u = \sum_{k=1}^{n} \alpha_{k} v_{k}$$
+
+All that is remaining is to prove this representation is unique. 
+
+Suppose there is another representation, $u = \sum_{k=1}^{n} \beta_{k} v_{k}$. Then, 
+$$\sum_{k=1}^{n} (\alpha_{k} - \beta_{k}) v_{k} = v - v = 0$$
+Since the set is linearly independent, we know $\alpha_{k} - \beta_{k} = 0$. Thus, the representation is unique. 
+\end{proof}
+
+\section{Linear Transformations}
+\begin{definition}
+A \textbf{transformation} $T$ from set $X$ to set $Y$ assigns a value $y \in Y$ for every value $x \in X$: $y = T(x)$. $X$ is called the \textit{domain} of $T$, $Y$ is called the \textit{codomain} of $T$, and the set of all $T(x)$ is called the \textit{range} of $T$. 
+
+Let $V, W$ be vector spaces. A transformation $T: V \rightarrow W$ is \textbf{linear} if:
+\begin{enumerate}
+	\item $T(u + v) = T(u) + T(v)$
+	\item $T(\alpha v) = \alpha T(v)$
+\end{enumerate}
+
+A mapping $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$ is \textit{onto} $\mathbb{F}^{m}$ if each $b$ in $\mathbb{F}^{m}$ is the image of at least one $x$ in $\mathbb{F}^{n}$. 
+
+A mapping $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$ is \textit{one-to-one} if each $b$ in $\mathbb{F}^{m}$ is the image of at most one $x$ in $\mathbb{F}^{n}$. 
+\end{definition}
+
+We can represent linear transformations with matrices. To represent a transformation $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$, we need to only how our $n$ basis vectors are transformed. To see this, note that any vector $u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$. So $T(x) = \alpha{1} T(v_{1}) + \cdots + \alpha_{n} T(v_{n})$. If we join the vectors $T(v_{1}), \cdots, T(v_{n})$ in a matrix $A = \begin{bmatrix}
+T(v_{1}) & \cdots & T(v_{n})
+\end{bmatrix}$, we have captured all the information about $T$. 
+
+\begin{definition}
+There are two ways to approach \textbf{matrix-vector multiplication}: 
+
+\textit{Column by coordinate rule:} Multiply each column of the matrix by the corresponding coordinate of the vector and add. 
+$$\begin{bmatrix}
+1 & 2 & 3 \\
+3 & 2 & 1
+\end{bmatrix} \begin{bmatrix}
+1 \\
+2 \\
+3
+\end{bmatrix} = 1 \begin{bmatrix}
+1 \\
+3
+\end{bmatrix} + 2 \begin{bmatrix}
+2 \\
+2
+\end{bmatrix} + 3 \begin{bmatrix}
+3 \\
+1
+\end{bmatrix} = \begin{bmatrix}
+14 \\
+10
+\end{bmatrix}$$
+
+\textit{Row by column rule:} To get entry $k$ of the result, multiply row $k$ of the matrix with the column. 
+$$\begin{bmatrix}
+1 & 2 & 3 \\
+3 & 2 & 1
+\end{bmatrix} \begin{bmatrix}
+1 \\
+2 \\ 
+3
+\end{bmatrix} = \begin{bmatrix}
+1 \cdot 1 + 2 \cdot 2 + 3 \cdot 3 \\
+3 \cdot 1 + 2 \cdot 2 + 1 \cdot 3
+\end{bmatrix} = \begin{bmatrix}
+14 \\
+10
+\end{bmatrix}$$
+\end{definition}
+
+\begin{definition}
+The natural extension to \textbf{matrix multiplication} of two matrices $AB$ is to multiply $A$ by each column of $B$. 
+$$AB = A \begin{bmatrix}
+b_{1} & \cdots & b_{n}
+\end{bmatrix} = \begin{bmatrix}
+Ab_{1} & \cdots & Ab_{n}
+\end{bmatrix}$$
+Using the \textit{row by columns rule}, we can see that the $(AB)_{j,k} = (\text{row $j$ of $A$}) \cdot (\text{column $k$ of $B$})$. This also means $AB$ is only defined if $A$ is $m \times n$ and $B$ is $n \times r$. 
+
+Let $A$ be an $m \times n$ matrix and let $B$ and $C$ have sizes for which the indicated sums and products are defined. 
+\begin{enumerate}
+	\item $A(BC) = (AB)C$
+	\item $A(B + C) = AB + AC$
+	\item $(B + C)A = BA + CA $
+	\item $\alpha (AB) = (\alpha A)B = A(\alpha B)$
+	\item $I_m A = A = AI_n$
+\end{enumerate}
+Warnings: 
+\begin{enumerate}
+	\item In general, $AB \neq BA$ 
+	\item If $AB = AC$, then it is \textbf{not true} in general that $B=C$
+	\item If $AB = 0$, then it is \textbf{not true} always that $A=0$ or $B=0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{transpose} of $A$ is the matrix whose columns are formed from the corresponding rows of $A$, denoted by $A^T$. 
+\begin{enumerate}
+	\item $(A^T)^T = A$
+	\item $(A + B)^T = A^T + B^T$
+	\item $(cA)^T = cA^T$
+	\item $(AB)^T = B^T A^T$
+\end{enumerate}
+
+To understand the final property, let $AB$ denote a $n \times m$ matrix so that 
+$$AB = \begin{bmatrix}
+A_{1*} \cdot B_{1} & A_{1*} \cdot B_{2} & \cdots & A_{1*} \cdot B_{m} \\
+A_{2*} \cdot B_{1} & A_{2*} \cdot B_{2} & \cdots & A_{2*} \cdot B_{m} \\
+\vdots & \vdots & \vdots & \vdots \\
+A_{n*} \cdot B_{1} & A_{n*} \cdot B_{2} & \cdots & A_{n*} \cdot B_{m} \\
+\end{bmatrix}$$
+$$(AB)^{T} = \begin{bmatrix}
+A_{1*} \cdot B_{1} & A_{2*} \cdot B_{1} & \cdots & A_{n*} \cdot B_{1} \\
+A_{1*} \cdot B_{2} & A_{2*} \cdot B_{2} & \cdots & A_{n*} \cdot B_{2} \\
+\vdots & \vdots & \vdots & \vdots \\
+A_{1*} \cdot B_{m} & A_{2*} \cdot B_{m} & \cdots & A_{n*} \cdot B_{m} \\
+
+\end{bmatrix}$$
+
+where $A_{\alpha *}$ denotes the $\alpha$th row of a $A$. Note that $(AB)^{T}_{jk} = (\text{row $k$ of $A$}) \cdot (\text{column $j$ of $B$}) = (\text{row $j$ of $B^{T}$}) \cdot (\text{column $k$ of $A^{T}$}) $. 
+
+\end{definition}
+
+\begin{definition}
+For a \textit{square} matrix $A$, its \textbf{trace} is the sum of its diagonal entries. 
+$$trace(A) = \sum_{k=1}^{n} a_{k, k}$$
+\end{definition}
+
+\begin{theorem}
+Let $A$ and $B$ be size $m \times n$ and $n \times m$, respectively. Then $$trace(AB) = trace(BA)$$
+\end{theorem}
+
+\begin{proof}
+We need only show that the diagonal entries of $AB$ are the same as the diagonal entries of $BA$. Using the \textit{row by columns rule}, we know $(AB)_{j, k} = (\text{row $j$ of $A$}) \cdot (\text{column $k$ of $B$})$, so when applying to diagonal entries we get $(AB)_{k, k} = (BA)_{k, k} = (\text{row $k$ of $A$}) \cdot (\text{column $k$ of $B$})$
+\end{proof}
+
+\section{Invertible Transformations and Isomorphisms}
+\begin{definition}
+An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A = I$. 
+\end{definition}
+
+\begin{theorem}
+If $A$ and $B$ are invertible (and such that $AB$ is defined), then the product $AB$ is invertible and 
+$$(AB)^{-1} = B^{-1} A^{-1}$$
+\end{theorem}
+
+\begin{proof}
+Direct computation:
+$$(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AA^{-1} = I$$
+and 
+$$(B^{-1}A^{-1})(AB) = B^{-1}(A^{-1}A)B = B^{-1}B = I$$
+\end{proof}
+
+\begin{theorem}
+If $A$ is invertible, then $A^{T}$ is also invertible and 
+$$(A^{-1})^{T} = (A^{T})^{-1}$$
+\end{theorem}
+
+\begin{proof}
+Using $(AB)^{T} = B^{T} A^{T}$, 
+$$(A^{-1})^{T} (A^{T}) = (AA^{-1})^{T} = I$$
+and 
+$$A^{T}(A^{-1})^{T} = (A^{-1}A)^{T} = I$$
+\end{proof}
+
+\begin{definition}
+An invertible linear transformation $A: V \rightarrow W$ is called an \textbf{isomorphism}. The two vector spaces $V$ and $W$ for which $A$ is defined are called \textbf{isomorphic}, denoted $V \cong W$. 
+\end{definition}
+
+Isomorphic spaces can be considered different representations of the \textit{same} space. The following theorem is an example. 
+\begin{theorem}
+Let $A : V \rightarrow W$ be an isomorphism, and let $v_{1}, \cdots, v_{n}$ be a basis in $V$. Then $Av_{1}, \cdots, Av_{n}$ is a basis in $W$. 
+\end{theorem}
+
+\begin{proof}
+Because $V$ and $W$ are isomorphic, every $w \in W$ can be represented as some $v \in V$ by applying $A^{-1}$. For arbitrary $w \in W$
+$$A^{-1}w = v = \sum_{k=1}^{n} \alpha_{k} v_{k}$$
+Then we apply $A$ to get 
+$$Av = w = \sum_{k=1}^{n} \alpha_{k} Av_{k}$$
+\end{proof}
+
+\section{Subspaces}
+\begin{definition}
+A \textbf{subspace} of vector space $V$ is a non-empty subset $V_{0} \subset V$ which is also a vector space. 
+\end{definition}
+
+For any linear transformation $A : V \rightarrow W$, we can associate the following subspaces: 
+\begin{enumerate}
+	\item The \textit{null space}, or \textit{kernel}, of $A$ which consists of all vectors $v \in V$ such that $Av = 0$. 
+	\item The \textit{range} of $A$ which is the set of all vectors $w \in W$ which can be represented as $w = Av$ for $v \in V$. 
+\end{enumerate}
+
+By the \textit{column by coordinate rule}, we know that any vector in $Range(A)$ can be represented as a weighted sum of the column vectors of $A$, which is why the term Column Space is sometimes used to refer to Range. 
