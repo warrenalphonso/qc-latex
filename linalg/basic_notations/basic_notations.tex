@@ -157,13 +157,13 @@ To understand the final property, let $AB$ denote a $n \times m$ matrix so that
 $$AB = \begin{bmatrix}
 A_{1*} \cdot B_{1} & A_{1*} \cdot B_{2} & \cdots & A_{1*} \cdot B_{m} \\
 A_{2*} \cdot B_{1} & A_{2*} \cdot B_{2} & \cdots & A_{2*} \cdot B_{m} \\
-\vdots & \vdots & \vdots & \vdots \\
+\vdots & \vdots &  & \vdots \\
 A_{n*} \cdot B_{1} & A_{n*} \cdot B_{2} & \cdots & A_{n*} \cdot B_{m} \\
 \end{bmatrix}$$
 $$(AB)^{T} = \begin{bmatrix}
 A_{1*} \cdot B_{1} & A_{2*} \cdot B_{1} & \cdots & A_{n*} \cdot B_{1} \\
 A_{1*} \cdot B_{2} & A_{2*} \cdot B_{2} & \cdots & A_{n*} \cdot B_{2} \\
-\vdots & \vdots & \vdots & \vdots \\
+\vdots & \vdots &  & \vdots \\
 A_{1*} \cdot B_{m} & A_{2*} \cdot B_{m} & \cdots & A_{n*} \cdot B_{m} \\
 
 \end{bmatrix}$$
@@ -230,15 +230,3 @@ Then we apply $A$ to get
 $$Av = w = \sum_{k=1}^{n} \alpha_{k} Av_{k}$$
 \end{proof}
 
-\section{Subspaces}
-\begin{definition}
-A \textbf{subspace} of vector space $V$ is a non-empty subset $V_{0} \subset V$ which is also a vector space. 
-\end{definition}
-
-For any linear transformation $A : V \rightarrow W$, we can associate the following subspaces: 
-\begin{enumerate}
-	\item The \textit{null space}, or \textit{kernel}, of $A$ which consists of all vectors $v \in V$ such that $Av = 0$. 
-	\item The \textit{range} of $A$ which is the set of all vectors $w \in W$ which can be represented as $w = Av$ for $v \in V$. 
-\end{enumerate}
-
-By the \textit{column by coordinate rule}, we know that any vector in $Range(A)$ can be represented as a weighted sum of the column vectors of $A$, which is why the term Column Space is sometimes used to refer to Range. 
