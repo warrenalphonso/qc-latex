@@ -1,0 +1,142 @@
+\chapter{Spectral Theory}
+Spectral theory will be our main tool for analyzing linear operators. In this chapter, we only consider transformations $A: V \rightarrow V$ ($n \times n$ matrices). 
+
+\section{Definitions}
+
+\begin{definition}
+A scalar $\lambda$ is called an \textbf{eigenvalue} of operator $A: V \rightarrow V$ if there exists a \textit{nonzero} vector $v \in V$ such that 
+$$Av = \lambda v$$
+
+The vector $v$ is called an \textbf{eigenvector} of $A$ (corresponding to the eigenvalue of $\lambda$).
+
+Once we know the eigenvalues, finding the eigenvectors is equivalent to solving 
+$$(A - \lambda I)v = 0$$
+$Null(A - \lambda I)$, the set of all eigenvectors and 0, is called the \textbf{eigenspace}. 
+
+The set of all eigenvalues of an operator is called the \textbf{spectrum} of $A$, denoted $\sigma (A)$. 
+\end{definition}
+
+Since the matrix $A$ is square, $A - \lambda I$ has a nontrivial null space if and only if it is not invertible, which means its determinant will be 0. Thus, for any eigenvalue $\lambda$ of $A$, 
+$$det(A - \lambda I) = 0$$
+
+\begin{definition}
+If $A$ is an $n \times n$ matrix, $det(A - \lambda I)$ is a degree-$n$ polynomial of variable $\lambda$. This is called the \textbf{characteristic polynomial} of $A$. Finding the spectrum of $A$ requires finding the roots to the characteristic polynomial. 
+
+This means any operator in $\mathbb{C}^{n}$ has $n$ eigenvalues, though some may be repeated. 
+\end{definition}
+
+\begin{theorem}
+An $n \times n$ matrix $A$ is invertible if and only if it doesn't have an eigenvalue of 0. 
+\end{theorem}
+
+\begin{proof}
+Proving if: 
+
+If $A$ doesn't have an eigenvalue of 0, then $det(A - 0I) \neq 0 \rightarrow det(A) \neq 0$, which implies $A$ is invertible. 
+
+Proving only if: 
+
+If $A$ is invertible, then $det(A) \neq 0$, which implies $det(A - 0I) \neq 0$. 
+\end{proof}
+
+\begin{theorem}
+Let $A$ be an $n \times n$ matrix, and let $\lambda_{1}, \cdots, \lambda_{n}$ be its complex eigenvalues (counting multiplicities). Then
+$$det(A) = \lambda_{1} \cdots \lambda_{n}$$
+\end{theorem}
+
+
+\begin{proof}
+Since $det(A - \lambda I)$ is a degree-$n$ polynomial of variable $\lambda$ and we know $A$ will have $n$ eigenvalues, we can write 
+$$det(A) = (\lambda_{1} - \lambda) \cdots (\lambda_{n} - \lambda)$$
+
+Plugging in $\lambda = 0$ gives us 
+$$det(A) = \lambda_{1} \cdots \lambda_{n}$$
+\end{proof}
+
+
+\begin{theorem}
+Let $A$ be an $n \times n$ matrix, and let $\lambda_{1}, \cdots, \lambda_{n}$ be its complex eigenvalues (counting multiplicities). Then
+$$trace(A) = \lambda_{1} + \cdots + \lambda_{n}$$ 
+\end{theorem}
+
+\begin{proof}
+Let us begin by analyzing $det(A - \lambda I)$. Notice that in any cofactor expansion, if we pick any element $a_{i, j}$, such that $j \neq k$, then the highest degree of the resulting cofactor will be $n - 2$. This is because cofactoring removes the row and column the chosen entry is on, and since $j \neq k$, we remove the variables $a_{j,j} - \lambda$ and $a_{k,k} - \lambda$. After cofactor expansion, the  $\lambda^{n-1}$ term will be formed by only this equation
+$$(a_{1,1} - \lambda) \cdots (a_{n, n} - \lambda) = (-1)^{n} (\lambda - a_{1,1}) \cdots (\lambda - a_{n,n})$$
+so the coefficient of $\lambda^{n-1}$ amounts to choosing the $\lambda$ variable $n -1$ times and choosing one of the other coefficients to get 
+\begin{equation}
+(1)^{n}(a_{1, 1} \lambda^{n-1})\cdots (a_{n, n} \lambda^{n-1}) = (-1)^{n} (a_{1, 1} + \cdots + a_{n, n}) \lambda^{n-1}
+\end{equation}
+
+
+Note we can rewrite the characteristic equation as
+$$det(A - \lambda I) = (\lambda_{1} - \lambda) \cdots (\lambda_{n} - \lambda) = (-1)^{n} (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
+
+Now let us identify the coefficient of the $\lambda^{n-1}$ term 
+\begin{equation}
+(-1)^{n} (\lambda_{1} \lambda^{n-1} + \lambda_{2} \lambda^{n-1} + \cdots + \lambda_{n} \lambda^{n-1}) = (-1)^{n} (\lambda_{1} + \cdots + \lambda_{n}) \lambda^{n-1}
+\end{equation}
+
+Comparing coefficients in Equations 1.1 and 1.2, $trace(A) = \lambda_{1} + \cdots + \lambda_{n}$. 
+\end{proof}
+
+\section{Diagonalization}
+We can use spectral theory to find the diagonalization of operators, which means that given an operator, we find the basis in which the matrix of the operator is diagonal. This makes powers of an operator much easier to compute. 
+
+\begin{theorem}
+A matrix $A$ in $\mathbb{F}^{n}$ can be written as $A = PDP^{-1}$, where $D$ is a diagonal matrix and $P$ is invertible, if and only if there exists a basis in $\mathbb{F}^{n}$ of eigenvectors of $A$. 
+
+In this case, the diagonal entries of $D$ are the eigenvalues of $A$ and the columns of $P$ are the corresponding eigenvectors. 
+\end{theorem}
+
+\begin{proof}
+
+To understand the intuition behind this, note that $P = [I]_{S, B}$, where $S$ is the standard basis and $B$ is the basis for the eigenspace, since each column is the representation of a basis vector written in $S$. Rewriting $A = PDP^{-1}$ as $D = P^{-1}AP = [I]_{B, S} A [I]_{S,B}$ which means $D = [A]_{B, B}$, which is a diagonal operator if and only if its diagonal entries are eigenvalues whose corresponding eigenvectors are $b_{k}$. 
+
+A simpler, more direct proof is to rewrite $AP = PD$. 
+$$AP = \begin{bmatrix}
+Ab_{1} & \cdots & Ab_{n}
+\end{bmatrix} = \begin{bmatrix}
+\lambda_{1} b_{1} & \cdots & \lambda_{n} b_{n}
+\end{bmatrix}$$
+
+$$PD = \begin{bmatrix}
+b_{1} \lambda_{1} & \cdots & b_{1} \lambda_{1}
+\end{bmatrix} = \begin{bmatrix}
+\lambda_{1} b_{1} & \cdots & \lambda_{n} b_{n}
+\end{bmatrix}$$
+\end{proof}
+
+Of course, for $P$ to be invertible, the eigenvectors $b_{1}, \cdots, b_{n}$ must be linearly independent. Luckily, we can easily check if this is the case with the following theorem. 
+
+\begin{theorem}
+Let $\lambda_{1}, \cdots, \lambda_{n}$ be \textbf{distinct} eigenvalues for $A$, and let $b_{1}, \cdots, b_{n}$ be their corresponding eigenvectors. Then $b_{1}, \cdots, b_{n}$ are linearly independent. 
+\end{theorem}
+
+\begin{proof}
+We proceed by induction over the $n$ eigenvectors of $A$. 
+
+\textbf{Base case: $n = 1$}
+
+This is trivial because by definition, an eigenvector is nonzero. Any set consisting of a single nonzero vector is linearly independent.
+
+\textbf{Inductive Hypothesis:}
+
+Assume it holds for $n = k$. 
+
+\textbf{Inductive Step: $n = k + 1$}
+
+Suppose there exists a non-trivial solution to 
+$$ \sum_{i = 1}^{k + 1} c_{i} b_{i} = 0$$
+
+We can apply $(A - \lambda_{k + 1} I)$ to both sides to get 
+$$ \sum_{i = 1}^{k + 1} c_{i} (A - \lambda_{k + 1} I) b_{i} = 0$$
+
+Since $(A - \lambda_{k + 1}I) b_{k + 1} = 0$, we can write 
+$$\sum_{i = 1}^{k} c_{i} (A - \lambda_{k + 1} I ) b_{i} = \sum_{i = 1}^{k} c_{i} (\lambda_{i} - \lambda_{k + 1} ) b_{i} = 0$$ 
+
+By the inductive hypothesis, we know the first $k$ eigenvectors are linearly independent, so the coefficient $c_{i} (\lambda_{i} - \lambda_{k + 1} )$ must be 0 for $0 \leq i \leq k$, and since eigenvalues are distinct, $c_{i} = 0$ for $0 \leq i \leq k$. 
+
+Now we can reduce our original summation 
+$$\sum_{i = 1}^{k+1} c_{i} b_{i} = c_{k+1} b_{k+1} = 0$$
+This means that $c_{k+1}$ must be 0, so the summation only has the trivial solution, which means the eigenvectos are linearly independent. 
+\end{proof}
