@@ -1,0 +1,236 @@
+\chapter{Determinants} 
+\section{Properties}
+In this chapter, we only consider determinants of $n \times n$ matrices. We will think of the determinant as the $n$-dimensional volume of the parallelepiped determined by our $n$ vectors, $v_{1}, \cdots, v_{n}$. For dimensions 2 and 3, "volume" of the parallelepiped is determined with the \textit{base times height} rule: we pick one vector and define height to be the distance between this vector and the subspace spanned by the $n - 1$ remaining vectors. Then we define base to be the $(n-1)$-dimensional volume of the parallelepiped determined by the $n-1$ vectors. 
+
+This understanding allows determinants the following properties: 
+\begin{enumerate}
+	\item \textbf{Linearity in each argument: } Multiplying some vector $v_{k}$ by $\alpha$, then the height is multiplied by the same constant which means the determinant is multiplied by the same constant. This means the determinant is \textit{linear in each argument}, which means if we fix $n-1$ vectors, the determinant is linear with respect to the final vector. 
+	
+	Linearity means that for an $n \times n$ matrix $A$, $det(\alpha A) = \alpha^{n} det(A)$, because multiplying $A$ by $\alpha$ is equivalent to multiplying $n$ columns by $\alpha$. 
+	\item \textbf{Preservation under column replacement: } 
+	$$det(v_{1}, \cdots, v_{j} + \alpha v_{k}, \cdots, v_{k}, \cdots, v_{n}) = det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n})$$
+	Realize that this is true because the "height" of $v_{j} + \alpha v_{k}$ is the same as the "height" of $v_{j}$, since "height" is defined in relation to the distance from the remaining subspace. 
+	\item \textbf{Antisymmetry: } Swapping two vectors means the determinant changes signs. 
+	$$det(v_{1}, \cdots, v_{k}, \cdots, v_{j}, \cdots, v_{n}) = -det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n})$$
+	
+This does not seem natural at first, but we can prove it by applying Preservation under column replacement thrice and then linearity. 
+$$ det(v_{1}, \cdots, v_{k}, \cdots, v_{j}, \cdots, v_{n}) $$
+$$= det(v_{1}, \cdots, v_{k}, \cdots, v_{j} - v_{k}, \cdots, v_{n}) $$
+$$= det(v_{1}, \cdots, v_{k} + (v_{j} - v_{k}), \cdots, v_{j} - v_{k}, \cdots, v_{n}) $$
+$$= det(v_{1}, \cdots, v_{j}, \cdots, v_{j} - v_{k} - (v_{j}), \cdots, v_{n}) $$
+$$= det(v_{1}, \cdots, v_{j}, \cdots, -v_{k}, \cdots, v_{n}) $$
+$$= -det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n}) $$
+
+	\item \textbf{Normalization: } For the standard basis, the corresponding parallelepiped is the $n$-dimensional unit cube so its volume is 1. 
+	$$det(I) = 1$$
+\end{enumerate}
+
+Using these, we can derive more basic properties of determinants for a square matrix $A$:
+\begin{enumerate}
+	\item If $A$ has a zero column, then $det(A) = 0$. 
+	\item If $A$ has two equal columns, then $det(A) = 0$. 
+	\item If one column of $A$ is a multiple of another, then $det(A) = 0$. 
+\end{enumerate}
+
+\section{Computing the Determinant}
+The \textbf{determinant of diagonal matrices} is the product of the diagonal entries. Note that any diagonal matrix $\{a_{1}, \cdots, a_{k}\}$ can be obtained by multiplying column $k$ by $a_{k}$. 
+
+The \textbf{determinant of triangular matrices} is also the product of the diagonal entries. This is because an upper or lower triangular matrix can be reduced to a diagonal matrix with the same diagonal entries through column operations. 
+
+\begin{theorem}
+$det(A) = 0$ if and only if $A$ is not invertible. 
+\end{theorem}
+
+\begin{proof}
+Recall that we can only use column operations when reducing a matrix to find the determinant, which is equivalent to doing row operations on $A^{T}$. If the echelon form of $A^{T}$ does not have pivots in every column and row, then the product of diagonal entries will be 0. Not having pivots in every column and row also means the matrix is not invertible, so the two conclusions are equivalent. 
+\end{proof}
+
+We will now prove some nontrivial properties of determinants, but to do so, we will need the following two theorems. 
+
+\begin{theorem}
+For a square matrix $A$ and elementary matrix $E$, 
+$$det(AE) = det(A) det(E)$$
+\end{theorem}
+
+\begin{proof}
+Right multiplication of an elementary matrix is simply a column operation. Since a column operation is obtained from the identity matrix by the column operation, its determinant is 1 times the effect of the column operation. 
+\end{proof}
+
+\begin{theorem}
+Any invertible matrix is a product of elementary matrices.
+\end{theorem}
+
+\begin{proof}
+We know that any invertible matrix is \textit{row equivalent} to the identity matrix, which is its reduced echelon form. So 
+$$I = E_{n} E_{n-1} \cdots E_{1} A$$
+which means we can write $A$ in terms of the identity and the inverses of some elementary  matrices 
+$$A = E_{1}^{-1} \cdots E_{n-1}^{-1} E_{n}^{-1} I = E_{1}^{-1} \cdots E_{n-1}^{-1} E_{n}^{-1}$$
+since the inverse of an elementary matrix is an elementary matrix, the proof is complete. 
+\end{proof} 
+
+Now for two important theorems:
+
+\begin{theorem}
+For a square matrix $A$, 
+$$det(A) = det(A^{T})$$
+\end{theorem}
+
+\begin{proof}
+A key observation is that $det(E) = det(E^{T})$ for any elementary matrix $E$. 
+
+Notice also that it is sufficient to prove the theorem \textit{only} for \textit{invertible matrices} $A$ since if $A$ is not invertible then $A^{T}$ is also not invertible and both determinants are 0, trivially proving the theorem. 
+
+Now, by the above theorem we can write
+$$A = E_{1} E_{2} \cdots E_{n}$$
+which means 
+$$det(A) = det(E_{1}) det(E_{2}) \cdots det(E_{n})$$
+
+We can also write 
+$$A^{T} = E_{n}^{T} \cdots E_{2}^{T} E_{1}^{T} = E_{n} \cdots E_{2} E_{1}$$
+which means 
+$$det(A^{T}) = det(E_{n}) \cdots det(E_{2}) det(E_{1})$$
+which is equivalent to $det(A)$. 
+\end{proof}
+
+This theorem means that column operations have the same effect on determinants as row operations, so we can use either when reducing matrices to compute determinants. 
+
+\begin{theorem}
+For $n \times n$ matrices $A, B$, 
+$$det(AB) = det(A) det(B)$$
+\end{theorem}
+
+\begin{proof}
+Two cases: 
+
+\textbf{Case 1: } $B$ is invertible. 
+
+This means we can write 
+$$B = E_{1} E_{2} \cdots E_{n}$$
+and so 
+$$det(AB) = det(A)[det(E_{1}) det(E_{2}) \cdots det(E_{n})] = det(A) det(B)$$
+
+\textbf{Case 2: } $B$ is not invertible. 
+If $B$ is not invertible, we will prove that the product $AB$ is also not invertible so $det(AB) = det(A) det(B) \rightarrow 0 = 0$. 
+
+We proceed by contradiction. Assume $AB = C$ is invertible. Then we left multiply both sides by $C^{-1}$ to get $C^{-1} AB = I$, which means $C^{-1}A$ is the left inverse of $B$, but because $B$ is square, that means $C^{-1}A$ is the inverse of $B$. Since we know $B$ is not invertible, we have a contradiction. 
+\end{proof}
+
+\section{Cofactor Expansion}
+
+For an $n \times n$ matrix $A$, let $A_{j, k}$ denote the $(n - 1) \times (n - 1)$ matrix obtained from $A$ by crossing out row $j$ and column $k$. 
+
+\begin{theorem}{Cofactor expansion of determinant}
+For each $j, 1 \leq j \leq n,$ determinant of $A$ can be expanded in the row number $j$ as 
+$$det(A) = a_{j, 1} (-1)^{j+1} det(A_{j, 1}) + a_{j, 2} (-1)^{j+2} det(A_{j, 2}) + \cdots + a_{j, n} (-1)^{j + n} det(A_{j, n})$$
+
+A similar expansion can be done for columns. 
+\end{theorem}
+
+\begin{proof}
+We will prove the expansion for row 1. This can be generalized by swapping row 1 with another row. Additionally, since $det(A) = det(A^{T})$, column expansion follows automatically. 
+
+Consider the special case when the first row has \textit{only one} nonzero term, $a_{1, 1}$. Performing column operations on columns $2, \cdots, n$, we transform $A$ to lower triangular form. Now
+$$det(A) = (\text{product of diagonal entries}) \times (\text{correcting factor from column operations})$$
+but since the \textit{product of diagonal entries} except $a_{1,1}$ times the \textit{correcting factor} is exactly $det(A_{1,1})$, we can write 
+$$det(A) = a_{1,1} det(A_{1,1})$$
+
+Now consider the case when all entries in the first row except $a_{1,2}$ are zeros. We can reduce this to the previous case by swapping columns 1 and 2, so $det(A) = (-1) a_{1,2} det(A_{1,2})$. 
+
+If $a_{1,3}$ is the only nonzero term in the first row, we can reduce this to the previous case by swapping columns 2 and 3, so $det(A) = a_{1,3} det(A_{1,3})$. 
+
+These special cases are important because we have linearity of the determinant. If the matrix $A^{(k)}$ is obtained by replacing all $A$'s entries in the first row with 0 except for $a_{1,k}$, then linearity of the determinant implies 
+$$det(A) = det(A^{(1)}) + \cdots + det(A^{(n)}) = \sum_{k=1}^{n} det(A^{(k)})$$
+
+Based on our analysis of special cases, we know 
+$$det(A^{(k)}) = (-1)^{1 + k} a_{1, k} det(A_{1, k})$$ 
+so 
+$$det(A) = \sum_{k=1}^{n} (-1)^{1 + k} a_{1, k} det(A_{1,k})$$
+
+To get the expansion for the second row, we swap rows so multiply by -1. For the third row, multiply by -1 again to get the original equation, and so on. 
+\end{proof}
+
+Cofactor expansion is not practical for anything larger than a $3 \times 3$ matrix, but it has great theoretical importance. 
+
+\begin{definition}
+Formally, the numbers 
+$$C_{j, k}= (-1)^{j + k} det(A_{j,k})$$
+are called \textbf{cofactors}.
+
+The matrix $C = \{ C_{j, k}\}^{n}_{j, k = 1}$ whose entries are \textit{cofactors} of a given matrix $A$ is called the \textbf{cofactor matrix} of $A$. 
+\end{definition}
+
+\begin{theorem}{Cofactor formula for inverse}
+Let $A$ be an invertible matrix and let $C$ be its cofactor matrix. Then 
+$$A^{-1} = \frac{1}{det(A)} C^{T}$$
+\end{theorem}
+
+\begin{proof}
+Let us find the product $AC^{T}$. 
+
+The $j$th diagonal entry is obtained by multiplying the $j$th row of $A$ by the $j$th row of $C$,
+$$(AC^{T})_{j, j} = a_{j, 1} C_{j, 1} + \cdots + a_{j, n} C_{j, n} = det(A)$$
+by cofactor expansion. 
+
+To get the off-diagonal terms, we multiply the $k$th row of $A$ with the $j$th row of $C$, $j \neq k$, 
+$$a_{k, 1} C_{j, 1} + \cdots + a_{k, n} C_{j, n}$$
+
+If we look at this as a cofactor expansion of the $j$th row, this is the determinant of the matrix $A$ except that we replace row $j$ with row $k$. Since two rows of our matrix coincide, the determinant will be 0, which means all off-diagonal terms will be 0, thus 
+$$AC^{T} = det(A) I$$
+Dividing by $det(A)$ gives us 
+$$A \frac{1}{det(A)} C^{T} = I$$
+so $\frac{1}{det(A)} C^{T}$ is the right inverse of $A$, which means it is the inverse of $A$ since $A$ is square. 
+\end{proof}
+
+Since for invertible matrices, $Ax = b$ has a unique solution, we have 
+$$x = A^{-1} b = \frac{1}{det(A)} C^{T} b$$
+
+\begin{theorem}{Cramer's Rule}
+For invertible matrix $A$, entry $k$ of the solution to $Ax = b$ is given by 
+$$x_{k} = \frac{det(B_{k})}{det(A)} $$
+where $B_{k}$ is obtained from $A$ by replacing column $k$ with $b$. 
+\end{theorem}
+
+\begin{proof}
+After our above theorem, we need only prove that entry $k$ of $C^{T}b = det(B_{k})$. 
+
+We know entry $k$ of $C^{T} b$ is equivalent to the product of the $k$th row of $C^{T}$ and $b$, which is equivalent to the product of the $k$th column of $C$ and $b$. 
+
+Element $j, k$ of $C$ is obtained by crossing out the $j$th row and $k$th column of $A$ and computing the determinant of the remaining matrix. Multiplying the $k$th column of $C$ with $b$ is equivalent to 
+$$b_{1} C_{1, k} + \cdots + b_{n} C_{n, k}$$ 
+which is the same as the cofactor expansion of $B_{k}$. 
+\end{proof}
+
+One application of the cofactor formula is a shortcut to inverting $2 \times 2$ matrices. 
+For the matrix 
+$$A = \begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}$$
+The cofactor matrix is made up of 4 $1 \times 1$ matrices,
+$$C = \begin{bmatrix}
+d & -c \\
+-b & a
+\end{bmatrix}$$
+which means 
+$$A^{-1} = \frac{1}{det(A)} \begin{bmatrix}
+d & -c \\
+-b & a
+\end{bmatrix}$$
+
+%%SKIPPED THE LAST COROLLARY BECAUSE IT DOESN'T SEEM IMPORTANT AND DOESN'T MAKE SENSE (HOW CAN RANK BE DEFINED FOR A POINT?)
+%\section{Minors and Rank}
+%\begin{definition}
+%For a matrix $A$, consider a $k \times k$ submatrix obtained by taking $k$ rows and $k$ columns. The determinant of this submatrix is called the \textbf{minor of order $k$}. An $m \times n$ matrix has ${m \choose k} \cdot {n \choose k}$ different submatrices with different minors of order $k$. 
+%\end{definition}
+
+%\begin{theorem}
+%For a nonzero matrix $A$, its rank equals the maximum value of $k$ such that there exists a nonzero minor of rank $k$. 
+%\end{theorem}
+
+%\begin{proof}
+%First, we prove that if $k > Rank(A)$, then a minor of order $k = 0$. Since $Rank(A) < k$, any submatrix with $k$ columns will be linearly dependent, so its determinant will be 0. 
+
+%Now we just need to show that there exists a nonzero minor of order $k = Rank(A)$. One simple construction of a submatrix that fulfills this criterion is the submatrix made up of pivot rows and columns of $A$. Since it is made up of only pivot rows and columns, it has nonzero determinant and same rank as $A$. 
+%\end{proof}
+
+%This theorem doesn't seem very useful at first, but it is important because it can be used to prove the following. 
