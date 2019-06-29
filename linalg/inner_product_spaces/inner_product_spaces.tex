@@ -1,170 +1,6 @@
-\documentclass[a4paper,10pt]{book}
-
-%Use the following for font size 8 or 9, as 10 is the minimum provided normally
-%\documentclass[8pt]{extbook}
-
-%Compilers
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-%Graphics
-\usepackage{xcolor}
-\usepackage{graphicx}
-
-%Math
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{caption}
-\usepackage{braket}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage[xcolor]{mdframed}
-
-%Math shortcuts 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\M}{\mathcal{M}}
-\renewcommand{\P}{\mathcal{P}}
-\renewcommand{\L}{\mathcal{L}}
-\DeclareMathOperator{\Span}{span}
-
-%Augmented matrices
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-   \hskip -\arraycolsep
-   \let\@ifnextchar\new@ifnextchar
-   \array{#1}}
-\makeatother
-
-
-%Define abs
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}
-
-%Defining norm
-\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
-
-%Defining inner product
-\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
-
-
-%Reducing margin
-\usepackage[margin=2cm]{geometry}
-
-%Header, footer
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\leftmark}
-\cfoot{\thepage} 
-\renewcommand{\headrulewidth}{0pt}
-
-%Index - not used
-\usepackage{makeidx}
-\makeindex
-
-
-%Theorem instantiation
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\definecolor{lightblue1}{RGB}{222, 243, 253}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue1,
-	]{theorem}
-	
-%Proof instantiation 
-\definecolor{lightblue2}{RGB}{232, 245, 252}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue2,
-	]{proof}
-	
-%Lemma instantiation
-\theoremstyle{plain}
-\newtheorem{lemma}[theorem]{Lemma}
-\definecolor{lightgreen1}{RGB}{224, 255, 193}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen1,
-	]{lemma}
-
-%Lemma Proof instantiation 
-\theoremstyle{remark}
-\newtheorem*{lproof}{Proof}
-\definecolor{lightgreen2}{RGB}{232, 249, 214}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen2,
-	]{lproof}
-
-%Definition instantiation
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\definecolor{lightgreen}{RGB}{219, 255, 188}
-\definecolor{subtlegray}{RGB}{248, 248, 248}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = subtlegray,
-	]{definition}
-	
-%Change QED symbol to solid black square
-\renewcommand\qedsymbol{$\blacksquare$}
-
-	
-	
-%Remove auto-indentation
-\setlength{\parindent}{0cm}
-
-%Preferred font and spacing
-\linespread{1.3}
-%\usepackage{lmodern}
-\usepackage{kpfonts}
-%\usepackage{tgschola}
-
-
-\begin{document}
-
-\frontmatter 
-{\let\cleardoublepage\clearpage 
-%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
-\begin{titlepage}
-	\centering
-	{\scshape\LARGE University of California, Berkeley \par}
-	\vspace{3cm}
-	{\scshape\Large Literally everything I know about \par}
-	\vspace{1.5cm}
-	{\huge\bfseries Linear Algebra\par}
-	\vspace{2.5cm}
-	{\Large\itshape Warren Alphonso\par}
-	\vfill
-	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, as well as \textsc{Linear Algebra Done Wrong} by Treil. \par}
-	\vfill
-	{\large \today\par}
-\end{titlepage}
-
-\tableofcontents
-}
-
-\mainmatter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%%% DID NOT DO RIGID MOTIONS AND COMPLEXIFICATION!!
+%%% DID NOT DO RIGID MOTIONS AND COMPLEXIFICATION!!
+%%% DID NOT DO RIGID MOTIONS AND COMPLEXIFICATION!!
 
 \chapter{Inner Product Spaces}
 
@@ -480,5 +316,223 @@ Now let $u \in (E^{\perp})^{\perp}$. Since $V = E \oplus E^{\perp}$, we can writ
 \end{proof}
 
 \section{Least Square Solution} 
+Recall that $Ax = b$ has a solution if and only if $b \in Range(A)$. In real life, it is impossible to avoid errors. The simplest way to approximate a solution is to choose an approximation $\hat{x}$ to minimize the error $e = \norm{A \hat{x} - b}$. This is the \textbf{least square solution}. 
 
-\end{document}
+We know $A \hat{x}$ is the orthogonal projection $P_{Range(A)} b$ if and only if $b - A \hat{x} \perp Range(A)$. Using the column space interpretation of range, this is equivalent to 
+$$b - A \hat{x} \perp a_{k} \qquad \forall k = 1, \cdots, n$$
+That means 
+$$0 = (b - A \hat{x}, a_{k}) = a^{*}_{k} (b - A \hat{x}) \qquad \forall k = 1, \cdots, n$$ 
+We can join the rows $a^{*}_{k}$ together to get
+$$A^{*} (b - A \hat{x}) = 0$$
+which is equivalent to the \textbf{normal equation} 
+$$A^{*} A \hat{x} = A^{*} b$$
+
+The solution $\hat{x}$ to this equation grants us the least square solution of $A \hat{x} = b$. This makes it easy to notice that the least square solution is unique if and only if $A^{*} A$ is invertible. 
+
+If $\hat{x}$ is the solution to the normal equation, then $A \hat{x} = P_{Range(A)} b$. So in order to find the actual projection of $b$ onto $Range(A)$, we need to solve the normal equation and then multiply the solution by $A$. Formally, 
+$$P_{Range(A)} b = A (A^{*} A)^{-1} A^{*} b$$
+Because this is true for all $b$, the formula for the matrix of the orthogonal projection onto $Range(A)$ is 
+$$P_{Range(A)} = A (A^{*} A)^{-1} A^{*}$$
+
+\begin{theorem}
+For an $m \times n$ matrix $A$ 
+$$Ker(A) = Ker(A^{*}A)$$
+
+Recall Kernel is equivalent to Null Space.
+\end{theorem}
+
+\begin{proof}
+We will show $Ker(A) \subseteq Ker(A^{*} A)$ and $Ker(A^{*} A) \subseteq Ker(A)$. 
+
+To prove the latter, suppose we have a vector $u \in Ker(A)$ so that $Au = 0$. Then $A^{*} A u = A^{*} (Au) = A^{*} 0 = 0$, which means $u \in Ker(A^{*} A)$. 
+
+To prove the former, suppose we have a vector $v \in Ker(A^{*} A)$. We want to show that $Av = 0$. One way of doing so is to show that its norm is 0. 
+$$\norm{Av}^{2} = (Av, Av) = (A^{*} v^{*}, A^{*} v^{*}) = A^{*} (v^{*}, A^{*} v^{*}) = A^{*} (Av, v) = (A^{*} Av, v) = (0, v) = 0$$
+\end{proof}
+
+\section{Adjoint of a Linear Transformation} 
+Recall that the \textit{Hermitian adjoint} $A^{*}$ of matrix $A$ is defined as the complex conjugate of each entry in $A^{T}$. 
+
+\begin{theorem}
+$$(Ax, y) = (x, A^{*}y) \qquad \forall x \in \C^{n}, \forall y \in \C^{m}$$
+\end{theorem}
+
+\begin{proof}
+$$(Ax, y) = y^{*} Ax = (A^{*} y)^{*} x = (x, A^{*} y)$$
+
+The second equality uses the fact that because the adjoint consists of a transpose, we have $(AB)^{*} = B^{*} A^{*}$ and $(A^{*})^{*} = A$.  
+\end{proof}
+
+This identity is used to define the adjoint operator. 
+
+\begin{lemma}
+The adjoint is unique. 
+\end{lemma}
+
+\begin{lproof}
+Suppose $B$ satisfies $(Ax, y) = (x, By) \qquad \forall x, y$, then we can write 
+$$(Ax, y) = (x, A^{*} y) = (x, By)$$
+which means $A^{*} = B$.
+\end{lproof}
+
+\textbf{Properties of the adjoin operators (matrices):}
+\begin{enumerate}
+	\item $(A + B)^{*} = A^{*} + B^{*}$ 
+	\item $(\alpha A)^{*} = \overline{\alpha} A^{*}$ 
+	\item $(AB)^{*} = B^{*} A^{*}$ 
+	\item $(A^{*})^{*} = A$
+	\item $(y, Ax) = (A^{*}y, x)$ 
+\end{enumerate}
+
+\begin{theorem}[Relation between fundamental subspaces]
+Let $A: V \rightarrow W$ be an operator acting from one inner product space to another. Then 
+\begin{enumerate}
+	\item $Ker(A^{*}) = (Range(A))^{\perp}$ 
+	\item $Ker(A) = (Range(A^{*}))^{\perp}$ 
+	\item $Range(A) = (Ker(A^{*}))^{\perp}$ 
+	\item $Range(A^{*}) = (Ker(A))^{\perp}$
+\end{enumerate}
+
+Note that earlier we defined the fundamental subspaces using $A^{T}$ instead of $A^{*}$ because when discussing only $\R$ there was no difference. 
+\end{theorem}
+
+\begin{proof}
+Note that statements 1/3 and 2/4 are equivalent because for any subspace $E$, we have $(E^{\perp})^{\perp} = E$. Also note that statement 2 is exactly statement 1 applied to the operator $A^{*}$ since $(A^{*})^{*} = A$. 
+
+Thus we only need to prove statement 1. 
+
+A vector $x \in (Range(A))^{\perp}$ means that $x$ is orthogonal to all vectors of the form $Ay$, that is 
+$$(x, Ay) = 0 \qquad \forall y$$ 
+Since $(x, Ay) = (A^{*}x, y)$, this is equivalent to 
+$$(A^{*} x, y) = 0 \qquad \forall y$$
+
+This means that $A^{*}x = 0$, which means $x \in Ker(A^{*})$. 
+\end{proof}
+
+\section{Isometries and Unitary Operators}
+\begin{definition}
+An operator $U: X \rightarrow Y$ is called an \textbf{isometry} if it preserves the norm, 
+$$\norm{Ux} = \norm{x} \qquad \forall x \in X$$
+\end{definition}
+
+\begin{theorem}
+An operator $U: X \rightarrow Y$ is an isometry if and only if it preserves the inner product, ie if and only if 
+$$(x, y) = (Ux, Uy) \qquad \forall x, y \in X$$
+\end{theorem}
+
+\begin{proof}
+We use the polarization identities previously described. If $X$ is a complex space
+
+$$
+\begin{aligned}
+(Ux, Uy) &= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{Ux + \alpha Uy}^{2} \\ 
+&= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{U(x + \alpha y)}^{2} \\
+&= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{x + \alpha y}^{2} = (x, y)
+\end{aligned}
+$$
+
+If $X$ is a real space 
+$$\begin{aligned} 
+(Ux, Uy) &= \frac{1}{4}(\norm{Ux + Uy}^{2} - \norm{Ux - Uy}^{2}) \\
+&= \frac{1}{4} (\norm{U(x + y)}^{2} - \norm{U(x - y)}^{2}) \\
+&= \frac{1}{4} (\norm{x + y}^{2} - \norm{x - y}^{2}) = (x, y)
+\end{aligned}
+$$
+\end{proof}
+
+\begin{lemma}
+An operator $U: X \rightarrow Y$ is an isometry if and only if $U^{*}U = I$. 
+\end{lemma}
+
+\begin{lproof}
+If $U^{*}U = I$, then 
+$$(x, x) = (U^{*}Ux, x) = (Ux, Ux) \qquad \forall x \in X$$
+Since $\norm{x} = \norm{Ux}$, $U$ is an isometry. 
+
+If $U$ is an isometry, then by the above theorem and definition of adjoint
+$$(U^{*} Ux, y) = (Ux, Uy) = (x, y) \qquad \forall x, y \in X$$
+which means $U^{*}U = I$. 
+\end{lproof}
+
+This lemma implies that an isometry is always left invertible since $U^{*}U = I$. 
+
+\begin{definition}
+An isometry $U: X \rightarrow Y$ is called a \textbf{unitary operator} if it is invertible.  
+\end{definition}
+
+\begin{lemma}
+An isometry $U: X \rightarrow Y$ is a unitary operator if and only if $dim(X) = dim(Y)$. 
+\end{lemma}
+
+\begin{lproof}
+If $dim(X) = dim(Y)$, then $U$ is square. Since we know $U$ is left invertible, it must also then be invertible. 
+
+If $U$ is unitary, it is invertible, so $dim(X) = dim(Y)$ since only square matrices are invertible. 
+\end{lproof}
+
+Properties of unitary operators that follow from our proofs: 
+\begin{enumerate}
+	\item $U^{-1} = U^{*}$ 
+	\item If $U$ is unitary, $U^{*} = U^{-1}$ is also unitary. 
+	\item If $U$ is an isometry and $v_{1}, \cdots, v_{n}$ is an orthonormal basis, then $Uv_{1}, \cdots, Uv_{n}$ is an orthonormal basis. 
+	\item The product of unitary operators is a unitary operator. 
+\end{enumerate}
+
+\begin{lemma}
+$$det(A^{*}) = \overline{det(A)}$$
+\end{lemma}
+
+\begin{lproof}
+Recall that the determinant of a matrix is equal to the product of its eigenvalues. We will show that the for any eigenvalue $\lambda$ of $A$, $\overline{\lambda}$ is an eigenvalue of $A^{*}$. 
+
+Note that $\lambda$ is \textbf{not} an eigenvalue of $A$ if and only if $A - \lambda I$ is invertible, which happens if and only if there exists an operator $B$ such that 
+$$B(A - \lambda I) = (A - \lambda I)B = I$$
+Taking the adjoints of all three sides means the above is equivalent to 
+$$(A^{*} - \overline{\lambda}I)B^{*} = B^{*} (A^{*} - \overline{\lambda}I) = I$$
+
+Thus $A - \lambda I$ is invertible if and only if $A^{*} - \overline{\lambda}I$ is invertible, which means if $\lambda$ is an eigenvalue of $A$, $\overline{\lambda}$ is an eigenvalue of $A^{*}$. 
+\end{lproof}
+
+\begin{theorem}
+If $U$ is a unitary matrix, then 
+$$ det(U) = \pm 1$$
+If $\lambda$ is an eigenvalue of $U$, then 
+$$\lambda = \pm 1$$
+\end{theorem}
+
+\begin{proof}
+Let $det(U) = z$. Since $det(U^{*}) = \overline{det(U)}$, we have 
+$$\abs{z}^{2} = \overline{z}z = det(U^{*} U) = det(I) = 1$$
+
+To prove statement 2, notice that if $Ux = \lambda x$, then 
+$$\norm{Ux} = \norm{\lambda x} = \abs{\lambda} \cdot \norm{x}$$
+which means $\abs{\lambda} = 1$ since $\norm{Ux} = \norm{x}$. 
+\end{proof}
+
+\begin{definition}
+Operators $A$ and $B$ are called \textbf{unitarily equivalent} if there exists a unitary operator $U$ such that $A = UBU^{*}$. Since for any unitary $U$, we have $U^{-1} = U^{*}$, any two unitarily equivalent matrices are similar as well. 
+
+The converse is \textbf{not} true. 
+\end{definition}
+
+The following theorem gives a way to construct a counter example to prove similar matrices are not always unitarily equivalent. 
+
+\begin{theorem}
+A matrix $A$ is unitarily equivalent to a diagonal one if and only if it has an orthogonal (orthonormal) basis of eigenvectors. 
+\end{theorem}
+
+\begin{proof}
+Using diagonalization, we can write $A = UBU^{*}$ and let $Bx = \lambda x$. Then $AUx = UBx = \lambda Ux$, which means $Ux$ is an eigenvector of $A$. 
+
+Only if: Let $A$ be unitarily equivalent to a diagonal matrix $D$, ie $A = UDU^{*}$. Because $D$ is diagonal, the vectors $e_{k}$ of the standard basis are eigenvectors of $D$, so $Ue_{k}$ are eigenvectors of $A$. Since $U$ is unitary, $Ue_{1}, \cdots, Ue_{n}$ is an orthonormal basis. 
+
+If: Let $A$ have an orthogonal basis $u_{1}, \cdots, u_{n}$ of eigenvectors. By dividing each vector by its norm, we can assure we have an orthonormal basis. By letting $D$ be the matrix $A$ in the basis $u_{1}, \cdots, u_{n}$, we know $D$ will be a diagonal matrix. 
+
+By setting $U$ to be the matrix with columns $u_{1}, \cdots, u_{n}$, we know $U$ is unitary since its columns form an orthonormal basis (orthogonality implies invertibility and normality implies norm preservation). The change of coordinate formula implies 
+$$A = [A]_{SS} = [I]_{SB} [A]_{BB} [I]_{BS} = UDU^{-1} = UDU^{*}$$
+where the last step follows from $U^{-1} = U^{*}$ for unitary matrices. 
+\end{proof}
+
+%%% DID NOT DO RIGID MOTIONS AND COMPLEXIFICATION!!
+%%% DID NOT DO RIGID MOTIONS AND COMPLEXIFICATION!!
+%%% DID NOT DO RIGID MOTIONS AND COMPLEXIFICATION!!
