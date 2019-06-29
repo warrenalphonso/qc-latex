@@ -20,6 +20,15 @@
 \usepackage{mathtools}
 \usepackage[xcolor]{mdframed}
 
+%Math shortcuts 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\P}{\mathcal{P}}
+\renewcommand{\L}{\mathcal{L}}
+\DeclareMathOperator{\Span}{span}
+
 %Augmented matrices
 \makeatletter
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
@@ -27,6 +36,10 @@
    \let\@ifnextchar\new@ifnextchar
    \array{#1}}
 \makeatother
+
+
+%Define abs
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
 
 %Defining norm
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
@@ -36,7 +49,7 @@
 
 
 %Reducing margin
-\usepackage[margin=3cm]{geometry}
+\usepackage[margin=2cm]{geometry}
 
 %Header, footer
 \usepackage{fancyhdr}
@@ -50,7 +63,9 @@
 \usepackage{makeidx}
 \makeindex
 
+
 %Theorem instantiation
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \definecolor{lightblue1}{RGB}{222, 243, 253}
 \surroundwithmdframed[
@@ -64,8 +79,24 @@
 	hidealllines = true, 
 	backgroundcolor = lightblue2,
 	]{proof}
-%Change QED symbol to solid black square
-\renewcommand\qedsymbol{$\blacksquare$}
+	
+%Lemma instantiation
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{Lemma}
+\definecolor{lightgreen1}{RGB}{224, 255, 193}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen1,
+	]{lemma}
+
+%Lemma Proof instantiation 
+\theoremstyle{remark}
+\newtheorem*{lproof}{Proof}
+\definecolor{lightgreen2}{RGB}{232, 249, 214}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen2,
+	]{lproof}
 
 %Definition instantiation
 \theoremstyle{definition}
@@ -76,6 +107,10 @@
 	hidealllines = true, 
 	backgroundcolor = subtlegray,
 	]{definition}
+	
+%Change QED symbol to solid black square
+\renewcommand\qedsymbol{$\blacksquare$}
+
 	
 	
 %Remove auto-indentation
@@ -117,6 +152,7 @@
 \include{linear_equations/linear_equations}
 \include{determinants/determinants}
 \include{spectral_theory/spectral_theory}
+\include{inner_product_spaces/inner_product_spaces}
 
 
 

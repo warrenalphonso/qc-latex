@@ -1,0 +1,484 @@
+\documentclass[a4paper,10pt]{book}
+
+%Use the following for font size 8 or 9, as 10 is the minimum provided normally
+%\documentclass[8pt]{extbook}
+
+%Compilers
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%Graphics
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{braket}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[xcolor]{mdframed}
+
+%Math shortcuts 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\P}{\mathcal{P}}
+\renewcommand{\L}{\mathcal{L}}
+\DeclareMathOperator{\Span}{span}
+
+%Augmented matrices
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+   \hskip -\arraycolsep
+   \let\@ifnextchar\new@ifnextchar
+   \array{#1}}
+\makeatother
+
+
+%Define abs
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+%Defining norm
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+%Defining inner product
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+
+
+%Reducing margin
+\usepackage[margin=2cm]{geometry}
+
+%Header, footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\cfoot{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
+%Index - not used
+\usepackage{makeidx}
+\makeindex
+
+
+%Theorem instantiation
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\definecolor{lightblue1}{RGB}{222, 243, 253}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightblue1,
+	]{theorem}
+	
+%Proof instantiation 
+\definecolor{lightblue2}{RGB}{232, 245, 252}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightblue2,
+	]{proof}
+	
+%Lemma instantiation
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{Lemma}
+\definecolor{lightgreen1}{RGB}{224, 255, 193}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen1,
+	]{lemma}
+
+%Lemma Proof instantiation 
+\theoremstyle{remark}
+\newtheorem*{lproof}{Proof}
+\definecolor{lightgreen2}{RGB}{232, 249, 214}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen2,
+	]{lproof}
+
+%Definition instantiation
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\definecolor{lightgreen}{RGB}{219, 255, 188}
+\definecolor{subtlegray}{RGB}{248, 248, 248}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = subtlegray,
+	]{definition}
+	
+%Change QED symbol to solid black square
+\renewcommand\qedsymbol{$\blacksquare$}
+
+	
+	
+%Remove auto-indentation
+\setlength{\parindent}{0cm}
+
+%Preferred font and spacing
+\linespread{1.3}
+%\usepackage{lmodern}
+\usepackage{kpfonts}
+%\usepackage{tgschola}
+
+
+\begin{document}
+
+\frontmatter 
+{\let\cleardoublepage\clearpage 
+%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
+\begin{titlepage}
+	\centering
+	{\scshape\LARGE University of California, Berkeley \par}
+	\vspace{3cm}
+	{\scshape\Large Literally everything I know about \par}
+	\vspace{1.5cm}
+	{\huge\bfseries Linear Algebra\par}
+	\vspace{2.5cm}
+	{\Large\itshape Warren Alphonso\par}
+	\vfill
+	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, as well as \textsc{Linear Algebra Done Wrong} by Treil. \par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+}
+
+\mainmatter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Inner Product Spaces}
+
+Keep in mind that theory for inner product space is only developed for $\mathbb{R}$ and $\mathbb{C}$, so $\mathbb{F}$ will always denote one of those two fields in this chapter. 
+
+\section{Inner Product}
+
+\begin{definition}
+We define the \textbf{norm} of a vector to be the generalization of \textit{length}. That is, the norm of a vector $x \in \mathbb{R}^{n}$ is 
+$$\norm{x} = \sqrt{x_{1}^{2} + \cdots + x_{n}^{2}}$$
+
+For any complex number $z = x + iy$, we can write $\abs{z}^{2} = x^{2} + y^{2} = z \overline{z}$, where $\overline{z}$ denotes the complex conjugate of $z$. So for any $z$ in a complex field $\mathbb{C}^{n}$, we can write 
+$$z = \begin{bmatrix}
+z_{1} \\
+\vdots \\
+z_{n}
+\end{bmatrix} = \begin{bmatrix}
+x_{1} + iy_{1} \\
+\vdots \\
+x_{n} + iy_{n}
+\end{bmatrix}$$
+so it is natural to define the norm $\norm{z}$ as 
+$$\norm{z}^{2} = \sum_{k = 1}^{n} (x_{k}^{2} + y_{k}^{2}) = \sum_{k=1}^{n} \abs{z_{k}}^{2}$$
+\end{definition}
+
+\begin{definition}
+The \textbf{inner product} of two vectors $x, y \in \mathbb{R}^{n}$ is
+$$(x, y) = x_{1} y_{1} + \cdots + x_{n} y_{n} = x^{T} y = y^{T} x$$
+
+This yields another definition for the \textbf{norm}: 
+$$\norm{x} = \sqrt{(x, x)}$$
+
+For complex fields, we need a definition of inner product such that $\norm{z}^{2} = (z, z)$. One definition that is consistent with this requirement will be our definition for the \textbf{\textit{standard} inner product in $\mathbb{C}^{n}$}, 
+$$(z, w) = z_{1} \overline{w_{1}} + \cdots + z_{n} \overline{w_{n}}$$
+
+To simplify this, we will define the \textbf{Hermitian adjoint}, or simply \textbf{adjoint} $A^{*}$, by $A^{*} = \overline{A}^{T}$. 
+
+Using this, we can write 
+$$(z, w) = w^{*} z$$ 
+\end{definition}
+
+The inner products we defined for $\mathbb{R}^{n}$ and $\mathbb{C}^{n}$	have the following properties: 
+\begin{enumerate}
+	\item Symmetry: $(x, y) = \overline{(y, x)}$
+	\item Linearity: $(\alpha x + \beta y, z) = \alpha (x, z) + \beta (y, z)$
+	\item Non-negativity: $(x, x) \geq 0$ 
+	\item Non-degeneracy: $(x, x) = 0$ if and only if $x = 0$
+\end{enumerate}
+
+Note that properties 1 and 2 imply that 
+$$(x, \alpha y + \beta z) = \overline{(\alpha y + \beta z, x)} = \overline{\alpha} (x, y) + \overline{\beta} (x, z)$$
+
+\begin{lemma}
+Let $x$ be a vector in $V$. Then $x = 0$ if and only if  
+$$(x, y) = 0 \qquad \forall y \in V$$
+\end{lemma}
+
+\begin{lproof}
+Since $(0, y) = 0$, we need to only show that $x = 0$ if $(x, y) = 0$. Subbing in $y = x$, we get $(x, x) = 0$ and property 3 asserts that $x = 0$. 
+\end{lproof}
+
+\begin{lemma}
+Let $x, y$ be vectors in $V$. Then $x = y$ if and only if  
+$$(x, z) = (y, z) \qquad \forall z \in V$$
+\end{lemma}
+
+\begin{lproof}
+Using the above lemma, if we set $(x - y, z) = 0 \quad \forall z \in V$, then it follows that $x = y$ and $(x, z) = (y, z)$. 
+
+\end{lproof}
+
+\begin{theorem}
+Suppose two operators $X, Y : A \rightarrow B$ satisfy 
+$$(Ax, y) = (Bx, y) \qquad \forall x \in X, \forall y \in Y$$
+Then $A = B$. 
+\end{theorem}
+
+\begin{proof}
+Using the previous lemma, we can fix $x$ and take all $y \in Y$, which means $Ax = Bx$. Since this is true for all $x$, $A$ and $B$ are the same operator. 
+\end{proof}
+
+\begin{theorem}[Cauchy-Schwartz Inequality]
+$$\abs{(x, y)} \leq \norm{x} \cdot \norm{y}$$
+\end{theorem}
+
+\begin{proof}
+If $x$ or $y$ is 0, then the proof is trivial. Assuming neither is 0, we will prove both the real and complex cases. But first consider only the real case: 
+$$0 \leq \norm{x - ty}^{2} = (x - ty, x - ty) = \norm{x}^{2} - 2t(x, y) + t^{2} \norm{y}^{2} $$
+Taking the derivative with respect to $t$ and setting it to 0 gives us $t = \frac{(x, y)}{\norm{y}^{2}}$. We will use this same $t$ value for the following proof of the real and complex cases:
+
+$$
+\begin{aligned}
+0 \leq \norm{x-ty}^{2} &= (x - ty, x - ty) \\ 
+&= (x, x - ty) -t(y, x - ty) \\
+&= \norm{x}^{2} - \overline{t} (x, y) -t (y, x) + \abs{t}^{2} \norm{y}^{2}
+\end{aligned}
+$$
+
+Using property 1 of inner products, we have 
+$$t = \frac{(x, y)}{\norm{y}^{2}} = \frac{\overline{(y, x)}}{\norm{y}^{2}}$$
+Subbing in $t$, we get 
+$$ 0 \leq \norm{x}^{2} - \frac{\abs{(x y)}^{2}}{\norm{y}^{2}}$$
+which completes the proof. 
+\end{proof}
+
+\begin{theorem}[Triangle Inequality]
+$$\norm{x, y} \leq \norm{x} + \norm{y}$$
+\end{theorem}
+
+\begin{proof}
+$$
+\begin{aligned}
+\norm{x + y}^{2} = (x + y, x + y) &= \norm{x}^{2} + \norm{y}^{2} + (x, y) + (y, x) \\
+&\leq \norm{x}^{2} + \norm{y}^{2} + 2 \abs{(x, y)} \\
+&\leq \norm{x}^{2} + \norm{y}^{2} + 2 \norm{x} \cdot \norm{y} \\
+&= (\norm{x} + \norm{y})^{2}
+\end{aligned}
+$$
+\end{proof}
+
+\begin{theorem}
+The following \textbf{polarization identities} allow us to construct the inner product from the norm: 
+
+For $x, y \in \mathbb{R}^{n}$, 
+$$(x, y) = \frac{1}{4} \Big( \norm{x + y}^{2} - \norm{x - y}^{2} \Big) $$
+
+For $x, y \in \mathbb{C}^{n}$, 
+$$(x, y) = \frac{1}{4} \Big( \norm{x + y}^{2} - \norm{x - y}^{2} +i \norm{x + iy}^{2} -i \norm{x - iy}^{2} \Big)$$
+\end{theorem}
+
+\begin{proof}
+For the real case, 
+$$ 
+\begin{aligned}
+\norm{x + y}^{2} - \norm{x - y}^{2} &= (x + y, x + y) - (x - y, x - y) \\
+&= \norm{x}^{2} + \norm{y}^{2} + 2 (x, y) - \norm{x}^{2} - \norm{y}^{2} + 2 (x, y) \\ 
+&= 4 (x, y)
+\end{aligned}
+$$
+
+For the complex case, 
+$$
+\begin{aligned}
+\sum_{k = 0}^{3} i^{k} \norm{x + i^{k}y}^{2} &= \sum_{k = 0}^{3} i^{k} (x + i^{k}y, x + i^{k}y) \\
+&= \sum_{k = 0}^{3} i^{k} \Big( \norm{x}^{2} + \norm{y}^{2} + (x, i^{k}y) + (i^{k}y, x) \Big) \\
+&= \sum_{k = 0}^{3} \Big( i^{k} \norm{x}^{2} + i^{k} \norm{y}^{2} + (x, y) + (i^{2k} y, x) \Big) \\
+&= 4 (x, y)
+\end{aligned}
+$$
+where the last step follows from 
+$$ \sum_{k = 0}^{3} i^{k} = \sum_{k = 0}^{3} i^{2k} = 0$$
+\end{proof}
+
+\begin{theorem}[Parallelogram Identity]
+Another important property of the norm is the parallelogram identity. For vectors $u$ and $v$: 
+$$\norm{u + v}^{2} + \norm{u - v}^{2} = 2( \norm{u}^{2} + \norm{v}^{2} )$$
+\end{theorem}
+
+\begin{proof}
+The theorem follows easily from the fact that the sum of the diagonals of a parallelogram equal the sum of all four sides. 
+\end{proof}
+
+To review, we have so far proved the following properties about the norm $\norm{u}$: 
+\begin{enumerate}
+	\item Homogeneity: $\norm{\alpha u} = \abs{\alpha} \cdot \norm{u}$ 
+	\item Triangle inequality: $\norm{u + v} \leq \norm{u} + \norm{v}$
+	\item Non-negativity: $\norm{u} \geq 0$ 
+	\item Non-degeneracy: $\norm{u} = 0$ if and only if $u = 0$
+\end{enumerate}
+
+In a vector space $V$, if we assign to each vector $u$ a number $\norm{u}$ that satisfies these 4 properties, we can say that the space $V$ is a \textbf{normed space}. 
+
+\section{Orthogonality} 
+\begin{definition}
+Two vectors $u$ and $v$ are \textbf{orthogonal}, denoted $u \perp v$, if and only if $(u, v) = 0$
+\end{definition}
+
+\begin{theorem}
+If $u \perp v$, then 
+$$\norm{u + v}^{2} = \norm{u}^{2} + \norm{v}^{2}$$
+\end{theorem}
+
+\begin{proof}
+$$\norm{u + v}^{2} = \norm{u}^{2} + \norm{v}^{2} + (u, v) + (v, u) = \norm{u}^{2} + \norm{v}^{2}$$
+Since $(u,v) = (v, u) = 0$ because of orthogonality. 
+\end{proof}
+
+\begin{definition}
+A vector $u$ is \textbf{orthogonal to vector space} $V$ if $u$ is orthogonal to all vectors in $V$. 
+\end{definition}
+
+\begin{theorem}
+Let $V$ be spanned by $v_{1}, \cdots, v_{n}$. Then $u \perp V$ if and only if 
+$$u \perp v_{k} \qquad \forall k = 1, \cdots, n$$
+\end{theorem}
+
+\begin{proof}
+Proving ``only if'' is trivial by the definition of $u \perp V$. Proving ``if'' comes easily after noticing that any vector can be rewritten as a linear combination of the basis vectors, so if $u$ is perpendicular to all the basis vectors, then it is perpendicular to any other vector in $V$. 
+\end{proof}
+
+\begin{definition}
+A set of vectors $v_{1}, \cdots, v_{n}$ are orthogonal if any two vectors in the set are orthogonal to each other. If $\norm{v_{k}} = 1$ for all $k$, we call the set orthonormal. 
+\end{definition}
+
+\begin{lemma}[Generalized Pythagorean Theorem]
+Let $v_{1}, \cdots, v_{n}$ be an orthogonal system. Then 
+$$\norm{\sum_{k=1}^{n} a_{k} v_{k}}^{2} = \sum_{k=1}^{n} \abs{a_{k}}^{2} \norm{v_{k}}^{2}$$
+\end{lemma}
+
+\begin{lproof}
+$$\norm{\sum_{k=1}^{n} a_{k} v_{k}}^{2} = \Big( \sum_{k=1}^{n} a_{k} v_{k}, \sum_{j=1}^{n} a_{j} v_{j} \Big) = \sum_{k=1}^{n} \sum_{j=1}^{n} a_{k} \overline{a_{j}} (v_{k}, v_{j})$$
+
+Since the set is orthogonal, $(v_{k}, v_{j})$ is only nonzero when $k = j$, so 
+$$= \sum_{k=1}^{n} \abs{a_{k}}^{2} \norm{v_{k}}^{2}$$
+\end{lproof}
+
+\begin{definition}
+An orthogonal set of vectors that is also a basis is called an \textbf{orthogonal basis}. 
+\end{definition}
+
+Typically, to find coordinates of a vector in a basis, we need to solve a system of equations. For orthogonal bases, it is much simpler. Suppose $v_{1}, \cdots, v_{n}$ is an orthogonal basis and let 
+$$x = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$$
+
+Taking the inner product with $v_{1}$ yields 
+$$(x, v_{1}) = (\sum_{j=1}^{n} \alpha_{j} (v_{j}, v_{1}) = \alpha_{1} (v_{1}, v_{1}) = \alpha_{1} \norm{v_{1}}^{2}$$
+
+Thus, to find any coordinate $\alpha_{k}$ of a vector $x$ in orthogonal basis $v_{1}, \cdots, v_{n}$: 
+$$ \alpha_{k} = \frac{(x, v_{k})}{\norm{v_{k}}^{2}}$$
+
+This is a simple example of abstract orthogonal Fourier decomposition -- simple because classical Fourier decomposition deals with infinite orthonormal systems. 
+
+\section{Orthogonal Projection and Gram-Schmidt Orthogonalization} 
+
+\begin{definition}
+The \textbf{orthogonal projection} of a vector $v$ onto the subspace $E$ is the vector $w := P_{E} v$ such that $w \in E$ and $v - w \perp E$. 
+\end{definition}
+
+\begin{theorem}
+The orthogonal projection $w = P_{E} v$ minimizes the distance from $v$ to $E$. In other words, 
+$$\norm{v - w} \leq \norm{v - x} \qquad \forall x \in E$$
+Additionally, if for some $x \in E$
+$$\norm{v - w} = \norm{v - x}$$
+then $x = w$. 
+\end{theorem}
+
+\begin{proof}
+Let $y = w - x \in E$. Then 
+$$v - x = v - w + w - x = v - w + y$$
+Since $v - w \perp E$, we know $y \perp v - w$. By the Pythagorean Theorem, 
+$$\norm{v - x}^{2} = \norm{v - w}^{2} + \norm{y}^{2} \geq \norm{v - w}^{2}$$
+
+To finish the proof, note that equality only arises when $y = 0$, ie when $x = w$. 
+\end{proof}
+
+There is a formula for finding an orthogonal projection if we know an orthogonal basis in $E$. Let $v_{1}, \cdots, v_{n}$ be an orthogonal basis in $E$. Then the projection $P_{E} v$ of a vector $v$ is 
+$$P_{E} v = \sum_{k=1}^{n} a_{k} v_{k} \qquad where \qquad a_{k} = \frac{(v, v_{k})}{\norm{v_{k}}^{2}}$$
+
+In other words, 
+$$P_{E} v = \sum_{k=1}^{n} \frac{(v, v_{k})}{\norm{v_{k}}^{2}} v_{k}$$
+
+This is great if we have an orthogonal basis, but if even if we only have a basis in $E$, we can use the following algorithm to find an orthogonal basis. 
+
+\begin{theorem}[Gram-Schmidt Orthogonalization Algorithm]
+Suppose we have linearly independent system $x_{1}, \cdots, x_{n}$. The Gram-Schmidt algorithm constructs from this an orthogonal system $v_{1}, \cdots, v_{n}$ such that 
+$$span(x_{1}, \cdots, x_{n}) = span(v_{1}, \cdots, v_{n})$$
+Additionally, for all $r \leq n$ 
+$$span(x_{1}, \cdots, x_{r}) = span(v_{1}, \cdots, v_{r})$$
+
+The algorithm is as follows: 
+\begin{enumerate}
+	\item Define $v_{1} := x_{1}$. 
+	
+	Define $E_{1} := span(v_{1}) = span(x_{1})$. 
+	\item Define $v_{2} := x_{2} - P_{E_{1}} x_{2} = x_{2} - \frac{(x_{2}, v_{1})}{\norm{v_{1}}^{2}} v_{1}$. 
+	
+	Define $E_{2} := span(v_{1}, v_{2}) = span(x_{1}, x_{2})$. 
+	\item Define $v_{3} := x_{3} - P_{E_{2}} x_{3} = x_{3} - \frac{(x_{3}, v_{1})}{\norm{v_{1}}^{2}} v_{1} - \frac{(x_{3}, v_{2})}{\norm{v_{2}}^{2}} v_{2}$. 
+	
+	Define $E_{3} := span(v_{1}, v_{2}, v_{3}) = span(x_{1}, x_{2}, x_{3})$. 
+	
+	\item Continue until we have $n$ vectors and $span(v_{1}, \cdots, v_{n}) = span(x_{1}, \cdots, x_{n})$. The formula for vector $v_{r + 1}$ given $v_{1}, \cdots, v_{r}$ is 
+	$$ v_{r + 1} := x_{r + 1} - P_{E_{r}} x_{r + 1} = x_{r + 1} - \sum_{k = 1}^{r} \frac{(x_{r + 1}, v_{k})}{\norm{v_{k}}^{2}} v_{k}$$
+\end{enumerate}
+
+Note that at each step, we are adding in $x_{r + 1}$ which means the resulting vector will not exist in $E_{r}$. 
+\end{theorem}
+
+\begin{proof}
+At each step, we add in $x_{r + 1}$ and then subtract its projection the subspace spanned by $x_{1}, \cdots, x_{r}$, meaning each additional vector is orthogonal to the ones previously defined. Since we set $v_{1} = x_{1}$, we have proved the algorithm by induction. 
+\end{proof}
+
+Since multiplication by a scalar does not change orthogonality, we can multiply vectors $v_{k}$ returned by Gram-Schmidt by any non-zero numbers. One use case is to normalize the orthogonal vectors by dividing by their norms $\norm{v_{k}}$ to yield an orthonormal system. 
+
+\begin{definition}
+For a subspace $E$, its \textbf{orthogonal complement $E^{\perp}$} is the set of all vectors orthogonal to $E$. Since at least 0 is orthogonal to $E$, $E^{\perp}$ is always a subspace. 
+\end{definition}
+
+By the definition of orthogonal projection, any vector in an inner product space $V$ has a unique representation of the form 
+$$v = v_{1} + v_{2} \qquad v_{1} \in E, v_{2} \in E^{\perp}$$
+This statement is usually written as $V = E \oplus E^{\perp}$.
+
+\begin{theorem}
+For subspace $E$ of $V$, 
+$$(E^{\perp})^{\perp} = E$$
+\end{theorem}
+
+\begin{proof}
+We will show $E \subseteq (E^{\perp})^{\perp}$ and $(E^{\perp})^{\perp} \subseteq E$.
+
+Let $u \in E$. Then $(u, v) = 0$ for all $v \in E^{\perp}$. Since $u$ is orthogonal to every vector $v \in E^{\perp}$, then $u \in (E^{\perp})^{\perp}$ so $E \subseteq (E^{\perp})^{\perp}$. 
+
+Now let $u \in (E^{\perp})^{\perp}$. Since $V = E \oplus E^{\perp}$, we can write $u = v + w$, where $v \in E$ and $w \in E^{\perp}$. This means that $u - v = w \in E^{\perp}$. Since we know $E \subseteq (E^{\perp})^{\perp}$, we have $u \in  (E^{\perp})^{\perp}$ and $v \in (E^{\perp})^{\perp}$, which means $u - v \in  (E^{\perp})^{\perp}$. Therefore, $u - v \in E^{\perp} \cap (E^{\perp})^{\perp}$. Since the only vector that is orthogonal to itself is 0, $u = v$, and because $v \in E$, $(E^{\perp})^{\perp} \subseteq E$. 
+\end{proof}
+
+\section{Least Square Solution} 
+
+\end{document}
