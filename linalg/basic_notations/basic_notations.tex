@@ -7,7 +7,7 @@ A \textbf{vector space} $V$ is a collection of vectors, along with vector additi
 	\item Commutative: $v + w = w + v$
 	\item Associative: $(u + v) + w = u + (v + w)$
 	\item Zero vector: $ v + 0 = v$
-	\item Additive inverse: $ v + w = 0$
+	\item Additive inverse: $ v + (-v) = 0$
 	\item Multiplicative identity: $ 1v = v$
 	\item Multiplicative associative: $ (\alpha \beta)v = \alpha(\beta v)$
 	\item Distribution of scalars: $ \alpha(u + v) = \alpha u + \alpha v$
@@ -15,7 +15,7 @@ A \textbf{vector space} $V$ is a collection of vectors, along with vector additi
 \end{enumerate}
 \end{definition}
 
-These properties are simply to ensure that vector spaces are \textbf{abelian groups}.
+These properties ensure that vector spaces are \textbf{abelian groups}.
 
 \begin{definition}
 An $m \times n$ \textbf{matrix} is an array with $m$ rows and $n$ columns. Elements of a matrix are called \textit{entries}. Given a matrix $A$, its \textbf{transpose} is defined as the matrix whose columns are $A$'s rows, so $A^{T}$ is an $n \times m$ matrix. 
@@ -30,7 +30,7 @@ $$\alpha_{1} v_{1} + \cdots + \alpha_{p} v_{p} = \sum_{k = 1}^{p} \alpha_{k} v_{
 \begin{definition}
 A set of vectors $v_{1}, \cdots, v_{n}$ is said to be \textbf{linearly independent} if the equation 
 $$\alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n} = 0$$
-has only the trivial solution. 
+has only the trivial solution where all coefficients are 0. 
 \end{definition}
 
 \begin{definition}
@@ -39,14 +39,14 @@ $$u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$$
 The coefficients $\alpha_{1}, \cdots, \alpha_{n}$ are called \textit{coordinates} of $u$.
 \end{definition}
 
-Fundamentally, our definition of basis states that a basis must be spanning and unique. In order for a representation to be unique, we know the basis must be linearly independent. 
+Fundamentally, our definition of basis requires that it must be spanning and unique. In order for a representation to be unique, we know the basis must be linearly independent. 
 
 \begin{theorem}
 A set of vectors $v_{1}, \cdots, v_{p} \in V$ is a basis if and only if it is linearly independent and complete (spanning). 
 \end{theorem}
 
 \begin{proof}
-We already know basis must be linearly independent and spanning, so we just need to prove the other direction. 
+We already know a basis must be linearly independent and spanning, so we just need to prove the other direction. 
 
 Suppose the set $v_{1}, \cdots, v_{p}$ is linearly independent. Then we know for some vector $u \in V$:
 $$u = \sum_{k=1}^{n} \alpha_{k} v_{k}$$
@@ -73,7 +73,7 @@ A mapping $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$ is \textit{onto} $\math
 A mapping $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$ is \textit{one-to-one} if each $b$ in $\mathbb{F}^{m}$ is the image of at most one $x$ in $\mathbb{F}^{n}$. 
 \end{definition}
 
-We can represent linear transformations with matrices. To represent a transformation $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$, we need to only how our $n$ basis vectors are transformed. To see this, note that any vector $u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$. So $T(x) = \alpha{1} T(v_{1}) + \cdots + \alpha_{n} T(v_{n})$. If we join the vectors $T(v_{1}), \cdots, T(v_{n})$ in a matrix $A = \begin{bmatrix}
+We can represent linear transformations with matrices. To represent a transformation $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$, we need to only know our $n$ basis vectors are transformed. To see this, note that any vector $u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$. So $T(u) = \alpha_{1} T(v_{1}) + \cdots + \alpha_{n} T(v_{n})$. If we join the vectors $T(v_{1}), \cdots, T(v_{n})$ in a matrix $A = \begin{bmatrix}
 T(v_{1}) & \cdots & T(v_{n})
 \end{bmatrix}$, we have captured all the information about $T$. 
 
@@ -102,7 +102,7 @@ $$\begin{bmatrix}
 10
 \end{bmatrix}$$
 
-\textit{Row by column rule:} To get entry $k$ of the result, multiply row $k$ of the matrix with the column. 
+\textit{Row by column rule:} To get entry $k$ of the result, multiply row $k$ of the matrix with the vector. 
 $$\begin{bmatrix}
 1 & 2 & 3 \\
 3 & 2 & 1
@@ -128,7 +128,7 @@ Ab_{1} & \cdots & Ab_{n}
 \end{bmatrix}$$
 Using the \textit{row by columns rule}, we can see that the $(AB)_{j,k} = (\text{row $j$ of $A$}) \cdot (\text{column $k$ of $B$})$. This also means $AB$ is only defined if $A$ is $m \times n$ and $B$ is $n \times r$. 
 
-Let $A$ be an $m \times n$ matrix and let $B$ and $C$ have sizes for which the indicated sums and products are defined. 
+Let $A$ be an $m \times n$ matrix and let $B$ and $C$ have sizes for which the indicated sums and products are defined. Then:
 \begin{enumerate}
 	\item $A(BC) = (AB)C$
 	\item $A(B + C) = AB + AC$
@@ -154,19 +154,23 @@ The \textbf{transpose} of $A$ is the matrix whose columns are formed from the co
 \end{enumerate}
 
 To understand the final property, let $AB$ denote a $n \times m$ matrix so that 
-$$AB = \begin{bmatrix}
+$$
+\begin{aligned}
+AB &= \begin{bmatrix}
 A_{1*} \cdot B_{1} & A_{1*} \cdot B_{2} & \cdots & A_{1*} \cdot B_{m} \\
 A_{2*} \cdot B_{1} & A_{2*} \cdot B_{2} & \cdots & A_{2*} \cdot B_{m} \\
 \vdots & \vdots &  & \vdots \\
 A_{n*} \cdot B_{1} & A_{n*} \cdot B_{2} & \cdots & A_{n*} \cdot B_{m} \\
-\end{bmatrix}$$
-$$(AB)^{T} = \begin{bmatrix}
+\end{bmatrix} \\
+(AB)^{T} &= \begin{bmatrix}
 A_{1*} \cdot B_{1} & A_{2*} \cdot B_{1} & \cdots & A_{n*} \cdot B_{1} \\
 A_{1*} \cdot B_{2} & A_{2*} \cdot B_{2} & \cdots & A_{n*} \cdot B_{2} \\
 \vdots & \vdots &  & \vdots \\
 A_{1*} \cdot B_{m} & A_{2*} \cdot B_{m} & \cdots & A_{n*} \cdot B_{m} \\
 
-\end{bmatrix}$$
+\end{bmatrix}
+\end{aligned}
+$$
 
 where $A_{\alpha *}$ denotes the $\alpha$th row of a $A$. Note that $(AB)^{T}_{jk} = (\text{row $k$ of $A$}) \cdot (\text{column $j$ of $B$}) = (\text{row $j$ of $B^{T}$}) \cdot (\text{column $k$ of $A^{T}$}) $. 
 
@@ -178,20 +182,25 @@ $$trace(A) = \sum_{k=1}^{n} a_{k, k}$$
 \end{definition}
 
 \begin{theorem}
-Let $A$ and $B$ be size $m \times n$ and $n \times m$, respectively. Then $$trace(AB) = trace(BA)$$
+Let $A$ and $B$ be sizes $m \times n$ and $n \times m$, respectively. Then $$trace(AB) = trace(BA)$$
 \end{theorem}
 
 \begin{proof}
-We need only show that the diagonal entries of $AB$ are the same as the diagonal entries of $BA$. Using the \textit{row by columns rule}, we know $(AB)_{j, k} = (\text{row $j$ of $A$}) \cdot (\text{column $k$ of $B$})$, so when applying to diagonal entries we get $(AB)_{k, k} = (BA)_{k, k} = (\text{row $k$ of $A$}) \cdot (\text{column $k$ of $B$})$
+We need only show that the diagonal entries of $AB$ are the same as the diagonal entries of $BA$. 
+
+$$tr(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} A_{ij} B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m} B_{ji} A_{ij} = \sum_{j=1}^{n} (BA)_{jj} = tr(BA)$$
+
 \end{proof}
 
 \section{Invertible Transformations and Isomorphisms}
 \begin{definition}
-An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A = I$. 
+An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A = I$ and $AA^{-1} = I$. 
+
+An $n \times n$ matrix $A$ is \textit{left invertible} if there is matrix $B$ such that $BA = I$ and is \textit{right invertible} if there is a matrix $C$ such that $AC = I$. If $A$ is both left and right invertible, then $A$ is called \textbf{invertible}. 
 \end{definition}
 
 \begin{theorem}
-If $A$ and $B$ are invertible (and such that $AB$ is defined), then the product $AB$ is invertible and 
+If $A$ and $B$ are invertible (and $AB$ is defined), then the product $AB$ is invertible and 
 $$(AB)^{-1} = B^{-1} A^{-1}$$
 \end{theorem}
 

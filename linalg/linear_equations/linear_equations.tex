@@ -2,20 +2,20 @@
 \section{Representations of Linear Systems}
 The first understanding of a \textit{linear system} is simply a collection of $m$ linear equations with $n$ unknowns $x_{1}, \cdots, x_{n}$. To solve this system entails finding all $n$-tuples of numbers $x_{1}, \cdots, x_{n}$ which satisfy the $m$ equations simultaneously. If we define 
 $$A = \begin{bmatrix}
-\alpha_{1, 1} & \alpha_{1, 2} & \cdots & \alpha_{1, n} \\
-\alpha_{2, 1} & \alpha_{2, 2} & \cdots & \alpha_{2, n} \\
+\alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n} \\
+\alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n} \\
 \vdots & \vdots & & \vdots \\
-\alpha_{m, 1} & \alpha_{m, 2} & \cdots & \alpha_{m, n}
+\alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{mn}
 \end{bmatrix}$$
 then we can summarize our linear system in matrix form
 $$Ax = b$$
 
 The above is the \textbf{coefficient matrix}. If we want to contain all the information in a single matrix, we can use an \textbf{augmented matrix} 
 $$\begin{bmatrix}[cccc|c]
-\alpha_{1, 1} & \alpha_{1, 2} & \cdots & \alpha_{1, n} & b_{1}\\
-\alpha_{2, 1} & \alpha_{2, 2} & \cdots & \alpha_{2, n} & b_{2}\\
+\alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n} & b_{1}\\
+\alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n} & b_{2}\\
 \vdots & \vdots & & \vdots & \vdots\\
-\alpha_{m, 1} & \alpha_{m, 2} & \cdots & \alpha_{m, n} & b_{m}
+\alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{mn} & b_{m}
 \end{bmatrix}$$
 
 \section{Solving Linear Systems}
@@ -81,7 +81,7 @@ Since a matrix must have unique solution for $Ax = b$ for any $b$ in order to be
 \end{proof}
 This directly implies that an invertible matrix \textbf{must be square}.
 
-Since an invertible matrix must be square and must pivots in every row and column in echelon form, any invertible matrix is row equivalent to the identity matrix. 
+Since an invertible matrix must be square and must have pivots in every row and column in echelon form, any invertible matrix is row equivalent to the identity matrix. 
 
 We can use this to get the following algorithm for finding $A^{-1}$:
 \begin{enumerate}
@@ -102,7 +102,7 @@ I & A^{-1}
 \section{Fundamental Subspaces}
 
 \begin{definition}
-A \textbf{subspace} of vector space $V$ is a non-empty subset $V_{0} \subset V$ which is also a vector space. 
+A \textbf{subspace} of vector space $V$ is a non-empty subset $V_{0} \subset V$ which is also a vector space. Subspaces must be non-empty because all vector spaces must contain the zero vector. 
 \end{definition}
 
 For any linear transformation $A : V \rightarrow W$, we can associate the following subspaces: 
@@ -119,7 +119,7 @@ In addition, we can consider the corresponding subspaces of the transposed matri
 The \textbf{dimension} of a vector space $V$, denoted $dim(V)$, is the number of vectors in a basis. 
 \end{definition}
 
-\begin{theorem}{General solution of a linear equation} 
+\begin{theorem}[General solution of a linear equation] 
 Let a vector $x_{1}$ denote a solution to the equation $Ax = b$, and let $H$ be the set of all solutions of $Ax = 0$. Then the set
 $$x = x_{1} + x_{h} : x_{h} \in H$$
 is the set of \textit{all solutions} of the equation $Ax = b$. 
@@ -127,7 +127,6 @@ is the set of \textit{all solutions} of the equation $Ax = b$.
 In other words, 
 $$\Big(\text{General solution of $Ax=b$}\Big) = \Big(\text{A particular solution of $Ax=b$}\Big) + \Big(\text{General solution of $Ax=0$}\Big)$$
 \end{theorem}
-
 \begin{proof}
 We know $Ax_{1} = b$ and $Ax_{h} = 0$. For $x = x_{1} + x_{h}$,
 $$Ax = A(x_{1} + x_{h}) = Ax_{1} + Ax_{h} = b + 0 = b$$
@@ -135,7 +134,7 @@ $$Ax = A(x_{1} + x_{h}) = Ax_{1} + Ax_{h} = b + 0 = b$$
 Therefore, any solution $x$ for $Ax = b$ can be represented as $x = x_{1} + x_{h}$ with some $x_{h} \in H$. 
 \end{proof}
 
-The power of this theorem is its generality - it applies to all linear equations. Aside from showing the structure of the solution set, this theorem allows us to separate investigation of uniqueness from existence. To study existence, we only need to analyze uniqueness of $Ax = 0$, which always has a solution. 
+The power of this theorem is its generality -- it applies to all linear equations. Aside from showing the structure of the solution set, this theorem allows us to separate investigations of uniqueness from existence. To study uniqueness of a solution, we only need to analyze uniqueness of $Ax = 0$, which always has a solution. 
 
 \begin{theorem}
 In order to compute the fundamental subspaces, we need to do row reduction. Let $A$ be the original matrix and let $A_{e}$ be its echelon form. 
@@ -246,7 +245,7 @@ The \textbf{rank} of a linear transformation $A$, denoted $rank(A)$, is the dime
 $$rank(A) := Dim(Range(A))$$
 \end{definition}
 
-\begin{theorem}{The Rank Theorem}
+\begin{theorem}[The Rank Theorem]
 For a matrix $A$ 
 $$rank(A) = rank(A^{T})$$
 
@@ -256,8 +255,8 @@ The proof of this is trivial since rank of both column space and row space are d
 \begin{theorem}
 Let $A$ be an $m \times n$ matrix. Then 
 \begin{enumerate}
-	\item $dim(Null(A)) + dim(Range(A)) = n$ (dimension of domain)
-	\item $dim(Null(A^{T})) + dim(Range(A^{T})) = dim(Null(A^{T})) + rank(A) = m$ (dimension of codomain)
+	\item $dim(Null(A)) + dim(Range(A)) = n$ (dim of domain)
+	\item $dim(Null(A^{T})) + dim(Range(A^{T})) = dim(Null(A^{T})) + rank(A) = m$ (dim of codomain)
 \end{enumerate}
 \end{theorem}
 
