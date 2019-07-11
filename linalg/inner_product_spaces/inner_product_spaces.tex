@@ -107,7 +107,7 @@ which completes the proof.
 \end{proof}
 
 \begin{theorem}[Triangle Inequality]
-$$\norm{x, y} \leq \norm{x} + \norm{y}$$
+$$\norm{x + y} \leq \norm{x} + \norm{y}$$
 \end{theorem}
 
 \begin{proof}
@@ -163,7 +163,7 @@ $$\norm{u + v}^{2} + \norm{u - v}^{2} = 2( \norm{u}^{2} + \norm{v}^{2} )$$
 The theorem follows easily from the fact that the sum of the diagonals of a parallelogram equal the sum of all four sides. 
 \end{proof}
 
-To review, we have so far proved the following properties about the norm $\norm{u}$: 
+To review, we have just proved the following properties about the norm $\norm{u}$: 
 \begin{enumerate}
 	\item Homogeneity: $\norm{\alpha u} = \abs{\alpha} \cdot \norm{u}$ 
 	\item Triangle inequality: $\norm{u + v} \leq \norm{u} + \norm{v}$
@@ -249,7 +249,7 @@ then $x = w$.
 \begin{proof}
 Let $y = w - x \in E$. Then 
 $$v - x = v - w + w - x = v - w + y$$
-Since $v - w \perp E$, we know $y \perp v - w$. By the Pythagorean Theorem, 
+Since $v - w \perp E$, we know $v - w \perp y$. By the Pythagorean Theorem, 
 $$\norm{v - x}^{2} = \norm{v - w}^{2} + \norm{y}^{2} \geq \norm{v - w}^{2}$$
 
 To finish the proof, note that equality only arises when $y = 0$, ie when $x = w$. 
@@ -261,7 +261,7 @@ $$P_{E} v = \sum_{k=1}^{n} a_{k} v_{k} \qquad where \qquad a_{k} = \frac{(v, v_{
 In other words, 
 $$P_{E} v = \sum_{k=1}^{n} \frac{(v, v_{k})}{\norm{v_{k}}^{2}} v_{k}$$
 
-This is great if we have an orthogonal basis, but if even if we only have a basis in $E$, we can use the following algorithm to find an orthogonal basis. 
+Note that this only works if we have an \textit{orthogonal} basis. However, even if we only have a basis in $E$, we can use the following algorithm to find an orthogonal basis. 
 
 \begin{theorem}[Gram-Schmidt Orthogonalization Algorithm]
 Suppose we have linearly independent system $x_{1}, \cdots, x_{n}$. The Gram-Schmidt algorithm constructs from this an orthogonal system $v_{1}, \cdots, v_{n}$ such that 
@@ -294,6 +294,36 @@ At each step, we add in $x_{r + 1}$ and then subtract its projection the subspac
 
 Since multiplication by a scalar does not change orthogonality, we can multiply vectors $v_{k}$ returned by Gram-Schmidt by any non-zero numbers. One use case is to normalize the orthogonal vectors by dividing by their norms $\norm{v_{k}}$ to yield an orthonormal system. 
 
+\begin{theorem}
+For any orthogonal projection, $P(v): V \rightarrow E$, $$P^{2} = P$$
+\end{theorem}
+
+\begin{proof}
+We know that for some orthogonal basis $v_{1}, \cdots, v_{n}$ for $E$, 
+$$P(v) = \sum_{k=1}^{n} \frac{(v, v_{k}}{\norm{v_{k}}^{2}} v_{k}$$
+
+If $v \in E$, then 
+$$v = \sum_{k=1}^{n} \frac{(v, v_{k}}{\norm{v_{k}}^{2}} v_{k}$$
+so $P(v) = v$ for all $v \in E$. 
+\end{proof}
+
+The idea of orthogonality is not unique to vector spaces. As an example, we will use Gram-Schmidt to construct a set of \textit{orthogonal polynomials} over the interval [-1,1]. Let us define the inner product on the space of polynomials as $(f, g) = \int_{-1}^{1} f(t) g(t) dt$. Now, we will use Gram-Schmidt to construct an orthogonal basis of polynomials from the basis $1, t, t^{2}, t^{3}$ such that for each polynomial $P(1) = 1$.
+
+We know that 
+$$v_{1} := 1$$
+Then, we define 
+$$v_{2} := t - \frac{(t, 1)}{(1, 1)} 1 = t - \frac{\int_{-1}^{1} t dt}{\int_{-1}^{1} dt} = t
+$$
+
+Next, we define 
+$$v_{3} := t^{2} - \frac{(t^{2}, 1)}{(1, 1)} 1 - \frac{(t^{2}, t)}{(t, t} t = t^{2} - \frac{\int_{-1}^{1} t^{2} dt}{\int_{-1}^{1} dt} - \frac{\int_{-1}^{1} t^{3} dt}{\int_{-1}^{1} t^{2} dt} = \frac{1}{2} (3t^{2} - 1)$$
+
+Note that we scaled the $v_{3}$ to satisfy $P(1) = 1$. Finally, we define 
+$$v_{4} := t^{3} - \frac{(t^{3}, 1)}{(1, 1)} 1 - \frac{(t^{3}, t)}{(t, t)} t - \frac{(t^{3}, t^{2})}{(t^{2}, t^{2})} t^{2} = t^{3} - \frac{\int_{-1}^{1} t^{4} dt}{\int_{-1}^{1} t^{2} dt} t = \frac{1}{2} (5t^{3} - 3t)$$
+
+These are the first 4 of \textbf{Legendre's polynomials}, a set of important polynomials which appear in many different branches of mathematics. 
+
+\subsection{Orthogonal Complement}
 \begin{definition}
 For a subspace $E$, its \textbf{orthogonal complement $E^{\perp}$} is the set of all vectors orthogonal to $E$. Since at least 0 is orthogonal to $E$, $E^{\perp}$ is always a subspace. 
 \end{definition}
@@ -314,6 +344,31 @@ Let $u \in E$. Then $(u, v) = 0$ for all $v \in E^{\perp}$. Since $u$ is orthogo
 
 Now let $u \in (E^{\perp})^{\perp}$. Since $V = E \oplus E^{\perp}$, we can write $u = v + w$, where $v \in E$ and $w \in E^{\perp}$. This means that $u - v = w \in E^{\perp}$. Since we know $E \subseteq (E^{\perp})^{\perp}$, we have $u \in  (E^{\perp})^{\perp}$ and $v \in (E^{\perp})^{\perp}$, which means $u - v \in  (E^{\perp})^{\perp}$. Therefore, $u - v \in E^{\perp} \cap (E^{\perp})^{\perp}$. Since the only vector that is orthogonal to itself is 0, $u = v$, and because $v \in E$, $(E^{\perp})^{\perp} \subseteq E$. 
 \end{proof}
+
+Now suppose $P$ is the orthogonal projection onto subspace $E$, and $Q$ is the orthogonal projection onto the orthogonal complement $E^{\perp}$. 
+
+\begin{lemma}
+$$ P + Q = I \text{ and } PQ = 0$$ 
+\end{lemma}
+
+\begin{lproof}
+For any inner product space $V$, we have $V = E \oplus E^{\perp}$. This means that for any vector $v \in V$, $P(v) = e_{1}$ where $e_{1} \in E$, and so $(I - P)v = v - e_{1} = e_{2}$ where $e_{2} \in E^{\perp}$, which means $Q = I - P$. 
+
+Now, $$P + Q = P + I - P = I$$
+and $$PQ = P(I - P) = P - P^{2} = P - P = 0$$
+\end{lproof}
+
+\begin{theorem}
+$P - Q$ is its own inverse. 
+\end{theorem}
+
+\begin{proof}
+We must show that $(P-Q)(P-Q) = I$. 
+
+Expanding
+$$(P-Q)(P-Q) = P^{2} - PQ - QP + Q^{2} = P + Q = I$$
+\end{proof}
+
 
 \section{Least Square Solution} 
 Recall that $Ax = b$ has a solution if and only if $b \in Range(A)$. In real life, it is impossible to avoid errors. The simplest way to approximate a solution is to choose an approximation $\hat{x}$ to minimize the error $e = \norm{A \hat{x} - b}$. This is the \textbf{least square solution}. 
@@ -375,7 +430,7 @@ $$(Ax, y) = (x, A^{*} y) = (x, By)$$
 which means $A^{*} = B$.
 \end{lproof}
 
-\textbf{Properties of the adjoin operators (matrices):}
+Properties of the adjoint operator:
 \begin{enumerate}
 	\item $(A + B)^{*} = A^{*} + B^{*}$ 
 	\item $(\alpha A)^{*} = \overline{\alpha} A^{*}$ 
@@ -407,6 +462,20 @@ Since $(x, Ay) = (A^{*}x, y)$, this is equivalent to
 $$(A^{*} x, y) = 0 \qquad \forall y$$
 
 This means that $A^{*}x = 0$, which means $x \in Ker(A^{*})$. 
+\end{proof}
+
+We can use the idea of adjoint operators to prove another property of orthogonal projections. 
+
+\begin{theorem}
+If $P: V \rightarrow E$ is an orthogonal projection, it is self-adjoint. 
+\end{theorem}
+
+\begin{proof}
+Recall that any $v_{k}$ can be written as a sum of vectors in $E$ and $E^{\perp}$, $v_{k} = e_{k} + \widetilde{e_{k}}$. Then
+$$(Pv_{1}, v_{2}) = (u_{1}, u_{2} + \widetilde{u_{2}}) = (u_{1}, u_{2}) + (u_{1}, \widetilde{u_{2}}) = (u_{1}, u_{2})$$
+and 
+$$(v_{1}, Pv_{2}) = (u_{1} + \widetilde{u_{1}}, u_{2}) = (u_{1}, u_{2}) + (\widetilde{u_{1}}, u_{2}) = (u_{1}, u_{2})$$
+Since $(Tv_{1}, v_{2}) = (v_{1}, Tv_{2})$, $T = T^{*}$. 
 \end{proof}
 
 \section{Isometries and Unitary Operators}
@@ -483,7 +552,7 @@ $$det(A^{*}) = \overline{det(A)}$$
 \end{lemma}
 
 \begin{lproof}
-Recall that the determinant of a matrix is equal to the product of its eigenvalues. We will show that the for any eigenvalue $\lambda$ of $A$, $\overline{\lambda}$ is an eigenvalue of $A^{*}$. 
+Recall that the determinant of a matrix is equal to the product of its eigenvalues. We will show that for any eigenvalue $\lambda$ of $A$, $\overline{\lambda}$ is an eigenvalue of $A^{*}$. 
 
 Note that $\lambda$ is \textbf{not} an eigenvalue of $A$ if and only if $A - \lambda I$ is invertible, which happens if and only if there exists an operator $B$ such that 
 $$B(A - \lambda I) = (A - \lambda I)B = I$$
