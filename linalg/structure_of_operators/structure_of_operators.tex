@@ -1,0 +1,552 @@
+\documentclass[a4paper,10pt]{book}
+
+%Use the following for font size 8 or 9, as 10 is the minimum provided normally
+%\documentclass[8pt]{extbook}
+
+%Compilers
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%Graphics
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{braket}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[xcolor]{mdframed}
+
+%Math shortcuts 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\P}{\mathcal{P}}
+\renewcommand{\L}{\mathcal{L}}
+\DeclareMathOperator{\Span}{span}
+
+%Augmented matrices
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+   \hskip -\arraycolsep
+   \let\@ifnextchar\new@ifnextchar
+   \array{#1}}
+\makeatother
+
+
+%Define abs
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+%Defining norm
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+%Defining inner product
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+
+
+%Reducing margin
+\usepackage[margin=2cm]{geometry}
+
+%Header, footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\cfoot{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
+%Index - not used
+\usepackage{makeidx}
+\makeindex
+
+
+%Theorem instantiation
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\definecolor{lightblue1}{RGB}{222, 243, 253}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightblue1,
+	]{theorem}
+	
+%Proof instantiation 
+\definecolor{lightblue2}{RGB}{232, 245, 252}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightblue2,
+	]{proof}
+	
+%Lemma instantiation
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{Lemma}
+\definecolor{lightgreen1}{RGB}{224, 255, 193}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen1,
+	]{lemma}
+
+%Lemma Proof instantiation 
+\theoremstyle{remark}
+\newtheorem*{lproof}{Proof}
+\definecolor{lightgreen2}{RGB}{232, 249, 214}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen2,
+	]{lproof}
+
+%Definition instantiation
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\definecolor{lightgreen}{RGB}{219, 255, 188}
+\definecolor{subtlegray}{RGB}{248, 248, 248}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = subtlegray,
+	]{definition}
+	
+%Change QED symbol to solid black square
+\renewcommand\qedsymbol{$\blacksquare$}
+
+	
+	
+%Remove auto-indentation
+\setlength{\parindent}{0cm}
+
+%Preferred font and spacing
+\linespread{1.3}
+%\usepackage{lmodern}
+\usepackage{kpfonts}
+%\usepackage{tgschola}
+
+
+\begin{document}
+
+\frontmatter 
+{\let\cleardoublepage\clearpage 
+%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
+\begin{titlepage}
+	\centering
+	{\scshape\LARGE University of California, Berkeley \par}
+	\vspace{3cm}
+	{\scshape\Large Literally everything I know about \par}
+	\vspace{1.5cm}
+	{\huge\bfseries Linear Algebra\par}
+	\vspace{2.5cm}
+	{\Large\itshape Warren Alphonso\par}
+	\vfill
+	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, as well as \textsc{Linear Algebra Done Wrong} by Treil. \par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+}
+
+\mainmatter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Structure of Operators in Inner Product Spaces}
+
+\section{Schur Representation} 
+
+\begin{theorem}
+Any operator $A: X \rightarrow X$ has an orthonormal basis $u_{1}, \cdots, u_{n}$ in $X$ such that $A$ in this basis is upper triangular. In other words, any $n \times n$ matrix $A$ can be written as 
+$$A = UTU^{*}$$
+where $U$ is unitary and $T$ is an upper triangular matrix. 
+\end{theorem}
+
+\begin{proof}
+We proceed by induction on the dimension of $X$. 
+
+\textbf{Base case:} $dim(X) = 1$
+
+Then $A$ is simply a $1 \times 1$ matrix which is trivially upper triangular. 
+
+\textbf{Inductive hypothesis:} Assume for $X$ with $dim(X) = n$, $A$ can be written as upper triangular in an orthonormal basis. 
+
+\textbf{Inductive step:} We prove the statement for $dim(X) = n + 1$. 
+
+Let $\lambda_{1}$ be an eigenvalue of $A$ and let $u_{1}$ be the corresponding normalized eigenvector of $A$, $Au_{1} = \lambda_{1} u_{1}$. Define $E := u_{1}^{\perp}$ and suppose $v_{2}, \cdots, v_{n + 1}$ is an orthonormal basis of $E$. Note $dim(E) = dim(X) - 1 = n$, so $u_{1}, v_{2}, \cdots, v_{n + 1}$ is an orthonormal basis of $X$. In this basis, $A$ has the form 
+$$\begin{bmatrix}[c|c]
+\lambda_{1} & *** \\
+\hline 
+\quad 0 \quad &  \\
+\vdots & \qquad A_{1} \qquad \\
+0 & 
+\end{bmatrix}
+$$
+The $***$ denote values we don't care about and $A_{1}$ is an $n \times n$ block. Since $A_{1}$ denotes an operator in $E$, we can use our hypothesis to conclude there is an orthonormal basis $u_{2}, \cdots, u_{n + 1}$ in which $A_{1}$ is upper triangular. So in basis $u_{1}, \cdots, u_{n + 1}$, matrix $A_{1}$ is upper triangular, so matrix $A$ is also upper triangular.
+\end{proof}
+
+One use of the Schur representation is to present a more intuitive proof that the determinant of a matrix is the product of its eigenvalues and that the trace of a matrix is the sum of its eigenvalues. 
+
+
+\section{Spectral Theorem for Self-Adjoint and Normal Operators}
+
+\begin{definition}
+An operator $A$ is \textbf{self-adjoint} if $A = A^{*}$. The matrix of a self-adjoint operator is called a \textbf{Hermitian matrix}. There is not a huge distinction between these two terms: self-adjoint refers to general transformation while Hermitian refers to their matrix representations.
+\end{definition}
+
+\begin{theorem}
+Let $A$ be a self-adjoint operator in \textbf{real or complex} inner product space $X$. Then all eigenvalues of $A$ are real and there exists an orthonormal basis of eigenvectors of $A$ in $X$. In matrix form, 
+$$A = UDU^{*}$$
+where $U$ is unitary and $D$ is diagonal with real entries. Additionally, if $A$ is real, $U$ can be chosen to be real. 
+\end{theorem}
+
+\begin{proof}
+We apply our previous theorem to generate a Schur representation of $A$ in some orthonormal basis. What upper triangular matrices are self-adjoint? Only diagonal matrices with real entries meet this condition. This is a sufficient proof of the entire theorem. 
+
+For an independent proof that the eigenvalues of self-adjoint operators are real, let $A = A^{*}$ and $Ax = \lambda x, x \neq 0$. Then 
+$$(Ax, x) = (\lambda x, x) = \lambda (x, x) = \lambda \norm{x}^{2}$$
+Additionally, 
+$$(Ax, x) = (x, A^{*}x) = (x, Ax) = (x, \lambda x) = \overline{\lambda} (x, x) = \overline{\lambda} \norm{x}^{2}$$
+
+This means $\lambda \norm{x}^{2} = \overline{\lambda} \norm{x}^{2}$, which means $\lambda = \overline{\lambda}$ since $x \neq 0$. 
+
+We can also independently prove that eigenvectors of self-adjoint operators are orthogonal. Let $A = A^{*}$ be a self-adjoint operator and let $u, v$ be distinct eigenvectors such that $Au = \lambda u$ and $Av = \mu v$. Then 
+$$(Au, v) = \lambda (u, v)$$ 
+On the other hand, 
+$$(Au, v) = (u, A^{*} v) = (u, Av) = (u, \mu v) = \overline{\mu} (u, v) = \mu (u, v)$$
+Thus, we have $\lambda (u, v) = \mu (u, v)$. Since $\lambda \neq \mu$, $(u, v) = 0$. 
+\end{proof}
+
+What matrices are unitarily equivalent to a diagonal matrix? We know that $D^{*} D = DD^{*}$ for any diagonal matrix $D$. Therefore, $A^{*} A = AA^{*}$ if matrix $A$ is diagonal in some orthonormal basis. 
+
+\begin{definition}
+An operator $N$ is \textbf{normal} if $N^{*}N = NN^{*}$. Clearly, any self-adjoint operator ($A^{*}A = AA^{*}$) and any unitary operator ($U^{*}U = UU^{*} = I$) are normal. Note, however, that a normal operator must act in one space, so any unitary operator acting from one space to another is not normal. 
+\end{definition}
+
+\begin{theorem}
+Any normal operator $N$ in a complex vector space has an orthogonal basis of eigenvectors. In other words, 
+$$N = UDU^{*}$$
+where $U$ is unitary and $D$ is diagonal. Note that even if $N$ is real, we do not claim that $U$ or $D$ are real. Also note that if $D$ is real, then by the previous theorem, $N$ is self-adjoint. 
+\end{theorem}
+
+\begin{proof}
+We apply Schur representation to get an orthonormal basis such that $N$ in this basis is upper triangular. Now all we need to show is that an upper triangular normal matrix must be diagonal. 
+
+We proceed by induction on dimension of $N$. 
+
+\textbf{Base case: } $dim(N) = 1$
+
+A $1 \times 1$ matrix is trivially upper triangular. 
+
+\textbf{Inductive hypothesis: } Assume that any $n \times n$ upper triangular normal matrix is diagonal. 
+
+\textbf{Inductive step: } Prove an $(n+1) \times (n+1)$ upper triangular normal matrix $N$ is also diagonal. 
+
+$$N = \begin{bmatrix}[c|c]
+a_{11} & a_{12} \cdots a_{1n} \\
+\hline
+0 & \\
+\vdots & N_{1} \\
+0 & 
+\end{bmatrix}$$
+where $N_{1}$ is an upper triangular $n \times n$ matrix. (This is the strongest assumption Schur's representation allows us to make.)
+
+We know $N$ is normal and that for normal matrices $N^{*}N = NN^{*}$. Direct computation yields 
+$$(N^{*} N)_{11} = \overline{a_{11}} a{11} = \abs{a_{11}}^{2}$$
+and 
+$$(NN^{*})_{11} = \abs{a_{11}}^{2} + \cdots + \abs{a_{1n}}^{2}$$
+so $(N^{*}N)_{11} = (NN^{*})_{11}$ if $a_{12}, \cdots, a_{1n}$ are all 0. Therefore, 
+$$N = \begin{bmatrix}[c|c]
+a_{11} & 0 \quad \cdots \quad 0 \\
+\hline
+0 & \\
+\vdots & N_{1} \\
+0 & 
+\end{bmatrix}$$
+
+Since $N$ is normal, 
+
+$$N^{*}N = \begin{bmatrix}[c|c]
+\abs{a_{11}}^{2} & 0 \quad \cdots \quad 0 \\
+\hline
+0 & \\
+\vdots & N_{1}^{*} N_{1} \\
+0 & 
+\end{bmatrix} \qquad \text{ and } \qquad NN^{*} = \begin{bmatrix}[c|c]
+\abs{a_{11}}^{2} & 0 \quad \cdots \quad 0 \\
+\hline
+0 & \\
+\vdots & N_{1} N_{1}^{*} \\
+0 & 
+\end{bmatrix}$$
+
+so $N_{1}^{*} N_{1} = N_{1} N_{1}^{*}$, which means $N_{1}$ is also normal, and by the inductive hypothesis, it is diagonal. Thus, matrix $N$ is diagonal. 
+\end{proof}
+
+The following lemma demonstrates a useful characteristic of normal operators. 
+
+\begin{lemma}
+An operator $N: X \rightarrow X$ is normal if and only if 
+$$\norm{Nx} = \norm{N^{*} x} \qquad \forall x \in X$$
+\end{lemma}
+
+\begin{lproof}
+Only if: Let $N$ be normal so $N^{*}N = NN^{*}$. Then 
+$$\norm{Nx}^{2} = (Nx, Nx) = (N^{*}Nx, x) = (NN^{*} x, x) = (N^{*} x, N^{*} x) = \norm{N^{*} x}^{2} $$
+so $\norm{Nx} = \norm{N^{*} x}$.
+
+If: Suppose $\norm{Nx} = \norm{N^{*} x}$ and we want to show $N^{*}N = NN^{*}$. The Polarization Identities imply that $ \forall x, y \in X$, 
+
+$$
+\begin{aligned} 
+(N^{*}N x, y) = (Nx, Ny) &= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{Nx + \alpha Ny}^{2} \\
+&= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{N( x + \alpha y)}^{2} \\
+&= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{N^{*} ( x + \alpha y)}^{2} \\
+&= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{N^{*} x + \alpha N^{*} y}^{2} \\
+&= (N^{*} x, N^{*} y) = (NN^{*} x, y)
+\end{aligned} 
+$$
+and therefore, $N^{*}N = NN^{*}$. 
+\end{lproof}
+
+\section{Polar and Singular Value Decompositions}
+
+\begin{definition}
+A self-adjoint operator $A: X \rightarrow X$ is called \textbf{positive definite} if 
+$$(Ax, x) > 0 \qquad \forall x \neq 0$$
+and is called \textbf{positive semidefininte} if 
+$$(Ax, x) \geq 0 \qquad \forall x \in X$$
+
+We will use $A > 0$ for positive definite operators and $B \geq 0$ for positive semidefinite operators. 
+\end{definition}
+
+\begin{theorem}
+Let $A = A^{*}$. Then 
+\begin{enumerate}
+	\item $A > 0$ if and only if all eigenvalues of $A$ are positive. 
+	\item $A \geq 0$ if and only if all eigenvalues of $A$ are non-negative. 
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We can rewrite a self-adjoint matrix in some orthonormal basis as a diagonal matrix. Note that a diagonal matrix is positive definite or semidefinite if and only if all its diagonal entries (which are also eigenvalues) are positive or non-negative, respectively.  
+\end{proof}
+
+\begin{lemma}
+Let $A = A^{*} \geq 0$ be a positive semidefinite operator. There exists a unique positive semidefinite operator $B$ such that $B^{2} = A$. Such $B$ is called the positive square root of $A$, denoted $\sqrt{A}$.
+\end{lemma}
+
+\begin{lproof}
+First, we'll prove the existence of $\sqrt{A}$. Let $v_{1}, \cdots, v_{n}$ be an orthonormal basis of eigenvectors of $A$ with corresponding eigenvalues $\lambda_{1}, \cdots, \lambda_{n}$. Since $A \geq 0$, all the eigenvalues are non-negative. In this basis, $A$ is a diagonal matrix with diagonal entries $\lambda_{1}, \cdots, \lambda_{n}$. We can define $B =\sqrt{A}$ as the matrix with diagonal entries $\sqrt{\lambda_{1}}, \cdots, \sqrt{\lambda_{n}}$. Clearly, $B^{2} = A$ and $B = B^{*} \geq 0$. 
+
+To prove uniqueness, suppose there exists $C = C^{*} \geq 0$ such that $C^{2} = A$. Suppose $C$ is a diagonal matrix in orthonormal basis of eigenvectors $u_{1}, \cdots, u_{n}$ with diagonal entries $\mu_{1}, \cdots, \mu_{n}$. Since $A = C^{2}$, $A$ must be in the same basis as $C$, so $C$'s eigenvalues are of the form $\sqrt{\lambda_{1}}, \cdots, \sqrt{\lambda_{n}}$, which means $B = C$. 
+\end{lproof}
+
+\begin{definition}
+For an operator $A: X \rightarrow Y$, its \textbf{Hermitian square $A^{*} A$} is a positive semidefinite operator in $X$. It is self-adjoint:
+$$(A^{*} A)^{*} = A^{*} A^{**} = A^{*} A$$
+and positive semidefinite:
+$$(A^{*} Ax, x) = (Ax, Ax) = \norm{Ax}^{2} \geq 0 \qquad \forall x \in X$$
+
+Therefore, by the above lemma there exists a unique positive semidefinite square root $R = \sqrt{A^{*} A}$. $R$ is called the \textbf{modulus} of $A$, denoted $\abs{A}$. The modulus denotes how ``big" $A$ is. 
+\end{definition}
+
+\begin{lemma}
+For linear operator $A: X \rightarrow Y$, 
+$$\norm{\: \abs{A} \: x} = \norm{Ax} \qquad \forall x \in X$$ 
+\end{lemma}
+
+\begin{lproof}
+For any $x \in X$, 
+$$\norm{\: \abs{A} \: x}^{2} = (\abs{A} x, \abs{A} x) = (\abs{A}^{*} \abs{A} x, x) = (\abs{A}^{2} x, x) = (A^{*} A x, x) = (Ax, Ax) = \norm{Ax}^{2}$$
+\end{lproof}
+
+\begin{lemma}
+$$Ker(A) = Ker(\abs{A}) = (Ran(\abs{A}))^{\perp}$$
+\end{lemma}
+
+\begin{lproof}
+The first equality follows from the previous lemma. The second equality follows from the identity $Ker(T) = (Ran(T^{*}))^{\perp}$ which is true because $\abs{A}$ is self-adjoint so $A = A^{*}$. 
+\end{lproof}
+
+\subsection{Polar Decomposition}
+\textbf{I don't really understand this - try using Axler.}
+\begin{theorem}[Polar decomposition of an operator]
+Let $A: X \rightarrow X$ be an operator. Then 
+$$A = U \abs{A}$$
+where $U$ is unitary. 
+\end{theorem}
+
+\begin{proof}
+Consider a vector $x \in Ran(\abs{A})$. Note $x = \abs{A} v$ for some $v \in X$. Define $U_{0} x := Av$. 
+$$\norm{U_{0} x} = \norm{Av} = \norm{ \: \abs{A} \: v} = \norm{x}$$
+This means that $U$ is an isometry from $Ran(\abs{A})$ to $X$. 
+
+We must prove $U_{0}$ is well defined. Suppose $v_{1}$ is another vector such that $x = \abs{A} v_{1}$. If $x = \abs{A} v = \abs{A} v_{1}$, then $v - v_{1} \in Ker(\abs{A})$, so $Av = Av_{1}$, which means $U_{0} x$ is well defined. Now we know $U_{0}$ is unitary. 
+\end{proof}
+
+In the above theorem, note that $U$ is not necessarily unique. In fact, $U$ is unique if and only if $A$ is invertible. To see this, we can find another unitary transformation $U_{1}: Ker(A) \rightarrow (Range(A))^{\perp} = Ker(A^{*})$. The Rank Theorem asserts this is always possible since for square matrices $dim(Ker(A)) = dim(Ker(A^{*}))$. The operator $U = U_{0} + U_{1}$ is unitary since $U_{1}$ maps everything in $Ran(\abs{A})$ to 0, so only $U_{0}$ takes effect, which means $A = U \abs{A}$. Thus, $U$ is only unique if $Ker(A) = 0$. 
+
+\subsection{Schmidt Decomposition}
+
+\begin{definition}
+Eigenvalues of $\abs{A}$ are called \textbf{singular values} of $A$. In other words, if $\lambda_{1}, \cdots, \lambda_{n}$ are eigenvalues of $A^{*}A$, then $\sqrt{\lambda_{1}}, \cdots, \sqrt{\lambda_{n}}$ are singular values of $A$. 
+\end{definition}
+
+Consider an operator $A : X \rightarrow Y$, and let $\sigma_{1}, \cdots, \sigma_{n}$ be the singular values of $A$. Let $\sigma_{1}, \cdots, \sigma_{r}$ be the \textit{non-zero} singular values of $A$. This means $\sigma_{k} = 0 \quad \forall k > r$. 
+
+We know $\sigma_{1}^{2}, \cdots, \sigma_{n}^{2}$ are eigenvalues of $A^{*}A$. Let $v_{1}, \cdots, v_{n}$ be an orthonormal basis of eigenvectors of $A^{*}A$, such that $A^{*}Av_{k} = \sigma_{k}^{2} v_{k}$. This basis exists since $A^{*}A$ is self-adjoint. 
+
+\begin{lemma}
+The system 
+$$w_{k} := \frac{1}{\sigma_{k}} Av_{k} \qquad \forall k = 1, \cdots, r$$
+is an orthonormal system. 
+\end{lemma}
+
+\begin{lproof}
+For any two eigenvectors $v_{j}, v_{k}$, 
+$$\frac{1}{\sigma_{j} \sigma_{k}} (Av_{j}, Av_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} (A^{*} Av_{j}, v_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} (\sigma_{j}^{2} v_{j}, v_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} \sigma_{j}^{2} (v_{j}, v_{k})$$
+which evaluates to 0 if $j \neq k$ or $1$ if $j = k$. 
+\end{lproof}
+
+\begin{definition}
+We can use our formulation of $w_{k} = \frac{1}{\sigma_{k}} Av_{k}$ to rewrite 
+$$A = \sum_{k = 1}^{r} \sigma_{k} w_{k} v_{k}^{*}$$
+To prove this equality is true, if we multiply both sides by $x$, we can write 
+$$Ax = \sum_{k = 1}^{r} \sigma_{k} (x, v_{k}) w_{k}$$
+Since $v_{1}, \cdots, v_{n}$ is an orthonormal basis in $X$, we can substitute $x = v_{j}$ to get 
+$$\sum_{k = 1}^{r} \sigma_{k} (v_{j}, v_{k}) w_{k} = \sigma_{j} (v_{j}, v_{j}) w_{j} = \sigma_{j} w_{j} = Av_{j} \qquad \forall j = 1, \cdots, r$$
+and 
+$$\sum_{k = 1}^{r} \sigma_{k} (v_{j}, v_{k}) w_{k} = 0 = Av_{j} \qquad \forall j > r$$
+Since the equality holds for the orthonormal basis $v_{1}, \cdots, v_{n}$, it is true. This representation is called \textbf{Schmidt Decomposition}.
+\end{definition}
+
+\begin{theorem}
+Let
+$$A = \sum_{k=1}^{r} \sigma_{k} w_{k} v_{k}^{*}$$
+where $\sigma_{k} > 0$, and $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$ are orthonormal systems. Then, this representation gives a Schmidt decomposition of $A$. 
+\end{theorem}
+
+\begin{proof}
+We only need to show that $v_{1}, \cdots, v_{r}$ are eigenvectors of $A^{*}A$. 
+
+Since $w_{1}, \cdots, w_{r}$ is an orthonormal system, 
+$$w_{k}^{*} w_{j} = (w_{j}, w_{k})$$ 
+which is 1 if $j = k$ and 0 otherwise. 
+
+Therefore, we can write 
+$$A^{*} A = \sum_{k=1}^{r} \sum_{j=1}^{r} \sigma_{k} \sigma_{j}    v_{k} w_{k}^{*} w_{j} v_{j}^{*} = \sum_{k=1}^{r} \sigma_{k}^{2} v_{k} v_{k}^{*}$$
+
+If we multiply both sides by $v_{j}$, we get 
+$$A^{*} A v_{j} = \sum_{k=1}^{r} \sigma_{k}^{2} v_{k} v_{k}^{*}v_{j} = \sigma_{j}^{2} v_{j}$$
+
+which means $v_{1}, \cdots, v_{r}$ are eigenvectors of $A^{*} A$. 
+\end{proof}
+
+A corollary of this result is that if 
+$$A = \sum_{k=1}^{r} \sigma_{k} w_{k} v_{k}^{*}$$
+is a Schmidt decomposition of $A$, then 
+$$A^{*} = \sum_{k=1}^{r} \sigma_{k} v_{k} w_{k}^{*}$$
+is a Schmidt decomposition of $A^{*}$. 
+
+\subsection{Singular Value Decomposition}
+
+Let $A : \F^{n} \rightarrow \F^{m}$ and let $\sigma_{1}, \cdots, \sigma_{r}$ be the non-zero singular values of $A$, and let 
+$$A = \sum_{k=1}^{r} \sigma_{k} w_{k} v_{k}^{*}$$ 
+be a Schmidt decomposition of $A$. We can rewrite this in matrix form as 
+$$A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$$
+where $\widetilde{\Sigma}$ is the diagonal matrix of $\sigma_{1}, \cdots, \sigma_{r}$, and $\widetilde{V}$ and $\widetilde{W}$ are matrices with columns $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$, respectively. Note that $\widetilde{V}$ is an $n \times r$ matrix and $\widetilde{W}$ is an $m \times r$ matrix. 
+
+\begin{theorem}
+The number of nonzero singular values of $A$ equals the rank of $A$.
+\end{theorem}
+
+\begin{proof}
+Recall that the singular values of $A$ are the eigenvalues of $A^{*}A$, and the number of nonzero eigenvalues of a square matrix correspond with the matrix's rank.  Since $Ker(A) = Ker(A^{*}A)$, the rank-nullity theorem asserts that $A^{T}A$ and $A$ have the same rank. 
+\end{proof}
+
+If $A$ is invertible, then $m = n = r$, so $\widetilde{V}$ and $\widetilde{W}$ are unitary, and $\widetilde{\Sigma}$ is an invertible diagonal matrix. 
+
+Further, we can always write a similar representation with matrices $V$ and $W$, where $V$ is $n \times n$ and $W$ is $m \times m$. 
+
+To find this representation, we need to complete the bases $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$ to orthogonal bases in $\F^{n}$ and $\F^{m}$, respectively. To do this for $V$, we need to only find an orthogonal basis $v_{r+1}, \cdots, v_{n}$ in $Ker(V^{*})$, and we can always do this using the Gram-Schmidt algorithm. 
+
+Thus, we can write 
+$$A = W \Sigma V^{*}$$
+where $V$ is $n \times n$, $W$ is $m \times m$, and $\Sigma$ is the diagonal matrix of $\sigma_{1}, \cdots, \sigma_{n}$. This representation is the \textbf{singular value decomposition} of $A$. The previous representation, $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$, is the \textbf{reduced} or \textbf{compact} SVD of $A$.
+
+There are many different interpretations of the singular value decomposition. One is that $\Sigma$ is the matrix of $A$ in the orthonormal bases $v_{1}, \cdots, v_{n}$ and $w_{1}, \cdots, w_{n}$, ie $\Sigma = [A]_{B, A}$. \textbf{Insert more interpretations from Wikipedia}
+
+\begin{theorem}
+If we have the singular value decomposition $A = W \Sigma V^{*}$, we can write the polar decomposition
+$$A = (WV^{*}) (V \Sigma V^{*}) = U \abs{A}$$
+where $\abs{A} = V \Sigma V^{*}$ and $U = WV^{*}$. 
+\end{theorem}
+
+\begin{proof}
+Notice that 
+$$A^{*} A = V \Sigma W^{*} W \Sigma V^{*} = V \Sigma \Sigma V^{*} = V \Sigma V^{*} V \Sigma V^{*} = (V \Sigma V^{*})^{2}$$
+This indicates that $\abs{A} = V \Sigma V^{*}$. 
+
+Finally, since $WV^{*}$ is the product of unitary operators, it must also be unitary. Note that this only works if $A$ is square because $W$ and $V$ must also be square so that $WV^{*}$ is defined. 
+\end{proof}
+
+\section{Applications of Singular Value Decomposition}
+
+Because singular value decomposition is diagonalization with respect to two \textit{different} bases, we cannot say must about $A$'s spectral properties with the SVD. However, singular values do tell us a lot about the \textit{metric properties} of a linear transformation, as we'll see. 
+
+\textbf{Do some of the other sections when I understand them.}
+
+\subsection{Moore-Penrose Pseudoinverse}
+
+Recall that finding a least square solution amounts to solving the normal equation 
+$$A^{*} A \hat{x} = A^{*} b$$
+If $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$ is the reduced singular value decomposition of $A$, then 
+$$ x_{0} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b$$
+
+Indeed, $x_{0}$ is a least square solution of $Ax = b$, which means $Ax_{0} = P_{Ran(A)} b$. To see this, 
+$$Ax_{0} = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*} \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b = \widetilde{W} \widetilde{W}^{*} b = P_{Ran(A)} b $$
+
+Our final step uses the fact that $\widetilde{W} \widetilde{W}^{*} = P_{Ran(\widetilde{W})}$: 
+$$P_{Ran(\widetilde{W})} = \widetilde{W} (\widetilde{W}^{*} \widetilde{W})^{-1} \widetilde{W}^{*} = \widetilde{W} \widetilde{W}^{*}$$
+and that $Ran(\widetilde{W}) = Ran(A)$:
+$$
+\begin{aligned}
+P_{Ran(A)} &= (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*}) \big( (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*})^{*} (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*}) \big)^{-1} (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*})^{*} \\
+&= \widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*} ( \widetilde{V} \widetilde{\Sigma}^{*} \widetilde{W}^{*} \widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*} )^{-1} \widetilde{V} \widetilde{\Sigma}^{*} \widetilde{W}^{*} \\
+&= \widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*} \widetilde{V} \widetilde{\Sigma}^{-1} \widetilde{\Sigma}^{*^{-1}} \widetilde{V}^{*}  \widetilde{V} \widetilde{\Sigma}^{*} \widetilde{W}^{*} \\
+&= \widetilde{W} \widetilde{W}^{*} = P_{Ran(\widetilde{W}}
+\end{aligned}
+$$
+
+\begin{definition}
+The operator $A^{\dagger} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} $ is called the \textbf{Moore-Penrose pseudoinverse} of the operator $A$. In other words, the Moore-Pensrose pseudoinverse gives the least square solution to the equation $Ax = b$. 
+
+The following properties of the Moore-Penrose pseudoinverse can be easily proved: 
+\begin{enumerate}
+	\item $A^{\dagger} A = I$
+	\item $(A A^{\dagger})^{*} = A A^{\dagger}$
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+$A^{\dagger}$ is unique. 
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+
+\end{document}
