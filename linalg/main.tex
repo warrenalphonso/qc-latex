@@ -74,6 +74,7 @@
 	]{theorem}
 	
 %Proof instantiation 
+\renewenvironment{proof}{\textsl{Proof.}}{\hfill$\blacksquare$}
 \definecolor{lightblue2}{RGB}{232, 245, 252}
 \surroundwithmdframed[
 	hidealllines = true, 
@@ -90,13 +91,16 @@
 	]{lemma}
 
 %Lemma Proof instantiation 
-\theoremstyle{remark}
-\newtheorem*{lproof}{Proof}
+%\theoremstyle{remark}
+%\newtheorem*{lproof}{Proof}
+\newenvironment{lproof}{\textsl{Proof.}}{\hfill$\blacksquare$}
 \definecolor{lightgreen2}{RGB}{232, 249, 214}
 \surroundwithmdframed[
 	hidealllines = true, 
 	backgroundcolor = lightgreen2,
 	]{lproof}
+	
+
 
 %Definition instantiation
 \theoremstyle{definition}
@@ -107,11 +111,7 @@
 	hidealllines = true, 
 	backgroundcolor = subtlegray,
 	]{definition}
-	
-%Change QED symbol to solid black square
-\renewcommand\qedsymbol{$\blacksquare$}
-
-	
+		
 	
 %Remove auto-indentation
 \setlength{\parindent}{0cm}

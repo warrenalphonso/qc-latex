@@ -74,6 +74,7 @@
 	]{theorem}
 	
 %Proof instantiation 
+\renewenvironment{proof}{\textsl{Proof.}}{\hfill$\blacksquare$}
 \definecolor{lightblue2}{RGB}{232, 245, 252}
 \surroundwithmdframed[
 	hidealllines = true, 
@@ -90,13 +91,16 @@
 	]{lemma}
 
 %Lemma Proof instantiation 
-\theoremstyle{remark}
-\newtheorem*{lproof}{Proof}
+%\theoremstyle{remark}
+%\newtheorem*{lproof}{Proof}
+\newenvironment{lproof}{\textsl{Proof.}}{\hfill$\blacksquare$}
 \definecolor{lightgreen2}{RGB}{232, 249, 214}
 \surroundwithmdframed[
 	hidealllines = true, 
 	backgroundcolor = lightgreen2,
 	]{lproof}
+	
+
 
 %Definition instantiation
 \theoremstyle{definition}
@@ -107,11 +111,7 @@
 	hidealllines = true, 
 	backgroundcolor = subtlegray,
 	]{definition}
-	
-%Change QED symbol to solid black square
-\renewcommand\qedsymbol{$\blacksquare$}
-
-	
+		
 	
 %Remove auto-indentation
 \setlength{\parindent}{0cm}
@@ -533,19 +533,56 @@ The operator $A^{\dagger} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetil
 
 The following properties of the Moore-Penrose pseudoinverse can be easily proved: 
 \begin{enumerate}
-	\item $A^{\dagger} A = I$
-	\item $(A A^{\dagger})^{*} = A A^{\dagger}$
+	\item $AA^{\dagger}A = A$
+	\item $A^{\dagger} A A^{\dagger} = A^{\dagger}$
+	\item $(AA^{\dagger})^{*} = AA^{\dagger}$
+	\item $(A^{\dagger} A)^{*} = A^{\dagger} A$
 \end{enumerate}
 \end{definition}
 
+\begin{lemma}
+Let matrix $P$ be self-adjoint ($P^{*} = P = P^{-1}$) and let $P^{2} = P$. Then $P$ is the matrix of an orthogonal projection.
+\end{lemma}
+
+\begin{lproof}
+$P$ is an orthogonal projection if and only if $(u - Pu, Pu) = 0$. This is equivalent to 
+$$(u, Pu) = (Pu, Pu)$$
+which is simplified to 
+$$(u, Pu) = (u, P^{*}Pu)$$
+which holds because $P$ is self-adjoint and $P^{2} = P$. 
+\end{lproof}
+
 \begin{theorem}
-$A^{\dagger}$ is unique. 
+The operator $A^{\dagger}$ satisfying the above 4 properties is unique. 
 \end{theorem}
 
 \begin{proof}
+Left and right multiplying property 1 by $A^{\dagger}$ gives us: 
+$$(A^{\dagger} A)^{2} = A^{\dagger} A$$ 
+and
+$$ (AA^{\dagger})^{2} = AA^{\dagger}$$
+Properties 3 and 4 mean these two projections are also self-adjoint, so by the previous lemma, they are orthogonal projections. 
 
+Clearly, $Ker(A) \subset Ker(A^{\dagger}A)$. To prove $Ker(A^{\dagger} A) \subset Ker(A)$, suppose we have some $u \in Ker(A^{\dagger} A)$. Right-multiplying property 1 by $u$ gives us $AA^{\dagger}Au = Au$, which simplifies to $A0 = Au$, so $u \in Ker(A)$. Thus, $Ker(A) = Ker(A^{\dagger}A)$, which means $A^{\dagger}A$ is the orthogonal projection onto $Ker(A)^{\perp} = Ran(A^{*})$, 
+$$A^{\dagger}A = P_{Ran(A^{*})}$$
+
+Property 1 implies that $AA^{\dagger} y = y$ for any $y \in Ran(A)$, so $Ran(A) \subset Ran(AA^{\dagger})$. Clearly, $RAn(AA^{\dagger}) \subset Ran(A)$, so $AA^{\dagger}$ is the orthogonal projection onto $Ran(A)$, 
+$$AA^{\dagger} = P_{Ran(A)}$$
+
+Now we can rewrite property 2 as 
+$$P_{Ran(A^{*})} A^{\dagger} = A^{\dagger} \text{ or } A^{\dagger} P_{Ran(A)} = A^{\dagger}$$
+
+Combining these gives us 
+$$P_{Ran(A^{*})} A^{\dagger} P_{Ran(A)} = A^{\dagger}$$
+
+This means that for any $b \in Ran(A)$, 
+$$x_{0} := A^{\dagger} b = P_{Ran(A^{*})} A^{\dagger} b \in Ran(A^{*})$$
+and that 
+$$Ax_{0} = AA^{\dagger} b = P_{Ran(A)} b$$
+In other words, $x_{0}$ is a least square solution to $Ax = b$. However, since $x_{0} \in Ran(A^{*}) = Ker(A)^{\perp}$, $x_{0}$ is the least square solution of minimal norm, which we know is given by $A^{\dagger} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*}$.
 \end{proof}
 
+\section{Structure of Orthogonal Matrices}
 
 
 
