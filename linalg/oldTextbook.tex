@@ -1,0 +1,932 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{braket}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{import}
+
+\usepackage{subfiles}
+
+%Header, footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\cfoot{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
+%Theorem instantiation
+\newtheorem{theorem}{Theorem}
+
+%Definition instantiation
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+%Defining norm
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+%Defining inner product
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+
+%Change QED symbol to solid black square
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%Remove auto-indentation
+\setlength{\parindent}{0cm}
+
+%Preferred font and spacing
+\linespread{1.3}
+\usepackage{kpfonts}
+
+\title{Linear Algebra} 
+\author{Warren Alphonso}
+\date{May 18, 2019}
+
+\begin{document}
+
+
+
+\maketitle
+A very reductionist summary of key Linear Algebra concepts from \textit{Linear Algebra and its Applications} by Lay, Lay, and McDonald. 
+
+\section{Systems of Linear Equations}
+\begin{definition}
+A \textbf{linear equation} is an equation that can be written in the form 
+$$ a_{1}x_{1} + \cdots + a_{n}x_{n} = b$$ 
+where $b$ and the coefficients $a_{k}$ are real or complex numbers. 
+\end{definition}
+
+We can record the important information of a system of linear equations in a matrix. Given the system
+$$x_1 - 2x_2 + x_3 = 0$$ 
+$$2x_2 - 8x_3 = 8 $$
+$$5x_1 - 5x_3 = 10 $$
+we place the coefficients of each variable aligned in columns
+$$\begin{bmatrix}
+1 && -2 && 1 \\
+0 && 2 && -8 \\
+5 && 0 && -5
+\end{bmatrix}$$
+This is called the \textbf{coefficient matrix} and 
+$$\begin{bmatrix}
+1 && -2 && 1 && 0 \\
+0 && 2 && -8 && 8 \\
+5 && 0 && -5 && 10
+\end{bmatrix}$$
+is called the \textbf{augmented matrix}. The size of a matrix is described as \textbf{ m x n} where $m$ denotes the number of rows and $n$ the number of columns. 
+
+\begin{definition}
+\textbf{Elementary Row Operations:}
+\begin{enumerate}
+	\item (Replacement) Replace one row by the sum of itself and a multiple of another row. 
+	\item (Interchange) Interchange two rows. 
+	\item (Scaling) Multiply all entries in a row by a nonzero constant. 
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\textbf{Row Echelon form} denotes a matrix with: 
+\begin{enumerate}
+	\item All nonzero rows are above any rows of all zeros.
+	\item Each leading entry of a row is in a column to the right of the leading entry of the row above it. 
+	\item All entries in  column below a leading entry are zeros. 
+\end{enumerate}
+\textbf{Reduced Row Echelon form} means the leading entry in nonzero rows is 1. 
+\end{definition}
+
+\textbf{Parallelogram Rule for Addition:} If \textbf{u} and \textbf{v} in $\mathbb{R}^2$ are represented as points on the plane, then $u$ + $v$ corresponds to the fourth vertex of the parallelogram whose other vertices are 0, $u$, and $v$.
+
+\begin{definition}
+\textbf{Span}\{$v_1, ..., v_p$\} denotes the set of all vectors formed by $c_1 v_1 + \cdots + c_p v_p$. 
+\end{definition}
+
+\begin{definition}
+A set of vectors \{$v_1, ..., v_p$\} is said to be \textbf{linearly independent} if the equation 
+$$c_1 v_1 + \cdots + c_p v_p = 0$$ 
+has only the trivial solution. 
+\end{definition}
+
+\begin{theorem}
+If a set contains more vectors than there are entries in each vector, then the set is linearly independent. That is, the set $\{v_1, ..., v_p\}$ in $\mathbb{R}^n$ is linearly dependent if $p > n$. 
+\end{theorem}
+
+\begin{proof}
+Let $A = \begin{bmatrix}
+v_1 & \cdots & v_p
+\end{bmatrix}$. Then $A$ is $n \times p$, and the equation $Ax = 0$ corresponds to a system of $n$ equations in $p$ unknowns. In $Ax = b$, the $x$ vector must have dimension $p$, so if $p>n$, then there are more variables than equations, so $Ax = 0$ has a nontrivial solution, and the columns of $A$ are linearly dependent. 
+\end{proof}
+
+An alternate way to conceptualize matrix multiplication: A \textbf{transformation} (or \textbf{function} or \textbf{mapping}) $T$ from $\mathbb{R}^n$ to $\mathbb{R}^m$ is a rule that assigns to each vector $x$ in $\mathbb{R}^n$ a vector $T(x)$ in $\mathbb{R}^m$. The set $\mathbb{R}^n$ is called the \textbf{domain} of $T$ and $\mathbb{R}^m$ is called the \textbf{codomain} of T. The set of all images $T(x)$ is called the \textbf{range} of $T$. 
+
+\begin{definition} 
+A transformation $T$ is \textbf{linear} if it preserves vector addition and scalar multiplication. That is:
+\begin{enumerate}
+	\item $T(u + v) = T(u) + T(v)$
+	\item $T(cu) = cT(u)$ for all scalars $c$
+\end{enumerate}
+Every matrix transformation is a linear transformation. These two requirements mean that $T(0) = 0$ for linear transformations. 
+\end{definition}
+
+\begin{theorem}
+Let $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ be a linear transformation. Then there exists a \textbf{unique} matrix $A$ such that 
+$$ T(x) = Ax $$
+In fact, $A$ is the $m \times n$ matrix whose $j$th column is the vector $T(e_j)$, where $e_j$ is the $j$th column of the identity matrix in $\mathbb{R}^n$: 
+$$A = [T(e_1) \cdots T(e_n)]$$
+\end{theorem}
+
+\begin{proof}
+Write $x = I_n x = [e_1 \cdots e_n]x = x_1 e_1 + \cdots + x_n e_n$, and use the linearity of $T$ to compute 
+$$T(x) = T(x_1 e_1 + \cdots x_n e_n) = x_1 T(e_1) + \cdots + x_n T(e_n)$$ 
+
+$$= \begin{bmatrix}
+T(e_1) \cdots T(e_n)
+\end{bmatrix} 
+\begin{bmatrix}
+x_1 \\
+\vdots \\
+x_n
+\end{bmatrix} 
+= Ax
+$$ 
+\end{proof}
+
+\begin{definition}
+A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is \textbf{onto} $\mathbb{R}^m$ if each $b$ in $\mathbb{R}^m$ is the image of at least one $x$ in $\mathbb{R}^n$. 
+\end{definition}
+
+\begin{definition}
+A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is \textbf{one-to-one} if each $b$ in $\mathbb{R}^m$ is the image of at most one $x$ in $\mathbb{R}^n$. 
+\end{definition}
+
+\section{Matrix Algebra} 
+\begin{definition}
+If $A$ is an $m \times n$ matrix and $B$ is an $n \times p$ matrix, then 
+$$AB = A
+\begin{bmatrix}
+b_1 & b_2 & \cdots & b_p
+\end{bmatrix}
+= \begin{bmatrix}
+Ab_1 & Ab_2 & \cdots & Ab_p
+\end{bmatrix}$$
+\end{definition}
+
+\begin{definition}
+Let $A$ be an $m \times n$ matrix and let $B$ and $C$ have sizes for which the indicated sums and products are defined. 
+\begin{enumerate}
+	\item $A(BC) = (AB)C$
+	\item $A(B + C) = AB + AC$
+	\item $(B + C)A = BA + CA $
+	\item $r(AB) = (rA)B = A(rB)$
+	\item $I_m A = A = AI_n$
+\end{enumerate}
+Warnings: 
+\begin{enumerate}
+	\item In general, $AB \neq BA$ 
+	\item If $AB = AC$, then it is \textbf{not true} in general that $B=C$
+	\item If $AB = 0$, then it is \textbf{not true} always that $A=0$ or $B=0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{transpose} of $A$ is the matrix whose columns are formed from the corresponding rows of $A$, denoted by $A^T$. 
+\begin{itemize}
+	\item $(A^T)^T = A$
+	\item $(A + B)^T = A^T + B^T$
+	\item $(cA)^T = cA^T$
+	\item $(AB)^T = B^T A^T$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A = I$. 
+\begin{itemize}
+	\item $(A^{-1})^{-1} = A$
+	\item If $A$ and $B$ are $n \times n$ invertible matrices then so is $AB$. And $(AB)^{-1} = B^{-1}A^{-1}$
+	\item $(A^T)^{-1} = (A^{-1})^T$
+\end{itemize}
+To compute the inverse, solve the equation  $AB = I$, by row-reducing the augmented matrix [A  I], until you get [I  B]. 
+\end{definition}
+
+
+\section{Determinants}
+\begin{definition}
+Let $A = \begin{bmatrix}
+a && b \\
+c && d
+\end{bmatrix}$. If $ad - bc \neq 0$, then $A$ is invertible and 
+$$A^{-1} = \frac{1}{ad - bc} \begin{bmatrix}
+d && -b \\
+-c && a
+\end{bmatrix}$$
+The quantity $ad - bc$ is the \textbf{determinant} of the matrix. If the determinant is 0, the matrix $A$ is not invertible. 
+\end{definition}
+
+\begin{definition}
+To generalize, the determinant of an $n \times n$ matrix $A$ can be computed using a \textbf{cofactor expansion} across any row or down any column. The expansion across the $i$th row is 
+$$det(A) = a_{i1}C_{i1} + a_{i2}C_{i2} + \cdots + a_{in}C_{in}$$ where $C_{ij} = (-1)^{i + j} det(A_{ij})$. 
+\end{definition} 
+
+\begin{theorem}
+If $A$ is an upper triangular matrix, then det(A) is the product of the entries on the main diagonal. 
+\end{theorem}
+
+\begin{proof}
+Cofactoring an upper triangular matrix by using the first column ultimately leads to continuously multiplying the upper left item by the determinant of the smaller matrix. For example, 
+$$ A = \begin{bmatrix}
+3 & 2 & 9 \\
+0 & 4 & -1 \\
+0 & 0 & -8
+\end{bmatrix}$$
+Then, 
+$$det(A) = 3 \cdot det(\begin{bmatrix}
+4 & -1 \\ 
+0 & -8
+\end{bmatrix}) = 3 \cdot -32 = -96 = 3 \cdot 4 \cdot -8$$
+\end{proof}
+
+\begin{definition}
+Determinants after Row Operations
+\begin{enumerate}
+	\item If a multiple of a row in matrix $A$ is added to another row to produce matrix $B$, then $det(B) = det(A)$
+	\item If two rows in $A$ are swapped to produce $B$, then $det(B) = -det(A)$
+	\item If one row in $A$ is multiplied by $k$ to produce $B$, then $det(B) = k \cdot det(A)$
+\end{enumerate}
+\end{definition}
+
+These identities can be used to easily find determinants of square matrices. Once we reduce a matrix $A$ to upper triangular form $B$, we know $det(B) = (-1)^{r} det(A)$ if $r$ is the number of row swaps we performed. If we cannot reduce to row echelon form, we know the determinant must be 0 since $A$ must not be invertible. 
+
+\begin{theorem}
+If $A$ is an $n \times n$ matrix, then $det(A^T) = det(A)$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction. The theorem is trivially true for $n = 1$. Assume the theorem is true for $k \times k$ matrices. We will show it holds for $n = k +1$. The cofactor of $a_{1j}$ in $A$ equals the cofactor of $a_{j1}$ in $A^T$ because it is a $k \times k$ determinant. Thus, the cofactor of $det(A^T)$ down the first \textit{column} equals the cofactor of  $det(A)$ across the first \textit{row}, so $A$ and $A^T$ have equal determinants. Thus, the statement is true for all $n$. 
+\end{proof}
+
+\begin{theorem}
+If $A$ and $B$ are $n \times n$ matrices, then $det(AB) = det(A) det(B)$. 
+\end{theorem}
+
+\begin{theorem}{Cramer's Rule: }
+Let $A$ be an invertible $n \times n$ matrix. For any $b$ in $\mathbb{R}^n$, the unique solution $x$ of $Ax = b$ has entries given by 
+$$x_{i} = \frac{det(A_i(b))}{det(A)} \text{ for } i = 1, 2, ..., n$$
+where $A_i(b)$ denotes the matrix obtained by replacing $A$'s $i$th column with $b$. 
+\end{theorem}
+
+\begin{proof}
+Denote the columns of $A$ by $a_1, ..., a_n$ and the columns of the $n \times n$ identity matrix by $e_1, ..., e_n$. If $Ax = b$, the definition of matrix multiplication tells us 
+$$A \cdot I_i (x) = A \begin{bmatrix}
+e_1 & \cdots & x & \cdots & e_n
+\end{bmatrix} = 
+\begin{bmatrix}
+Ae_1 & \cdots & Ax & \cdots & Ae_n
+\end{bmatrix}$$
+$$ = \begin{bmatrix}
+a_1 & \cdots & b & \cdots & a_n
+\end{bmatrix} = A_i (b)$$
+
+Using the multiplicative property of determinants, 
+$$ (det(A)) (det(I_i(x))) = det(A_i (b))$$
+Since $det(I_i (x))$ is $x$, we just divide by $det(A)$. 
+\end{proof}
+
+\section{Vector Spaces}
+Some of this is from Chapter 1, but I think it makes more sense to define these concepts here. 
+\begin{definition} 
+A \textbf{subspace} of $\mathbb{R}^n$ is any set $H$ in $\mathbb{R}^n$ that is closed under addition and scalar multiplication. That is:
+\begin{enumerate}
+	\item The zero vector is in $H$ 
+	\item For each $u$ and $v$ in $H$, the sum $u + v$ is in $H$
+	\item For each $u$ in $H$ and each scalar $c$, the vector $cu$ is in $H$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{column space} of an $m \times n$ matrix $A$ is the set of all linear combinations of the columns of $A$, denoted by $Col(A)$. Since the columns of $A$ are in $\mathbb{R}^m$, the columns space is in $\mathbb{R}^m$. 
+\end{definition}
+
+\begin{definition}
+The \textbf{null space} of a matrix $A$ is the set of all solutions for $Ax = 0$, denoted by $Nul(A)$. When $Nul(A)$ contains nonzero vectors, the number of vectors in the nullspace equals the number of free variables in $Ax = 0$. 
+\end{definition}
+
+\begin{definition}
+A \textbf{basis} for a subspace $H$ in $\mathbb{R}^n$ is a linearly independent set in $H$ that spans $H$. 
+\end{definition}
+
+Using the basis for a subspace $H$ is preferable because any vector in $H$ can only be written in one way as a linear combination of the basis vectors. 
+\begin{proof}
+Suppose $\mathbb{B}$ = \{ $b_1$ , ..., $b_p$\} is a basis for $H$, and suppose a vector $x$ in $H$ can be generated in two ways: 
+$$x = c_1 b_1 + \cdots + c_p b_p \text{ and } x = d_1 b_1 + \cdots + d_p b_p$$
+Subtracting gives us:
+$$0 = (c_1 - d_1)b_1 + \cdots + (c_p - d_p)b_p$$
+Since $\mathbb{B}$ is linearly independent, the weights must all be zero, so $c_j = d_j$ so the two representations are really just the same. 
+\end{proof}
+
+\begin{theorem}
+The pivot columns of a matrix $A$ form a basis for $Col(A)$. 
+\end{theorem}
+
+\begin{proof}
+Let $B$ be the reduced echelon form of $A$. The set of pivot columns of $B$ is linearly independent, since no vector is a linear combination of the vectors that precede it. Since $A$ is \textit{row equivalent} to $B$, the pivot columns of $A$ are linearly independent as well. Thus, the nonpivot columns of $A$ can be discarded from the spanning set of $Col(A)$. 
+
+\textbf{Warning:} The pivot columns of $A$ are only evident when $A$ has been reduced to \textit{echelon} form. After reducing, make sure to use the \textbf{pivot columns of $A$ itself} for the basis of $Col(A)$. The columns of an echelon form of $A$ are often not in the column space of $A$. 
+\end{proof}
+
+\begin{theorem}{Unique Representation Theorem: }
+Let $\mathbb{B} = \{ b_1 , ..., b_n \}$ be a basis for a vector space $V$. Then for each $x$ in $V$, there exists a unique set of scalars $c_1 ,..., c_n$ such that 
+$$x = c_1 b_1 + \cdots + c_n b_n$$
+\end{theorem}
+
+\begin{proof}
+Since $\mathbb{B}$ spans $V$, we know there exist scalars such that we can form $x$. Assume $x$ also has the representation 
+$$ x = d_1 b_1 + \cdots + d_n b_n$$
+Then, after subtracting we have
+$$ 0 = (c_1 - d_1) b_1 + \cdots + (c_n - d_n) b_n$$
+Since $\mathbb{B}$ is linearly independent, these weights must all be zero so $c_j = d_j$. 
+\end{proof}
+
+Because of the unique representation of each vector $x$ in a basis, we can define the coordinates of $x$ relative to the basis $\mathbb{B}$ as the weights $c_1 , ..., c_n$. 
+
+\begin{definition}{Changing coordinates: }
+$$x = \mathbb{B} [x]_{\mathbb{B}}$$
+where $\mathbb{B}$ denotes the matrix whose columns are basis vectors, and $[x]_{\mathbb{B}}$ denotes the $x$ vector represented by basis coordinates. 
+
+To understand this, let $b_1 = \begin{bmatrix}
+2 \\
+1
+\end{bmatrix} , b_2 = \begin{bmatrix}
+-1 \\
+1
+\end{bmatrix} , x = \begin{bmatrix}
+4 \\
+5
+\end{bmatrix} , \text{ and }\mathbb{B} = \{b_1, b_2\}$. To find $[x]_{\mathbb{B}}$ of $x$ relative to $\mathbb{B}$,
+
+$$ c_1 \begin{bmatrix}
+2 \\
+1
+\end{bmatrix} + c_2 \begin{bmatrix}
+-1 \\ 
+1
+\end{bmatrix} = \begin{bmatrix}
+4 \\
+5
+\end{bmatrix}
+$$
+
+or
+
+$$ \begin{bmatrix}
+2 & -1 \\
+1 & 1
+\end{bmatrix} 
+\begin{bmatrix}
+c_1 \\
+c_2
+\end{bmatrix} 
+= \begin{bmatrix}
+4 \\
+5
+\end{bmatrix}
+$$ 
+
+Since we know the columns of $\mathbb{B}$ are linearly independent, it must be invertible so we can multiply $x$ by $\mathbb{B}^{-1}$ to get $[x]_{\mathbb{B}}$. 
+\end{definition}
+
+\begin{definition}{Change of basis: }
+We can generalize the above further. Let $\mathbb{B} = \{ b_1 , ..., b_n \}$ and $\mathbb{C} = \{ c_1 , ..., c_n \}$ be bases of a vector space $V$. Then there is a \textit{unique} $n \times n$ matrix $\underset{\mathbb{C} \rightarrow \mathbb{B}}{P}$ such that
+$$[x]_{\mathbb{C}} = \underset{\mathbb{C} \rightarrow \mathbb{B}}{P} [x]_{\mathbb{B}} $$
+
+The columns of $\underset{\mathbb{C} \rightarrow \mathbb{B}}{P}$ are the $\mathbb{C}$-coordinate vectors of the vectors in the basis $\mathbb{B}$, that is
+$$ \underset{\mathbb{C} \rightarrow \mathbb{B}}{P} = \begin{bmatrix}
+[b_1 ]_{\mathbb{C}} \cdots [b_n]_{\mathbb{C}}
+\end{bmatrix}$$
+
+\end{definition}
+
+\begin{definition}
+An \textbf{isomorphism} from $V$ to $W$ is a one-to-one linear transformation. 
+\end{definition}
+
+\begin{definition}
+The \textbf{dimension} of a nonzero subspace $H$ is the number of vectors in any basis for $H$. The dimension of the zero subspace $\{0\}$ is defined to be zero. 
+\end{definition}
+
+\begin{definition}
+The \textbf{rank} of a matrix $A$ is the dimension of the column space of $A$. 
+\end{definition}
+
+\begin{theorem}
+If a matrix $A$ has $n$ columns, then $Rank(A) + Dim(Nul(A)) = n$. 
+\end{theorem}
+\begin{proof}
+An intuitive understanding for this can be achieved by restating the theorem as follows:
+$$ \Big( \text{num of pivot columns} \Big) + \Big( \text{num of nonpivot columns} \Big) = \Big( \text{num of columns} \Big)   $$
+\end{proof}
+
+\begin{definition}
+If $A$ is an $m \times n$ matrix, each row has $n$ entries and can be understood as a vector in $\mathbb{R}^n$. The set of all linear combinations of the row vectors is called the \textbf{row space} of $A$, denoted by $Row(A)$. Note that $Row(A) = Col(A^{T})$. 
+\end{definition}
+
+\section{Eigenvalues and Eigenvectors}
+\begin{definition}
+An \textbf{eigenvector} of an $n \times n$ matrix $A$ is a nonzero vector $x$ such that $Ax = \lambda x$. The scalar $\lambda$ is called an \textbf{eigenvalue} of $A$ if and only if the equation $$(A - \lambda I)x = 0$$ has a nontrivial solution. The set of all solutions to this equation is the null space of the matrix $A - \lambda I$; this subspace of $\mathbb{R}^n$ is called the \textbf{eigenspace} of $A$. 
+\end{definition}
+
+\begin{theorem}
+The eigenvalues of a triangular matrix are the entries on its main diagonal. 
+\end{theorem}
+
+\begin{proof}
+Consider the $3 \times 3$ case. If $A$ is upper triangular, then 
+$$ A - \lambda I = \begin{bmatrix}
+a_{11} - \lambda & a_{12} & a_{13} \\
+0 & a_{22} - \lambda & a_{23} \\
+0 & 0 & a_{33} - \lambda
+\end{bmatrix}$$
+The scalar $\lambda$ is an eigenvalue if and only if $(A - \lambda I)x = 0$ has a nontrivial solution, which means the equation must have a free variable, which would only occur if at least one of the values on the diagonal is zero. 
+\end{proof}
+
+\begin{theorem}
+The eigenvectors of $A$, $v_1 , ... , v_r$, that correspond to \textit{distinct} eigenvalues, $\lambda_1 , ..., \lambda_r$, are linearly independent. 
+\end{theorem}
+
+\begin{proof}
+Suppose $\{v_1, ..., v_r\}$ is linearly dependent. Let $p$ be the least index such that $v_{p+1}$ is a linear combination of the preceding linearly independent eigenvectors. Then there exist scalars such that 
+$$c_1 v_1 + \cdots + c_p v_p = v_{p+1}$$
+Multiply both sides by $A$, using the fact that $Av_k = \lambda_k v_k$, to get
+$$c_1 \lambda_1 v_1 + \cdots + c_p \lambda_p v_p = \lambda_{p+1} v_{p+1}$$
+We can also multiply both sides of our first equation by $\lambda_{p+1}$ and then subtract to get 
+$$c_1 (\lambda_1 - \lambda_{p+1})v_1 + \cdots + c_p (\lambda_p - \lambda_{p+1})v_p = 0$$
+Because we assumed $v_{p+1}$ was the first linearly dependent eigenvector, the set $\{v_1 , ..., v_p\}$ must be linearly independent. That means all $(\lambda_k - \lambda_{p+1})$ should be 0, but because the eigenvalues are distinct they cannot be. Thus, we arrive at a contradiction. 
+\end{proof}
+
+Remember that to find eigenvalues, we need to find scalars $\lambda$ such that 
+$$(A - \lambda I)x = 0$$
+has a nontrivial solution. This is equivalent to the matrix $A - \lambda I$ being not invertible, which is equivalent to $det(A - \lambda I) = 0$. Writing the determinant as a polynomial involving only $\lambda$ is called the characteristic equation of a matrix. 
+
+\begin{theorem}{Diagonalization Theorem: }
+An $n \times n$ matrix $A$ is \textbf{diagonalizable} if and only if $A$ has $n$ linearly independent eigenvectors. If this condition is met, we can write 
+$$A = PDP^{-1}$$
+where $P$ is a matrix whose columns are $n$ linearly independent eigenvectors of $A$, and $D$ is a diagonal matrix whose diagonal entries are corresponding eigenvalueus of $A$. 
+\end{theorem}
+
+\begin{proof}
+Right multiplying both sides by $P$ gives us $AP = PD$. 
+$$AP = A \begin{bmatrix}
+v_1 & \cdots & v_n
+\end{bmatrix} = \begin{bmatrix}
+Av_1 & \cdots & Av_n
+\end{bmatrix} = \begin{bmatrix}
+\lambda_1 v_1 & \cdots & \lambda_n v_n
+\end{bmatrix}$$
+
+$$PD = P \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots &   & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{bmatrix} = 
+\begin{bmatrix}
+\lambda_1 v_1 & \cdots & \lambda_n v_n
+\end{bmatrix}$$
+
+Since these are equal and $P$ has an inverse because its columns are linearly independent eigenvectors, $A = PDP^{-1}$.
+\end{proof}
+
+\section{Orthogonality and Least Squares}
+\begin{definition}
+The \textbf{inner product} of $u$ and $v$ is 
+$$ u \cdot v = \begin{bmatrix}
+u_1 \cdots u_n
+\end{bmatrix} \begin{bmatrix}
+v_1 \\
+\vdots \\
+v_n
+\end{bmatrix} = u_1 v_1 + \cdots + u_n v_n$$
+
+\textbf{Properties of inner products: }Let $u$, $v$, and $w$ be vectors in $\mathbb{R}^n$. Then 
+\begin{enumerate}
+	\item $u \cdot v = v \cdot u$
+	\item $(u + v) \cdot w = u \cdot w + v \cdot w$
+	\item $u \cdot u \geq 0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition} 
+The \textbf{norm} of $v$ is $\norm{v}$ defined by 
+$$\norm{v} = \sqrt{v \cdot v}$$
+
+The distance between $v$ and $u$ is $\norm{u - v}$. 
+\end{definition}
+
+\begin{definition}
+Two vectors $u$ and $v$ are \textbf{orthogonal} if $u \cdot v = 0$. 
+
+Note the zero vector is orthogonal to every other vector. 
+
+The Pythagorean Theorem tells us that if $u$ and $v$ are orthogonal then $$\norm{u + v}^2 = \norm{u}^2 + \norm{v}^2$$.
+
+The set of all vectors $z$ that are orthogonal to $W$ is called the \textbf{orthogonal complement} of W, denoted by $W^{\perp}$.  
+\end{definition}
+
+\begin{theorem}
+Let $A$ be an $m \times n$ matrix. Then 
+$$(Row(A))^{\perp} = Nul(A) \text{ and } (Col(A))^{\perp} = Nul(A^T)$$
+\end{theorem}
+\begin{proof}
+If $x$ is in $Nul(A)$, then $\begin{bmatrix}
+Ax_1 & Ax_2 & \cdots & Ax_n
+\end{bmatrix}$, which implies that $x$ is orthogonal to all the rows in $A$. Conversely, if $x$ is orthogonal to $Row(A)$, then clearly $Ax = 0$. A similar proof can be shown for the second statement. 
+\end{proof}
+
+\begin{definition}
+In $\mathbb{R}^2$ or $\mathbb{R}^3$, $u \cdot v = \norm{u} \norm{v} cos(\theta)$. To see this, we can use the law of cosines, 
+$$\norm{u - v}^2 = \norm{u}^2 + \norm{v}^2 - 2 \norm{u} \norm{v} cos(\theta)$$
+\end{definition}
+
+\begin{definition}
+The set of vectors $\{ u_1 , ... , u_p \}$ is called an \textbf{orthogonal set} if each pair of distinct vectors is orthogonal. 
+\end{definition}
+
+\begin{theorem}
+If $S = \{ u_1 , ... , u_p \}$ is an orthogonal set of nonzero vectors, then $S$ is linearly independent. 
+\end{theorem}
+\begin{proof}
+We know $$ 0 = c_1 u_1 + \cdots + c_p u_p $$
+Multiplying by $u_1$, 
+$$0 = (c_1 u_1 + \cdots + c_p u_p) \cdot u_1$$
+$$0 = (c_1 u_1) \cdot u_1 + (c_2 u_2) \cdot u_1 + \cdots + (c_p u_p ) \cdot u_1 $$
+$$0 = c_1 (u_1 \cdot u_1) $$
+Since $u_1$ is nonzero, $(u_1 \cdot u_1)$ must be nonzero, so $c_1$ must be 0. A similar proof can be used to show $c_2, ..., c_p$ must be zero. Thus, $S$ is linearly independent. 
+\end{proof}
+
+\begin{definition}
+An \textbf{orthogonal basis} for subspace $W$ of $\mathbb{R}^n$ is a basis for $W$ that is also an orthogonal set. 
+\end{definition}
+
+\begin{theorem}
+Let $\{ u_1, ..., u_p\}$ be an orthogonal basis for subspace $W$ of $\mathbb{R}^n$. For each $y$ in $W$, the weights $c_k$ in 
+$$y = c_1 u_1 + \cdots + c_p u_p $$
+are given by 
+$$c_j = \frac{y \cdot u_j}{u_j \cdot u_j} \text{ for } (j = 1, ..., p)$$
+\end{theorem}
+
+\begin{proof}
+Taking the dot product of $u_1$ on both sides, 
+$$y \cdot u_1 = (c_1 u_1 + c_2 u_2 + \cdots c_p u_p) \cdot u_1 = c_1 (u_1 \cdot u_1)$$
+Since $u_1$ is nonzero, we can divide by $(u_1 \cdot u_1)$ to solve for $c_1$. The same proof can be used to solve $c_2 , ..., c_p$. 
+\end{proof}
+
+\begin{definition}
+An set is \textbf{orthonormal} if all its vectors are unit vectors and are orthogonal to one another. Let $U$ be an $m \times n$ matrix with orthonormal columns. Then, 
+\begin{enumerate}
+	\item $\norm{Ux} = \norm{x}$
+	\item $(Ux) \cdot (Uy) = x \cdot y$
+\end{enumerate}
+
+An orthonormal basis can be constructed from an orthogonal basis $\{v_1, ..., v_p\}$ by simply normalizing all the $v_k$.
+\end{definition}
+
+\begin{theorem}
+An $m \times n$ matrix $U$ has orthonormal columns if and only if $U^T U = I$. If $U$ is a square matrix, then it is called an \textbf{orthogonal matrix} and has $U^{-1} = U^{T}$. 
+\end{theorem}
+
+\begin{proof}
+We will prove with a simpler version of $U$ with only three columns, but the proof can generalize. Let $U = \begin{bmatrix}
+u_1 & u_2 & u_3
+\end{bmatrix}$. Then 
+$$U^T U = \begin{bmatrix}
+u_{1}^{T} \\
+u_{2}^{T} \\
+u_{3}^{T}
+\end{bmatrix} \begin{bmatrix}
+u_1 & u_2 & u_3
+\end{bmatrix} = \begin{bmatrix}
+u_{1}^{T} u_{1} & u_{1}^{T} u_{2} & u_{1}^{T} u_{3} \\
+u_{2}^{T} u_{1} & u_{2}^{T} u_{2} & u_{2}^{T} u_{3} \\
+u_{3}^{T} u_{1} & u_{3}^{T} u_{2} & u_{3}^{T} u_{3}
+\end{bmatrix}$$
+
+By definition of orthonormal vectors, only the diagonal entries simplify to 1 and all other entries simplify to 0. 
+\end{proof}
+
+\begin{definition}{Orthogonal projection: }
+Consider representing a nonzero vector $u$ in $\mathbb{R}^n$ as the sum of two vectors, one a multiple of some vector $y$ and the other orthogonal to $y$. That is, 
+$$u = \alpha y + (u - \alpha y)$$
+This means $u - \alpha y$ is orthogonal to $y$ if and only if 
+$$ 0 = (u - \alpha y) \cdot y = u \cdot y - \alpha (y \cdot y)$$
+That is, in order for $(u - \alpha y)$ to be orthogonal to $y$, 
+$$\alpha = \frac{u \cdot y}{y \cdot y} \text{ and } y = \frac{u \cdot y}{y \cdot y} y$$
+
+The vector $y$ is called the \textbf{orthogonal projection of $u$ onto $y$}. 
+$$ y = proj_{L} y = \frac{y \cdot u}{y \cdot y} y$$
+\end{definition}
+
+\begin{definition} {Orthogonal Decomposition}
+We can extend projections to subspaces. Let $W$ be a subspace of $\mathbb{R}^n$. Then each $y$ in $\mathbb{R}^n$ can be written 
+$$y = \hat{y} + z $$
+where $\hat{y}$ is in $W$ and $z$ is in $W^{\perp}$. If $\{ u_1 , ..., u_p \}$ is an orthogonal basis of $W$, then 
+$$\hat{y} = \frac{y \cdot u_1}{u_1 \cdot u_1} u_1 + \cdot + \frac{y \cdot u_p}{u_p \cdot u_p} u_p$$
+and $z = y - \hat{y}$. 
+
+The vector $\hat{y}$ is called the \textbf{orthogonal projection of $y$ onto $W$} and is written as $proj_{W} y$.
+
+Note the the denominator $u_k \cdot u_k = 1$ if $W$ is an orthonormal basis. It follows that for orthonormal bases of $W$, 
+$$proj_{W}y = (y \cdot u_1) u_1 + (y \cdot u_2)u_2 + \cdots + (y \cdot u_p) u_p = UU^{T}y$$ 
+\end{definition}
+
+\begin{theorem}{The Gram-Schmidt Process: }
+The Gram-Schmidt process is an algorithm for producing an orthogonal or orthonormal basis for a nonzero subspace of $\mathbb{R}^n$. 
+
+Given a basis $\{ x_1, ..., x_p\}$ for nonzero subspace $W$ of $\mathbb{R}^n$, define 
+$$v_1 = x_1$$
+$$v_2 = x_2 - \frac{x_2 \cdot v_1}{v_1 \cdot v_1} v_1$$
+$$v_3 = x_3 - \frac{x_3 \cdot v_1}{v_1 \cdot v_1} v_1 - \frac{x_3 \cdot v_2}{v_2 \cdot v_2} v_2$$
+$$\vdots$$
+$$v_p = x_p - \frac{x_p \cdot v_1}{v_1 \cdot v_1} v_1 - \cdots - \frac{x_p \cdot v_{p-1}}{v_{p-1} \cdot v_{p-1}} v_{p - 1}$$
+Then $\{v_1 , ..., v_p\}$ is an orthogonal basis for $W$. In addition
+$$Span(\{v_1 , ..., v_k\}) = Span(\{x_1, ..., x_k\}) \text{ for } 1 \leq k \leq p$$
+\end{theorem}
+
+\begin{proof}
+We proceed by induction. If we set $v_1 = x_1$, then $Span(\{v_1\}) = Span(\{x_1\})$. Suppose for some $k < p$, we construct $v_1 ,..., v_k$ so that $\{ v_1, ..., v_k\}$ is an orthogonal basis for $W_{k}$. Define
+$$v_{k+1} = x_{k+1} - proj_{W_k} x_{k+1}$$
+
+By Orthogonal Decomposition, $v_{k+1}$ is orthogonal to $W_k$. Since $proj_{W_k} x_{k+1}$ is in $W_k$, it is also in $W_{k+1}$, which means $v_{k+1}$ is also in $W_{k+1}$ since $W_{k+1}$ is a subspace which must be closed under subtraction. $v_{k+1} \neq 0$ because $x_{k+1}$ is not in $W_k = Span(\{x_1 , ..., x_k\})$. Thus, $\{v_1, ..., v_k\}$ is an orthogonal set of nonzero vectors in $k+1$-dimensional subspace $W_{k+1}$, so they must be a basis for $W_{k+1}$. Thus, the Gram-Schmidt algorithm yields an orthogonal basis by induction. 
+\end{proof}
+
+\begin{theorem}
+If $A$ is an $m \times n$ matrix with linearly independent columns, then we can factor $A = QR$, where $Q$ is an $m \times n$ matrix whose columns form an orthonormal basis for $Col(A)$ and $R$ is an $n \times n$ upper triangular invertible matrix with positive entries on its diagonal. 
+\end{theorem}
+
+\begin{proof}
+The columsn of $A$ form a basis $\{x_1, ..., x_n\}$ for $Col(A)$. We can use Gram-Schmidt to construct an orthogonal basis for $W=Col(A)$ and then scale this basis to get an orthonormal basis for $Col(A)$ $$Q = \begin{bmatrix}
+u_1 & u_2 & \cdots & u_n
+\end{bmatrix}$$
+For $1 \leq k \leq n$, $x_k \in Span(Q)$, that is, there are constants such that 
+$$x_k =r_{1k}u_{1} + \cdots + r_{kk}u_{k} + 0 \cdot u_{k+1} + \cdots + 0 \cdot u_{n}$$
+We can assume $r_{kk} \geq 0$, if it isn't, just multiply both $r_{kk}$ and $u_{k}$ by $-1$. Thus, 
+$$r_{k} = \begin{bmatrix}
+r_{1k} \\
+\vdots \\
+r_{kk} \\
+0 \\
+\vdots \\
+0
+\end{bmatrix}$$
+So, $x_{k} = Qr_{k}$. Let $R = \begin{bmatrix}
+r_{1} & \cdots & r_{n}
+\end{bmatrix}$. Finally, 
+$$A = \begin{bmatrix}
+x_{1} & \cdots & x_{n}
+\end{bmatrix} = \begin{bmatrix}
+Qr_{1} & \cdots & Qr_{n}
+\end{bmatrix} = QR$$
+\end{proof}
+
+\begin{definition}
+If $A$ is an $m \times n$ matrix and $b$ is in $\mathbb{R}^m$, a \textbf{least-squares solution} of $Ax = b$ is an $\hat{x}$ in $\mathbb{R}^n$ such that 
+$$\norm{b - A\hat{x}} \leq \norm{b - Ax}$$
+for all $x$ in $\mathbb{R}^n$. This should hold even if $b$ is outside $Col(A)$. 
+\end{definition}
+
+\begin{theorem}
+Let $A$ be an $m \times n$ matrix. The following are logically equivalent:
+\begin{enumerate}
+	\item $Ax = b$ has a unique least-squares solution for each b in $\mathbb{R}^m$. 
+	\item The columns of $A$ are linearly independent. 
+	\item The matrix $A^{T}A$ is invertible
+\end{enumerate}
+When these are true, the least-squares solution $\hat{x}$ is given by 
+$$\hat{x} = (A^{T}A)^{-1}A^{T}b$$
+\end{theorem}
+
+\begin{proof}
+To get the best approximation of $b$ on $A$, we can take the projection 
+$$\hat{b} = proj_{Col(A)} b$$
+Now we know the equation $A\hat{x} = \hat{b}$ is consistent, and that $\hat{x}$ would be the least-squares solution. We know $b - \hat{b}$ is orthogonal to $Col(A)$, so $b - A\hat{x}$ is orthogonal to each column of $A$, that is 
+$$A^{T} (b - A\hat{x}) = 0$$
+Simplifying 
+$$A^{T}b - A^{T}A\hat{x} = 0$$
+$$A^{T}A\hat{x} = A^{T}b$$
+$$\hat{x} = (A^{T}A)^{-1} A^{T} b$$
+\end{proof}
+
+\begin{theorem}
+When the columns of $A$ are orthogonal, as they often are in linear regression problems, then we can use $QR$ factorization to produce a computationally easier calculation. 
+
+Given an $m \times n$ matrix $A$ with linearly independent columns, let $A = QR$ be the $QR$ factorization. For any $b$ in $\mathbb{R}^m$, the least-squares solution is given by 
+$$\hat{x} = R^{-1}Q^{T}b$$
+\end{theorem}
+
+\begin{proof}
+Let $\hat{x} = R^{-1}Q^{T}b$. Then 
+$$A\hat{x} = QR\hat{x} = QRR^{-1}Q^{T}b = QQ^{T}b$$
+Since the columns of $Q$ form an orthonormal basis for $Col(A)$, $QQ^{T}b$ is the orthogonal projection of $b$ onto $Col(A)$ by Definition 6.9. Hence, it is a least-squares solution. 
+\end{proof}
+
+\begin{definition}{Inner product: }
+\textbf{Inner products} on a vector space $V$ is a function that, to each pair of vectors $u$ and $v$, associates a real number $\inp{u}{v}$ and satisfies the following for vectors $u, v, w$ in $V$ and scalar $c$:
+\begin{enumerate}
+	\item $\inp{u}{v} = \inp{v}{u}$
+	\item $\inp{u + v}{w} = \inp{u}{w} + \inp{v}{w}$
+	\item $\inp{cu}{v} = c\inp{u}{v}$
+	\item $\inp{u}{u} \geq 0$
+\end{enumerate}
+A vector space with an inner product is called an \textbf{inner product space}. 
+\end{definition}
+
+\begin{theorem}{The Cauchy-Schwartz Inequality: }
+For all $u$, $v$ in $V$, 
+$$\mid \inp{u}{v} \mid \leq \norm{u} \ \norm{v}$$
+\end{theorem}
+
+\begin{proof}
+If $u = 0$, both sides are zero, so the inequality is true. If $u \neq 0$, let $W$ be the subspace spanned by $u$, then 
+$$\norm{proj_{W} v} = \norm{\frac{\inp{v}{u}}{\inp{u}{u}}u} = \frac{\mid \inp{v}{u} \mid}{\norm{u}^{2}} \norm{u} = \frac{\mid \inp{u}{v} \mid}{\norm{u}}$$
+
+Since $\norm{proj_{W}v} \leq \norm{v}$, we simplify the above to $$\frac{\mid \inp{u}{v} \mid}{\norm{u}} \leq \norm{v}$$, which proves the theorem. 
+\end{proof}
+
+\begin{theorem}{The Triangle Inequality: }
+For all $u$, $v$ in $V$, 
+$$\norm{u + v} \leq \norm{u} + \norm{v}$$
+\end{theorem}
+
+\begin{proof}
+\begin{equation}
+\begin{split}
+\norm{u + v}^{2} &= \inp{u + v}{u + v} = \inp{u}{u} + 2\inp{u}{v} + \inp{v}{v} \\
+&\leq \norm{u}^{2} + 2 \mid \inp{u}{v} \mid + \norm{v}^{2} \\
+&\leq \norm{u}^{2} + 2 \norm{u} \ \norm{v} + \norm{v}^{2} \\
+&= (\ \norm{u} + \norm{v} \ )^{2}
+\end{split}
+\end{equation}
+where the second to last step follows from the Cauchy-Schwartz Inequality. 
+\end{proof}
+
+\section{Symmetric Matrices and Quadratic Forms}
+\begin{definition}
+A \textbf{symmetric} matrix is a matrix $A$ such that $A^{T} = A$. This condition necessitates $A$ be a square matrix. Its main diagonal entries are arbitrary, but the other entries must occur in pairs on opposite sides of the main diagonal.
+\end{definition}
+
+\begin{theorem}
+If $A$ is symmetric, then any two eigenvectors from different eigenspaces are orthogonal. 
+\end{theorem}
+
+\begin{proof}
+Let $v_1$ and $v_2$ be eigenvectors that correspond to distinct eigenvalues $\lambda_1$ and $\lambda_2$.
+$$\lambda_1 v_1 \cdot v_2 = (\lambda_1 v_1)^{T} v_2 = (Av_1)^{T}v_2 = (v_{1}^{T} A^{T}) v_{2} = v_{1}^{T} (Av_{2}) = v_{1}^{T} (\lambda_{2} v_{2}) =\lambda_{2} v_{1} \cdot v_{2}$$
+
+Thus, $(\lambda_1 - \lambda_2) v_1 \cdot v_2 = 0$, so since the eigenvalues are distinct, the eigenvectors must be orthogonal. 
+\end{proof}
+
+Note that this means when we diagonalize into $A = PDP^{-1}$, $P$ is n orthogonal matrix so $P^{-1} = P^{T}$. If a matrix $A$ can be written as 
+$$A^{T} = PDP^{T} = PDP^{-1}$$
+then it is called \textbf{orthogonally diagonalizable}. 
+
+$A$ is orthogonally diagonalizable if and only if $A$ is symmetric. Proving ``if" is complicated but to prove ``only if" note that 
+$$A^{T} = (PDP^{T})^{T} = P^{TT}D^{T}P^{T} = PDP^{T} = A$$
+
+\begin{theorem}{The Spectral Theorem for Symmetric Matrices: }
+The set of eigenvalues of a matrix $A$ are sometimes referred to as the \textbf{spectrum} of $A$. 
+
+An $n \times n$ symmetric matrix $A$ has the following properties: 
+\begin{enumerate}
+	\item $A$ has $n$ real eigenvalues, counting multiplicities. 
+	\item The dimension of the eigenspace for each eigenvalue $\lambda$ equals the multiplicity of the $\lambda$. 
+	\item The eigenspaces are mutually orthogonal. 
+	\item $A$ is orthogonally diagonalizable. 
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+A \textbf{quadratic form} of $\mathbb{R}^n$ is a function $Q$ whose value at a vector $x$ can be computed by an expression of the form $Q(x) =x^{T} Ax$, where $A$ is an $n \times n$ symmetric matrix called the \textbf{matrix of the quadratic form}. 
+
+The simplest form of this is $Q(x) = x^{T} Ix = \norm{x}^{2}$. 
+\end{definition}
+
+\section{Quantum Mechanics Notations}
+\begin{center}
+\begin{tabular}{ |p{2cm}|p{8cm}| }
+\hline
+Notation & Description \\
+\hline
+$z^{*}$ & Complex conjugate of the complex number $z$. $$(1 + i)^{*} = 1 - i$$ \\
+\hline
+$\ket{\psi}$ & Vector. Also known as a \textit{ket}. \\
+\hline
+$\bra{\psi}$ & Vector dual to $\ket{\psi}$. Also known as a \textit{bra}. The dual is a \textit{linear operator} from inner product space $V$ to complex numbers $C$; the matrix representation of dual vectors is just a row vector. \\
+\hline
+$\braket{\varphi | \psi}$ & Inner product between the vectors $\ket{\varphi}$ and $\ket{\psi}$. \\
+\hline 
+$\ket{\varphi} \otimes \ket{\psi}$ & Tensor product of $\ket{\varphi}$ and $\ket{\psi}$. \\
+\hline 
+$\ket{\varphi} \ket{\psi}$ & Abbreviated notation for tensor product. \\
+\hline 
+$A^{*}$ & Complex conjugate of the $A$ matrix. \\
+\hline 
+$A^{\dagger}$ & Hermitian conjugate or adjoint of the $A$ matrix, $A^{\dagger} = (A^{T})^{*}$. $$\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}^{\dagger} = \begin{bmatrix}
+a^{*} & c^{*} \\
+b^{*} & d^{*}
+\end{bmatrix}$$ \\ 
+\hline
+$\braket{\varphi | A | \psi}$ & Inner product between $\ket{\varphi}$ and $A\ket{\psi}$. Equivalently, inner product between $A^{\dagger} \ket{\varphi}$ and $\ket{\psi}$. \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{definition}{The Pauli matrices: }
+The Pauli matrices are $2 \times 2$ matrices that are extremely useful. They are: 
+\begin{center}
+\begin{tabular}{ p{5cm} p{5cm} }
+$$\sigma_{0} \equiv I \equiv \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}$$ & $$\sigma_{1} \equiv \sigma_{x} \equiv X \equiv \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}$$ \\
+$$\sigma_{2} \equiv \sigma_{y} \equiv Y \equiv \begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix}$$ & $$\sigma_{3} \equiv \sigma_{z} \equiv Z \equiv \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix}$$
+\end{tabular}
+\end{center}
+\end{definition}
+
+\begin{definition}{Outer product representation: }
+Suppose $\ket{v}$ is a vector in space $V$, and $\ket{w}$ is a vector in space $W$. Define $\ket{w} \bra{v}$ to be the linear operator from $V$ to $W$ defined by 
+$$ (\ \ket{w} \bra{v}\ ) \ (\ \ket{v'}\ ) \equiv \ket{w} \braket{v|v'} = \braket{v|v'} \ket{w}$$
+
+This equation means that applying the \textit{operator} $\ket{w} \bra{v}$ to $\ket{v'}$ is the same as multiplying $\ket{w}$ by the complex number $\braket{v|v'}$. 
+
+Outer product notation can be used to demonstrate the \textit{completeness relation} for orthonormal vectors. Let $\ket{i}$ be an orthonormal vector in a basis for vector space $V$, so an arbitrary vector $\ket{v}$ can be written as $\ket{v} = \sum_{i} v_{i} \ket{i}$. Note that $\braket{i|v} = v_i$. 
+$$\Big( \sum_i \ket{i} \bra{i} \Big) \ket{v} = \sum_i \ket{i} \braket{i|v} = \sum_i v_{i} \ket{i} = \ket{v} $$
+which implies 
+$$\sum_i \ket{i} \bra{i} = I$$
+
+This final equation is known as the \textit{completeness relation}. We can use it to represent any operator in outer product notation. If $A: V \rightarrow W$ is a linear operator, $\ket{v_i}$ is an orthonormal basis vector for $V$, and $\ket{w_j}$ is an orthonormal basis vector for $W$. 
+$$A = I_{W} A I_{V}$$
+Using the completeness relation twice, 
+$$= \sum_{ij} \ket{w_j} \braket{w_j | A | v_i} \bra{v_i}$$
+$$= \sum_{ij} \braket{w_j | A | v_i} \ket{w_j} \bra{v_i}$$
+which is the outer product representation for $A$. This also means that $A$ has element $\braket{w_j | A | v_i}$ in the $i$th column and $j$th row. 
+
+We can define a \textit{diagonalizable} operator in terms of outer products as well: $A = \sum_{i} \lambda_{i} \ket{i} \bra{i}$, where $\ket{i}$ form an orthonormal set of eigenvectors with corresponding eigenvalues $\lambda_{i}$. 
+\end{definition}
+
+\begin{definition}{Adjoint: }
+Suppose $A$ is a linear operator on a Hilbert space, $V$. For all $\ket{v}$, $\ket{w} \in V$, there exists a linear operator $A^{\dagger}$ such that:
+$$( \ \ket{v}, A \ket{w} \ ) \equiv ( \ A^{\dagger} \ket{v}, \ket{w} \ )$$ 
+and 
+$$ \ket{v}^{\dagger} \equiv \bra{v}$$
+
+This linear operator is known as the \textit{adjoint} or \textit{Hermitian conjugate}. The action of the adjoint is to take the matrix to its conjugate-transpose matrix, $A^{\dagger} \equiv (A^{*})^{T}$. For example, 
+$$\begin{bmatrix}
+1 + 3i & 2i \\
+1 + i & 1 - 4i
+\end{bmatrix}^{\dagger} = \begin{bmatrix}
+1 - 3i & 1 - i \\
+-2i & 1 + 4i
+\end{bmatrix}$$
+
+An operator $A$ whose adjoint is itself is known as a \textit{Hermitian}.
+\end{definition}
+
+\begin{theorem}
+If $\ket{w}$ and $\ket{v}$ are two vectors, $(\ket{w} \bra{v})^{\dagger} = \ket{v} \bra{w}$.
+\end{theorem}
+
+\begin{proof}
+$$(\ket{w} \bra{v})^{\dagger} = \bra{v}^{\dagger} \ket{w}^{\dagger} = \ket{v} \bra{w}$$
+\end{proof}
+
+\begin{definition}
+\textit{Projectors} are an important class of Hermitian operators. Suppose $W$ is a $k$-dimensional vector subspace of the $d$-dimensional vector space $V$. Gram-Schmidt ensures we can construct an orthonormal basis $\ket{1}, \cdots, \ket{d}$ for $V$ such that $\ket{1}, \cdots, \ket{k}$ is an orthonormal basis for $W$. We define 
+$$P = \sum_{i=1}^{k} \ket{i}\bra{i}$$
+to be the \textit{projector} onto the subspace $W$. By the above theorem, we know $\ket{v} \bra{v}$ is Hermitian, so $P$ is Hermitian. 
+
+The orthogonal complement of $P$ is the operator $P^{\perp} = I - P$. We know $I$ spans the entire basis of $V$, so subtracting $P$ means $P^{\perp}$ is a projector onto the vector space spanned by $\ket{k+1}, \cdots, \ket{d}$. 
+
+Note that $P^{2} = \sum_{i=1}^{k} \ket{i} \braket{i | i} \bra{i}$, since $\braket{i | j} = 0$ for $i \neq j$. Since $\braket{i|i} = 1$, $P^{2} = P$. 
+\end{definition}
+
+\begin{definition}
+An operator $A$ is \textit{normal} if $AA^{\dagger} = A^{\dagger} A$. A Hermitian operator is normal. 
+\end{definition} 
+
+
+
+
+\end{document}
