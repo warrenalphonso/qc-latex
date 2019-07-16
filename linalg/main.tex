@@ -3,6 +3,7 @@
 %Use the following for font size 8 or 9, as 10 is the minimum provided normally
 %\documentclass[8pt]{extbook}
 
+
 %Compilers
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -64,15 +65,34 @@
 \makeindex
 
 
+
 %Theorem instantiation
+\definecolor{lightblue1}{RGB}{222, 243, 253}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\definecolor{lightblue1}{RGB}{222, 243, 253}
 \surroundwithmdframed[
 	hidealllines = true, 
 	backgroundcolor = lightblue1,
 	]{theorem}
+
+%NEW theorem environment
+%\definecolor{lightblue1}{RGB}{222, 243, 253}
+%\newcounter{thmcounter}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightblue1,
+%]{mytheorem}
+%\newenvironment{theorem}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
+%	\begin{mytheorem}
+%	\refstepcounter{thmcounter} %increment counter 
+%	\textbf{Theorem \thethmcounter} %\the__counter__ gets value of counter
+%	\textsl{ #1}:
+%}{
+%	\end{mytheorem}
+%}
+%\numberwithin{thmcounter}{section}
 	
+
 %Proof instantiation 
 \renewenvironment{proof}{\textsl{Proof.}}{\hfill$\blacksquare$}
 \definecolor{lightblue2}{RGB}{232, 245, 252}
@@ -81,18 +101,56 @@
 	backgroundcolor = lightblue2,
 	]{proof}
 	
+	
+%NEW proof 
+%\definecolor{lightblue2}{RGB}{232, 245, 252}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightblue2, 
+%]{myproof}
+%\renewenvironment{proof}{
+%	\bigskip 
+%	\noindent
+%	\begin{myproof}
+%	\textit{Proof.}
+%}{
+%	\end{myproof}
+%	\par 
+%	\bigskip
+%}
+
+	
 %Lemma instantiation
+\definecolor{lightgreen1}{RGB}{224, 255, 193}
 \theoremstyle{plain}
 \newtheorem{lemma}[theorem]{Lemma}
-\definecolor{lightgreen1}{RGB}{224, 255, 193}
 \surroundwithmdframed[
 	hidealllines = true, 
 	backgroundcolor = lightgreen1,
 	]{lemma}
+	
+	
+%NEW lemma 
+%\definecolor{lightgreen1}{RGB}{224, 255, 193}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightgreen1,
+%]{mylemma}
+%\newenvironment{lemma}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
+%	\bigskip 
+%	\noindent
+%	\begin{mylemma}
+%	\refstepcounter{thmcounter} %increment counter 
+%	\textbf{Lemma \thethmcounter} %\the__counter__ gets value of counter
+%	\textsl{ #1}:
+%}{
+%	\end{mylemma}
+%	\par 
+%	\bigskip
+%}
+%\numberwithin{thmcounter}{section}
 
 %Lemma Proof instantiation 
-%\theoremstyle{remark}
-%\newtheorem*{lproof}{Proof}
 \newenvironment{lproof}{\textsl{Proof.}}{\hfill$\blacksquare$}
 \definecolor{lightgreen2}{RGB}{232, 249, 214}
 \surroundwithmdframed[
@@ -100,6 +158,23 @@
 	backgroundcolor = lightgreen2,
 	]{lproof}
 	
+
+%NEW lproof 
+%\definecolor{lightgreen2}{RGB}{232, 249, 214}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightgreen2,
+%]{mylproof}
+%\newenvironment{lproof}{
+%	\bigskip 
+%	\noindent
+%	\begin{mylproof}
+%	\textit{Proof.}
+%}{
+%	\end{mylproof}
+%	\par 
+%	\bigskip
+%}
 
 
 %Definition instantiation
@@ -147,6 +222,7 @@
 }
 
 \mainmatter
+
 
 \include{basic_notations/basic_notations}
 \include{linear_equations/linear_equations}
