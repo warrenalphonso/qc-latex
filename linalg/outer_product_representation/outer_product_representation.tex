@@ -245,7 +245,7 @@
 
 \chapter{Outer Product Representation} 
 
-This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of this chapter will be drawing analogies to the previous chapter. This is intentional, as it seems that fully understanding the core properties and intuitions behind many of the ideas in the previous chapter is critical. 
+This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of this chapter will be spent drawing analogies to the previous two chapters. This is intentional, as it seems that fully understanding the core properties and intuitions behind many of the ideas in the two preceding chapters is critical. 
 
 \section{Dirac Notation} 
 
@@ -303,10 +303,124 @@ $$
 where the inequality in the second step follows from the fact that we only use the first member of our basis and thus drop some non-negative terms.
 \end{proof}
 
-\section{Decompositions}
+\section{Diagonalization}
 
+The spectral theorem for normal operators proved in the previous chapter ($N = UDU^{\dagger}$ where $U$ is a unitary matrix of eigenvectors and $D$ is a diagonal matrix of corresponding eigenvalues) states an operator is diagonalizable if and only if it is normal. We can also write the diagonal representation of a normal matrix in outer product representation.  
 
+\begin{theorem}
+A diagonal representation for a normal operator $N$ is 
+$$N = \sum_{i}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
+where $\ket*{i}$ are an orthonormal set of eigenvectors with corresponding eigenvalues $\lambda_{i}$. 
+\end{theorem}
 
+\begin{proof}
+Let $\ket*{e}$ be an orthonormal basis of $N$. Since each basis vector $\ket*{e}$ can be understood as providing a coordinate of $\ket*{v}$ in that basis through $\bra*{e}\ket*{v}$, we know $\bra*{e}\ket*{e}$ is the 0 matrix except with a 1 on the $e$th diagonal entry. Using the spectral theorem, we get 
+$$N = UDU^{\dagger} = U \Bigg( \sum_{i=1}^{n} \lambda_{i} \ket*{e}\bra*{e} \Bigg) U^{\dagger} = \sum_{i=1}^{n} \lambda_{i} U \ket*{e} \Bigg( U \ket*{e} \Bigg)^{\dagger}$$
+
+Now we define $U \ket*{e}$ to be the normalized eigenvectors $\ket*{i}$ to get 
+$$N = \sum_{i=1}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
+\end{proof}
+
+As an example, we will introduce the Pauli $Z = \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix}$ matrix, which is significant in quantum computation, and write its diagonal representation.  
+
+The characteristic equation $det(A - \lambda I)$ determines that the eigenvalues for $Z$ are 1 and -1. The corresponding eigenvectors are $\begin{bmatrix}
+1 \\ 0
+\end{bmatrix}$ and $\begin{bmatrix}
+0 \\ 1
+\end{bmatrix}$, which we will denote $\ket*{0}$ and $\ket*{1}$, respectively. This means our diagonal representation is 
+$$Z = \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} = \ket*{0}\bra*{0} - \ket*{1}\bra*{1}$$
+
+\section{Adjoints and Hermitian Operators} 
+
+Recall, if $A$ is a linear operator on $V$, then there exists a unique linear operator $A^{\dagger}$ (synonymous with $A^{*}$ in this book) on $V$ such that for all vectors $\ket*{v}, \ket*{w} \in V$, 
+$$(\ket*{v}, A\ket*{w}) = (A^{\dagger}\ket*{v}, \ket*{w})$$
+
+This linear operator is the \textbf{adjoint} or \textbf{Hermitian conjugate} of $A$. Recall earlier that we also defined $\ket*{v}^{\dagger} \equiv \bra*{v}$.
+
+\begin{definition}
+A mapping $f: V \rightarrow W$ between complex vector spaces is \textbf{antilinear} if 
+$$f(ax + by) = \overline{a} f(x) + \overline{b} f(y)$$
+
+From Wikipedia: ``antilinear maps occur in quantum mechanics in the study of time reversal and in spinor calculus."
+\end{definition}
+
+\begin{lemma}[Antilinearity of the adjoint]
+$$\Bigg( \sum_{i} a_{i} A_{i} \Bigg)^{\dagger} = \sum_{i} a_{i}^{*} A_{i}^{\dagger}$$
+\end{lemma}
+
+\begin{lproof}
+On the LHS: we know $(a + b)^{*} = a^{*} + b^{*}$. Thus, $(\sum_{i} a_{i}A_{i})^{\dagger} = \sum_{i} (a_{i}A_{i})^{\dagger}$.
+
+On the RHS: $\sum_{i} a_{i}^{*} A_{i}^{\dagger} = (a_{1} A_{1})^{\dagger} + \cdots + (a_{n} A_{n})^{\dagger} = \sum_{i} (a_{i} A_{i})^{\dagger}$. 
+\end{lproof}
+
+Recall, an operator $A$ whose adjoint is itself is known as a \textbf{Hermitian} or \textbf{self-adjoint} operator. 
+
+An interesting usage of Hermitian operators that hint at their importance is the following theorem. 
+
+\begin{theorem}
+An arbitrary operator $A$ can be decomposed into the sum $B + iC$ where $B$ and $C$ are Hermitian.
+\end{theorem}
+
+\begin{proof}
+Define $B = \frac{A + A^{\dagger}}{2}$ and $C = \frac{A - A^{\dagger}}{2i}$. 
+
+To prove $B$ is Hermitian: $B^{\dagger} = \frac{A^{\dagger} + A}{2} = B$. To prove $C$ is Hermitian: $C^{\dagger} = \frac{A^{\dagger} - A}{-2i} = C$. 
+
+Finally, 
+$$B + iC = \frac{A + A^{\dagger}}{2} + i \frac{A - A^{\dagger}}{2i} = \frac{A + A}{2} = A$$
+\end{proof}
+
+Recall, \textit{projector} operators are Hermitian operators. We can demonstrate this using outer product representation. 
+
+Suppose $W$  is a $k$-dimensional vector \textit{subspace} of the $d$-dimensional vector space $V$. We use Gram-Schmidt to construct an orthonormal basis $\ket*{1}, \cdots, \ket*{d}$ for $V$ such that $\ket*{1}, \cdots, \ket*{k}$ is an orthonormal basis for $W$. Then, we define 
+$$P = \sum_{i=1}^{k} \ket*{i} \bra*{i}$$
+to be the projector onto subspace $W$. Notice that the Completeness Relation states that if $k = d$, $P = I$, which is exactly what a projector from $V \rightarrow V$ would be. This outer product representation of $P$ makes it clear that $P$ is Hermitian: since $(\ket*{v} \bra*{v})^{\dagger} = (\ket*{v} \bra*{v})$, antilinearity means
+$$P^{\dagger} = \Bigg( \sum_{i}^{k} \ket*{i} \bra*{i} \Bigg)^{\dagger} = \sum_{i}^{k} (\ket*{i} \bra*{i}) = \sum_{i}^{k} \ket*{i} \bra*{i} = P$$
+
+The Completeness Relation also makes it clear that the orthogonal complement of $P$ is defined as $Q = I - P$, and that $Q$ is a projector onto the vector space spanned by $\ket*{k + 1}, \cdots, \ket*{d}$. 
+
+Recall, an operator $A$ is \textbf{normal} if $AA^{\dagger} = A^{\dagger}A$. Clearly, a Hermitian operator is also normal. 
+
+Recall, an operator $U$ is \textbf{unitary} if $U^{\dagger}U = I$, so unitary operators are also normal. In the Chapter 5, we proved unitary operators preserve the norm, but we can generalize this to prove that they also preserve inner products. 
+
+\begin{theorem}
+Let $U$ be unitary. Then 
+$$(U \ket*{v}, U \ket*{w}) = (\ket*{v}, \ket*{w})$$
+\end{theorem}
+
+\begin{proof}
+$$ (U \ket*{v}, U \ket*{w}) = \bra*{v} U^{\dagger} U \ket*{w} = \bra*{v} I \ket*{w} = \bra*{v}\ket*{w}$$
+\end{proof}
+
+This result allows an elegant outer product representation of $U$. Let $\ket*{v_{i}}$ be an orthonormal basis. We define $$\ket*{w_{i}} = U \ket*{v_{i}}$$ so that $\ket*{w_{i}}$ is also an orthonormal basis because unitary operators preserve inner products. Right multiplying both sides by $\bra*{v_{i}}$ and using the Completeness Relation, we get 
+$$\ket*{w_{i}} \bra*{v_{i}} = U \ket*{v_{i}} \bra*{v_{i}} \rightarrow U = \sum_{i} \ket*{w_{i}} \bra*{v_{i}}$$
+
+Recall, an operator $A$ such that $(\ket*{v}, A\ket*{v})$ is real and non-negative is called a \textbf{positive operator} or positive semidefinite. If this same inner product is \textit{strictly} positive for all $\ket*{v} \neq 0$, then $A$ is \textbf{positive definite}. 
+
+\begin{theorem}[Hermiticity of positive operators] 
+A positive operator $A$ is Hermitian. 
+\end{theorem} 
+
+\begin{proof}
+Since we can write $A = B + iC$ where $B$ and $C$ are Hermitian, we can use definition of a positive operator to write 
+$$
+\begin{aligned}
+(\ket*{v}, A \ket*{v}) &= (\ket*{v}, B\ket*{v} +iC\ket*{v}) \\ 
+&= (\ket*{v}, B\ket*{v}) + (\ket*{v}, iC\ket*{v}) \\
+&= (B\ket*{v}, \ket*{v}) + (-iC\ket*{v}, \ket*{v}) 
+\end{aligned}
+$$
+
+This implies that $A = B - iC$, so  
+$$A^{\dagger} = (B - iC)^{\dagger} = B^{\dagger} + i C^{\dagger} = B + iC = A$$
+\end{proof}
 
 
 \end{document}

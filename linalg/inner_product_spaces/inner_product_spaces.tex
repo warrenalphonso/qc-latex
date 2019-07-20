@@ -294,17 +294,40 @@ At each step, we add in $x_{r + 1}$ and then subtract its projection the subspac
 
 Since multiplication by a scalar does not change orthogonality, we can multiply vectors $v_{k}$ returned by Gram-Schmidt by any non-zero numbers. One use case is to normalize the orthogonal vectors by dividing by their norms $\norm{v_{k}}$ to yield an orthonormal system. 
 
+
 \begin{theorem}
-For any orthogonal projection, $P(v): V \rightarrow E$, $$P^{2} = P$$
+A projector $P$ is independent of the basis used to define the subspace $W$ being projected onto. 
+\end{theorem}
+
+\begin{proof}
+Suppose we are projecting $v \in V$ onto $W$. Define $w_{1}$ and $w_{2}$ as two projections of $v$ onto $W$. 
+
+By definition, $(v - w_{1}) \perp W$ and $(v - w_{2}) \perp W$. 
+$$
+\begin{aligned}
+(v - w_{2} - (v - w_{1})) \perp W &\rightarrow (w_{1} - w_{2}) \perp W \\
+&\rightarrow (w_{1} - w_{2}) \perp (w_{1} - w_{2}) \\
+&\rightarrow w_{1} - w_{2} = 0
+\end{aligned}
+$$
+where the second step follows from $(w_{1} - w_{2}) \in W$ and the third step follows from the fact that only the 0 vector is orthogonal to itself. This implies both projections are the same. Since this is true for all projections $P_{W} v$, $P$ is unique. 
+\end{proof}
+
+The following is an important, defining property of projections. 
+
+\begin{theorem}
+For any orthogonal projection, $P: V \rightarrow E$, $$P^{2} = P$$
 \end{theorem}
 
 \begin{proof}
 We know that for some orthogonal basis $v_{1}, \cdots, v_{n}$ for $E$, 
-$$P(v) = \sum_{k=1}^{n} \frac{(v, v_{k}}{\norm{v_{k}}^{2}} v_{k}$$
+$$P_{E} v = \sum_{k=1}^{n} \frac{(v, v_{k})}{\norm{v_{k}}^{2}} v_{k}$$
 
 If $v \in E$, then 
-$$v = \sum_{k=1}^{n} \frac{(v, v_{k}}{\norm{v_{k}}^{2}} v_{k}$$
-so $P(v) = v$ for all $v \in E$. 
+$$v = \sum_{k=1}^{n} \frac{(v, v_{k})}{\norm{v_{k}}^{2}} v_{k}$$
+so $P_{E} v = v$ for all $v \in E$. 
+
+Intuitively, projecting $v \in E$ onto $E$ would clearly result in $v$. 
 \end{proof}
 
 The idea of orthogonality is not unique to vector spaces. As an example, we will use Gram-Schmidt to construct a set of \textit{orthogonal polynomials} over the interval [-1,1]. Let us define the inner product on the space of polynomials as $(f, g) = \int_{-1}^{1} f(t) g(t) dt$. Now, we will use Gram-Schmidt to construct an orthogonal basis of polynomials from the basis $1, t, t^{2}, t^{3}$ such that for each polynomial $P(1) = 1$.
@@ -478,6 +501,8 @@ $$(v_{1}, Pv_{2}) = (u_{1} + \widetilde{u_{1}}, u_{2}) = (u_{1}, u_{2}) + (\wide
 Since $(Tv_{1}, v_{2}) = (v_{1}, Tv_{2})$, $T = T^{*}$. 
 \end{proof}
 
+
+
 \section{Isometries and Unitary Operators}
 \begin{definition}
 An operator $U: X \rightarrow Y$ is called an \textbf{isometry} if it preserves the norm, 
@@ -539,14 +564,6 @@ If $dim(X) = dim(Y)$, then $U$ is square. Since we know $U$ is left invertible, 
 If $U$ is unitary, it is invertible, so $dim(X) = dim(Y)$ since only square matrices are invertible. 
 \end{lproof}
 
-Properties of unitary operators that follow from our proofs: 
-\begin{enumerate}
-	\item $U^{-1} = U^{*}$ 
-	\item If $U$ is unitary, $U^{*} = U^{-1}$ is also unitary. 
-	\item If $U$ is an isometry and $v_{1}, \cdots, v_{n}$ is an orthonormal basis, then $Uv_{1}, \cdots, Uv_{n}$ is an orthonormal basis. 
-	\item The product of unitary operators is a unitary operator. 
-\end{enumerate}
-
 \begin{theorem}
 The product of unitary operators is also unitary. 
 \end{theorem}
@@ -556,6 +573,14 @@ Let $A$ and $B$ be unitary operators. We must show that $(AB)^{*} (AB) = I$.
 
 $$(AB)^{*}(AB) = B^{*} A^{*} A B = B^{*} B = I$$
 \end{proof}
+
+Properties of unitary operators that follow from our proofs: 
+\begin{enumerate}
+	\item $U^{-1} = U^{*}$ 
+	\item If $U$ is unitary, $U^{*} = U^{-1}$ is also unitary. 
+	\item If $U$ is an isometry and $v_{1}, \cdots, v_{n}$ is an orthonormal basis, then $Uv_{1}, \cdots, Uv_{n}$ is an orthonormal basis. 
+	\item The product of unitary operators is a unitary operator. 
+\end{enumerate}
 
 \begin{lemma}
 $$det(A^{*}) = \overline{det(A)}$$
@@ -576,14 +601,17 @@ Thus $A - \lambda I$ is invertible if and only if $A^{*} - \overline{\lambda}I$ 
 If $U$ is a unitary matrix, then 
 $$ det(U) = \pm 1$$
 If $\lambda$ is an eigenvalue of $U$, then 
-$$\lambda = \pm 1$$
+$$\lambda = e^{i \theta}$$
+for some real $\theta$. 
 \end{theorem}
 
 \begin{proof}
 Let $det(U) = z$. Since $det(U^{*}) = \overline{det(U)}$, we have 
 $$\abs{z}^{2} = \overline{z}z = det(U^{*} U) = det(I) = 1$$
 
-To prove statement 2, notice that if $Ux = \lambda x$, then 
+To prove statement 2, notice that the condition $\lambda = e^{i \theta}$ requires we prove $\abs{\lambda} = 1$. 
+
+Now, if $Ux = \lambda x$, then 
 $$\norm{Ux} = \norm{\lambda x} = \abs{\lambda} \cdot \norm{x}$$
 which means $\abs{\lambda} = 1$ since $\norm{Ux} = \norm{x}$. 
 \end{proof}
