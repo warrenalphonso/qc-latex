@@ -224,12 +224,89 @@
 
 \mainmatter
 
-\include{basic_notations/basic_notations}
-\include{linear_equations/linear_equations}
-\include{determinants/determinants}
-\include{spectral_theory/spectral_theory}
-\include{inner_product_spaces/inner_product_spaces}
-%\include{outer_product_representation/outer_product_representation}
-\include{structure_of_operators/structure_of_operators}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Outer Product Representation} 
+
+This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of this chapter will be drawing analogies to the previous chapter. This is intentional, as it seems that fully understanding the core properties and intuitions behind many of the ideas in the previous chapter is critical. 
+
+\section{Dirac Notation} 
+
+We can use inner products to derive a useful representations of linear operators. Before doing so, we'll define a convenient notation. 
+
+\begin{definition}
+The \textbf{Dirac notation} represents vectors as 
+$$\ket*{\psi}$$ which is also known as a \textbf{ket}. The dual of this same vector (dual spaces will be defined later in the book) is represented as 
+$$\bra*{\psi}$$ which is also known as a \textbf{bra}. For now, it suffices to know that the dual of a vector is simply the complex conjugate transpose of that vector. This notations allows us to represent the inner product of two vectors as 
+$$\bra*{\phi}\ket*{\psi}$$
+\end{definition}
+
+Using this new notation, we can define the outer product. 
+
+\begin{definition}
+The \textbf{outer product representation} is a representation of linear operators which uses the inner product. Suppose $\ket*{v}$ is a vector in inner product space $V$, and $\ket*{w}$ is a vector in inner product space $W$. We define $\ket{w} \bra*{v}$ to be the \textit{linear operator} from $V$ to $W$ defined by 
+$$\Big(\ket*{w} \bra*{v} \Big) \ket*{v_{1}} \equiv \ket*{w} \bra*{v} \ket*{v_{1}} = \bra*{v} \ket*{v_{1}} \ket*{w}$$
+\end{definition}
+
+To make this representation feel less abstract, we consider an important result using the outer product. 
+
+\begin{lemma}[Completeness Relation]
+For an orthonormal basis $\ket*{i}$, 
+$$\sum_{i} \ket*{i} \bra*{i} = I$$
+\end{lemma}
+
+\begin{lproof}
+We know that for any $v \in V$ can be written as $v = \sum_{i} v_{i} \ket*{i}$ and that $\bra*{i} \ket*{v} = v_{i}$. Then 
+
+$$\Big( \sum_{i} \ket*{i} \bra*{i} \Big) \ket*{v} = \sum_{i} \ket*{i} \bra*{i} \ket*{v} = \sum_{i} v_{i} \ket*{i} = \ket*{v}$$
+
+Because this is true for all $\ket*{v}$, it must be the identity operator. 
+\end{lproof}
+
+One application of the Completeness Relation is the representation of any operator in the outer product notation. Suppose $A: V \rightarrow W$ is a linear operator and $\ket*{v_{i}}$ and $\ket*{w_{j}}$ are orthonormal bases for $V$ and $W$, respectively. By using the Completeness Relation twice, we get
+$$A = I_{W} A I_{V} = \sum_{ij} \ket*{w_{j}} \bra*{w_{j}} A \ket*{v_{i}} \bra*{v_{i}} = \sum_{ij} \bra*{w_{j}} A \ket*{v_{i}} \ket*{w_{j}} \bra*{v_{i}}$$
+which is the \textbf{outer product representation of $A$}. This equation also shows that $A$ has matrix element $\bra*{w_{j}}A\ket*{v_{i}}$ in the $i$th column and $j$th row, with respect to input basis $\ket*{v_{i}}$ and output basis $\ket*{w_{j}}$.
+
+To gain more familiarity with the outer product representation, we will prove the Cauchy-Schwarz Inequality. 
+
+\begin{theorem}[Cauchy-Schwarz Inequality]
+For any two vectors $\ket*{v}$ and $\ket*{w}$, $$\abs{\bra*{v}\ket*{w}}^{2} \leq \bra*{v}\ket*{v} \bra*{w}\ket*{w}$$
+\end{theorem}
+
+\begin{proof}
+We use Gram-Schmidt to obtain an orthonormal basis $\ket{i}$, such that the first member of the basis is $\ket*{w} / \sqrt{\bra*{w}\ket*{w}}$. Then 
+$$
+\begin{aligned} 
+\bra*{v}\ket*{v} \bra*{w}\ket*{w} &= \sum_{i} \bra*{v}\ket*{i} \bra*{i}\ket*{v} \bra*{w}\ket*{w} \\
+&\geq \frac{\bra*{v}\ket*{w} \bra*{w}\ket*{v}}{\bra*{w}\ket*{w}} \bra*{w}\ket*{w} \\ 
+&= \bra*{v}\ket*{w} \bra*{w}\ket*{v} = \abs{\bra*{v}\ket*{w}}^{2}
+\end{aligned}
+$$
+
+where the inequality in the second step follows from the fact that we only use the first member of our basis and thus drop some non-negative terms.
+\end{proof}
+
+\section{Decompositions}
+
+
+
+
 
 \end{document}
