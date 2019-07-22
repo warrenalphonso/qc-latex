@@ -1,252 +1,6 @@
- \documentclass[a4paper,10pt]{book}
-
-%Use the following for font size 8 or 9, as 10 is the minimum provided normally
-%\documentclass[8pt]{extbook}
-
-
-%Compilers
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-%Graphics
-\usepackage{xcolor}
-\usepackage{graphicx}
-
-%Math
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{caption}
-\usepackage{physics}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage[xcolor]{mdframed}
-
-%Math shortcuts 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\M}{\mathcal{M}}
-\renewcommand{\P}{\mathcal{P}}
-\renewcommand{\L}{\mathcal{L}}
-\DeclareMathOperator{\Span}{span}
-
-%Augmented matrices
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-   \hskip -\arraycolsep
-   \let\@ifnextchar\new@ifnextchar
-   \array{#1}}
-\makeatother
-
-
-%Define abs
-%\DeclarePairedDelimiter\abs{\lvert}{\rvert}
-
-%Defining norm
-%\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
-
-%Defining inner product
-\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
-
-
-%Reducing margin
-\usepackage[margin=2cm]{geometry}
-
-%Header, footer
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\leftmark}
-\cfoot{\thepage} 
-\renewcommand{\headrulewidth}{0pt}
-
-%Index - not used
-\usepackage{makeidx}
-\makeindex
-
-
-
-%Theorem instantiation
-\definecolor{lightblue1}{RGB}{222, 243, 253}
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue1,
-	]{theorem}
-
-%NEW theorem environment
-%\definecolor{lightblue1}{RGB}{222, 243, 253}
-%\newcounter{thmcounter}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightblue1,
-%]{mytheorem}
-%\newenvironment{theorem}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
-%	\begin{mytheorem}
-%	\refstepcounter{thmcounter} %increment counter 
-%	\textbf{Theorem \thethmcounter} %\the__counter__ gets value of counter
-%	\textsl{ #1}:
-%}{
-%	\end{mytheorem}
-%}
-%\numberwithin{thmcounter}{section}
-	
-
-%Proof instantiation 
-\renewenvironment{proof}{\textsl{Proof.}}{\hfill$\blacksquare$}
-\definecolor{lightblue2}{RGB}{232, 245, 252}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue2,
-	]{proof}
-	
-	
-%NEW proof 
-%\definecolor{lightblue2}{RGB}{232, 245, 252}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightblue2, 
-%]{myproof}
-%\renewenvironment{proof}{
-%	\bigskip 
-%	\noindent
-%	\begin{myproof}
-%	\textit{Proof.}
-%}{
-%	\end{myproof}
-%	\par 
-%	\bigskip
-%}
-
-	
-%Lemma instantiation
-\definecolor{lightgreen1}{RGB}{224, 255, 193}
-\theoremstyle{plain}
-\newtheorem{lemma}[theorem]{Lemma}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen1,
-	]{lemma}
-	
-	
-%NEW lemma 
-%\definecolor{lightgreen1}{RGB}{224, 255, 193}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightgreen1,
-%]{mylemma}
-%\newenvironment{lemma}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
-%	\bigskip 
-%	\noindent
-%	\begin{mylemma}
-%	\refstepcounter{thmcounter} %increment counter 
-%	\textbf{Lemma \thethmcounter} %\the__counter__ gets value of counter
-%	\textsl{ #1}:
-%}{
-%	\end{mylemma}
-%	\par 
-%	\bigskip
-%}
-%\numberwithin{thmcounter}{section}
-
-%Lemma Proof instantiation 
-\newenvironment{lproof}{\textsl{Proof.}}{\hfill$\blacksquare$}
-\definecolor{lightgreen2}{RGB}{232, 249, 214}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen2,
-	]{lproof}
-	
-
-%NEW lproof 
-%\definecolor{lightgreen2}{RGB}{232, 249, 214}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightgreen2,
-%]{mylproof}
-%\newenvironment{lproof}{
-%	\bigskip 
-%	\noindent
-%	\begin{mylproof}
-%	\textit{Proof.}
-%}{
-%	\end{mylproof}
-%	\par 
-%	\bigskip
-%}
-
-
-%Definition instantiation
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\definecolor{lightgreen}{RGB}{219, 255, 188}
-\definecolor{subtlegray}{RGB}{248, 248, 248}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = subtlegray,
-	]{definition}
-		
-	
-%Remove auto-indentation
-\setlength{\parindent}{0cm}
-
-%Preferred font and spacing
-\linespread{1.3}
-%\usepackage{lmodern}
-\usepackage{kpfonts}
-%\usepackage{tgschola}
-
-\begin{document}
-
-\frontmatter 
-{\let\cleardoublepage\clearpage 
-%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
-\begin{titlepage}
-	\centering
-	\vspace{1cm}
-	{\scshape\LARGE University of California, Berkeley \par}
-	\vspace{4cm}
-	{\scshape\Large Literally everything I know about \par}
-	\vspace{1.5cm}
-	{\Huge\bfseries Linear Algebra\par}
-	\vspace{1cm}
-	\vspace{2.5cm}
-	{\Large\itshape Warren Alphonso\par}
-	\vfill
-	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, \textsc{Linear Algebra Done Wrong} by Treil, and \textsc{Quantum Computation and Quantum Information} by Nielsen and Chuang. \par}
-	\vfill
-	{\large \today\par}
-\end{titlepage}
-
-\tableofcontents
-}
-
-\mainmatter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \chapter{Outer Product Representation} 
 
-This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of this chapter will be spent drawing analogies to the previous two chapters. This is intentional, as it seems that fully understanding the core properties and intuitions behind many of the ideas in the two preceding chapters is critical. 
-
+This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of it will be spent providing an additional perspective on the core ideas in the previous two chapters. New concepts, like tensor products, that are introduced in the second half of this chapter will be developed more formally later in the book. 
 \section{Dirac Notation} 
 
 We can use inner products to derive a useful representations of linear operators. Before doing so, we'll define a convenient notation. 
@@ -308,9 +62,9 @@ where the inequality in the second step follows from the fact that we only use t
 The spectral theorem for normal operators proved in the previous chapter ($N = UDU^{\dagger}$ where $U$ is a unitary matrix of eigenvectors and $D$ is a diagonal matrix of corresponding eigenvalues) states an operator is diagonalizable if and only if it is normal. We can also write the diagonal representation of a normal matrix in outer product representation.  
 
 \begin{theorem}
-A diagonal representation for a normal operator $N$ is 
+A diagonal representation for a normal operator $N: V \rightarrow V$ is 
 $$N = \sum_{i}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
-where $\ket*{i}$ are an orthonormal set of eigenvectors with corresponding eigenvalues $\lambda_{i}$. 
+where $\ket*{i}$ are an orthonormal set of eigenvectors of $V$ with corresponding eigenvalues $\lambda_{i}$. 
 \end{theorem}
 
 \begin{proof}
@@ -422,5 +176,176 @@ This implies that $A = B - iC$, so
 $$A^{\dagger} = (B - iC)^{\dagger} = B^{\dagger} + i C^{\dagger} = B + iC = A$$
 \end{proof}
 
+\section{Tensor Products}
 
-\end{document}
+Tensor products are probably the most unintuitive Linear Algebra concept I've come across thus far. This section is a very top-level overview of the subject; later chapters will cover this topic in more detail. 
+
+\begin{definition}
+Suppose $V$ and $W$ are $m$ and $n$ dimensional vector spaces, respectively. Then $V \otimes W$ is the \textbf{tensor product} of these two spaces and is an $mn$ dimensional vector space. The elements of $V \otimes W$ are linear combinations of \textbf{tensor products} $\ket*{v} \otimes \ket*{w}$. If $\ket*{i}$ and $\ket*{j}$ are orthonormal bases for spaces $V$ and $W$, then $\ket*{i} \otimes \ket*{j}$ is a basis for $V \otimes W$. 
+\end{definition}
+
+The tensor product satisfies the following properties: 
+\begin{enumerate}
+	\item For scalar $z$, $\ket*{v} \in V$, and $\ket*{w} \in W$, $$z (\ket*{v} \otimes \ket*{w}) = (z\ket*{v}) \otimes \ket*{w} = \ket*{v} \otimes (z\ket*{w})$$
+	\item For $\ket*{v_{1}}, \ket*{v_{2}} \in V$ and $\ket*{w} \in W$, $$(\ket*{v_{1}} + \ket*{v_{2}}) \otimes \ket*{w} = \ket*{v_{1}} \otimes \ket*{w} + \ket*{v_{2}} \otimes \ket*{w}$$
+	\item For $\ket*{v} \in V$ and $\ket*{w_{1}}, \ket*{w_{2}} \in W$, $$\ket*{v} \otimes (\ket*{w_{1}} + \ket*{w_{2}}) = \ket*{v} \otimes \ket*{w_{1}} + \ket*{v} \otimes \ket*{w_{2}}$$
+\end{enumerate}
+
+If $A$ and $B$ are linear operators on $V$ and $W$, respectively, then we can define a linear operator $A \otimes B$ on $V \otimes W$ as 
+$$(A \otimes B)(\ket*{v} \otimes \ket*{w}) \equiv A\ket*{v} \otimes B\ket*{w}$$
+
+We can extend this definition of $A \otimes B$ to ensure linearity of $A \otimes B$ so 
+$$(A \otimes B) \Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} \Bigg) \equiv \sum_{i} \alpha_{i} A \ket*{v_{i}} \otimes B \ket*{w_{i}}$$
+
+An arbitrary linear operator $C$ mapping $V \otimes W$ to $V^{'} \otimes W^{'}$ can be represented as a linear combination of tensor products of operators mapping $A: V \rightarrow V^{'}$ and $B: W \rightarrow W^{'}$, 
+$$C = \sum_{i} c_{i} A_{i} \otimes B_{i}$$
+
+We can use the inner products on $V$ and $W$ to define an inner product on $V \otimes W$, 
+$$\Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} , \sum_{j} \beta_{j} \ket*{v_{j}^{'}} \otimes \ket*{w_{j}^{'}} \Bigg) \equiv \sum_{ij} \alpha_{i}^{*} b_{j} \bra*{v_{i}}\ket*{v_{j}^{'}} \bra*{w_{i}}\ket*{w_{j}^{'}}$$
+
+To make all this less abstract, we consider a matrix representation known as the \textit{Kronecker product}. Suppose $A$ is an $m \times n$ matrix and $B$ is a $p \times q$ matrix. Then 
+$$A \otimes B \equiv \overbrace{\left.\begin{bmatrix}
+A_{11}B & A_{12}B & \cdots & A_{1n}B \\ 
+A_{21}B & A_{22}B & \cdots & A_{2n}B \\
+\vdots & \vdots & & \vdots \\ 
+A_{m1}B & A_{m2}B & \cdots & A_{mn}B
+\end{bmatrix} \right\}}^{nq} mp
+$$
+
+where $A_{11}B$ denotes the $p \times q$ submatrix $B$ multiplied by the constant $A_{11}$. 
+
+For example, 
+$$\begin{bmatrix}
+1 \\ 2
+\end{bmatrix} \otimes \begin{bmatrix}
+2 \\ 3
+\end{bmatrix} = \begin{bmatrix}
+1 \times 2 \\
+1 \times 3 \\
+2 \times 2 \\
+2 \times 3
+\end{bmatrix} = \begin{bmatrix}
+2 \\ 
+3 \\ 
+4 \\ 
+6
+\end{bmatrix}$$
+
+and the tensor product of Pauli $X$ and $Y$ is 
+$$X \otimes Y = \begin{bmatrix}
+0 \cdot Y & 1 \cdot Y \\
+1 \cdot Y & 0 \cdot Y
+\end{bmatrix} = \begin{bmatrix}
+0 & 0 & 0 & -i \\
+0 & 0 & i & 0 \\
+0 & -i & 0 & 0 \\
+i & 0 & 0 & 0
+\end{bmatrix}$$
+
+The notation $\ket*{\psi}^{\otimes k}$ denotes $\ket*{\psi}$ tensored with itself $k$ times. 
+
+Do problems from Nielsen and Chuang. 
+
+\section{Operator Functions}
+
+Given a function $f: C \rightarrow C$, we can define a corresponding matrix function. Let $A = \sum_{a} a \ket*{a} \bra*{a}$, then 
+$$f(A) \equiv \sum_{a} f(a) \ket*{a} \bra*{a}$$
+
+We can use this construction to define the square root of a positive operator, the logarithm of a positive-definite operator, or the exponential of a normal operator. 
+
+One important matrix function is \textit{trace}. Since we know trace is \textit{cyclic} ($tr(AB) = tr(BA)$) then $tr(UAU^{\dagger}) = tr(U^{\dagger}UA) = tr(A)$. 
+
+Suppose $\ket*{\psi}$ is a unit vector and $A$ is an arbitrary operator. To evaluate $tr(A\ket*{v} \bra*{v})$ use Gram-Schmidt to extend $\ket*{\psi}$ to an orthonormal basis $\ket*{i}$ which includes $\ket*{\psi}$ as the first element. Then 
+$$tr(A \ket*{\psi} \bra*{\psi}) = \sum_{i} \bra*{i}A\ket*{\psi} \bra*{\psi}\ket*{i} = \bra*{\psi}A\ket*{\psi}$$
+
+\section{Commutator and Anti-commutator} 
+
+\begin{definition}
+The \textbf{commutator} between two operators $A$ and $B$ is defined to be 
+$$[A, B] \equiv AB - BA$$
+
+If $[A, B] = 0$, then we say $A$ \textbf{commutes} with $B$. The \textbf{anti-commutator} is defined to be 
+$$\{A, B\} \equiv AB + BA$$
+
+We say $A$ \textit{anti-commutes} with $B$ if $\{ A, B\} = 0$.
+\end{definition}
+
+Many important properties of pairs of operators can be deduced from their commutator or anti-commutator. A useful relation is the connection between the commutator and the property of being able to \textit{simultaneously diagonalize} Hermitian operators $A$ and $B$, that is, write $A = \sum_{i} a_{i} \ket*{i} \bra*{i}, B = \sum_{i} b_{i} \ket*{i} \bra*{i}$, where $\ket*{i}$ is a common set of eigenvectors for $A$ and $B$. 
+
+\begin{theorem}[Simultaneous diagonalization theorem]
+Suppose $A$ and $B$ are Hermitian operators. Then $[A, B] = 0$ if and only if there exists an orthonormal basis such that both $A$ and $B$ are diagonal with respect to that basis. 
+\end{theorem}
+
+\begin{proof}
+Proving if is simple, since if $A= UA_{1}U^{-1}$ and $B = UB_{1}U^{-1}$, then clearly $AB - BA = 0$. 
+
+To prove only if, let $\ket*{a, j}$ be an orthonormal basis for the eigenspace $V_{a}$ of $A$ with eigenvalue $a$; the index $j$ being used to label possible degeneracies. Because we know $AB = BA$, we can write
+$$AB \ket*{a, j} = BA \ket*{a, j} = aB \ket*{a, j}$$
+
+which means $B\ket*{a, j}$ is an element of the eigenspace $V_{a}$. Let $P_{a}$ denote the projector onto $V_{a}$ and define $B_{a} = P_{a} BP_{a}$. Since projectors are Hermitian, we know $B_{a}$ is also Hermitian so it must have a spectral decomposition in terms of an orthonormal set of eigenvectors that span $V_{a}$. Let's call these eigenvectors $\ket*{a, b, k}$, where $a$ and $b$ label the eigenvalues of $A$ and $B_{a}$, and $k$ indexes degeneracies. Note that $B \ket*{a, b, k}$ is in $V_{a}$, so $B \ket*{a, b, k} = P_{a} B \ket*{a, b, k}$. Additionally, we know $P_{a} \ket*{a, b, k} = \ket*{a, b, k}$, so 
+$$B \ket*{a, b, k} = P_{a} B P_{a} \ket*{a, b, k} = b \ket*{a, b, k}$$
+
+This means $\ket*{a, b, k}$ is an eigenvector of $B$ with eigenvalue $b$, and therefore $\ket*{a, b, k}$ is a spanning orthonormal set of eigenvectors of both $A$ and $B$. Thus, $A$ and $B$ are simultaneously diagonalizable. 
+\end{proof}
+
+Another use of the commutator and anti-commutator is the following identity: 
+$$AB = \frac{[A, B] + \{A, B\}}{2}$$
+
+\begin{lemma}
+Suppose $[A, B] = 0, \{A, B\} = 0,$ and $A$ is invertible. Then $B$ is 0. 
+\end{lemma}
+
+\begin{lproof}
+Using the identity we just defined, we know $AB = \frac{0 + 0}{2}$. Since $A$ is invertible we left multiply both sides by $A^{-1}$ to get $B = 0$. 
+\end{lproof}
+
+Two more easily verifiable identities: 
+\begin{enumerate}
+	\item $[A, B]^{\dagger} = [B^{\dagger}, A^{\dagger}]$
+	\item $[A, B] = - [B, A]$ 
+	\item If $A, B$ are Hermitian, then $i[A, B]$ is also Hermitian. 
+\end{enumerate}
+
+\section{Polar Decomposition}
+
+We don't understand \textit{general} linear operators incredibly well, but we do have a good understanding of \textit{unitary} and \textit{positive} operators. The polar and singular value decompositions allow us to take advantage of this by breaking general linear operators into products of unitary and positive operators. 
+
+\begin{theorem}[Polar decomposition]
+Let $A$ by a linear operator on $V$. Then there exists unitary $U$ and positive operators $J$ and $K$ such that 
+$$A = UJ = KU$$
+where $J = \sqrt{A^{\dagger}A}$ and $K = \sqrt{AA^{\dagger}}$. Additionally, if $A$ is invertible, then $U$ is unique.
+\end{theorem}
+
+\begin{proof}
+We know $J$ (which is the modulus of $A$) is a positive operator (which we know are normal), so we can give it a spectral decomposition, 
+$$J = \sum_{i} \lambda_{i} \ket*{i} \bra*{i} \qquad (\lambda_{i} \geq 0)$$
+
+Define $\ket*{\psi_{i}} = A \ket*{i}$, so that $\bra*{\psi_{i}}\ket*{\psi_{i}} = \lambda_{i}^{2}$. 
+
+Now consider only the positive eigenvalues. With these eigenvalues, define $\ket*{e_{i}} = \ket*{\psi_{i}} / \lambda_{i}$, so the $\ket*{e_{i}}$ are normalized and are orthogonal, since if $i \neq j$, then $\bra*{e_{i}}\ket*{e_{j}} = \bra*{i}A^{\dagger}A\ket*{j} / \lambda_{i} \lambda_{j} = 0$. 
+
+Now we use Gram-Schmidt to extend the orthonormal set $\ket*{e_{i}}$ to form an orthonormal basis, which we'll also call $\ket*{e_{i}}$. 
+
+We define the unitary operator $U = \sum_{i} \ket*{e_{i}} \bra*{i}$. When $\lambda_{i} \neq 0$, we have $UJ\ket*{i} = \lambda_{i} \ket*{e_{i}} = \ket*{\psi_{i}} = A \ket*{i}$. When $\lambda_{i} = 0$, we have $UJ \ket*{i} = 0 = \ket*{\psi_{i}}$. Since $A$ and $UJ$ agree on the basis $\ket*{i}$, we know $A = UJ$. 
+
+$J$ is unique since left-multiplying $A = UJ$ by $A^{\dagger} = JU^{\dagger}$ gives $A^{\dagger}A = J^{2}$, from which we get $J = \sqrt{A^{\dagger}A}$. The equation $A = UJ$ also means that if $A$ is invertible, so is $J$, which means $U$ is uniquely determined by $U = AJ^{-1}$. 
+
+Proving the right polar decomposition $A = KU$ follows since $$A = UJ = UJU^{\dagger}U = KU$$
+where $K = UJU^{\dagger}$ is a positive operator. And since $AA^{\dagger} = KUU^{\dagger}K = K^{2}$, we have $K = \sqrt{AA^{\dagger}}$. 
+\end{proof} 
+
+\section{Singular Value Decomposition} 
+
+The singular value decomposition combines polar decomposition and the spectral theorem. 
+
+\begin{theorem}[Singular value decomposition]
+Let $A$ be a linear operator on $V$. Then there exist unitary matrices $U$ and $V$, and a diagonal matrix $D$ with non-negative entries such that $$A = UDV$$
+The diagonal entries of $D$ are called the \textit{singular values} of $A$. 
+\end{theorem}
+
+\begin{proof}
+By the polar decomposition, $A = SJ$, for unitary $S$ and positive operator $J$. By the spectral theorem, $J = TDT^{\dagger}$, for unitary $T$ and diagonal $D$ with non-negative entries. 
+
+Now we just set $U = ST$ and $V = T^{\dagger}$ to get 
+$$A = SJ = STDT^{\dagger} = UDV$$
+\end{proof}

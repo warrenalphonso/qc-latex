@@ -189,8 +189,24 @@ Let $A$ and $B$ be sizes $m \times n$ and $n \times m$, respectively. Then $$tra
 We need only show that the diagonal entries of $AB$ are the same as the diagonal entries of $BA$. 
 
 $$tr(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} A_{ij} B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m} B_{ji} A_{ij} = \sum_{j=1}^{n} (BA)_{jj} = tr(BA)$$
-
 \end{proof}
+
+\subsection{Linear Transformations as a Vector Space}
+
+Let's further abstract the notion of a linear transformation by considering the collection of \textit{all} linear transformations from $V$ to $W$, denoted $L(V, W)$. 
+
+For any linear transformation $T \in L(V, W)$, we can define a new transformation $\alpha T$. We can prove this transformation is linear: 
+$$
+\begin{aligned} 
+(\alpha T)(\alpha_{1} v_{1} + \alpha_{2} v_{2}) &= \alpha (T(\alpha_{1} v_{1} + \alpha_{2} v_{2})) \\
+&= \alpha (\alpha_{1}Tv_{1} + \alpha_{2}Tv_{2}) \\
+&= \alpha_{1} (\alpha T) v_{1} + \alpha_{2} (\alpha T) v_{2}
+\end{aligned}
+$$
+
+where the second step follows from the linearity of $T$. 
+
+A similar proof can be made to show that the sum of any $T_{1}, T_{2} \in L(V, W)$ is also linear, which means it's in the set $L(V, W)$. This means we have defined multiplication by a scalar and addition on $L(V, W)$, which means $L(V, W)$ is a vector space. 
 
 \section{Invertible Transformations and Isomorphisms}
 \begin{definition}
