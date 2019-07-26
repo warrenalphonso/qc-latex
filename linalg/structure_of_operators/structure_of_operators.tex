@@ -253,7 +253,7 @@
 %6.3, 6.4, and 6.5 are incomplete!!
 %6.3, 6.4, and 6.5 are incomplete!!
 
-\chapter{Structure of Operators in Inner Product Spaces}
+\chapter{Structures of Operators}
 
 \section{Schur Representation} 
 
@@ -287,7 +287,6 @@ The $***$ denote values we don't care about and $A_{1}$ is an $n \times n$ block
 \end{proof}
 
 One use of the Schur representation is to present a more intuitive proof that the determinant of a matrix is the product of its eigenvalues and that the trace of a matrix is the sum of its eigenvalues. 
-
 
 \section{Spectral Theorem for Self-Adjoint and Normal Operators}
 
@@ -434,7 +433,7 @@ We can rewrite a self-adjoint matrix in some orthonormal basis as a diagonal mat
 \end{proof}
 
 \begin{lemma}
-Let $A = A^{*} \geq 0$ be positive semidefinite. There exists a unique positive semidefinite operator $B$ such that $B^{2} = A$. Such $B$ is called the positive square root of $A$, denoted $\sqrt{A}$.
+Let $A = A^{*} \geq 0$ be positive semidefinite. There exists a unique positive semidefinite operator $B$ such that $B^{2} = A$. $B$ is called the positive square root of $A$, denoted $\sqrt{A}$.
 \end{lemma}
 
 \begin{lproof}
@@ -452,42 +451,23 @@ $$(A^{*} Ax, x) = (Ax, Ax) = \norm{Ax}^{2} \geq 0 \qquad \forall x \in X$$
 Therefore, by the above lemma there exists a unique positive semidefinite square root $R = \sqrt{A^{*} A}$. $R$ is called the \textbf{modulus} of $A$, denoted $\abs{A}$. The modulus denotes how ``big" $A$ is. 
 \end{definition}
 
-\begin{lemma}
+\begin{theorem}
 For linear operator $A: X \rightarrow Y$, 
 $$\norm{\: \abs{A} \: x} = \norm{Ax} \qquad \forall x \in X$$ 
-\end{lemma}
-
-\begin{lproof}
-For any $x \in X$, 
-$$\norm{\: \abs{A} \: x}^{2} = (\abs{A} x, \abs{A} x) = (\abs{A}^{*} \abs{A} x, x) = (\abs{A}^{2} x, x) = (A^{*} A x, x) = (Ax, Ax) = \norm{Ax}^{2}$$
-\end{lproof}
-
-\begin{lemma}
-$$Ker(A) = Ker(\abs{A}) = (Ran(\abs{A}))^{\perp}$$
-\end{lemma}
-
-\begin{lproof}
-The first equality follows from the previous lemma. The second equality follows from the identity $Ker(T) = (Ran(T^{*}))^{\perp}$ which is true because $\abs{A}$ is self-adjoint so $A = A^{*}$. 
-\end{lproof}
-
-\subsection{Polar Decomposition}
-
-\textbf{I don't really understand this - try using Axler.}
-\begin{theorem}[Polar decomposition of an operator]
-Let $A: X \rightarrow X$ be an operator. Then 
-$$A = U \abs{A}$$
-where $U$ is unitary. 
 \end{theorem}
 
 \begin{proof}
-Consider a vector $x \in Ran(\abs{A})$. Note $x = \abs{A} v$ for some $v \in X$. Define $U_{0} x := Av$. 
-$$\norm{U_{0} x} = \norm{Av} = \norm{ \: \abs{A} \: v} = \norm{x}$$
-This means that $U$ is an isometry from $Ran(\abs{A})$ to $X$. 
-
-We must prove $U_{0}$ is well defined. Suppose $v_{1}$ is another vector such that $x = \abs{A} v_{1}$. If $x = \abs{A} v = \abs{A} v_{1}$, then $v - v_{1} \in Ker(\abs{A})$, so $Av = Av_{1}$, which means $U_{0} x$ is well defined. Now we know $U_{0}$ is unitary. 
+For any $x \in X$, 
+$$\norm{\: \abs{A} \: x}^{2} = (\abs{A} x, \abs{A} x) = (\abs{A}^{*} \abs{A} x, x) = (\abs{A}^{2} x, x) = (A^{*} A x, x) = (Ax, Ax) = \norm{Ax}^{2}$$
 \end{proof}
 
-In the above theorem, note that $U$ is not necessarily unique. In fact, $U$ is unique if and only if $A$ is invertible. To see this, we can find another unitary transformation $U_{1}: Ker(A) \rightarrow (Range(A))^{\perp} = Ker(A^{*})$. The Rank Theorem asserts this is always possible since for square matrices $dim(Ker(A)) = dim(Ker(A^{*}))$. The operator $U = U_{0} + U_{1}$ is unitary since $U_{1}$ maps everything in $Ran(\abs{A})$ to 0, so only $U_{0}$ takes effect, which means $A = U \abs{A}$. Thus, $U$ is only unique if $Ker(A) = 0$. 
+\begin{theorem}
+$$Ker(A) = Ker(\abs{A}) = (Ran(\abs{A}))^{\perp}$$
+\end{theorem}
+
+\begin{proof}
+The first equality follows from the previous lemma. The second equality follows from the identity $Ker(T) = (Ran(T^{*}))^{\perp}$ which is true because $\abs{A}$ is self-adjoint so $A = A^{*}$. 
+\end{proof}
 
 \subsection{Schmidt Decomposition}
 
