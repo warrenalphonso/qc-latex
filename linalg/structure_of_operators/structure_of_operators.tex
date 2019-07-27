@@ -1,259 +1,8 @@
- \documentclass[a4paper,10pt]{book}
+%6.4 and 6.5 are incomplete!!
+%6.4 and 6.5 are incomplete!!
+%6.4 and 6.5 are incomplete!!
 
-%Use the following for font size 8 or 9, as 10 is the minimum provided normally
-%\documentclass[8pt]{extbook}
-
-
-%Compilers
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-%Graphics
-\usepackage{xcolor}
-\usepackage{graphicx}
-
-%Math
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{caption}
-\usepackage{physics}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage[xcolor]{mdframed}
-
-%Math shortcuts 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\M}{\mathcal{M}}
-\renewcommand{\P}{\mathcal{P}}
-\renewcommand{\L}{\mathcal{L}}
-\DeclareMathOperator{\Span}{span} 
-
-%Augmented matrices
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-   \hskip -\arraycolsep
-   \let\@ifnextchar\new@ifnextchar
-   \array{#1}}
-\makeatother
-
-
-%Define abs
-%\DeclarePairedDelimiter\abs{\lvert}{\rvert}
-
-%Defining norm
-%\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
-
-%Defining inner product
-\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
-
-
-%Reducing margin
-\usepackage[margin=2cm]{geometry}
-
-%Header, footer
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\leftmark}
-\cfoot{\thepage} 
-\renewcommand{\headrulewidth}{0pt}
-
-%Index - not used
-\usepackage{makeidx}
-\makeindex
-
-
-
-%Theorem instantiation
-\definecolor{lightblue1}{RGB}{222, 243, 253}
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue1,
-	]{theorem}
-
-%NEW theorem environment
-%\definecolor{lightblue1}{RGB}{222, 243, 253}
-%\newcounter{thmcounter}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightblue1,
-%]{mytheorem}
-%\newenvironment{theorem}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
-%	\begin{mytheorem}
-%	\refstepcounter{thmcounter} %increment counter 
-%	\textbf{Theorem \thethmcounter} %\the__counter__ gets value of counter
-%	\textsl{ #1}:
-%}{
-%	\end{mytheorem}
-%}
-%\numberwithin{thmcounter}{section}
-	
-
-%Proof instantiation 
-\renewenvironment{proof}{\textsl{Proof.}}{\hfill$\blacksquare$}
-\definecolor{lightblue2}{RGB}{232, 245, 252}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue2,
-	]{proof}
-	
-	
-%NEW proof 
-%\definecolor{lightblue2}{RGB}{232, 245, 252}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightblue2, 
-%]{myproof}
-%\renewenvironment{proof}{
-%	\bigskip 
-%	\noindent
-%	\begin{myproof}
-%	\textit{Proof.}
-%}{
-%	\end{myproof}
-%	\par 
-%	\bigskip
-%}
-
-	
-%Lemma instantiation
-\definecolor{lightgreen1}{RGB}{224, 255, 193}
-\theoremstyle{plain}
-\newtheorem{lemma}[theorem]{Lemma}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen1,
-	]{lemma}
-	
-	
-%NEW lemma 
-%\definecolor{lightgreen1}{RGB}{224, 255, 193}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightgreen1,
-%]{mylemma}
-%\newenvironment{lemma}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
-%	\bigskip 
-%	\noindent
-%	\begin{mylemma}
-%	\refstepcounter{thmcounter} %increment counter 
-%	\textbf{Lemma \thethmcounter} %\the__counter__ gets value of counter
-%	\textsl{ #1}:
-%}{
-%	\end{mylemma}
-%	\par 
-%	\bigskip
-%}
-%\numberwithin{thmcounter}{section}
-
-%Lemma Proof instantiation 
-\newenvironment{lproof}{\textsl{Proof.}}{\hfill$\blacksquare$}
-\definecolor{lightgreen2}{RGB}{232, 249, 214}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen2,
-	]{lproof}
-	
-
-%NEW lproof 
-%\definecolor{lightgreen2}{RGB}{232, 249, 214}
-%\newmdenv[
-%	hidealllines = true, 
-%	backgroundcolor = lightgreen2,
-%]{mylproof}
-%\newenvironment{lproof}{
-%	\bigskip 
-%	\noindent
-%	\begin{mylproof}
-%	\textit{Proof.}
-%}{
-%	\end{mylproof}
-%	\par 
-%	\bigskip
-%}
-
-
-%Definition instantiation
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\definecolor{lightgreen}{RGB}{219, 255, 188}
-\definecolor{subtlegray}{RGB}{248, 248, 248}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = subtlegray,
-	]{definition}
-		
-	
-%Remove auto-indentation
-\setlength{\parindent}{0cm}
-
-%Preferred font and spacing
-\linespread{1.3}
-%\usepackage{lmodern}
-\usepackage{kpfonts}
-%\usepackage{tgschola}
-
-\begin{document}
-
-\frontmatter 
-{\let\cleardoublepage\clearpage 
-%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
-\begin{titlepage}
-	\centering
-	\vspace{1cm}
-	{\scshape\LARGE University of California, Berkeley \par}
-	\vspace{4cm}
-	{\scshape\Large Literally everything I know about \par}
-	\vspace{1.5cm}
-	{\Huge\bfseries Linear Algebra\par}
-	\vspace{1cm}
-	\vspace{2.5cm}
-	{\Large\itshape Warren Alphonso\par}
-	\vfill
-	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, \textsc{Linear Algebra Done Wrong} by Treil, and \textsc{Quantum Computation and Quantum Information} by Nielsen and Chuang. \par}
-	\vfill
-	{\large \today\par}
-\end{titlepage}
-
-\tableofcontents
-}
-
-\mainmatter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%6.3, 6.4, and 6.5 are incomplete!!
-%6.3, 6.4, and 6.5 are incomplete!!
-%6.3, 6.4, and 6.5 are incomplete!!
-
-\chapter{Structures of Operators}
+\chapter{Structure of Operators}
 
 \section{Schur Representation} 
 
@@ -409,7 +158,7 @@ $$
 and therefore, $N^{*}N = NN^{*}$. 
 \end{lproof}
 
-\section{Polar and Singular Value Decompositions}
+\section{Singular Value and Polar Decompositions}
 
 \begin{definition}
 A self-adjoint operator $A: X \rightarrow X$ is called \textbf{positive definite} if 
@@ -533,7 +282,7 @@ is a Schmidt decomposition of $A^{*}$.
 
 \subsection{Singular Value Decomposition}
 
-Let $A : \F^{n} \rightarrow \F^{m}$ and let $\sigma_{1}, \cdots, \sigma_{r}$ be the non-zero singular values of $A$, and let 
+Let $A : \F^{n} \rightarrow \F^{m}$ and $\sigma_{1}, \cdots, \sigma_{r}$ be the non-zero singular values of $A$, and let 
 $$A = \sum_{k=1}^{r} \sigma_{k} w_{k} v_{k}^{*}$$ 
 be a Schmidt decomposition of $A$. We can rewrite this in matrix form as 
 $$A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$$
@@ -544,25 +293,33 @@ The number of nonzero singular values of $A$ equals the rank of $A$.
 \end{theorem}
 
 \begin{proof}
-Recall that the singular values of $A$ are the eigenvalues of $A^{*}A$, and the number of nonzero eigenvalues of a square matrix correspond with the matrix's rank.  Since $Ker(A) = Ker(A^{*}A)$, the rank-nullity theorem asserts that $A^{T}A$ and $A$ have the same rank. 
+Recall that the singular values of $A$ are the eigenvalues of $A^{*}A$, and the number of nonzero eigenvalues of a square matrix correspond with the matrix's rank.  
+
+Now we'll show $Ker(A) = Ker(A^{*}A)$. For $x \in Ker(A)$, we have $A^{*} (Ax) = 0$. For $x \in Ker(A^{*}A)$, we have $A^{*}Ax = 0$. Left-multiplying by $x^{*}$ gives us $x^{*} A^{*} A x = (Ax)^{*} (Ax) = 0$, so $Ax = 0$. 
+
+Since $Ker(A) = Ker(A^{*}A)$, the rank-nullity theorem asserts that $A^{*}A$ and $A$ have the same rank. 
 \end{proof}
 
 If $A$ is invertible, then $m = n = r$, so $\widetilde{V}$ and $\widetilde{W}$ are unitary, and $\widetilde{\Sigma}$ is an invertible diagonal matrix. 
 
 Further, we can always write a similar representation with matrices $V$ and $W$, where $V$ is $n \times n$ and $W$ is $m \times m$. 
 
-To find this representation, we need to complete the bases $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$ to orthogonal bases in $\F^{n}$ and $\F^{m}$, respectively. To do this for $V$, we need to only find an orthogonal basis $v_{r+1}, \cdots, v_{n}$ in $Ker(V^{*})$, and we can always do this using the Gram-Schmidt algorithm. 
+To find this representation, we need to complete the bases $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$ to orthogonal bases in $\F^{n}$ and $\F^{m}$, respectively. To do this for $V$, we need to only find an orthogonal basis $v_{r+1}, \cdots, v_{n}$ in $Ker(V^{*})$, and we can always do this using Gram-Schmidt. 
 
 Thus, we can write 
 $$A = W \Sigma V^{*}$$
-where $V$ is $n \times n$, $W$ is $m \times m$, and $\Sigma$ is the diagonal matrix of $\sigma_{1}, \cdots, \sigma_{n}$. This representation is the \textbf{singular value decomposition} of $A$. The previous representation, $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$, is the \textbf{reduced} or \textbf{compact} SVD of $A$.
+where $V$ is $n \times n$, $W$ is $m \times m$, and $\Sigma$ is a ``diagonal" $m \times n$ matrix of singular values. This representation is the \textbf{singular value decomposition} of $A$. The previous representation, $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$, is the \textbf{reduced} or \textbf{compact} SVD of $A$.
 
-There are many different interpretations of the singular value decomposition. One is that $\Sigma$ is the matrix of $A$ in the orthonormal bases $v_{1}, \cdots, v_{n}$ and $w_{1}, \cdots, w_{n}$, ie $\Sigma = [A]_{B, A}$. \textbf{Insert more interpretations from Wikipedia}
+Looking at the singular value decomposition, it is clear that the diagonal entries of $\Sigma$ are the singular values of $A$ (square root of eigenvalues of $A^{*}A$). To see this, we can write 
+$$A^{*} A = V \Sigma W^{*} W \Sigma V^{*} = V \Sigma^{2} V^{*}$$
+so that spectral decomposition tells us that $\Sigma^{2}$ is the diagonal matrix of eigenvalues and $v_{1}, \cdots, v_{n}$ are the corresponding eigenvectors of $A^{*} A$. Recall that if $\sigma_{k} \neq 0$ then $w_{k} = \frac{1}{\sigma_{k}} Av_{k}$. This means that $A = W \Sigma V^{*}$ can be obtained through the Schmidt decomposition as described earlier. 
+
+Similarly, we can understand the reduced singular value decomposition as a \textit{matrix form} of the Schmidt decomposition for a \textit{non-invertible} matrix $A$. 
 
 \begin{theorem}
 If we have the singular value decomposition $A = W \Sigma V^{*}$, we can write the polar decomposition
 $$A = (WV^{*}) (V \Sigma V^{*}) = U \abs{A}$$
-where $\abs{A} = V \Sigma V^{*}$ and $U = WV^{*}$. 
+where $\abs{A} = V \Sigma V^{*}$ and $U = WV^{*}$ is unitary. 
 \end{theorem}
 
 \begin{proof}
@@ -573,11 +330,42 @@ This indicates that $\abs{A} = V \Sigma V^{*}$.
 Finally, since $WV^{*}$ is the product of unitary operators, it must also be unitary. Note that this only works if $A$ is square because $W$ and $V$ must also be square so that $WV^{*}$ is defined. 
 \end{proof}
 
+I have skipped an in-depth explanation of the polar decomposition in this chapter. It will be revisited in the next chapter. 
+
 \section{Applications of Singular Value Decomposition}
 
-Because singular value decomposition is diagonalization with respect to two \textit{different} bases, we cannot say must about $A$'s spectral properties with the SVD. However, singular values do tell us a lot about the \textit{metric properties} of a linear transformation, as we'll see. 
+The SVD $A = W \Sigma V^{*}$ can be seen as the matrix $A$ in two different orthonormal bases: $v_{1}, \cdots, v_{n}$ and $w_{1}, \cdots, w_{n}$, ie $\Sigma = [A]_{B, A}$. Because this is with respect to two \textit{different} bases, it doesn't tell us much about $A$'s spectral properties. However, singular values do tell us a lot about the \textit{metric properties} of a linear transformation, as we'll see. 
 
-\textbf{Do some of the other sections when I understand them.}
+\subsection{Operator Norm}
+
+Given $A: X \rightarrow Y$, we want to find the maximum of $\norm{Ax}$ on the closed unit ball $B = \{ x \in X : \norm{x} \leq 1 \}$. 
+
+First, consider a diagonal matrix $A$ with non-negative entries. The maximum is exactly the maximal diagonal entry. If there are $r$ non-zero diagonal entries of $A$ with $s_{1}$ being the maximum, we know $\norm{Ax} \leq s_{1} \norm{x}$ because 
+$$\norm{Ax}^{2} = \sum_{k=1}^{r} s_{k}^{2} \abs{x_{k}}^{2} \leq s_{1}^{2} \sum_{k=1}^{r} \abs{x_{k}}^{2} = s_{1}^{2} \norm{x}^{2}$$
+
+For the general case, we can consider the SVD, $A = W \Sigma V^{*}$, where $W, V$ are unitary and $\Sigma$ is diagonal with non-negative entries. Since unitary transformations preserve the norm, we know the maximum of $\norm{Ax}$ on $B$ is the maximal diagonal entry of $\Sigma$, which is the maximal singular value of $A$. 
+
+\begin{definition}
+The maximum of $\norm{Ax}$ such that $\norm{x} \leq 1$ is called the \textbf{operator norm} of $A$, denoted $\norm{A}$. We can easily verify that it satisfies the 4 properties of the norm (Symmetry, Linearity, Non-negativity, Non-degeneracy). 
+
+One of the main properties of the operator norm is 
+$$\norm{Ax} \leq \norm{A} \cdot \norm{x}$$
+which follows from realizing $\norm{Ax} - \norm{A} \leq 0$, so the inequality reduces to $0 \leq \norm{x}$. In fact, this often used to define the operator norm, since this property means the operator norm is the smallest number $C \geq 0$ such that 
+$$\norm{Ax} \leq C \norm{x} \qquad \forall x \in X$$
+\end{definition}
+
+There is another common norm on the space of linear transformations. 
+
+\begin{definition}
+The \textbf{Hilbert-Schmidt inner product} on operators $M$ and $N$ is defined as 
+$$ (M, N) = trace(N^{*} M)$$
+so the induced norm is 
+$$\norm{M}_{HS} = \sqrt{(M, M)} = \sqrt{trace(M^{*} M)}$$
+\end{definition}
+
+To compare these two norms, let $s_{1}, \cdots, s_{r}$ be non-zero singular values of $A$ with $s_{1}$ being the largest. We know $s_{1}^{2}, \cdots, s_{r}^{2}$ are the non-zero eigenvalues of $A^{*} A$. Since the trace is the sum of the eigenvalues, we know that 
+$$\norm{A}_{HS}^{2} = trace(A^{*} A) = \sum_{k=1}^{r} s_{k}^{2}$$
+We also know that the operator norm equals its largest singular value ($\norm{A} = s_{1}$), so we conclude that the operator norm of a matrix cannot be more than its Hilbert-Schmidt norm. 
 
 \subsection{Moore-Penrose Pseudoinverse}
 
@@ -587,7 +375,7 @@ If $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$ is the reduced
 $$ x_{0} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b$$
 
 Indeed, $x_{0}$ is a least square solution of $Ax = b$, which means $Ax_{0} = P_{Ran(A)} b$. To see this, 
-$$Ax_{0} = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*} \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b = \widetilde{W} \widetilde{W}^{*} b = P_{Ran(A)} b $$
+$$Ax_{0} = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*} \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b = \widetilde{W} \widetilde{W}^{*} b = P_{Ran(\widetilde{W})} b = P_{Ran(A)} b $$
 
 Our final step uses the fact that $\widetilde{W} \widetilde{W}^{*} = P_{Ran(\widetilde{W})}$: 
 $$P_{Ran(\widetilde{W})} = \widetilde{W} (\widetilde{W}^{*} \widetilde{W})^{-1} \widetilde{W}^{*} = \widetilde{W} \widetilde{W}^{*}$$
@@ -655,10 +443,11 @@ $$Ax_{0} = AA^{\dagger} b = P_{Ran(A)} b$$
 In other words, $x_{0}$ is a least square solution to $Ax = b$. However, since $x_{0} \in Ran(A^{*}) = Ker(A)^{\perp}$, $x_{0}$ is the least square solution of minimal norm, which we know is given by $A^{\dagger} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*}$.
 \end{proof}
 
-\section{Structure of Orthogonal Matrices}
-\textbf{Finish this section}
+\textbf{Generalize Moore-Penrose to the SVD: $A = W\Sigma V^{*}$. }
 
-An orthogonal matrix $U$ with $det(U) = 1$ is called a \textbf{rotation}. 
+\section{Structure of Orthogonal Matrices - WIP}
+
+An orthogonal matrix $U$ with $det(U) = 1$ is called a \textbf{rotation}. The following theorem illustrates why. 
 
 \begin{theorem}
 Let $U$ be an orthogonal operator in $\R^{n}$ and let $det(U) = 1$. Then there exists an orthonormal basis $v_{1}, \cdots, v_{n}$ such that the matrix of $U$ in this basis has the \textit{block diagonal form}:
@@ -669,7 +458,7 @@ R_{\varphi 1} & & & & \makebox{\Huge 0} \\
  & & & R_{\varphi k} & \\
  \makebox{\Huge 0} & & & & I_{n - 2k}
 \end{pmatrix}$$
-where $R_{\varphi k}$ are 2-dimensional roatations, 
+where $R_{\varphi k}$ are 2-dimensional rotations, 
 $$R_{\varphi k} = \begin{pmatrix}
 cos \ \varphi k & -sin \  \varphi k \\
 sin \ \varphi k & cos \ \varphi k
@@ -682,4 +471,5 @@ sin \ \varphi k & cos \ \varphi k
 
 
 
-\end{document}
+
+\section{Orientation - WIP} 
