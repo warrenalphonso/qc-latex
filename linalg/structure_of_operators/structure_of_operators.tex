@@ -1,7 +1,3 @@
-%6.4 and 6.5 are incomplete!!
-%6.4 and 6.5 are incomplete!!
-%6.4 and 6.5 are incomplete!!
-
 \chapter{Structure of Operators}
 
 \section{Schur Representation} 
@@ -445,31 +441,90 @@ In other words, $x_{0}$ is a least square solution to $Ax = b$. However, since $
 
 \textbf{Generalize Moore-Penrose to the SVD: $A = W\Sigma V^{*}$. }
 
-\section{Structure of Orthogonal Matrices - WIP}
+\section{Structure of Orthogonal Matrices}
 
 An orthogonal matrix $U$ with $det(U) = 1$ is called a \textbf{rotation}. The following theorem illustrates why. 
 
 \begin{theorem}
 Let $U$ be an orthogonal operator in $\R^{n}$ and let $det(U) = 1$. Then there exists an orthonormal basis $v_{1}, \cdots, v_{n}$ such that the matrix of $U$ in this basis has the \textit{block diagonal form}:
-$$\begin{pmatrix}
+$$\begin{bmatrix}
 R_{\varphi 1} & & & & \makebox{\Huge 0} \\
  & R_{\varphi 2} & & & \\ 
  & & \ddots & & \\
  & & & R_{\varphi k} & \\
  \makebox{\Huge 0} & & & & I_{n - 2k}
-\end{pmatrix}$$
+\end{bmatrix}$$
 where $R_{\varphi k}$ are 2-dimensional rotations, 
-$$R_{\varphi k} = \begin{pmatrix}
-cos \ \varphi k & -sin \  \varphi k \\
-sin \ \varphi k & cos \ \varphi k
-\end{pmatrix}$$
+$$R_{\varphi k} = \begin{bmatrix}
+\cos \ \varphi k & -\sin \  \varphi k \\
+\sin \ \varphi k & \cos \ \varphi k
+\end{bmatrix}$$
 \end{theorem}
 
 \begin{proof}
+This is a long proof!
 
+We know that if $p$ is a polynomial with real coefficients and $\lambda$ is its complex root ($p(\lambda) = 0$), then $\overline{\lambda}$ is also a root ($p(\overline{\lambda}) = 0$). This means all complex eigenvalues of a real matrix $A$ can be split into pairs $\lambda_{k}, \overline{\lambda_{k}}$. Since we also know eigenvalues of unitary matrices have absolute value 1, we can write any eigenvalue as $\lambda_{k} = \cos a_{k} + i \sin a_{k}$ and $\overline{\lambda_{k}} = \cos a_{k} -i \sin a_{k}$.
+
+We fix a pair of eigenvalues $\lambda$ and $\overline{\lambda}$, and let $u$ be the eigenvector of $\lambda$, so $U u = \lambda u$. This means $U \overline{u} = \overline{\lambda} \overline{u}$. Now, we split $u$ into \textit{real} and \textit{imaginary} parts. Define  
+$$x := Re(u) = \frac{u + \overline{u}}{2} \qquad y := Im(u) = \frac{u - \overline{u}}{2i}$$ 
+so that $u = x + iy$. Then 
+$$Ux = \frac{1}{2} U (u + \overline{u}) = \frac{1}{2} (\lambda u + \overline{\lambda} \overline{u}) = Re(\lambda u)$$ 
+and 
+$$Uy = \frac{1}{2i} U(u - \overline{u}) = \frac{1}{2i} (\lambda u - \overline{\lambda} \overline{u}) = Im(\lambda u)$$ 
+Finally, because $\lambda = \cos a + i \sin a$, we can write 
+$$\lambda u = (\cos a + i \sin a)(x + iy) = ((\cos a) x - (\sin a) y) + i((\cos a) y + (\sin a) x)$$
+which means 
+$$Ux = Re(\lambda u) = (\cos a) x - (\sin a) y \qquad Uy = Im(\lambda u) = (\cos a) y + (\sin a) x$$
+
+In other words, $U$ preserves the subspace spanned by $x$ and $y$, denoted $E_{\lambda}$, and the matrix of the \textit{restriction of} $U$ onto this subspace is the rotation matrix 
+$$R_{a} = \begin{bmatrix}
+\cos a & \sin a \\
+-\sin a & \cos a
+\end{bmatrix}$$
+
+Since $u$ and $\overline{u}$ are orthogonal eigenvectors of a unitary matrix, we can use the Pythagorean Theorem to write 
+$$\norm{x} = \norm{y} = \frac{\sqrt{2}}{2} \norm{u}$$
+
+It is clear from their definitions that $x$ and $y$ are orthogonal, so they form an orthogonal basis in $E_{\lambda}$. Since we can multiply each vector in a basis by a non-zero constant and not change the matrices of linear transformations, we can assume $\norm{x} = \norm{y} = 1$. 
+
+Now we'll complete the orthonormal system $v_{1} = x, v_{2} = y$ to an orthonormal basis in $\R^{n}$. 
+
+Since $U E_{\lambda} \subset E_{\lambda}$ (because $E_{\lambda}$ is an invariant subspace of $U$), the matrix of $U$ in this basis has the \textit{block triangular form} 
+$$\begin{bmatrix}[c|c]
+ \: R_{a} \:  & * \\
+\hline 
+0 & \:  U_{1} \:  \\
+\end{bmatrix}$$
+where 0 represents the $(n - 2) \times 2$ zero matrix. 
+
+Since the rotation matrix $R_{a}$ is invertible, we can write $UE_{\lambda} E_{\lambda}$. Thus, 
+$$U^{*} E_{\lambda} = U^{-1} E_{\lambda} = E_{\lambda}$$
+so the matrix $U$ becomes 
+$$\begin{bmatrix}[c|c]
+ \: R_{a} \:  & 0 \\
+\hline 
+0 & \:  U_{1} \:  \\
+\end{bmatrix}$$
+
+Because we know $U$ is unitary, we can write 
+$$I = U^{*}U = \begin{bmatrix}[c|c]
+\: I \: & 0 \\
+\hline
+0 & \: U_{1}^{*} U_{1} \:
+\end{bmatrix}$$
+and because $U_{1}$ is square, it must also be unitary. 
+
+If $U_{1}$ has complex eigenvalues, we can continue applying this procedure to decrease its size by 2 until we are left with a block with only real eigenvalues. Since real eigenvalues are either 1 or -1, in some orthonormal basis the matrix of $U$ has the form 
+$$\begin{bmatrix}
+R_{a_{1}} & & & & & \makebox{\Huge 0} \\
+ & R_{a_{2}} & & & \\ 
+ & & \ddots & & \\
+ & & & R_{a_{d}} & \\
+ & & & & -I_{r} & \\
+ \makebox{\Huge 0} & & & & & I_{l}
+\end{bmatrix}$$
+where $I_{r}$ and $I_{l}$ are identity matrices of size $r$ and $l$, respectively. Sicne $det(U) = 1$, the multiplicity of eigenvalue -1 must be even. 
+
+Finally, because a negative $2 \times 2$ identity matrix can be interpreted as the rotation through the angle $\pi$, we arrive at the form given in the theorem with $\varphi_{k} = \pi$. 
 \end{proof}
-
-
-
-
-\section{Orientation - WIP} 
