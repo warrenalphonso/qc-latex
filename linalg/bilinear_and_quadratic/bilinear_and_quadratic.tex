@@ -1,161 +1,9 @@
-\documentclass[a4paper,10pt]{book}
-
-%Use the following for font size 8 or 9, as 10 is the minimum provided normally
-%\documentclass[8pt]{extbook}
-
-%Compilers
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-%Graphics
-\usepackage{xcolor}
-\usepackage{graphicx}
-
-%Math
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{caption}
-\usepackage{braket}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage[xcolor]{mdframed}
-
-%Math shortcuts 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\M}{\mathcal{M}}
-\renewcommand{\P}{\mathcal{P}}
-\renewcommand{\L}{\mathcal{L}}
-\DeclareMathOperator{\Span}{span}
-
-%Augmented matrices
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-   \hskip -\arraycolsep
-   \let\@ifnextchar\new@ifnextchar
-   \array{#1}}
-\makeatother
-
-
-%Define abs
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}
-
-%Defining norm
-\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
-
-%Defining inner product
-\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
-
-
-%Reducing margin
-\usepackage[margin=2cm]{geometry}
-
-%Header, footer
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\leftmark}
-\cfoot{\thepage} 
-\renewcommand{\headrulewidth}{0pt}
-
-%Index - not used
-\usepackage{makeidx}
-\makeindex
-
-
-%Theorem instantiation
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\definecolor{lightblue1}{RGB}{222, 243, 253}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue1,
-	]{theorem}
-	
-%Proof instantiation 
-\definecolor{lightblue2}{RGB}{232, 245, 252}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightblue2,
-	]{proof}
-	
-%Lemma instantiation
-\theoremstyle{plain}
-\newtheorem{lemma}[theorem]{Lemma}
-\definecolor{lightgreen1}{RGB}{224, 255, 193}
-
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen2,
-	]{lemma}
-
-%Lemma Proof instantiation 
-\theoremstyle{remark}
-\newtheorem*{lproof}{Proof}
-\definecolor{lightgreen2}{RGB}{232, 249, 214}
-
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = lightgreen2,
-	]{lproof}
-
-%Definition instantiation
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\definecolor{lightgreen}{RGB}{219, 255, 188}
-\definecolor{subtlegray}{RGB}{248, 248, 248}
-\surroundwithmdframed[
-	hidealllines = true, 
-	backgroundcolor = subtlegray,
-	]{definition}
-	
-%Change QED symbol to solid black square
-\renewcommand\qedsymbol{$\blacksquare$}
-
-	
-	
-%Remove auto-indentation
-\setlength{\parindent}{0cm}
-
-%Preferred font and spacing
-\linespread{1.3}
-%\usepackage{lmodern}
-\usepackage{kpfonts}
-%\usepackage{tgschola}
-
-
-\begin{document}
-
-\frontmatter 
-{\let\cleardoublepage\clearpage 
-%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
-\begin{titlepage}
-	\centering
-	{\scshape\LARGE University of California, Berkeley \par}
-	\vspace{3cm}
-	{\scshape\Large Literally everything I know about \par}
-	\vspace{1.5cm}
-	{\huge\bfseries Linear Algebra\par}
-	\vspace{2.5cm}
-	{\Large\itshape Warren Alphonso\par}
-	\vfill
-	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, as well as \textsc{Linear Algebra Done Wrong} by Treil. \par}
-	\vfill
-	{\large \today\par}
-\end{titlepage}
-
-\tableofcontents
-}
-
-\mainmatter
-
-\chapter{Bilinear and Quadratic Forms}
+\chapter{Bilinear and Quadratic Forms - WIP}
 
 \section{Main Definitions}
 
 \begin{definition}
-A \textbf{bilinear form on $\R^{n}$} is a function $L(x, y)$ of arguments $x, y \in \R^{n}$ which is linear in each argument. That is 
+A \textbf{bilinear form} on $\R^{n}$ is a function $L(x, y)$ of arguments $x, y \in \R^{n}$ which is linear in each argument. That is 
 \begin{enumerate}
 	\item $L(\alpha x_{1} + \beta x_{2}, y) = \alpha L(x_{1}, y) + \beta L(x_{2}, y)$
 	\item $L(x, \alpha y_{1} + \beta y_{2}) = \alpha L(x, y_{1}) + \beta L(x, y_{2})$
@@ -185,7 +33,7 @@ Another definition is to say a quadratic form is a homogeneous second degree pol
 
 There are infinitely many ways to write a quadratic form as $Q[x] = (Ax, x)$, but if we require $A$ to be \textit{symmetric} ($A^{T} = A$), then $A$ will be unique. 
 
-Any \textbf{quadratic form $Q[x]$ on $\R^{n}$} admits a unique representation $Q[x] = (Ax, x)$ where $A$ is a real symmetric matrix. 
+Any \textbf{quadratic form $Q[x]$} on $\R^{n}$ admits a unique representation $Q[x] = (Ax, x)$ where $A$ is a real symmetric matrix. 
 
 We can extend this definition to $\C^{n}$ by taking the self-adjoint transformation, $A = A^{*}$ and defining $Q[x] = (Ax, x)$. Unless explicitly noted, all our theorems will be true in the complex case as well. 
 
@@ -219,7 +67,7 @@ and because we know $(Ax, y) = (x, A^{*} y)$, this means that $A^{*} = A$.
 
 \section{Diagonalization of Quadratic Forms}
 
-Quadratic forms are common; they appear in the study of curves in $\R^{2}$ and some surfaces in $\R^{3}$, for example. If we are given a set in $\R^{n}$ defined by $Q[x] = 1$, where $Q$ is some quadratic form, we want to understand the structure of this set. We will try our usual approach of doing so using a change of variables. 
+Quadratic forms are common; they appear in the study of curves in $\R^{2}$ and some surfaces in $\R^{3}$, for example. If we are given a set in $\R^{n}$ defined by $Q[x] = 1$, where $Q$ is some quadratic form, we might want to understand the structure of this set. We will try our usual approach of doing so using a change of variables. 
 
 \subsection{Orthogonal Diagonalization}
 
@@ -262,20 +110,140 @@ This tells us the set $\{y : (Dy, y) = 1\}$ is the ellipse with half-axes $\frac
 
 \subsection{Non-orthogonal Diagonalization} 
 
+Orthogonal diagonalization requires computing eigenvalues and eigenvectors which can be hard to do for large $n$ without computers. Non-orthogonal diagonalization requires only finding an invertible $S$ without requiring $S^{-1} = S^{*}$ such that $D = S^{*}AS$ is diagonal, which is much easier to do. We will cover two of the most used methods of non-orthogonal diagonalization. 
 
+\subsubsection{Diagonalization by Completion of Squares} 
 
+We will demonstrate this method on real quadratic forms (forms on $
+R^{n}$), but it can also be used in the complex case. 
 
+Consider again the quadratic form of two variables $Q[x] = 2x_{1}^{2} + 2x_{1} x_{2} + 2x_{2}^{2}$ (the same equation as before except we use $x_{1}, x_{2}$ instead of $x, y$). Since 
+$$2 \Big( x_{1} + \frac{1}{2} x_{2} \Big)^{2} = 2 \Big( x_{1}^{2} + 2 x_{1} \frac{1}{2} x_{2} + \frac{1}{4} x_{2}^{2} \Big) = 2x_{1}^{2} + 2x_{1}x_{2} + \frac{1}{2} x_{2}^{2}$$
+where the first two terms coincide with the first two terms of $Q$, we can write 
+$$Q[x] = 2 \Big( x_{1} + \frac{1}{2} x_{2} \Big)^{2} + \frac{3}{2} x_{2}^{2} = 2y_{1}^{2} + \frac{3}{2} y_{2}^{2}$$
+where $y_{1} = x_{1} + \frac{1}{2} x_{2}$ and $y_{2} = x_{2}$. We can use this same method for quadratic forms of more than 2 variables. Note that we can always split a product of two variables into a corresponding square using the identity, 
 
+$$4 x_{1} x_{2} = (x_{1} + x_{2})^{2} - (x_{1} - x_{2})^{2}$$
 
+\subsubsection{Diagonalization Using Row/Column Operations}
 
+Our second method is to perform row operations on the matrix $A$ of the quadratic form. Unlike normal Gauss-Jordan row reduction, after each row operation, we need to perform the same column operation (because we want to ensure $S^{*} AS$ is diagonal). 
 
+\textbf{Maybe insert an example. }
 
+To understand why this works, realize that a row operation corresponds to left multiplying by an elementary matrix while a column operation is equivalent to right multiplying by the transpose of the same elementary matrix. Thus, performing row operations $E_{1}, \cdots, E_{n}$ along with the same column operations gives us 
+$$E_{n} \cdots E_{1} A E_{1}^{*} \cdots E_{n}^{*} = EAE^{*}$$
 
+\textbf{Prove this including the complex case. }
 
+As for the identity matrix in the right side of the augmented matrix, we only performed row operations on it so we have 
+$$E_{n} \cdots E_{1} I = EI = E$$
 
+Now if we set $E^{*} = S$, we know $S^{*}AS$ is a diagonal matrix, and the matrix $E = S^{*}$ is the ``right half" of the transformed augmented matrix. 
 
+A tricky operation to implement is the swapping of two rows. Consider 
+$$A = \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}$$
+Swapping rows 1 and 2 would diagonalize the matrix, but we would also be required to swap columns 1 and 2, which means we end up with the original matrix. A simple idea is to use row operations to get a non-zero entry on the diagonal. For example, 
+$$\begin{bmatrix}[cc|cc]
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 1
+\end{bmatrix} \rightarrow \begin{bmatrix}[cc|cc] 
+1 & 1 & 1 & \frac{1}{2} \\
+1 & 0 & 0 & 1
+\end{bmatrix} \rightarrow \begin{bmatrix}[cc|cc] 
+1 & 0 & 1 & \frac{1}{2} \\
+0 & -1 & -1 & \frac{1}{2}
+\end{bmatrix}
+$$
+where the first step is adding half of row 2 to row 1 (and then the corresponding column operation of adding half of column 2 to column 1), and the second step is subtracting row 1 from row 2 (and then subtracting column 1 from column 2). 
 
+\section{Silvester's Law of Inertia} 
 
+We now know there are many different ways to diagonalize a quadratic form. For example, if we have a diagonal matrix $D$, we can take a diagonal matrix $S$ and transform $D$ to 
+$$S^{*} DS = \text{diag}\{ s_{1}^{2} \lambda_{1}, \cdots, s_{n}^{2} \lambda_{n} \}$$
 
+This transformation changes the diagonal entries of $D$, but it does not change the \textit{signs} of the entries. The following theorem says this is always the case. 
 
-\end{document}
+\begin{theorem}[Silvester's Law of Inertia]
+\textbf{Wait but I don't even prove this so maybe don't make it a theorem}
+
+For a Hermitian matrix $A$ (for a quadratic form $Q[x] = (Ax, x)$) and any of its diagonalizations $D = S^{*} AS$, the number of positive, negative, and zero diagonal entries of $D$ depends only on $A$, but not on a particular choice of diagonalization. 
+\end{theorem}
+
+We will need some more help to prove this. 
+
+\begin{definition}
+Given an $n \times n$ Hermitian matrix $A = A^{*}$ (a quadratic form $Q[x] = (Ax, x)$ on $\F^{n}$), we call a subspace $E \subset \F^{n}$ \textbf{positive} if 
+$$(Ax, x) > 0$$ 
+for all $x \in E, x \neq 0$. To emphasize the role of $A$ we will say $A$-positive. There are similar definitions for $A$-negative and $A$-neutral. 
+\end{definition}
+
+\begin{lemma}
+Let $D$ be a diagonal matrix. Then the number of positive and negative diagonal entries of $D$ coincides with the maximal dimensions of a $D$-positive and $D$-negative subspace, respectively. 
+\end{lemma}
+
+\begin{lproof}
+By rearranging the standard basis in $\F^{n}$, we can assume that the positive diagonal entries of $D$ are the first $r_{+}$ diagonal entries. 
+
+Now consider the subspace $E_{+}$ spanned by these $r_{+}$ coordinate vectors $e_{1}, \cdots, e_{r_{+}}$. Clearly, $E_{+}$ is a $D$-positive subspace with dimension $r_{+}$. 
+
+Now we'll show that for any other $D$-positive subspace $E$, we have $dim(E) \leq r_{+}$. Consider the orthogonal projection $P$ onto $E_{+}$, 
+$$P[x_{1}, \cdots, x_{n}]^{T} = [x_{1}, \cdots, x_{r_{+}}, 0, \cdots, 0]^{T}$$
+
+Now define an operator $T: E \rightarrow E_{+}$ by 
+$$Tx = Px \qquad \forall x \in E$$
+
+In other words, since $P$ is defined on the whole space, $T$ is the restriction of $P$ to domain $E$ and target space $E_{+}$. 
+
+Now we'll find the null space of $T$ so that we can apply the Rank Theorem. For any $x$ such that $Tx = Px = 0$, we know $x_{1} = \cdots = x_{r_{+}} = 0$, so 
+$$(Dx, x) = \sum_{r_{+} + 1}^{n} \lambda_{k} x_{k}^{2} \leq 0$$
+since $\lambda_{k} \leq 0$ for $k > r_{+}$. Because $x$ belongs to $D$-positive subspace $E$, the inequality only holds for $x = 0$, so $Ker(T) = \{0\}$. 
+
+We know $Rank(T) = dim(Ran(T)) \leq dim(E_{+}) = r_{+}$ since $Ran(T) \subset	E_{+}$. By the Rank Theorem, $dim(Ker(T)) + rank(T) = dim(E)$. But we just proved $Ker(T) = \{0\}$ so $dim(Ker(T)) = 0$ which means 
+$$dim(E) = Rank(T) \leq r_{+}$$
+
+To prove the lemma for negative entries, we just prove the above for $-D$. 
+\end{lproof}
+
+This result proves the positive and negative diagonal entries of $D$ coincide with maximal dimensions of $D$-positive and $D$-negative subspaces. The following proves a stronger result. 
+
+\begin{theorem}
+Let $A$ be an $n \times n$ Hermitian matrix, and let $D = S^{*} AS$ be its diagonalization by an invertible matrix $S$. Then the number of positive and negative diagonal entries of $D$ coincides with the maximal dimensions of an $A$-positive and $A$-negative subspace, respectively. 
+\end{theorem}
+
+\begin{proof}
+Since $D = S^{*}AS$ is a diagonalization of $A$, we know 
+$$(Dx, x) = (S^{*}ASx, x) = (ASx, Sx)$$
+which means that for any $D$-positive subspace $E$, the subspace $SE$ is an $A$-positive subspace. The same identity implies that for any $A$-positive subspace $F$, the subspace $S^{-1}F$ is $D$-positive. 
+
+Since $S$ and $S^{-1}$ are invertible transformations, $dim(E) = dim(SE)$ and $dim(F) = dim(S^{-1}F)$. Thus, for any $D$-positive subspace $E$, we can find an $A$-positive subspace ($SE$ for example) of the same dimension, and for any $A$-positive subspace $F$, we can find a $D$-positive subspace ($S^{-}F$ for example) of the same dimension. Thus, the maximal possible dimensions of an $A$-positive and a $D$-positive subspace coincide, so by the above lemma, the theorem is proved. The same reasoning supports $A$-negative subspaces. 
+\end{proof}
+
+\section{Minimax Characterization of Eigenvalues and Silvester's Criterion of Positivity}
+
+\begin{definition}
+A quadratic form is called 
+\begin{itemize}
+	\item \textbf{positive definite} if $Q[x] > 0 \quad \forall x \neq 0$
+	\item \textbf{positive semidefinite} if $Q[x] \geq 0$
+	\item \textbf{negative definite} if $Q[x] < 0 \quad \forall x \neq 0$ 
+	\item \textbf{negative semidefinite} if $Q[x] \leq 0$ 
+	\item \textbf{indefinite} if it takes on both positive and negative values 
+\end{itemize}
+\end{definition}
+
+A Hermitian matrix $A = A^{*}$ is called positive definite if the corresponding quadratic forms $Q[x] = (Ax, x)$ is positive definite. Additionally, any Hermitian matrix $A$ is positive definite if its eigenvalues are all positive. By orthogonal diagonalization, we know there is a basis in which $A$ is diagonal, and it is clear that a diagonal matrix is positive definite if its eigenvalues are all positive.
+
+In fact, because of Silvester's Law of Inertia, we don't need to compute eigenvalues. We can just find a non-orthogonal diagonalization and look at those diagonal entries. 
+
+\subsection{Silvester's Criterion of Positivity}
+
+We'll begin by looking for a simple requirement for positivity. Let's analyze the matrix 
+$$\begin{bmatrix}
+a & b \\
+\overline{b} & c
+\end{bmatrix}$$
+Notice that if this matrix is positive definite, then $\lambda_{1} \lambda_{2} > 0$ and $\lambda_{1} + \lambda_{2} > 0$ which means 
