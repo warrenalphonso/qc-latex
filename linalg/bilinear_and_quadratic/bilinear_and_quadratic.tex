@@ -1,3 +1,271 @@
+ \documentclass[a4paper,10pt]{book}
+
+%Use the following for font size 8 or 9, as 10 is the minimum provided normally
+%\documentclass[8pt]{extbook}
+
+
+%Compilers
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%Graphics
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{physics}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[xcolor]{mdframed}
+
+%Math shortcuts 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\P}{\mathcal{P}}
+\renewcommand{\L}{\mathcal{L}}
+\DeclareMathOperator{\Span}{span}
+
+%Augmented matrices
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+   \hskip -\arraycolsep
+   \let\@ifnextchar\new@ifnextchar
+   \array{#1}}
+\makeatother
+
+
+%Define abs
+%\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+%Defining norm
+%\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+%Defining inner product
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+
+
+%Reducing margin
+\usepackage[margin=2cm]{geometry}
+
+%Header, footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\cfoot{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
+%Index - not used
+\usepackage{makeidx}
+\makeindex
+
+
+
+%Theorem instantiation
+\definecolor{lightblue1}{RGB}{222, 243, 253}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightblue1,
+	]{theorem}
+
+%NEW theorem environment
+%\definecolor{lightblue1}{RGB}{222, 243, 253}
+%\newcounter{thmcounter}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightblue1,
+%]{mytheorem}
+%\newenvironment{theorem}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
+%	\begin{mytheorem}
+%	\refstepcounter{thmcounter} %increment counter 
+%	\textbf{Theorem \thethmcounter} %\the__counter__ gets value of counter
+%	\textsl{ #1}:
+%}{
+%	\end{mytheorem}
+%}
+%\numberwithin{thmcounter}{section}
+	
+
+%Proof instantiation 
+\renewenvironment{proof}{\textsl{Proof.}}{\hfill$\blacksquare$}
+\definecolor{lightblue2}{RGB}{232, 245, 252}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightblue2,
+	]{proof}
+	
+	
+%NEW proof 
+%\definecolor{lightblue2}{RGB}{232, 245, 252}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightblue2, 
+%]{myproof}
+%\renewenvironment{proof}{
+%	\bigskip 
+%	\noindent
+%	\begin{myproof}
+%	\textit{Proof.}
+%}{
+%	\end{myproof}
+%	\par 
+%	\bigskip
+%}
+
+	
+%Lemma instantiation
+\definecolor{lightgreen1}{RGB}{224, 255, 193}
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{Lemma}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen1,
+	]{lemma}
+	
+	
+%NEW lemma 
+%\definecolor{lightgreen1}{RGB}{224, 255, 193}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightgreen1,
+%]{mylemma}
+%\newenvironment{lemma}[1][\unskip]{ %takes optional argument 1, \unskip removes the space below if no optional argument
+%	\bigskip 
+%	\noindent
+%	\begin{mylemma}
+%	\refstepcounter{thmcounter} %increment counter 
+%	\textbf{Lemma \thethmcounter} %\the__counter__ gets value of counter
+%	\textsl{ #1}:
+%}{
+%	\end{mylemma}
+%	\par 
+%	\bigskip
+%}
+%\numberwithin{thmcounter}{section}
+
+%Lemma Proof instantiation 
+\newenvironment{lproof}{\textsl{Proof.}}{\hfill$\blacksquare$}
+\definecolor{lightgreen2}{RGB}{232, 249, 214}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = lightgreen2,
+	]{lproof}
+	
+
+%NEW lproof 
+%\definecolor{lightgreen2}{RGB}{232, 249, 214}
+%\newmdenv[
+%	hidealllines = true, 
+%	backgroundcolor = lightgreen2,
+%]{mylproof}
+%\newenvironment{lproof}{
+%	\bigskip 
+%	\noindent
+%	\begin{mylproof}
+%	\textit{Proof.}
+%}{
+%	\end{mylproof}
+%	\par 
+%	\bigskip
+%}
+
+
+%Definition instantiation
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\definecolor{lightgreen}{RGB}{219, 255, 188}
+\definecolor{subtlegray}{RGB}{248, 248, 248}
+\surroundwithmdframed[
+	hidealllines = true, 
+	backgroundcolor = subtlegray,
+	]{definition}
+		
+	
+%Remove auto-indentation
+\setlength{\parindent}{0cm}
+
+%Preferred font and spacing
+\linespread{1.3}
+%\usepackage{lmodern}
+\usepackage{kpfonts}
+%\usepackage{tgschola}
+
+%Title color
+\definecolor{lightyellow}{RGB}{255, 236, 148}
+
+
+\begin{document}
+
+\frontmatter 
+{\let\cleardoublepage\clearpage 
+%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
+
+\begin{titlepage}
+	\centering
+	\vspace{1cm}
+	{\scshape\LARGE University of California, Berkeley \par}
+	\vspace{4cm}
+	{\scshape\Large Literally everything I know about \par}
+	\vspace{1.5cm}
+	{\Huge\bfseries Linear Algebra\par}
+	\vspace{1cm}
+	\vspace{2.5cm}
+	{\Large\itshape Warren Alphonso\par}
+	\vfill
+	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, \textsc{Linear Algebra Done Wrong} by Treil, and \textsc{Quantum Computation and Quantum Information} by Nielsen and Chuang. \par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+}
+
+\mainmatter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Bilinear and Quadratic Forms - WIP}
 
 \section{Main Definitions}
@@ -67,7 +335,7 @@ and because we know $(Ax, y) = (x, A^{*} y)$, this means that $A^{*} = A$.
 
 \section{Diagonalization of Quadratic Forms}
 
-Quadratic forms are common; they appear in the study of curves in $\R^{2}$ and some surfaces in $\R^{3}$, for example. If we are given a set in $\R^{n}$ defined by $Q[x] = 1$, where $Q$ is some quadratic form, we might want to understand the structure of this set. We will try our usual approach of doing so using a change of variables. 
+Quadratic forms are common; they appear in the study of curves in $\R^{2}$ and some surfaces in $\R^{3}$, for example. If we are given a set in $\R^{n}$ defined by $Q[x] = 1$, where $Q$ is some quadratic form, we might want to understand the structure of this set. We will try to do so using a change of variables. 
 
 \subsection{Orthogonal Diagonalization}
 
@@ -162,14 +430,12 @@ where the first step is adding half of row 2 to row 1 (and then the correspondin
 
 \section{Silvester's Law of Inertia} 
 
-We now know there are many different ways to diagonalize a quadratic form. For example, if we have a diagonal matrix $D$, we can take a diagonal matrix $S$ and transform $D$ to 
+We now know there are many different ways to diagonalize a quadratic form. For example, if we have a diagonal matrix $D$, we can take another diagonal matrix $S$ and transform $D$ to 
 $$S^{*} DS = \text{diag}\{ s_{1}^{2} \lambda_{1}, \cdots, s_{n}^{2} \lambda_{n} \}$$
 
-This transformation changes the diagonal entries of $D$, but it does not change the \textit{signs} of the entries. The following theorem says this is always the case. 
+This transformation changes the diagonal entries of $D$, but it does not change the \textit{signs} of the entries. The following says this is always the case. 
 
 \begin{theorem}[Silvester's Law of Inertia]
-\textbf{Wait but I don't even prove this so maybe don't make it a theorem}
-
 For a Hermitian matrix $A$ (for a quadratic form $Q[x] = (Ax, x)$) and any of its diagonalizations $D = S^{*} AS$, the number of positive, negative, and zero diagonal entries of $D$ depends only on $A$, but not on a particular choice of diagonalization. 
 \end{theorem}
 
@@ -202,13 +468,13 @@ Now we'll find the null space of $T$ so that we can apply the Rank Theorem. For 
 $$(Dx, x) = \sum_{r_{+} + 1}^{n} \lambda_{k} x_{k}^{2} \leq 0$$
 since $\lambda_{k} \leq 0$ for $k > r_{+}$. Because $x$ belongs to $D$-positive subspace $E$, the inequality only holds for $x = 0$, so $Ker(T) = \{0\}$. 
 
-We know $Rank(T) = dim(Ran(T)) \leq dim(E_{+}) = r_{+}$ since $Ran(T) \subset	E_{+}$. By the Rank Theorem, $dim(Ker(T)) + rank(T) = dim(E)$. But we just proved $Ker(T) = \{0\}$ so $dim(Ker(T)) = 0$ which means 
+We know $Rank(T) = dim(Ran(T)) \leq dim(E_{+}) = r_{+}$ since $Ran(T) \subset	E_{+}$. By the Rank Theorem, $dim(Ker(T)) + Rank(T) = dim(E)$. But we just proved $dim(Ker(T)) = 0$ which means 
 $$dim(E) = Rank(T) \leq r_{+}$$
 
 To prove the lemma for negative entries, we just prove the above for $-D$. 
 \end{lproof}
 
-This result proves the positive and negative diagonal entries of $D$ coincide with maximal dimensions of $D$-positive and $D$-negative subspaces. The following proves a stronger result. 
+This result proves the positive and negative diagonal entries of $D$ coincide with maximal dimensions of $D$-positive and $D$-negative subspaces. The following proves Silvester's Law of Inertia. 
 
 \begin{theorem}
 Let $A$ be an $n \times n$ Hermitian matrix, and let $D = S^{*} AS$ be its diagonalization by an invertible matrix $S$. Then the number of positive and negative diagonal entries of $D$ coincides with the maximal dimensions of an $A$-positive and $A$-negative subspace, respectively. 
@@ -219,7 +485,7 @@ Since $D = S^{*}AS$ is a diagonalization of $A$, we know
 $$(Dx, x) = (S^{*}ASx, x) = (ASx, Sx)$$
 which means that for any $D$-positive subspace $E$, the subspace $SE$ is an $A$-positive subspace. The same identity implies that for any $A$-positive subspace $F$, the subspace $S^{-1}F$ is $D$-positive. 
 
-Since $S$ and $S^{-1}$ are invertible transformations, $dim(E) = dim(SE)$ and $dim(F) = dim(S^{-1}F)$. Thus, for any $D$-positive subspace $E$, we can find an $A$-positive subspace ($SE$ for example) of the same dimension, and for any $A$-positive subspace $F$, we can find a $D$-positive subspace ($S^{-}F$ for example) of the same dimension. Thus, the maximal possible dimensions of an $A$-positive and a $D$-positive subspace coincide, so by the above lemma, the theorem is proved. The same reasoning supports $A$-negative subspaces. 
+Since $S$ is an invertible transformation, $dim(E) = dim(SE)$ and $dim(F) = dim(S^{-1}F)$. Thus, for any $D$-positive subspace $E$, we can find an $A$-positive subspace ($SE$ for example) of the same dimension, and for any $A$-positive subspace $F$, we can find a $D$-positive subspace ($S^{-}F$ for example) of the same dimension. Thus, the maximal possible dimensions of an $A$-positive and a $D$-positive subspace coincide, so by the above lemma, the theorem is proved. The same reasoning supports $A$-negative subspaces. 
 \end{proof}
 
 \section{Minimax Characterization of Eigenvalues and Silvester's Criterion of Positivity}
@@ -235,7 +501,17 @@ A quadratic form is called
 \end{itemize}
 \end{definition}
 
-A Hermitian matrix $A = A^{*}$ is called positive definite if the corresponding quadratic forms $Q[x] = (Ax, x)$ is positive definite. Additionally, any Hermitian matrix $A$ is positive definite if its eigenvalues are all positive. By orthogonal diagonalization, we know there is a basis in which $A$ is diagonal, and it is clear that a diagonal matrix is positive definite if its eigenvalues are all positive.
+A Hermitian matrix $A = A^{*}$ is called positive definite if the corresponding quadratic forms $Q[x] = (Ax, x)$ is positive definite. 
+
+\begin{theorem}
+Any Hermitian matrix $A$ is positive definite if and only if its eigenvalues are all positive.
+\end{theorem}
+
+\begin{proof}
+By orthogonal diagonalization, we know there is a basis in which $A$ is diagonal, and it is clear that a diagonal matrix is positive definite if its eigenvalues are all positive. 
+\end{proof}
+
+The above reasoning also applies to positive semidefinite, negative definite, negative semidefinite, and indefinite quadratic forms. 
 
 In fact, because of Silvester's Law of Inertia, we don't need to compute eigenvalues. We can just find a non-orthogonal diagonalization and look at those diagonal entries. 
 
@@ -246,4 +522,61 @@ $$\begin{bmatrix}
 a & b \\
 \overline{b} & c
 \end{bmatrix}$$
-Notice that if this matrix is positive definite, then $\lambda_{1} \lambda_{2} > 0$ and $\lambda_{1} + \lambda_{2} > 0$ which means 
+This matrix is positive definite if and only if $a > 0$ and $det(A)= ac - \abs{b}^{2} > 0$. To see this, note that if the above conditions are met, then $c > 0$, so $trace(A) = a + c > 0$. If $\lambda_{1}, \lambda_{2}$ are eigenvalues of $A$, then their product is positive ($det(A) > 0$) and their sum is positive($trace(A) > 0$), which is only possible if both eigenvalues are positive. \textbf{Prove only if direction.}
+
+\begin{theorem}[Silvester's Criterion of Positivity] 
+A matrix $A = A^{*}$ is positive definite if and only if 
+$$det(A_{k}) > 0 \qquad \forall k = 1, \cdots, n$$
+where $A_{k}$ denotes the upper left $n \times n$ submatrix of $A$. 
+\end{theorem}
+
+\begin{proof}
+If $A > 0$, then $A_{k} > 0 \quad \forall k$, because all of $A$'s eigenvalues are positive. 
+\textbf{Finish proof!}
+\end{proof}
+
+\subsection{Minimax Characterization of Eigenvalues}
+
+We will use the term \textbf{codimension} to denote the dimension of the orthogonal complement. For a subspace $E \subset X$, if $dim(X) = n$, then $codim(E) + dim(E) = n$. 
+
+\begin{theorem}[Minimax Characterization of Eigenvalues]
+Let $A = A^{*}$ be an $n \times n$ matrix, and let $\lambda_{1}, \cdots, \lambda_{n}$ be its eigenvalues in decreasing order. Then, 
+$$\lambda_{k} = \max_{E: dim(E) = k} \quad \min_{x \in E: \norm{x} = 1} \quad (Ax, x) \quad = \quad \min_{F: codim(F)=k-1} \quad \max_{x \in F: \norm{x} = 1} \quad (Ax, x)$$
+
+\end{theorem}
+
+The first expression considers all subspaces $E$ with dimension $k$, and then for each subspace, finds the $x$ with norm 1 that results in the minimum $(Ax, x)$. Now, out of the chosen $(Ax, x)$, we pick the subspace that results in the maximal value. The second expression is defined similarly. 
+
+An important question regarding this theorem is: why must a maximum and minimum exist? One explanation is the set $x \in E : \norm{x} = 1$ is the unit sphere, which is closed (contains its limit points) and bounded (contains a highest and lowest point). Since $Q[x] = (Ax, x)$ is a continuous function, it will have a maximum and minimum on any compact set. \textbf{Remove if the proof proves existence.}
+
+\begin{proof}
+We can pick an orthonormal basis so that matrix $A$ is diagonal, $A = diag\{ \lambda_{1}, \cdots, \lambda_{n} \}$. \textbf{Not finished.}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
