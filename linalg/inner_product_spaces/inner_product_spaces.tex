@@ -12,7 +12,7 @@ Keep in mind that theory for inner product space is only developed for $\mathbb{
 We define the \textbf{norm} of a vector to be the generalization of \textit{length}. That is, the norm of a vector $x \in \mathbb{R}^{n}$ is 
 $$\norm{x} = \sqrt{x_{1}^{2} + \cdots + x_{n}^{2}}$$
 
-For any complex number $z = x + iy$, we can write $\abs{z}^{2} = x^{2} + y^{2} = z \overline{z}$, where $\overline{z}$ denotes the complex conjugate of $z$. So for any $z$ in a complex field $\mathbb{C}^{n}$, we can write 
+For any complex number $z = x + iy$, we can write $\abs{z}^{2} = x^{2} + y^{2} = z \overline{z}$, where $\overline{z}$ denotes the complex conjugate of $z$. For any $z$ in a complex field $\mathbb{C}^{n}$, we can write 
 $$z = \begin{bmatrix}
 z_{1} \\
 \vdots \\
@@ -59,7 +59,7 @@ $$(x, y) = 0 \qquad \forall y \in V$$
 \end{lemma}
 
 \begin{lproof}
-Since $(0, y) = 0$, we need to only show that $x = 0$ if $(x, y) = 0$. Subbing in $y = x$, we get $(x, x) = 0$ and property 3 asserts that $x = 0$. 
+Since $(0, y) = 0$, we need to only show that $x = 0$ if $(x, y) = 0$. Subbing in $y = x$, we get $(x, x) = 0$ and non-degeneracy asserts that $x = 0$. 
 \end{lproof}
 
 \begin{lemma}
@@ -68,7 +68,7 @@ $$(x, z) = (y, z) \qquad \forall z \in V$$
 \end{lemma}
 
 \begin{lproof}
-Using the above lemma, if we set $(x - y, z) = 0 \quad \forall z \in V$, then it follows that $x = y$ and $(x, z) = (y, z)$. 
+Using the above lemma, if we set $(x - y, z) = 0 \: \forall z \in V$, then it follows that $x = y$ and $(x, z) = (y, z)$. 
 
 \end{lproof}
 
@@ -99,7 +99,7 @@ $$
 \end{aligned}
 $$
 
-Using property 1 of inner products, we have 
+Using symmetry of inner products, we have 
 $$t = \frac{(x, y)}{\norm{y}^{2}} = \frac{\overline{(y, x)}}{\norm{y}^{2}}$$
 Subbing in $t$, we get 
 $$ 0 \leq \norm{x}^{2} - \frac{\abs{(x y)}^{2}}{\norm{y}^{2}}$$
@@ -185,7 +185,7 @@ $$\norm{u + v}^{2} = \norm{u}^{2} + \norm{v}^{2}$$
 
 \begin{proof}
 $$\norm{u + v}^{2} = \norm{u}^{2} + \norm{v}^{2} + (u, v) + (v, u) = \norm{u}^{2} + \norm{v}^{2}$$
-Since $(u,v) = (v, u) = 0$ because of orthogonality. 
+since $(u,v) = (v, u) = 0$ by definition of orthogonality. 
 \end{proof}
 
 \begin{definition}

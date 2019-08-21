@@ -1,13 +1,13 @@
 \chapter{Outer Product Representation} 
 
-This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of it will be spent providing an additional perspective on the core ideas in the previous two chapters. New concepts, like tensor products, that are introduced in the second half of this chapter will be developed more formally later in the book. 
+This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of it will be spent providing an additional perspective on the core ideas in the previous two chapters. New concepts, like tensor products, that are introduced in the second half of this chapter will be developed more formally later. 
 \section{Dirac Notation} 
 
 We can use inner products to derive a useful representations of linear operators. Before doing so, we'll define a convenient notation. 
 
 \begin{definition}
 The \textbf{Dirac notation} represents vectors as 
-$$\ket*{\psi}$$ which is also known as a \textbf{ket}. The dual of this same vector (dual spaces will be defined later in the book) is represented as 
+$$\ket*{\psi}$$ which is also known as a \textbf{ket}. The dual of this same vector (dual spaces will be defined later) is represented as 
 $$\bra*{\psi}$$ which is also known as a \textbf{bra}. For now, it suffices to know that the dual of a vector is simply the complex conjugate transpose of that vector. This notations allows us to represent the inner product of two vectors as 
 $$\bra*{\phi}\ket*{\psi}$$
 \end{definition}
@@ -27,7 +27,7 @@ $$\sum_{i} \ket*{i} \bra*{i} = I$$
 \end{lemma}
 
 \begin{lproof}
-We know that for any $v \in V$ can be written as $v = \sum_{i} v_{i} \ket*{i}$ and that $\bra*{i} \ket*{v} = v_{i}$. Then 
+We know any $v \in V$ can be written as $v = \sum_{i} v_{i} \ket*{i}$ and that $\bra*{i} \ket*{v} = v_{i}$. Then 
 
 $$\Big( \sum_{i} \ket*{i} \bra*{i} \Big) \ket*{v} = \sum_{i} \ket*{i} \bra*{i} \ket*{v} = \sum_{i} v_{i} \ket*{i} = \ket*{v}$$
 

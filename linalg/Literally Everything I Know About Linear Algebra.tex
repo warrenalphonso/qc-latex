@@ -1,4 +1,4 @@
- \documentclass[a4paper,10pt]{book}
+\documentclass[a4paper,10pt]{book}
 
 %Use the following for font size 8 or 9, as 10 is the minimum provided normally
 %\documentclass[8pt]{extbook}
@@ -29,6 +29,12 @@
 \renewcommand{\P}{\mathcal{P}}
 \renewcommand{\L}{\mathcal{L}}
 \DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Codim}{codim}
+\DeclareMathOperator{\Range}{range}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Null}{null}
+
 
 %Augmented matrices
 \makeatletter
@@ -195,10 +201,19 @@
 \linespread{1.3}
 %\usepackage{lmodern}
 \usepackage{kpfonts}
-%\usepackage{tgschola}
 
 %Title color
 \definecolor{lightyellow}{RGB}{255, 236, 148}
+
+%Table of Contents 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=black
+}
 
 
 \begin{document}
@@ -236,7 +251,7 @@
 \include{inner_product_spaces/inner_product_spaces}
 \include{structure_of_operators/structure_of_operators}
 \include{outer_product_representation/outer_product_representation}
-%\include{bilinear_and_quadratic/bilinear_and_quadratic}
+\include{bilinear_and_quadratic/bilinear_and_quadratic}
 \include{matrix_functions/matrix_functions}
 
 \end{document}

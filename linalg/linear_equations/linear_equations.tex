@@ -1,29 +1,29 @@
 \chapter{Systems of Linear Equations}
 \section{Representations of Linear Systems}
-The first understanding of a \textit{linear system} is simply a collection of $m$ linear equations with $n$ unknowns $x_{1}, \cdots, x_{n}$. To solve this system entails finding all $n$-tuples of numbers $x_{1}, \cdots, x_{n}$ which satisfy the $m$ equations simultaneously. If we define 
+One understanding of a \textit{linear system} is simply a collection of $m$ linear equations with $n$ unknowns $x_{1}, \cdots, x_{n}$. Solving this system entails finding all $n$-tuples of numbers $x_{1}, \cdots, x_{n}$ which satisfy the $m$ equations simultaneously. If we define 
 $$A = \begin{bmatrix}
 \alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n} \\
 \alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n} \\
-\vdots & \vdots & & \vdots \\
+\vdots & \vdots & \ddots & \vdots \\
 \alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{mn}
 \end{bmatrix}$$
 then we can summarize our linear system in matrix form
 $$Ax = b$$
 
-The above is the \textbf{coefficient matrix}. If we want to contain all the information in a single matrix, we can use an \textbf{augmented matrix} 
+The above is the \textbf{coefficient matrix}. If we want to contain all the information in a single matrix, we can use an \textbf{augmented matrix}
 $$\begin{bmatrix}[cccc|c]
 \alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n} & b_{1}\\
 \alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n} & b_{2}\\
-\vdots & \vdots & & \vdots & \vdots\\
+\vdots & \vdots & \ddots & \vdots & \vdots\\
 \alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{mn} & b_{m}
 \end{bmatrix}$$
 
 \section{Solving Linear Systems}
 Linear systems are solved using \textbf{Gaussian elimination}. We can perform the following row operation on an augmented matrix:
 \begin{enumerate}
-	\item (Replacement) Replace one row by the sum of itself and a multiple of another row. 
+	\item (Replace) Replace one row by the sum of itself and a multiple of another row. 
 	\item (Interchange) Interchange two rows. 
-	\item (Scaling) Multiply all entries in a row by a nonzero constant. 
+	\item (Scale) Multiply all entries in a row by a nonzero constant. 
 \end{enumerate}
 
 These operations belong to the \textit{elementary matrices}: any operation can be described by applying the same operation to $I$ to get $E$ and then multiplying $EA$.
@@ -48,12 +48,10 @@ $$\begin{bmatrix}[ccc|c]
 0 & 0 & 1 & -2
 \end{bmatrix}$$
 
-Formally, the \textbf{echelon form} requires that all zero rows are below all nonzero rows and that any nonzero row's \textbf{pivot}, its leading entry, is strictly to the right of the leading entry in the previous row. The particular echelon form above is called \textbf{triangular form} and is only possible when we have a square matrix. The \textbf{reduced echelon form} requires echelon form in addition to maintaining that all pivot entries are 1 and that all entries above each pivot are 0. 
+Formally, the \textbf{echelon form} requires that all zero rows are below all nonzero rows and that any nonzero row's \textbf{pivot} (its leading entry) is strictly to the right of the leading entry in the previous row. The particular echelon form above is called \textbf{triangular form} and is only possible when we have a square matrix. The \textbf{reduced echelon form} requires echelon form in addition to maintaining that all pivot entries are 1 and that all entries above each pivot are 0. 
 \end{definition}
 
-The \textit{existence} and \textit{uniqueness} of a solution can be determined by analyzing pivots in the echelon form of a matrix. 
-
-When looking at the coefficient matrix: 
+The \textit{existence} and \textit{uniqueness} of a solution can be determined by analyzing pivots in the echelon form of a matrix. When looking at the coefficient matrix: 
 \begin{enumerate}
 	\item A solution (if it exists) is unique if and only if there are no free variables, that is if the echelon form has a pivot in every \textit{column}. 
 	\item A solution is consistent if and only if the echelon form has a pivot in every \textit{row}. 
@@ -81,9 +79,8 @@ Since a matrix must have unique solution for $Ax = b$ for any $b$ in order to be
 \end{proof}
 This directly implies that an invertible matrix \textbf{must be square}.
 
-Since an invertible matrix must be square and must have pivots in every row and column in echelon form, any invertible matrix is row equivalent to the identity matrix. 
+Since an invertible matrix must be square and must have pivots in every row and column in echelon form, any invertible matrix is row equivalent to the identity matrix. We can use this to get the following algorithm for finding $A^{-1}$:
 
-We can use this to get the following algorithm for finding $A^{-1}$:
 \begin{enumerate}
 	\item Form an \textit{augmented $n \times 2n$} matrix 
 	$\begin{bmatrix}[c|c] A & I\end{bmatrix}$.
@@ -111,12 +108,12 @@ For any linear transformation $A : V \rightarrow W$, we can associate the follow
 	\item The \textit{range} of $A$ which is the set of all vectors $w \in W$ which can be represented as $w = Av$ for $v \in V$. 
 \end{enumerate}
 
-By the \textit{column by coordinate rule}, we know that any vector in $Range(A)$ can be represented as a weighted sum of the column vectors of $A$, which is why the term Column Space is sometimes used to refer to Range. 
+By the \textit{column by coordinate rule}, we know that any vector in $\Range(A)$ can be represented as a weighted sum of the column vectors of $A$, which is why the term \textit{column space} is sometimes used to refer to range. 
 
-In addition, we can consider the corresponding subspaces of the transposed matrix. The term \textit{row space} is used to denote $Range(A^{T})$, and the term \textit{left null space} is used to denote $Null(A^{T})$. Together, these four subspaces are known as the \textbf{fundamental subspaces} of the matrix $A$. 
+In addition, we can consider the corresponding subspaces of the transposed matrix. The term \textit{row space} is used to denote $\Range(A^{T})$, and the term \textit{left null space} is used to denote $\Null(A^{T})$. Together, these four subspaces are known as the \textbf{fundamental subspaces} of the matrix $A$. 
 
 \begin{definition}
-The \textbf{dimension} of a vector space $V$, denoted $dim(V)$, is the number of vectors in a basis. 
+The \textbf{dimension} of a vector space $V$, denoted $\Dim(V)$, is the number of vectors in a basis. 
 \end{definition}
 
 \begin{theorem}[General solution of a linear equation] 
@@ -139,24 +136,24 @@ The power of this theorem is its generality -- it applies to all linear equation
 \begin{theorem}
 In order to compute the fundamental subspaces, we need to do row reduction. Let $A$ be the original matrix and let $A_{e}$ be its echelon form. 
 \begin{enumerate}
-	\item The pivot \textit{columns} of the \textit{original matrix} $A$ (ie the columns where after row operations we will have pivots in echelon form) give us a basis for $Range(A)$. 
+	\item The pivot \textit{columns} of the \textit{original matrix} $A$ (the columns where after row operations we will have pivots in echelon form) give us a basis for $\Range(A)$. 
 	\item The pivot \textit{rows} of $A_{e}$ give us the basis in row space. 
-	\item To find $Null(A)$, we need to solve $Ax = 0$. 
+	\item To find $\Null(A)$, we need to solve $Ax = 0$. 
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 In turn, 
 \begin{enumerate}
-	\item We know the pivot columns of $A_{e}$ form a basis for $Range(A_{e})$. Since $A_{e} = EA$ ($E$ is the matrix product of the elementary matrices representing the row operations completed), $A = E^{-1}A_{e}$. This means the corresponding columns in $A$ of $A_{e}$ is a basis of $A$. 
+	\item We know the pivot columns of $A_{e}$ form a basis for $\Range(A_{e})$. Since $A_{e} = EA$ ($E$ is the matrix product of the elementary matrices representing the row operations completed), $A = E^{-1}A_{e}$. This means the corresponding columns in $A$ of $A_{e}$ is a basis of $A$. 
 	
 	\item We know that the pivot rows of the echelon form are linearly independent. Now we need only prove that they span the entirety of the row space. Notice that \textit{row operations do not change the row space}. To prove this, 
 	$$A_{e} = EA$$
 	where $A$ is $m \times n$ and $E$ is an $m \times m$ invertible matrix. 
-	$$Range(A_{e}^{T}) = Range(A^{T} E^{T}) = A^{T} (Range(E^{T})) = A^{T} (\mathbb{R}^{m}) = Range(A^{T})$$
-	where the final step follows from applying an $n \times m$ matrix to $\mathbb{R}^{m}$, which is just a transformation from $\mathbb{R}^{m}$ to $Range(A^{T})$. 
+	$$\Range(A_{e}^{T}) = \Range(A^{T} E^{T}) = A^{T} (\Range(E^{T})) = A^{T} (\mathbb{R}^{m}) = \Range(A^{T})$$
+	where the final step follows from applying an $n \times m$ matrix to $\mathbb{R}^{m}$, which is just a transformation from $\mathbb{R}^{m}$ to $\Range(A^{T})$. 
 	
-	\item Solving for $Ax = 0$ certainly gives us a spanning set for  $Null(A)$. To prove the set is linearly independent, multiply each vector by its corresponding free variable and add. For every free variable $x_{k}$, the entry $k$ is exactly $x_{k}$, so the only way the sum of the set is $0$ is if all the free variables are $0$. 
+	\item Solving for $Ax = 0$ certainly gives us a spanning set for  $\Null(A)$. To prove the set is linearly independent, multiply each vector by its corresponding free variable and add. For every free variable $x_{k}$, the entry $k$ is exactly $x_{k}$, so the only way the sum of the set is $0$ is if all the free variables are $0$. 
 \end{enumerate}
 \end{proof}
 
@@ -176,7 +173,7 @@ $$\begin{bmatrix}
 0 & 0 & 0 & 0 & 0
 \end{bmatrix}$$
 
-So the first and third columns of the \textit{original matrix} give us a basis for $Range(A)$: 
+So the first and third columns of the \textit{original matrix} give us a basis for $\Range(A)$: 
 $$\begin{bmatrix}
 1 \\ 
 2 \\
@@ -189,7 +186,7 @@ $$\begin{bmatrix}
 -1
 \end{bmatrix}$$
 
-We also know the basis for $Row(A)$ is the first and second row of the \textit{echelon form}:
+We also know the basis for the row space of $A$ is the first and second row of the \textit{echelon form}:
 $$\begin{bmatrix}
 1 \\
 1 \\
@@ -204,7 +201,7 @@ $$\begin{bmatrix}
 -1
 \end{bmatrix}$$
 
-To find $Null(A)$ we solve $Ax = 0$. The reduced echelon form is 
+To find $\Null(A)$ we solve $Ax = 0$. The reduced echelon form is 
 $$\begin{bmatrix}
 1 & 1 & 0 & 0 & \frac{1}{3} \\
 0 & 0 & 1 & 1 & \frac{1}{3} \\
@@ -238,25 +235,25 @@ x_{5} \text{ is free}
 1
 \end{bmatrix}$$
 
-The vectors at each free variables form the basis for $Null(A)$. 
+The vectors at each free variables form the basis for $\Null(A)$. 
 
 \begin{definition}
-The \textbf{rank} of a linear transformation $A$, denoted $rank(A)$, is the dimension of the range of $A$. 
-$$rank(A) := Dim(Range(A))$$
+The \textbf{rank} of a linear transformation $A$, denoted $\Rank(A)$, is the dimension of the range of $A$. 
+$$\Rank(A) := \Dim(\Range(A))$$
 \end{definition}
 
 \begin{theorem}[The Rank Theorem]
 For a matrix $A$ 
-$$rank(A) = rank(A^{T})$$
+$$\Rank(A) = \Rank(A^{T})$$
 
 The proof of this is trivial since rank of both column space and row space are dependent on the number of pivots in echelon form. 
 \end{theorem}
 
-\begin{theorem}
+\begin{theorem}[Rank-Nullity Theorem]
 Let $A$ be an $m \times n$ matrix. Then 
 \begin{enumerate}
-	\item $dim(Null(A)) + dim(Range(A)) = n$ (dim of domain)
-	\item $dim(Null(A^{T})) + dim(Range(A^{T})) = dim(Null(A^{T})) + rank(A) = m$ (dim of codomain)
+	\item $\Dim(\Null(A)) + \Dim(\Range(A)) = n$ (dim of domain)
+	\item $\Dim(\Null(A^{T})) + \Dim(\Range(A^{T})) = \Dim(\Null(A^{T})) + \Rank(A) = m$ (dim of codomain)
 \end{enumerate}
 \end{theorem}
 
@@ -287,7 +284,7 @@ x_{1} \\
 x_{n}
 \end{bmatrix} \in \mathbb{F}^{n}$$
 
-Note that $v \mapsto [v]_{B}$ is an isomorphism between $V$ and $\mathbb{F}^{n}$.
+Note that $v \rightarrow [v]_{B}$ is an isomorphism between $V$ and $\mathbb{F}^{n}$.
 
 \begin{definition}
 Let $T: V \rightarrow W$ be a linear transformation, and let $A = \{a_{1}, \cdots, a_{n}\}$, $B = \{ b_{1}, \cdots, b_{m} \}$ be bases in $V,W$ respectively. 

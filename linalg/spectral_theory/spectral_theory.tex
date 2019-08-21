@@ -7,22 +7,22 @@ Spectral theory will be our main tool for analyzing linear operators. In this ch
 A scalar $\lambda$ is called an \textbf{eigenvalue} of operator $A: V \rightarrow V$ if there exists a \textit{nonzero} vector $v \in V$ such that 
 $$Av = \lambda v$$
 
-The vector $v$ is called an \textbf{eigenvector} of $A$ (corresponding to the eigenvalue of $\lambda$).
+The vector $v$ is called an \textbf{eigenvector} of $A$ (corresponding to the eigenvalue $\lambda$).
 
 Once we know the eigenvalues, finding the eigenvectors is equivalent to solving 
 $$(A - \lambda I)v = 0$$
-$Null(A - \lambda I)$, the set of all eigenvectors and 0, is called the \textbf{eigenspace}. 
+Additionally, $\Null(A - \lambda I)$, the set of all eigenvectors and 0, is called the \textbf{eigenspace}. 
 
 The set of all eigenvalues of an operator is called the \textbf{spectrum} of $A$, denoted $\sigma (A)$. 
 \end{definition}
 
-Since the matrix $A$ is square, $A - \lambda I$ has a nontrivial null space if and only if it is not invertible, which means its determinant will be 0. Thus, for any eigenvalue $\lambda$ of $A$, 
+Since the matrix $A$ is square, $A - \lambda I$ has a nontrivial null space if and only if it is not invertible. Thus,
 $$det(A - \lambda I) = 0$$
 
 \begin{definition}
 If $A$ is an $n \times n$ matrix, $det(A - \lambda I)$ is a degree-$n$ polynomial of variable $\lambda$. This is called the \textbf{characteristic polynomial} of $A$. Finding the spectrum of $A$ requires finding the roots to the characteristic polynomial. 
 
-Using $(\lambda I - A)v = 0$ as the characteristic polynomial always yields a monic polynomial, whereas our current definition differs by a factor of $(-1)^{n}$. This makes no difference for properties like having eigenvalues located at roots so the two definitions are usually interchangeable. 
+Using $det(\lambda I - A)$ as the characteristic polynomial always yields a monic polynomial, whereas our current definition differs by a factor of $(-1)^{n}$. This makes no difference for properties like having eigenvalues located at roots so the two definitions are usually interchangeable. 
 
 This means any operator in $\mathbb{C}^{n}$ has $n$ eigenvalues, though some may be repeated. 
 \end{definition}
@@ -48,7 +48,7 @@ $$det(A) = \lambda_{1} \cdots \lambda_{n}$$
 
 
 \begin{proof}
-Since $det(A - \lambda I)$ is a degree-$n$ polynomial of variable $\lambda$ and we know $A$ will have $n$ eigenvalues, we can write 
+Since the characteristic polynomial is degree-$n$ with variable $\lambda$ and $A$ has $n$ eigenvalues, we can write 
 
 $$det(\lambda I - A) = (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
 
@@ -66,23 +66,24 @@ $$trace(A) = \lambda_{1} + \cdots + \lambda_{n}$$
 \end{theorem}
 
 \begin{proof}
-Let us begin by analyzing $det(A - \lambda I)$. Notice that in any cofactor expansion, if we pick any element $a_{i, j}$, such that $j \neq k$, then the highest degree of the resulting cofactor will be $n - 2$. This is because cofactoring removes the row and column the chosen entry is on, and since $j \neq k$, we remove the variables $a_{j,j} - \lambda$ and $a_{k,k} - \lambda$. After cofactor expansion, the  $\lambda^{n-1}$ term will be formed by only this equation
-$$(a_{1,1} - \lambda) \cdots (a_{n, n} - \lambda) = (-1)^{n} (\lambda - a_{1,1}) \cdots (\lambda - a_{n,n})$$
-so the coefficient of $\lambda^{n-1}$ amounts to choosing the $\lambda$ variable $n -1$ times and choosing one of the other coefficients to get 
-\begin{equation}
-(-1)^{n}(a_{1, 1} \lambda^{n-1})\cdots (a_{n, n} \lambda^{n-1}) = (-1)^{n} (a_{1, 1} + \cdots + a_{n, n}) \lambda^{n-1}
-\end{equation}
+Recall that $A_{jk}$ is the entry of $A$ in row $j$ and column $k$ while $A_{j, k}$ is the cofactor without row $j$ and column $k$. 
 
+We begin by analyzing $det(A - \lambda I)$. If we use cofactor expansion across any row, any term involving an off-diagonal entry ($A_{jk} : j \neq k$) results in a determinant with degree $n - 2$. This is because cofactoring removes the row and column the chosen entry is on, and since $j \neq k$, we remove the variables $A_{jj} - \lambda$ and $A_{kk} - \lambda$. This means the $\lambda^{n}$ and $\lambda^{n-1}$ terms come from the product of the diagonal entries in $det(A - \lambda I)$. In other  words, 
+$$det(A - \lambda I) = (A_{11} - \lambda) \cdots (A_{nn} - \lambda) + q(\lambda)$$
+where $q(\lambda)$ is a polynomial with degree $n - 2$. 
 
-Note we can rewrite the characteristic equation as
+To find the coefficient of the $\lambda^{n-1}$ term, we simply 
+$$ (A_{11} - \lambda) \cdots (A_{nn} - \lambda) = (-1)^{n} (\lambda - A_{11}) \cdots (\lambda - A_{nn})$$
+and notice that the $\lambda^{n-1}$ term is formed by choosing $\lambda$ $n - 1$ times and then choosing $A_{kk}$ to get 
+$$ (-1)^{n} (A_{11} \lambda^{n-1}) \cdots (A_{nn} \lambda^{n-1}) = (-1)^{n} (A_{11} + \cdots + A_{nn}) \lambda^{n-1}$$
+
+Now we will rewrite the coefficient of the $\lambda^{n-1}$ term using the characteristic equation. 
 $$det(A - \lambda I) = (\lambda_{1} - \lambda) \cdots (\lambda_{n} - \lambda) = (-1)^{n} (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
 
-Now let us identify the coefficient of the $\lambda^{n-1}$ term 
-\begin{equation}
-(-1)^{n} (\lambda_{1} \lambda^{n-1} + \lambda_{2} \lambda^{n-1} + \cdots + \lambda_{n} \lambda^{n-1}) = (-1)^{n} (\lambda_{1} + \cdots + \lambda_{n}) \lambda^{n-1}
-\end{equation}
+Again, we have to choose the $\lambda$ term $n - 1$ times, so we get 
+$$(-1)^{n} (\lambda_{1} \lambda^{n-1}) \cdots (\lambda_{n} \lambda^{n-1}) = (-1)^{n} (\lambda_{1} + \cdots + \lambda_{n})\lambda^{n-1}$$
 
-Comparing coefficients in Equations 4.1 and 4.2, $trace(A) = \lambda_{1} + \cdots + \lambda_{n}$. 
+Comparing coefficients yields $trace(A) = \lambda_{1} + \cdots + \lambda_{n}$. 
 \end{proof}
 
 \section{Diagonalization}
@@ -96,7 +97,7 @@ In this case, the diagonal entries of $D$ are the eigenvalues of $A$ and the col
 
 \begin{proof}
 
-To understand the intuition behind this, note that $P = [I]_{S, B}$, where $S$ is the standard basis and $B$ is the basis for the eigenspace, since each column is the representation of a basis vector written in $S$. Rewriting $A = PDP^{-1}$ as $D = P^{-1}AP = [I]_{B, S} A [I]_{S,B}$ which means $D = [A]_{B, B}$, which is a diagonal operator if and only if its diagonal entries are eigenvalues whose corresponding eigenvectors are $b_{k}$. Think of the operator $[I]_{B, S} A [I]_{S,B}$ as converting a vector to a basis of eigenvectors, scaling those eigenvectors appropriately by their eigenvalues, and then converting back to the standard basis. 
+To understand the intuition behind this, note that $P = [I]_{SB}$, where $S$ is the standard basis and $B$ is the basis for the eigenspace, since each column is the representation of a basis vector written in $S$. Rewriting $A = PDP^{-1}$ as $D = P^{-1}AP = [I]_{BS} A [I]_{SB}$ which means $D = [A]_{BB}$, which is a diagonal operator if and only if its diagonal entries are eigenvalues whose corresponding eigenvectors are $b_{k}$. Think of the operator $[I]_{BS} A [I]_{SB}$ as converting a vector to a basis of eigenvectors, scaling those eigenvectors appropriately by their eigenvalues, and then converting back to the standard basis. 
 
 A simpler, more direct proof is to rewrite $AP = PD$. 
 $$AP = \begin{bmatrix}

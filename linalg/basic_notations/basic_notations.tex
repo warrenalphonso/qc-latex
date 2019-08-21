@@ -39,7 +39,7 @@ $$u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$$
 The coefficients $\alpha_{1}, \cdots, \alpha_{n}$ are called \textit{coordinates} of $u$.
 \end{definition}
 
-Fundamentally, our definition of basis requires that it must be spanning and unique. In order for a representation to be unique, we know the basis must be linearly independent. 
+Fundamentally, our definition of basis requires it be spanning and every representation unique. In order for a representation to be unique, we know the basis must be linearly independent. 
 
 \begin{theorem}
 A set of vectors $v_{1}, \cdots, v_{p} \in V$ is a basis if and only if it is linearly independent and complete (spanning). 
@@ -54,7 +54,7 @@ $$u = \sum_{k=1}^{n} \alpha_{k} v_{k}$$
 All that is remaining is to prove this representation is unique. 
 
 Suppose there is another representation, $u = \sum_{k=1}^{n} \beta_{k} v_{k}$. Then, 
-$$\sum_{k=1}^{n} (\alpha_{k} - \beta_{k}) v_{k} = v - v = 0$$
+$$\sum_{k=1}^{n} (\alpha_{k} - \beta_{k}) v_{k} = u - u = 0$$
 Since the set is linearly independent, we know $\alpha_{k} - \beta_{k} = 0$. Thus, the representation is unique. 
 \end{proof}
 
@@ -73,7 +73,7 @@ A mapping $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$ is \textit{onto} $\math
 A mapping $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$ is \textit{one-to-one} if each $b$ in $\mathbb{F}^{m}$ is the image of at most one $x$ in $\mathbb{F}^{n}$. 
 \end{definition}
 
-We can represent linear transformations with matrices. To represent a transformation $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$, we need to only know our $n$ basis vectors are transformed. To see this, note that any vector $u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$. So $T(u) = \alpha_{1} T(v_{1}) + \cdots + \alpha_{n} T(v_{n})$. If we join the vectors $T(v_{1}), \cdots, T(v_{n})$ in a matrix $A = \begin{bmatrix}
+We can represent linear transformations with matrices. To represent a transformation $T: \mathbb{F}^{n} \rightarrow \mathbb{F}^{m}$, we need to only know our $n$ transformed basis vectors. To see this, note that any vector $u = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$. So by linearity, $T(u) = \alpha_{1} T(v_{1}) + \cdots + \alpha_{n} T(v_{n})$. If we join the transformed basis vectors in a matrix $A = \begin{bmatrix}
 T(v_{1}) & \cdots & T(v_{n})
 \end{bmatrix}$, we have captured all the information about $T$. 
 
@@ -120,7 +120,7 @@ $$\begin{bmatrix}
 \end{definition}
 
 \begin{definition}
-The natural extension to \textbf{matrix multiplication} of two matrices $AB$ is to multiply $A$ by each column of $B$. 
+The natural extension to \textbf{matrix multiplication} of two matrices $AB$ is to multiply $A$ with each column of $B$. 
 $$AB = A \begin{bmatrix}
 b_{1} & \cdots & b_{n}
 \end{bmatrix} = \begin{bmatrix}
@@ -188,7 +188,7 @@ Let $A$ and $B$ be sizes $m \times n$ and $n \times m$, respectively. Then $$tra
 \begin{proof}
 We need only show that the diagonal entries of $AB$ are the same as the diagonal entries of $BA$. 
 
-$$tr(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} A_{ij} B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m} B_{ji} A_{ij} = \sum_{j=1}^{n} (BA)_{jj} = tr(BA)$$
+$$trace(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} A_{ij} B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m} B_{ji} A_{ij} = \sum_{j=1}^{n} (BA)_{jj} = trace(BA)$$
 \end{proof}
 
 \subsection{Linear Transformations as a Vector Space}
@@ -206,13 +206,11 @@ $$
 
 where the second step follows from the linearity of $T$. 
 
-A similar proof can be made to show that the sum of any $T_{1}, T_{2} \in L(V, W)$ is also linear, which means it's in the set $L(V, W)$. This means we have defined multiplication by a scalar and addition on $L(V, W)$, which means $L(V, W)$ is a vector space. 
+A similar proof can be made to show that the sum of any $T_{1}, T_{2} \in L(V, W)$ is also linear, which means it's in the set $L(V, W)$. This means we have defined multiplication by a scalar and addition on $L(V, W)$, so $L(V, W)$ is a vector space itself. 
 
 \section{Invertible Transformations and Isomorphisms}
 \begin{definition}
-An $n \times n$ matrix $A$ is \textbf{invertible} if there is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A = I$ and $AA^{-1} = I$. 
-
-An $n \times n$ matrix $A$ is \textit{left invertible} if there is matrix $B$ such that $BA = I$ and is \textit{right invertible} if there is a matrix $C$ such that $AC = I$. If $A$ is both left and right invertible, then $A$ is called \textbf{invertible}. 
+An $n \times n$ matrix $A$ is \textbf{left invertible} if there is matrix $B$ such that $BA = I$ and is \textbf{right invertible} if there is a matrix $C$ such that $AC = I$. If $A$ is both left and right invertible, then $A$ is called \textbf{invertible}. The inverse is denoted $A^{-1}$. 
 \end{definition}
 
 \begin{theorem}
@@ -236,7 +234,7 @@ $$(A^{-1})^{T} = (A^{T})^{-1}$$
 Using $(AB)^{T} = B^{T} A^{T}$, 
 $$(A^{-1})^{T} (A^{T}) = (AA^{-1})^{T} = I$$
 and 
-$$A^{T}(A^{-1})^{T} = (A^{-1}A)^{T} = I$$
+$$(A^{T})(A^{-1})^{T} = (A^{-1}A)^{T} = I$$
 \end{proof}
 
 \begin{definition}
