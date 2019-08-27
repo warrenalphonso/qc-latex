@@ -17,12 +17,12 @@ The set of all eigenvalues of an operator is called the \textbf{spectrum} of $A$
 \end{definition}
 
 Since the matrix $A$ is square, $A - \lambda I$ has a nontrivial null space if and only if it is not invertible. Thus,
-$$det(A - \lambda I) = 0$$
+$$\Det(A - \lambda I) = 0$$
 
 \begin{definition}
-If $A$ is an $n \times n$ matrix, $det(A - \lambda I)$ is a degree-$n$ polynomial of variable $\lambda$. This is called the \textbf{characteristic polynomial} of $A$. Finding the spectrum of $A$ requires finding the roots to the characteristic polynomial. 
+If $A$ is an $n \times n$ matrix, $\Det(A - \lambda I)$ is a degree-$n$ polynomial of variable $\lambda$. This is called the \textbf{characteristic polynomial} of $A$. Finding the spectrum of $A$ requires finding the roots to the characteristic polynomial. 
 
-Using $det(\lambda I - A)$ as the characteristic polynomial always yields a monic polynomial, whereas our current definition differs by a factor of $(-1)^{n}$. This makes no difference for properties like having eigenvalues located at roots so the two definitions are usually interchangeable. 
+Using $\Det(\lambda I - A)$ as the characteristic polynomial always yields a monic polynomial, whereas our current definition differs by a factor of $(-1)^{n}$. This makes no difference for properties like having eigenvalues located at roots so the two definitions are usually interchangeable. 
 
 This means any operator in $\mathbb{C}^{n}$ has $n$ eigenvalues, though some may be repeated. 
 \end{definition}
@@ -34,42 +34,42 @@ An $n \times n$ matrix $A$ is invertible if and only if it doesn't have an eigen
 \begin{proof}
 Proving if: 
 
-If $A$ doesn't have an eigenvalue of 0, then $det(A - 0I) \neq 0 \rightarrow det(A) \neq 0$, which implies $A$ is invertible. 
+If $A$ doesn't have an eigenvalue of 0, then $\Det(A - 0I) \neq 0 \rightarrow \Det(A) \neq 0$, which implies $A$ is invertible. 
 
 Proving only if: 
 
-If $A$ is invertible, then $det(A) \neq 0$, which implies $det(A - 0I) \neq 0$. 
+If $A$ is invertible, then $\Det(A) \neq 0$, which implies $\Det(A - 0I) \neq 0$. 
 \end{proof}
 
 \begin{theorem}
 Let $A$ be an $n \times n$ matrix, and let $\lambda_{1}, \cdots, \lambda_{n}$ be its complex eigenvalues (counting multiplicities). Then
-$$det(A) = \lambda_{1} \cdots \lambda_{n}$$
+$$\Det(A) = \lambda_{1} \cdots \lambda_{n}$$
 \end{theorem}
 
 
 \begin{proof}
 Since the characteristic polynomial is degree-$n$ with variable $\lambda$ and $A$ has $n$ eigenvalues, we can write 
 
-$$det(\lambda I - A) = (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
+$$\Det(\lambda I - A) = (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
 
 Plugging in $\lambda = 0$ gives us 
-$$det(-A) = (-1)^{n} det(A) = (- \lambda_{1}) \cdots (- \lambda_{n})$$ 
+$$\Det(-A) = (-1)^{n} \Det(A) = (- \lambda_{1}) \cdots (- \lambda_{n})$$
 
 which simplifies to 
-$$det(A) = (\lambda_{1}) \cdots (\lambda_{n})$$
+$$\Det(A) = (\lambda_{1}) \cdots (\lambda_{n})$$
 \end{proof}
 
 
 \begin{theorem}
 Let $A$ be an $n \times n$ matrix, and let $\lambda_{1}, \cdots, \lambda_{n}$ be its complex eigenvalues (counting multiplicities). Then
-$$trace(A) = \lambda_{1} + \cdots + \lambda_{n}$$ 
+$$\Trace(A) = \lambda_{1} + \cdots + \lambda_{n}$$ 
 \end{theorem}
 
 \begin{proof}
 Recall that $A_{jk}$ is the entry of $A$ in row $j$ and column $k$ while $A_{j, k}$ is the cofactor without row $j$ and column $k$. 
 
-We begin by analyzing $det(A - \lambda I)$. If we use cofactor expansion across any row, any term involving an off-diagonal entry ($A_{jk} : j \neq k$) results in a determinant with degree $n - 2$. This is because cofactoring removes the row and column the chosen entry is on, and since $j \neq k$, we remove the variables $A_{jj} - \lambda$ and $A_{kk} - \lambda$. This means the $\lambda^{n}$ and $\lambda^{n-1}$ terms come from the product of the diagonal entries in $det(A - \lambda I)$. In other  words, 
-$$det(A - \lambda I) = (A_{11} - \lambda) \cdots (A_{nn} - \lambda) + q(\lambda)$$
+We begin by analyzing $\Det(A - \lambda I)$. If we use cofactor expansion across any row, any term involving an off-diagonal entry ($A_{jk} : j \neq k$) results in a determinant with degree $n - 2$. This is because cofactoring removes the row and column the chosen entry is on, and since $j \neq k$, we remove the variables $A_{jj} - \lambda$ and $A_{kk} - \lambda$. This means the $\lambda^{n}$ and $\lambda^{n-1}$ terms come from the product of the diagonal entries in $\Det(A - \lambda I)$. In other  words, 
+$$\Det(A - \lambda I) = (A_{11} - \lambda) \cdots (A_{nn} - \lambda) + q(\lambda)$$
 where $q(\lambda)$ is a polynomial with degree $n - 2$. 
 
 To find the coefficient of the $\lambda^{n-1}$ term, we simply 
@@ -78,12 +78,12 @@ and notice that the $\lambda^{n-1}$ term is formed by choosing $\lambda$ $n - 1$
 $$ (-1)^{n} (A_{11} \lambda^{n-1}) \cdots (A_{nn} \lambda^{n-1}) = (-1)^{n} (A_{11} + \cdots + A_{nn}) \lambda^{n-1}$$
 
 Now we will rewrite the coefficient of the $\lambda^{n-1}$ term using the characteristic equation. 
-$$det(A - \lambda I) = (\lambda_{1} - \lambda) \cdots (\lambda_{n} - \lambda) = (-1)^{n} (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
+$$\Det(A - \lambda I) = (\lambda_{1} - \lambda) \cdots (\lambda_{n} - \lambda) = (-1)^{n} (\lambda - \lambda_{1}) \cdots (\lambda - \lambda_{n})$$
 
 Again, we have to choose the $\lambda$ term $n - 1$ times, so we get 
 $$(-1)^{n} (\lambda_{1} \lambda^{n-1}) \cdots (\lambda_{n} \lambda^{n-1}) = (-1)^{n} (\lambda_{1} + \cdots + \lambda_{n})\lambda^{n-1}$$
 
-Comparing coefficients yields $trace(A) = \lambda_{1} + \cdots + \lambda_{n}$. 
+Comparing coefficients yields $\Trace(A) = \lambda_{1} + \cdots + \lambda_{n}$. 
 \end{proof}
 
 \section{Diagonalization}

@@ -1,6 +1,7 @@
 \chapter{Outer Product Representation} 
 
 This chapter is largely adapted from Chapter 2 of Nielsen and Chuang. Much of it will be spent providing an additional perspective on the core ideas in the previous two chapters. New concepts, like tensor products, that are introduced in the second half of this chapter will be developed more formally later. 
+
 \section{Dirac Notation} 
 
 We can use inner products to derive a useful representations of linear operators. Before doing so, we'll define a convenient notation. 
@@ -36,7 +37,7 @@ Because this is true for all $\ket*{v}$, it must be the identity operator.
 
 One application of the Completeness Relation is the representation of any operator in the outer product notation. Suppose $A: V \rightarrow W$ is a linear operator and $\ket*{v_{i}}$ and $\ket*{w_{j}}$ are orthonormal bases for $V$ and $W$, respectively. By using the Completeness Relation twice, we get
 $$A = I_{W} A I_{V} = \sum_{ij} \ket*{w_{j}} \bra*{w_{j}} A \ket*{v_{i}} \bra*{v_{i}} = \sum_{ij} \bra*{w_{j}} A \ket*{v_{i}} \ket*{w_{j}} \bra*{v_{i}}$$
-which is the \textbf{outer product representation of $A$}. This equation also shows that $A$ has matrix element $\bra*{w_{j}}A\ket*{v_{i}}$ in the $i$th column and $j$th row, with respect to input basis $\ket*{v_{i}}$ and output basis $\ket*{w_{j}}$.
+which is the \textbf{outer product representation} of $A$. This equation also shows that $A$ has matrix element $\bra*{w_{j}}A\ket*{v_{i}}$ in the $i$th column and $j$th row, with respect to input basis $\ket*{v_{i}}$ and output basis $\ket*{w_{j}}$.
 
 To gain more familiarity with the outer product representation, we will prove the Cauchy-Schwarz Inequality. 
 

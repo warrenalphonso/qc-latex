@@ -6,34 +6,34 @@ This understanding allows determinants the following properties:
 \begin{enumerate}
 	\item \textbf{Linearity in each argument: } Multiplying some vector $v_{k}$ by $\alpha$ means the height is multiplied by $\alpha$ which means the determinant is multiplied by the same constant. Since the determinant is \textit{linear in each argument}, if we fix $n-1$ vectors the determinant is linear with respect to the final vector. 
 	
-	Linearity means that for an $n \times n$ matrix $A$,  $det(\alpha A) = \alpha^{n} det(A)$, because multiplying $A$ by $\alpha$ is equivalent to multiplying $n$ columns by $\alpha$. 
+	Linearity means that for an $n \times n$ matrix $A$,  $\Det(\alpha A) = \alpha^{n} \Det(A)$, because multiplying $A$ by $\alpha$ is equivalent to multiplying $n$ columns by $\alpha$. 
 	\item \textbf{Preservation under column replacement: } 
-	$$det(v_{1}, \cdots, v_{j} + \alpha v_{k}, \cdots, v_{k}, \cdots, v_{n}) = det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n})$$
-	This is true because the ``height" of $v_{j} + \alpha v_{k}$ is the same as the "height" of $v_{j}$, since "height" is defined in relation to the distance from the remaining subspace. 
+	$$\Det(v_{1}, \cdots, v_{j} + \alpha v_{k}, \cdots, v_{k}, \cdots, v_{n}) = \Det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n})$$
+	This is true because the ``height" of $v_{j} + \alpha v_{k}$ is the same as the ``height" of $v_{j}$, since ``height" is defined in relation to the distance from the remaining subspace. 
 	\item \textbf{Antisymmetry: } Swapping two vectors means the determinant changes signs. 
-	$$det(v_{1}, \cdots, v_{k}, \cdots, v_{j}, \cdots, v_{n}) = -det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n})$$
+	$$\Det(v_{1}, \cdots, v_{k}, \cdots, v_{j}, \cdots, v_{n}) = -\Det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n})$$
 	
 This does not seem natural at first, but we can prove it by applying preservation under column replacement thrice and then linearity. 
 $$ 
 \begin{aligned}
-&det(v_{1}, \cdots, v_{k}, \cdots, v_{j}, \cdots, v_{n}) \\ 
-&= det(v_{1}, \cdots, v_{k}, \cdots, v_{j} - v_{k}, \cdots, v_{n}) \\
-&= det(v_{1}, \cdots, v_{k} + (v_{j} - v_{k}), \cdots, v_{j} - v_{k}, \cdots, v_{n}) \\
-&= det(v_{1}, \cdots, v_{j}, \cdots, v_{j} - v_{k} - (v_{j}), \cdots, v_{n}) \\
-&= det(v_{1}, \cdots, v_{j}, \cdots, -v_{k}, \cdots, v_{n}) \\
-&= -det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n}) 
+&\Det(v_{1}, \cdots, v_{k}, \cdots, v_{j}, \cdots, v_{n}) \\ 
+&= \Det(v_{1}, \cdots, v_{k}, \cdots, v_{j} - v_{k}, \cdots, v_{n}) \\
+&= \Det(v_{1}, \cdots, v_{k} + (v_{j} - v_{k}), \cdots, v_{j} - v_{k}, \cdots, v_{n}) \\
+&= \Det(v_{1}, \cdots, v_{j}, \cdots, v_{j} - v_{k} - (v_{j}), \cdots, v_{n}) \\
+&= \Det(v_{1}, \cdots, v_{j}, \cdots, -v_{k}, \cdots, v_{n}) \\
+&= -\Det(v_{1}, \cdots, v_{j}, \cdots, v_{k}, \cdots, v_{n}) 
 \end{aligned}
 $$
 
 	\item \textbf{Normalization: } For the standard basis, the corresponding parallelepiped is the $n$-dimensional unit cube so its volume is 1. 
-	$$det(I) = 1$$
+	$$\Det(I) = 1$$
 \end{enumerate}
 
 Using these, we can derive additional basic properties of determinants for a square matrix $A$:
 \begin{enumerate}
-	\item If $A$ has a zero column, then $det(A) = 0$. 
-	\item If $A$ has two equal columns, then $det(A) = 0$. 
-	\item If one column of $A$ is a multiple of another, then $det(A) = 0$. 
+	\item If $A$ has a zero column, then $\Det(A) = 0$. 
+	\item If $A$ has two equal columns, then $\Det(A) = 0$. 
+	\item If one column of $A$ is a multiple of another, then $\Det(A) = 0$. 
 \end{enumerate}
 
 \section{Computing the Determinant}
@@ -42,7 +42,7 @@ The \textbf{determinant of diagonal matrices} is the product of the diagonal ent
 The \textbf{determinant of triangular matrices} is also the product of the diagonal entries. This is because an upper or lower triangular matrix can be reduced to a diagonal matrix with the same diagonal entries through column operations. 
 
 \begin{theorem}
-$det(A) = 0$ if and only if $A$ is not invertible. 
+$\Det(A) = 0$ if and only if $A$ is not invertible. 
 \end{theorem}
 
 \begin{proof}
@@ -53,7 +53,7 @@ We will now prove some nontrivial properties of determinants, but to do so we wi
 
 \begin{lemma}
 For a square matrix $A$ and elementary matrix $E$, 
-$$det(AE) = det(A) det(E)$$
+$$\Det(AE) = \Det(A) \Det(E)$$
 \end{lemma}
 
 \begin{lproof}
@@ -76,31 +76,31 @@ Now for two important theorems:
 
 \begin{theorem}
 For a square matrix $A$, 
-$$det(A) = det(A^{T})$$
+$$\Det(A) = \Det(A^{T})$$
 \end{theorem}
 
 \begin{proof}
-A key observation is that $det(E) = det(E^{T})$ for any elementary matrix $E$. 
+A key observation is that $\Det(E) = \Det(E^{T})$ for any elementary matrix $E$. 
 
 Notice also that it is sufficient to prove the theorem \textit{only} for \textit{invertible matrices} since if $A$ is not invertible then $A^{T}$ is also not invertible and both determinants are 0, trivially proving the theorem. 
 
 Now, by the above lemma we can write
-$$A = E_{1} E_{2} \cdots E_{n}$$
+$$A = E_{1} \cdots E_{n}$$
 which means 
-$$det(A) = det(E_{1}) det(E_{2}) \cdots det(E_{n})$$
+$$\Det(A) = \Det(E_{1}) \cdots \Det(E_{n})$$
 
 We can also write 
-$$A^{T} = E_{n}^{T} \cdots E_{2}^{T} E_{1}^{T} = E_{n} \cdots E_{2} E_{1}$$
+$$A^{T} = E_{n}^{T} \cdots E_{1}^{T} = E_{n} \cdots E_{1}$$
 which means 
-$$det(A^{T}) = det(E_{n}) \cdots det(E_{2}) det(E_{1})$$
-which is equivalent to $det(A)$. 
+$$\Det(A^{T}) = \Det(E_{n}) \cdots \Det(E_{1})$$
+which is equivalent to $\Det(A)$. 
 \end{proof}
 
 This theorem means that column operations have the same effect on determinants as row operations, so we can use either when reducing matrices to compute determinants. 
 
 \begin{theorem}
 For $n \times n$ matrices $A, B$, 
-$$det(AB) = det(A) det(B)$$
+$$\Det(AB) = \Det(A) \Det(B)$$
 \end{theorem}
 
 \begin{proof}
@@ -109,12 +109,12 @@ Two cases:
 \textbf{Case 1: } $B$ is invertible. 
 
 This means we can write 
-$$B = E_{1} E_{2} \cdots E_{n}$$
+$$B = E_{1} \cdots E_{n}$$
 and so 
-$$det(AB) = det(A)[det(E_{1}) det(E_{2}) \cdots det(E_{n})] = det(A) det(B)$$
+$$\Det(AB) = \Det(A)[\Det(E_{1}) \cdots \Det(E_{n})] = \Det(A) \Det(B)$$
 
 \textbf{Case 2: } $B$ is not invertible. 
-If $B$ is not invertible, we will prove that the product $AB$ is also not invertible so $det(AB) = det(A) det(B)$ simplifies to $0 = 0$. 
+If $B$ is not invertible, we will prove that the product $AB$ is also not invertible so $\Det(AB) = \Det(A) \Det(B)$ simplifies to $0 = 0$. 
 
 We proceed by contradiction. Assume $AB = C$ is invertible. Then we left multiply both sides by $C^{-1}$ to get $C^{-1} AB = I$, which means $C^{-1}A$ is the left inverse of $B$, but because $B$ is square, $C^{-1}A$ is the inverse of $B$. We know $B$ is not invertible so we have a contradiction. 
 \end{proof}
@@ -125,30 +125,30 @@ For an $n \times n$ matrix $A$, let $A_{j, k}$ denote the $(n - 1) \times (n - 1
 
 \begin{theorem}[Cofactor expansion of determinant]
 For each $j, 1 \leq j \leq n,$ the determinant of $A$ can be expanded in the row number $j$ as 
-$$det(A) = a_{j, 1} (-1)^{j+1} det(A_{j, 1}) + a_{j, 2} (-1)^{j+2} det(A_{j, 2}) + \cdots + a_{j, n} (-1)^{j + n} det(A_{j, n})$$
+$$\Det(A) = a_{j, 1} (-1)^{j+1} \Det(A_{j, 1}) + a_{j, 2} (-1)^{j+2} \Det(A_{j, 2}) + \cdots + a_{j, n} (-1)^{j + n} \Det(A_{j, n})$$
 
 A similar expansion can be done for columns. 
 \end{theorem}
 
 \begin{proof}
-We will prove the expansion for row 1. This can be generalized by swapping row 1 with another row. Additionally, since $det(A) = det(A^{T})$, column expansion follows automatically. 
+We will prove the expansion for row 1. This can be generalized by swapping row 1 with another row. Additionally, since $\Det(A) = \Det(A^{T})$, column expansion follows automatically. 
 
 Consider the special case when the first row has \textit{only one} nonzero term, $a_{1, 1}$. Performing column operations on columns $2, \cdots, n$, we transform $A$ to lower triangular form. Now
-$$det(A) = (\text{product of diagonal entries}) \times (\text{correcting factor from column operations})$$
-but since the \textit{product of diagonal entries} except $a_{1,1}$ times the \textit{correcting factor} is exactly $det(A_{1,1})$, we can write 
-$$det(A) = a_{1,1} det(A_{1,1})$$
+$$\Det(A) = (\text{product of diagonal entries}) \times (\text{correcting factor from column operations})$$
+but since the \textit{product of diagonal entries} except $a_{1,1}$ times the \textit{correcting factor} is exactly $\Det(A_{1,1})$, we can write 
+$$\Det(A) = a_{1,1} \Det(A_{1,1})$$
 
-Now consider the case when all entries in the first row except $a_{1,2}$ are zeros. We can reduce this to the previous case by swapping columns 1 and 2, so $det(A) = (-1) a_{1,2} det(A_{1,2})$. 
+Now consider the case when all entries in the first row except $a_{1,2}$ are zeros. We can reduce this to the previous case by swapping columns 1 and 2, so $\Det(A) = (-1) a_{1,2} \Det(A_{1,2})$. 
 
-If $a_{1,3}$ is the only nonzero term in the first row, we can reduce this to the previous case by swapping columns 2 and 3, so $det(A) = a_{1,3} det(A_{1,3})$. We do this instead of swapping columns 1 and 3 to maintain the order of the $n-1$ other columns. 
+If $a_{1,3}$ is the only nonzero term in the first row, we can reduce this to the previous case by swapping columns 2 and 3, so $\Det(A) = a_{1,3} \Det(A_{1,3})$. We do this instead of swapping columns 1 and 3 to maintain the order of the $n-1$ other columns. 
 
 These special cases are important because we have linearity of the determinant. If the matrix $A^{(k)}$ is obtained by replacing all $A$'s entries in the first row with 0 except for $a_{1,k}$, then linearity of the determinant implies 
-$$det(A) = det(A^{(1)}) + \cdots + det(A^{(n)}) = \sum_{k=1}^{n} det(A^{(k)})$$
+$$\Det(A) = \Det(A^{(1)}) + \cdots + \Det(A^{(n)}) = \sum_{k=1}^{n} \Det(A^{(k)})$$
 
 Based on our analysis of special cases, we know 
-$$det(A^{(k)}) = (-1)^{1 + k} a_{1, k} det(A_{1, k})$$ 
+$$\Det(A^{(k)}) = (-1)^{1 + k} a_{1, k} \Det(A_{1, k})$$ 
 so 
-$$det(A) = \sum_{k=1}^{n} (-1)^{1 + k} a_{1, k} det(A_{1,k})$$
+$$\Det(A) = \sum_{k=1}^{n} (-1)^{1 + k} a_{1, k} \Det(A_{1,k})$$
 
 To get the expansion for the second row, we swap rows so multiply by -1. For the third row, multiply by -1 again to get the original equation, and so on. 
 \end{proof}
@@ -157,7 +157,7 @@ Cofactor expansion is not practical for anything larger than a $3 \times 3$ matr
 
 \begin{definition}
 Formally, the numbers 
-$$C_{j, k}= (-1)^{j + k} det(A_{j,k})$$
+$$C_{j, k}= (-1)^{j + k} \Det(A_{j,k})$$
 are called \textbf{cofactors}.
 
 The matrix $C = \{ C_{j, k}\}^{n}_{j, k = 1}$ whose entries are \textit{cofactors} of a given matrix $A$ is called the \textbf{cofactor matrix} of $A$. 
@@ -165,34 +165,34 @@ The matrix $C = \{ C_{j, k}\}^{n}_{j, k = 1}$ whose entries are \textit{cofactor
 
 \begin{theorem}[Cofactor formula for inverse]
 Let $A$ be an invertible matrix and let $C$ be its cofactor matrix. Then 
-$$A^{-1} = \frac{C^{T}}{det(A)}$$
+$$A^{-1} = \frac{C^{T}}{\Det(A)}$$
 \end{theorem}
 
 \begin{proof}
 Let us find the product $AC^{T}$. 
 
 The $j$th diagonal entry is obtained by multiplying the $j$th row of $A$ by the $j$th row of $C$,
-$$(AC^{T})_{j, j} = a_{j, 1} C_{j, 1} + \cdots + a_{j, n} C_{j, n} = det(A)$$
+$$(AC^{T})_{j, j} = a_{j, 1} C_{j, 1} + \cdots + a_{j, n} C_{j, n} = \Det(A)$$
 by cofactor expansion. 
 
 To get the off-diagonal terms, we multiply the $k$th row of $A$ with the $j$th row of $C$, $j \neq k$, 
 $$a_{k, 1} C_{j, 1} + \cdots + a_{k, n} C_{j, n}$$
 
 If we look at this as a cofactor expansion of the $j$th row, this is the determinant of the matrix $A$ except that we replace row $j$ with row $k$. Since two rows of our matrix coincide, the determinant will be 0, which means all off-diagonal terms will be 0, thus 
-$$AC^{T} = det(A) I$$
+$$AC^{T} = \Det(A) I$$
 \end{proof}
 
 Since for invertible matrices, $Ax = b$ has a unique solution, we have 
-$$x = A^{-1} b = \frac{C^{T}b}{det(A)}$$
+$$x = A^{-1} b = \frac{C^{T}b}{\Det(A)}$$
 
 \begin{theorem}[Cramer's Rule]
 For invertible matrix $A$, entry $k$ of the solution to $Ax = b$ is given by 
-$$x_{k} = \frac{det(B_{k})}{det(A)} $$
+$$x_{k} = \frac{\Det(B_{k})}{\Det(A)} $$
 where $B_{k}$ is obtained from $A$ by replacing column $k$ with $b$. 
 \end{theorem}
 
 \begin{proof}
-After our above theorem, we need only prove that entry $k$ of $C^{T}b = det(B_{k})$. 
+After our above theorem, we need only prove that entry $k$ of $C^{T}b = \Det(B_{k})$. 
 
 We know entry $k$ of $C^{T} b$ is equivalent to the product of the $k$th row of $C^{T}$ and $b$, which is equivalent to the product of the $k$th column of $C$ and $b$. 
 
@@ -213,7 +213,7 @@ d & -c \\
 -b & a
 \end{bmatrix}$$
 which means 
-$$A^{-1} = \frac{1}{det(A)} \begin{bmatrix}
+$$A^{-1} = \frac{1}{\Det(A)} \begin{bmatrix}
 d & -c \\
 -b & a
 \end{bmatrix}$$

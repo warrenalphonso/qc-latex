@@ -40,6 +40,8 @@ To simplify this, we will define the \textbf{Hermitian adjoint}, or simply \text
 
 Using this, we can write 
 $$(z, w) = w^{*} z$$ 
+
+Notice that we could have also defined $(z, w) = \overline{z_{1}} w_{1} + \cdots + \overline{z_{n}} w_{n}$ so that $(z, w) = z^{*} w$, but we use $(z, w) = w^{*} z$ because it is more common. 
 \end{definition}
 
 The inner products we defined for $\mathbb{R}^{n}$ and $\mathbb{C}^{n}$	have the following properties: 
@@ -225,7 +227,7 @@ Typically, to find coordinates of a vector in a basis, we need to solve a system
 $$x = \alpha_{1} v_{1} + \cdots + \alpha_{n} v_{n}$$
 
 Taking the inner product with $v_{1}$ yields 
-$$(x, v_{1}) = (\sum_{j=1}^{n} \alpha_{j} (v_{j}, v_{1}) = \alpha_{1} (v_{1}, v_{1}) = \alpha_{1} \norm{v_{1}}^{2}$$
+$$(x, v_{1}) = \sum_{j=1}^{n} \alpha_{j} (v_{j}, v_{1}) = \alpha_{1} (v_{1}, v_{1}) = \alpha_{1} \norm{v_{1}}^{2}$$
 
 Thus, to find any coordinate $\alpha_{k}$ of a vector $x$ in orthogonal basis $v_{1}, \cdots, v_{n}$: 
 $$ \alpha_{k} = \frac{(x, v_{k})}{\norm{v_{k}}^{2}}$$
@@ -265,23 +267,23 @@ Note that this only works if we have an \textit{orthogonal} basis. However, even
 
 \begin{theorem}[Gram-Schmidt Orthogonalization Algorithm]
 Suppose we have linearly independent system $x_{1}, \cdots, x_{n}$. The Gram-Schmidt algorithm constructs from this an orthogonal system $v_{1}, \cdots, v_{n}$ such that 
-$$span(x_{1}, \cdots, x_{n}) = span(v_{1}, \cdots, v_{n})$$
+$$\Span(x_{1}, \cdots, x_{n}) = \Span(v_{1}, \cdots, v_{n})$$
 Additionally, for all $r \leq n$ 
-$$span(x_{1}, \cdots, x_{r}) = span(v_{1}, \cdots, v_{r})$$
+$$\Span(x_{1}, \cdots, x_{r}) = \Span(v_{1}, \cdots, v_{r})$$
 
 The algorithm is as follows: 
 \begin{enumerate}
 	\item Define $v_{1} := x_{1}$. 
 	
-	Define $E_{1} := span(v_{1}) = span(x_{1})$. 
+	Define $E_{1} := \Span(v_{1}) = \Span(x_{1})$. 
 	\item Define $v_{2} := x_{2} - P_{E_{1}} x_{2} = x_{2} - \frac{(x_{2}, v_{1})}{\norm{v_{1}}^{2}} v_{1}$. 
 	
-	Define $E_{2} := span(v_{1}, v_{2}) = span(x_{1}, x_{2})$. 
+	Define $E_{2} := \Span(v_{1}, v_{2}) = \Span(x_{1}, x_{2})$. 
 	\item Define $v_{3} := x_{3} - P_{E_{2}} x_{3} = x_{3} - \frac{(x_{3}, v_{1})}{\norm{v_{1}}^{2}} v_{1} - \frac{(x_{3}, v_{2})}{\norm{v_{2}}^{2}} v_{2}$. 
 	
-	Define $E_{3} := span(v_{1}, v_{2}, v_{3}) = span(x_{1}, x_{2}, x_{3})$. 
+	Define $E_{3} := \Span(v_{1}, v_{2}, v_{3}) = \Span(x_{1}, x_{2}, x_{3})$. 
 	
-	\item Continue until we have $n$ vectors and $span(v_{1}, \cdots, v_{n}) = span(x_{1}, \cdots, x_{n})$. The formula for vector $v_{r + 1}$ given $v_{1}, \cdots, v_{r}$ is 
+	\item Continue until we have $n$ vectors and $\Span(v_{1}, \cdots, v_{n}) = \Span(x_{1}, \cdots, x_{n})$. The formula for vector $v_{r + 1}$ given $v_{1}, \cdots, v_{r}$ is 
 	$$ v_{r + 1} := x_{r + 1} - P_{E_{r}} x_{r + 1} = x_{r + 1} - \sum_{k = 1}^{r} \frac{(x_{r + 1}, v_{k})}{\norm{v_{k}}^{2}} v_{k}$$
 \end{enumerate}
 
@@ -296,7 +298,7 @@ Since multiplication by a scalar does not change orthogonality, we can multiply 
 
 
 \begin{theorem}
-A projector $P$ is independent of the basis used to define the subspace $W$ being projected onto. 
+A projector $P$ is independent of the basis of subspace $W$ being projected onto. 
 \end{theorem}
 
 \begin{proof}
@@ -375,7 +377,7 @@ $$ P + Q = I \text{ and } PQ = 0$$
 \end{lemma}
 
 \begin{lproof}
-For any inner product space $V$, we have $V = E \oplus E^{\perp}$. This means that for any vector $v \in V$, $P(v) = e_{1}$ where $e_{1} \in E$, and so $(I - P)v = v - e_{1} = e_{2}$ where $e_{2} \in E^{\perp}$, which means $Q = I - P$. 
+For any inner product space $V$, we have $V = E \oplus E^{\perp}$. This means that for any vector $v \in V$, $Pv = e_{1}$ where $e_{1} \in E$, and so $(I - P)v = v - e_{1} = e_{2}$ where $e_{2} \in E^{\perp}$, which means $Q = I - P$. 
 
 Now, $$P + Q = P + I - P = I$$
 and $$PQ = P(I - P) = P - P^{2} = P - P = 0$$
@@ -394,9 +396,9 @@ $$(P-Q)(P-Q) = P^{2} - PQ - QP + Q^{2} = P + Q = I$$
 
 
 \section{Least Square Solution} 
-Recall that $Ax = b$ has a solution if and only if $b \in Range(A)$. In real life, it is impossible to avoid errors. The simplest way to approximate a solution is to choose an approximation $\hat{x}$ to minimize the error $e = \norm{A \hat{x} - b}$. This is the \textbf{least square solution}. 
+Recall that $Ax = b$ has a solution if and only if $b \in \Range A$. In real life, it is impossible to avoid errors. The simplest way to approximate a solution is to choose an approximation $\hat{x}$ to minimize the error $e = \norm{A \hat{x} - b}$. This is the \textbf{least square solution}. 
 
-We know $A \hat{x}$ is the orthogonal projection $P_{Range(A)} b$ if and only if $b - A \hat{x} \perp Range(A)$. Using the column space interpretation of range, this is equivalent to 
+We know $A \hat{x}$ is the orthogonal projection $P_{\Range A} b$ if and only if $b - A \hat{x} \perp \Range A$. Using the column space interpretation of range, this is equivalent to 
 $$b - A \hat{x} \perp a_{k} \qquad \forall k = 1, \cdots, n$$
 That means 
 $$0 = (b - A \hat{x}, a_{k}) = a^{*}_{k} (b - A \hat{x}) \qquad \forall k = 1, \cdots, n$$ 
@@ -407,25 +409,25 @@ $$A^{*} A \hat{x} = A^{*} b$$
 
 The solution $\hat{x}$ to this equation grants us the least square solution of $A \hat{x} = b$. This makes it easy to notice that the least square solution is unique if and only if $A^{*} A$ is invertible. 
 
-If $\hat{x}$ is the solution to the normal equation, then $A \hat{x} = P_{Range(A)} b$. So in order to find the actual projection of $b$ onto $Range(A)$, we need to solve the normal equation and then multiply the solution by $A$. Formally, 
-$$P_{Range(A)} b = A (A^{*} A)^{-1} A^{*} b$$
-Because this is true for all $b$, the formula for the matrix of the orthogonal projection onto $Range(A)$ is 
-$$P_{Range(A)} = A (A^{*} A)^{-1} A^{*}$$
+If $\hat{x}$ is the solution to the normal equation, then $A \hat{x} = P_{\Range A} b$. So in order to find the actual projection of $b$ onto $\Range A$, we need to solve the normal equation and then multiply the solution by $A$. Formally, 
+$$P_{\Range A} b = A (A^{*} A)^{-1} A^{*} b$$
+Because this is true for all $b$, the formula for the matrix of the orthogonal projection onto $\Range A$ is 
+$$P_{\Range A} = A (A^{*} A)^{-1} A^{*}$$
 
 \begin{theorem}
 For an $m \times n$ matrix $A$ 
-$$Ker(A) = Ker(A^{*}A)$$
+$$\Ker A = \Ker A^{*}A$$
 
-Recall Kernel is equivalent to Null Space.
+Recall kernel is equivalent to null space.
 \end{theorem}
 
 \begin{proof}
-We will show $Ker(A) \subseteq Ker(A^{*} A)$ and $Ker(A^{*} A) \subseteq Ker(A)$. 
+We will show $\Ker A \subseteq \Ker A^{*} A$ and $\Ker A^{*} A \subseteq \Ker A$. 
 
-To prove the latter, suppose we have a vector $u \in Ker(A)$ so that $Au = 0$. Then $A^{*} A u = A^{*} (Au) = A^{*} 0 = 0$, which means $u \in Ker(A^{*} A)$. 
+To prove the latter, suppose we have a vector $u \in \Ker A$ so that $Au = 0$. Then $A^{*} A u = A^{*} (Au) = A^{*} 0 = 0$, which means $u \in \Ker A^{*} A$. 
 
-To prove the former, suppose we have a vector $v \in Ker(A^{*} A)$. We want to show that $Av = 0$. One way of doing so is to show that its norm is 0. 
-$$\norm{Av}^{2} = (Av, Av) = (A^{*} v^{*}, A^{*} v^{*}) = A^{*} (v^{*}, A^{*} v^{*}) = A^{*} (Av, v) = (A^{*} Av, v) = (0, v) = 0$$
+To prove the former, suppose we have a vector $v \in \Ker A^{*} A$. We want to show that $Av = 0$. To do so, we will show its norm is 0:
+$$\norm{Av}^{2} = (Av, Av) = \overline{(Av, Av)} = A^{*} (v^{*}, A^{*} v^{*}) = A^{*} (Av, v) = (A^{*} Av, v) = (0, v) = 0$$
 \end{proof}
 
 \section{Adjoint of a Linear Transformation} 
@@ -441,17 +443,17 @@ $$(Ax, y) = y^{*} Ax = (A^{*} y)^{*} x = (x, A^{*} y)$$
 The second equality uses the fact that because the adjoint consists of a transpose, we have $(AB)^{*} = B^{*} A^{*}$ and $(A^{*})^{*} = A$.  
 \end{proof}
 
-This identity is used to define the adjoint operator. 
+The above identity is sometimes used to define the adjoint operator. 
 
-\begin{lemma}
+\begin{theorem}
 The adjoint is unique. 
-\end{lemma}
+\end{theorem}
 
-\begin{lproof}
-Suppose $B$ satisfies $(Ax, y) = (x, By) \qquad \forall x, y$, then we can write 
+\begin{proof}
+Suppose $B$ satisfies $(Ax, y) = (x, By) \, \forall x, y$, then we can write 
 $$(Ax, y) = (x, A^{*} y) = (x, By)$$
 which means $A^{*} = B$.
-\end{lproof}
+\end{proof}
 
 Properties of the adjoint operator:
 \begin{enumerate}
@@ -465,10 +467,10 @@ Properties of the adjoint operator:
 \begin{theorem}[Relation between fundamental subspaces]
 Let $A: V \rightarrow W$ be an operator acting from one inner product space to another. Then 
 \begin{enumerate}
-	\item $Ker(A^{*}) = (Range(A))^{\perp}$ 
-	\item $Ker(A) = (Range(A^{*}))^{\perp}$ 
-	\item $Range(A) = (Ker(A^{*}))^{\perp}$ 
-	\item $Range(A^{*}) = (Ker(A))^{\perp}$
+	\item $\Ker A^{*} = (\Range A)^{\perp}$ 
+	\item $\Ker A = (\Range A^{*})^{\perp}$ 
+	\item $\Range A = (\Ker A^{*})^{\perp}$ 
+	\item $\Range A^{*} = (\Ker A)^{\perp}$
 \end{enumerate}
 
 Note that earlier we defined the fundamental subspaces using $A^{T}$ instead of $A^{*}$ because when discussing only $\R$ there was no difference. 
@@ -479,15 +481,15 @@ Note that statements 1/3 and 2/4 are equivalent because for any subspace $E$, we
 
 Thus we only need to prove statement 1. 
 
-A vector $x \in (Range(A))^{\perp}$ means that $x$ is orthogonal to all vectors of the form $Ay$, that is 
+A vector $x \in (\Range A)^{\perp}$ means that $x$ is orthogonal to all vectors of the form $Ay$, that is 
 $$(x, Ay) = 0 \qquad \forall y$$ 
 Since $(x, Ay) = (A^{*}x, y)$, this is equivalent to 
 $$(A^{*} x, y) = 0 \qquad \forall y$$
 
-This means that $A^{*}x = 0$, which means $x \in Ker(A^{*})$. 
+This means that $A^{*}x = 0$, which means $x \in Ker A^{*}$. 
 \end{proof}
 
-We can use the idea of adjoint operators to prove another property of orthogonal projections. 
+We can use the idea of adjoint operators to prove 2 more properties of orthogonal projections. 
 
 \begin{theorem}
 If $P: V \rightarrow E$ is an orthogonal projection, it is self-adjoint. 
@@ -495,13 +497,21 @@ If $P: V \rightarrow E$ is an orthogonal projection, it is self-adjoint.
 
 \begin{proof}
 Recall that any $v_{k}$ can be written as a sum of vectors in $E$ and $E^{\perp}$, $v_{k} = e_{k} + \widetilde{e_{k}}$. Then
-$$(Pv_{1}, v_{2}) = (u_{1}, u_{2} + \widetilde{u_{2}}) = (u_{1}, u_{2}) + (u_{1}, \widetilde{u_{2}}) = (u_{1}, u_{2})$$
+$$(Pv_{1}, v_{2}) = (e_{1}, e_{2} + \widetilde{e_{2}}) = (e_{1}, e_{2}) + (e_{1}, \widetilde{e_{2}}) = (e_{1}, e_{2})$$
 and 
-$$(v_{1}, Pv_{2}) = (u_{1} + \widetilde{u_{1}}, u_{2}) = (u_{1}, u_{2}) + (\widetilde{u_{1}}, u_{2}) = (u_{1}, u_{2})$$
-Since $(Tv_{1}, v_{2}) = (v_{1}, Tv_{2})$, $T = T^{*}$. 
+$$(v_{1}, Pv_{2}) = (e_{1} + \widetilde{e_{1}}, e_{2}) = (e_{1}, e_{2}) + (\widetilde{e_{1}}, e_{2}) = (e_{1}, e_{2})$$
+Since $(Pv_{1}, v_{2}) = (v_{1}, Pv_{2})$, $P = P^{*}$. 
 \end{proof}
 
+\begin{theorem}
+If $P$ is self-adjoint and $P^{2} = P$, it is an orthogonal projection. 
+\end{theorem}
 
+\begin{proof}
+Note that $P$ is an orthogonal projection if and only if $(u - Pu, Pu) = 0$. We can simplify 
+$$(u, Pu) = (Pu, Pu) = (u, P^{*}Pu)$$
+which is true because $P$ is self-adjoint and $P^{2} = P$. 
+\end{proof}
 
 \section{Isometries and Unitary Operators}
 \begin{definition}
@@ -510,13 +520,14 @@ $$\norm{Ux} = \norm{x} \qquad \forall x \in X$$
 \end{definition}
 
 \begin{theorem}
-An operator $U: X \rightarrow Y$ is an isometry if and only if it preserves the inner product, ie if and only if 
+An operator $U: X \rightarrow Y$ is an isometry if and only if it preserves the inner product, that is, if and only if 
 $$(x, y) = (Ux, Uy) \qquad \forall x, y \in X$$
 \end{theorem}
 
 \begin{proof}
-We use the polarization identities previously described. If $X$ is a complex space
+We use the polarization identities previously described. 
 
+If $X$ is a complex space
 $$
 \begin{aligned}
 (Ux, Uy) &= \frac{1}{4} \sum_{\alpha = \pm 1, \pm i} \alpha \norm{Ux + \alpha Uy}^{2} \\ 
@@ -527,9 +538,9 @@ $$
 
 If $X$ is a real space 
 $$\begin{aligned} 
-(Ux, Uy) &= \frac{1}{4}(\norm{Ux + Uy}^{2} - \norm{Ux - Uy}^{2}) \\
-&= \frac{1}{4} (\norm{U(x + y)}^{2} - \norm{U(x - y)}^{2}) \\
-&= \frac{1}{4} (\norm{x + y}^{2} - \norm{x - y}^{2}) = (x, y)
+(Ux, Uy) &= \frac{1}{4} \Big(\norm{Ux + Uy}^{2} - \norm{Ux - Uy}^{2} \Big) \\
+&= \frac{1}{4} \Big(\norm{U(x + y)}^{2} - \norm{U(x - y)}^{2} \Big) \\
+&= \frac{1}{4} \Big(\norm{x + y}^{2} - \norm{x - y}^{2} \Big) = (x, y)
 \end{aligned}
 $$
 \end{proof}
@@ -555,14 +566,16 @@ An isometry $U: X \rightarrow Y$ is called a \textbf{unitary operator} if it is 
 \end{definition}
 
 \begin{lemma}
-An isometry $U: X \rightarrow Y$ is a unitary operator if and only if $dim(X) = dim(Y)$. 
+An isometry $U: X \rightarrow Y$ is a unitary operator if and only if $\Dim X = \Dim Y$. 
 \end{lemma}
 
 \begin{lproof}
-If $dim(X) = dim(Y)$, then $U$ is square. Since we know $U$ is left invertible, it must also then be invertible. 
+If $\Dim X = \Dim Y$, then $U$ is square. Since we know $U$ is left invertible, it must also then be invertible. 
 
-If $U$ is unitary, it is invertible, so $dim(X) = dim(Y)$ since only square matrices are invertible. 
+If $U$ is unitary, it is invertible, so $\Dim X = \Dim Y$ since only square matrices are invertible. 
 \end{lproof}
+
+If we consider the row by column perspective of matrix multiplication, the previous lemma along with the identity $U^{*}U = I$ of unitary operators means that the set of columns of $U$ are an orthonormal basis. 
 
 \begin{theorem}
 The product of unitary operators is also unitary. 
@@ -583,7 +596,7 @@ Properties of unitary operators that follow from our proofs:
 \end{enumerate}
 
 \begin{lemma}
-$$det(A^{*}) = \overline{det(A)}$$
+$$\Det(A^{*}) = \overline{\Det(A)}$$
 \end{lemma}
 
 \begin{lproof}
@@ -599,15 +612,15 @@ Thus $A - \lambda I$ is invertible if and only if $A^{*} - \overline{\lambda}I$ 
 
 \begin{theorem}
 If $U$ is a unitary matrix, then 
-$$ det(U) = \pm 1$$
+$$\Det(U) = \pm 1$$
 If $\lambda$ is an eigenvalue of $U$, then 
 $$\lambda = e^{i \theta}$$
 for some real $\theta$. 
 \end{theorem}
 
 \begin{proof}
-Let $det(U) = z$. Since $det(U^{*}) = \overline{det(U)}$, we have 
-$$\abs{z}^{2} = \overline{z}z = det(U^{*} U) = det(I) = 1$$
+Let $\Det(U) = z$. Since $\Det(U^{*}) = \overline{\Det(U)}$, we have 
+$$\abs{z}^{2} = \overline{z}z = \Det(U^{*} U) = \Det(I) = 1$$
 
 To prove statement 2, notice that the condition $\lambda = e^{i \theta}$ requires we prove $\abs{\lambda} = 1$. 
 
@@ -625,7 +638,7 @@ The converse is \textbf{not} true.
 The following theorem gives a way to construct a counter example to prove similar matrices are not always unitarily equivalent. 
 
 \begin{theorem}
-A matrix $A$ is unitarily equivalent to a diagonal one if and only if it has an orthogonal (orthonormal) basis of eigenvectors. 
+A matrix $A$ is unitarily equivalent to a diagonal one if and only if it has an orthogonal basis of eigenvectors. 
 \end{theorem}
 
 \begin{proof}

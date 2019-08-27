@@ -1,4 +1,5 @@
 \chapter{Basic Notations}
+
 \section{Vector Spaces}
 \begin{definition}
 A \textbf{vector space} $V$ is a collection of vectors, along with vector addition and scalar multiplication defined such that for vectors $u$, $v$, and $w$: 
@@ -178,17 +179,17 @@ where $A_{\alpha *}$ denotes the $\alpha$th row of a $A$. Note that $(AB)^{T}_{j
 
 \begin{definition}
 For a \textit{square} matrix $A$, its \textbf{trace} is the sum of its diagonal entries. 
-$$trace(A) = \sum_{k=1}^{n} a_{k, k}$$
+$$\Trace(A) = \sum_{k=1}^{n} a_{k, k}$$
 \end{definition}
 
 \begin{theorem}
-Let $A$ and $B$ be sizes $m \times n$ and $n \times m$, respectively. Then $$trace(AB) = trace(BA)$$
+Let $A$ and $B$ be sizes $m \times n$ and $n \times m$, respectively. Then $$\Trace(AB) = \Trace(BA)$$
 \end{theorem}
 
 \begin{proof}
 We need only show that the diagonal entries of $AB$ are the same as the diagonal entries of $BA$. 
 
-$$trace(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} A_{ij} B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m} B_{ji} A_{ij} = \sum_{j=1}^{n} (BA)_{jj} = trace(BA)$$
+$$\Trace(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} A_{ij} B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m} B_{ji} A_{ij} = \sum_{j=1}^{n} (BA)_{jj} = \Trace(BA)$$
 \end{proof}
 
 \subsection{Linear Transformations as a Vector Space}

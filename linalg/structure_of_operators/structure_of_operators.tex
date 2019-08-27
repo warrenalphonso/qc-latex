@@ -11,15 +11,15 @@ where $U$ is unitary and $T$ is an upper triangular matrix.
 \begin{proof}
 We proceed by induction on the dimension of $X$. 
 
-\textbf{Base case:} $dim(X) = 1$
+\textbf{Base case:} $\Dim X = 1$
 
 Then $A$ is simply a $1 \times 1$ matrix which is trivially upper triangular. 
 
-\textbf{Inductive hypothesis:} Assume for $X$ with $dim(X) = n$, $A$ can be written as upper triangular in an orthonormal basis. 
+\textbf{Inductive hypothesis:} Assume for $X$ with $\Dim X = n$, $A$ can be written as upper triangular in an orthonormal basis. 
 
-\textbf{Inductive step:} We prove the statement for $dim(X) = n + 1$. 
+\textbf{Inductive step:} We prove the statement for $\Dim X = n + 1$. 
 
-Let $\lambda_{1}$ be an eigenvalue of $A$ and let $u_{1}$ be the corresponding normalized eigenvector of $A$, $Au_{1} = \lambda_{1} u_{1}$. Define $E := u_{1}^{\perp}$ and suppose $v_{2}, \cdots, v_{n + 1}$ is an orthonormal basis of $E$. Note $dim(E) = dim(X) - 1 = n$, so $u_{1}, v_{2}, \cdots, v_{n + 1}$ is an orthonormal basis of $X$. In this basis, $A$ has the form 
+Let $\lambda_{1}$ be an eigenvalue of $A$ and let $u_{1}$ be the corresponding normalized eigenvector of $A$, $Au_{1} = \lambda_{1} u_{1}$. Define $E := u_{1}^{\perp}$ and suppose $v_{2}, \cdots, v_{n + 1}$ is an orthonormal basis of $E$. Note $\Dim E = \Dim X - 1 = n$, so $u_{1}, v_{2}, \cdots, v_{n + 1}$ is an orthonormal basis of $X$. In this basis, $A$ has the form 
 $$\begin{bmatrix}[c|c]
 \lambda_{1} & *** \\
 \hline 
@@ -65,7 +65,7 @@ Thus, we have $\lambda (u, v) = \mu (u, v)$. Since $\lambda \neq \mu$, $(u, v) =
 What matrices are unitarily equivalent to a diagonal matrix? We know that $D^{*} D = DD^{*}$ for any diagonal matrix $D$. Therefore, $A^{*} A = AA^{*}$ if matrix $A$ is diagonal in some orthonormal basis. 
 
 \begin{definition}
-An operator $N$ is \textbf{normal} if $N^{*}N = NN^{*}$. Clearly, any self-adjoint operator ($A^{*}A = AA^{*}$) and any unitary operator ($U^{*}U = UU^{*} = I$) are normal. Note, however, that a normal operator must act in one space, so any unitary operator acting from one space to another is not normal. 
+An operator $N$ is \textbf{normal} if $N^{*}N = NN^{*}$. Clearly, any self-adjoint operator ($A = A^{*}$) and any unitary operator ($U^{*}U = UU^{*} = I$) are normal. Note, however, that a normal operator must act in one space, so any unitary operator acting from one space to another is not normal. 
 \end{definition}
 
 \begin{theorem}
@@ -79,7 +79,7 @@ We apply Schur representation to get an orthonormal basis such that $N$ in this 
 
 We proceed by induction on dimension of $N$. 
 
-\textbf{Base case: } $dim(N) = 1$
+\textbf{Base case: } $dim N = 1$
 
 A $1 \times 1$ matrix is trivially upper triangular. 
 
@@ -97,7 +97,7 @@ a_{11} & a_{12} \cdots a_{1n} \\
 where $N_{1}$ is an upper triangular $n \times n$ matrix. (This is the strongest assumption Schur's representation allows us to make.)
 
 We know $N$ is normal and that for normal matrices $N^{*}N = NN^{*}$. Direct computation yields 
-$$(N^{*} N)_{11} = \overline{a_{11}} a{11} = \abs{a_{11}}^{2}$$
+$$(N^{*} N)_{11} = \overline{a_{11}} a_{11} = \abs{a_{11}}^{2}$$
 and 
 $$(NN^{*})_{11} = \abs{a_{11}}^{2} + \cdots + \abs{a_{1n}}^{2}$$
 so $(N^{*}N)_{11} = (NN^{*})_{11}$ if $a_{12}, \cdots, a_{1n}$ are all 0. Therefore, 
@@ -162,7 +162,7 @@ $$(Ax, x) > 0 \qquad \forall x \neq 0$$
 and is called \textbf{positive semidefininte} or a \textbf{positive operator} if 
 $$(Ax, x) \geq 0 \qquad \forall x \in X$$
 
-We will use $A > 0$ for positive definite operators and $B \geq 0$ for positive semidefinite operators. 
+We will use $A > 0$ for positive definite operators and $A \geq 0$ for positive semidefinite operators. 
 \end{definition}
 
 \begin{theorem}
@@ -178,7 +178,7 @@ We can rewrite a self-adjoint matrix in some orthonormal basis as a diagonal mat
 \end{proof}
 
 \begin{lemma}
-Let $A = A^{*} \geq 0$ be positive semidefinite. There exists a unique positive semidefinite operator $B$ such that $B^{2} = A$. $B$ is called the positive square root of $A$, denoted $\sqrt{A}$.
+Let $A$ be self-adjoint and positive semidefinite. There exists a unique positive semidefinite operator $B$ such that $B^{2} = A$. $B$ is called the positive square root of $A$, denoted $\sqrt{A}$.
 \end{lemma}
 
 \begin{lproof}
@@ -204,14 +204,15 @@ $$\norm{\: \abs{A} \: x} = \norm{Ax} \qquad \forall x \in X$$
 \begin{proof}
 For any $x \in X$, 
 $$\norm{\: \abs{A} \: x}^{2} = (\abs{A} x, \abs{A} x) = (\abs{A}^{*} \abs{A} x, x) = (\abs{A}^{2} x, x) = (A^{*} A x, x) = (Ax, Ax) = \norm{Ax}^{2}$$
+where $\abs{A}^{*} \abs{A} = \abs{A}^{2}$ because $\abs{A}$ is self-adjoint by the previous lemma. 
 \end{proof}
 
 \begin{theorem}
-$$Ker(A) = Ker(\abs{A}) = (Ran(\abs{A}))^{\perp}$$
+$$\Ker A = \Ker \abs{A} = (\Range \abs{A})^{\perp}$$
 \end{theorem}
 
 \begin{proof}
-The first equality follows from the previous lemma. The second equality follows from the identity $Ker(T) = (Ran(T^{*}))^{\perp}$ which is true because $\abs{A}$ is self-adjoint so $A = A^{*}$. 
+The first equality follows from the previous lemma. The second equality follows from the identity $\Ker T = (\Range T^{*})^{\perp}$ which is true because $\abs{A}$ is self-adjoint so $A = A^{*}$. 
 \end{proof}
 
 \subsection{Schmidt Decomposition}
@@ -220,7 +221,7 @@ The first equality follows from the previous lemma. The second equality follows 
 Eigenvalues of $\abs{A}$ are called \textbf{singular values} of $A$. In other words, if $\lambda_{1}, \cdots, \lambda_{n}$ are eigenvalues of $A^{*}A$, then $\sqrt{\lambda_{1}}, \cdots, \sqrt{\lambda_{n}}$ are singular values of $A$. 
 \end{definition}
 
-Consider an operator $A : X \rightarrow Y$, and let $\sigma_{1}, \cdots, \sigma_{n}$ be the singular values of $A$. Let $\sigma_{1}, \cdots, \sigma_{r}$ be the \textit{non-zero} singular values of $A$. This means $\sigma_{k} = 0 \quad \forall k > r$. 
+Consider an operator $A : X \rightarrow Y$, and let $\sigma_{1}, \cdots, \sigma_{n}$ be the singular values of $A$. Let $\sigma_{1}, \cdots, \sigma_{r}$ be the \textit{non-zero} singular values of $A$, so that for $k > r$, $\sigma_{k} = 0$.
 
 We know $\sigma_{1}^{2}, \cdots, \sigma_{n}^{2}$ are eigenvalues of $A^{*}A$. Let $v_{1}, \cdots, v_{n}$ be an orthonormal basis of eigenvectors of $A^{*}A$, such that $A^{*}Av_{k} = \sigma_{k}^{2} v_{k}$. This basis exists since $A^{*}A$ is self-adjoint. 
 
@@ -232,7 +233,7 @@ is an orthonormal system.
 
 \begin{lproof}
 For any two eigenvectors $v_{j}, v_{k}$, 
-$$\frac{1}{\sigma_{j} \sigma_{k}} (Av_{j}, Av_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} (A^{*} Av_{j}, v_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} (\sigma_{j}^{2} v_{j}, v_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} \sigma_{j}^{2} (v_{j}, v_{k})$$
+$$\frac{1}{\sigma_{j} \sigma_{k}} (Av_{j}, Av_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} (A^{*} Av_{j}, v_{k}) = \frac{1}{\sigma_{j} \sigma_{k}} (\sigma_{j}^{2} v_{j}, v_{k}) = \frac{\sigma_{j}^{2}}{\sigma_{j} \sigma_{k}} (v_{j}, v_{k})$$
 which evaluates to 0 if $j \neq k$ or $1$ if $j = k$. 
 \end{lproof}
 
@@ -245,7 +246,7 @@ Since $v_{1}, \cdots, v_{n}$ is an orthonormal basis in $X$, we can substitute $
 $$\sum_{k = 1}^{r} \sigma_{k} (v_{j}, v_{k}) w_{k} = \sigma_{j} (v_{j}, v_{j}) w_{j} = \sigma_{j} w_{j} = Av_{j} \qquad \forall j = 1, \cdots, r$$
 and 
 $$\sum_{k = 1}^{r} \sigma_{k} (v_{j}, v_{k}) w_{k} = 0 = Av_{j} \qquad \forall j > r$$
-Since the equality holds for the orthonormal basis $v_{1}, \cdots, v_{n}$, it is true. This representation is called \textbf{Schmidt Decomposition}.
+Since the equality holds for the orthonormal basis $v_{1}, \cdots, v_{n}$, it is true. This representation is called \textbf{Schmidt decomposition}.
 \end{definition}
 
 \begin{theorem}
@@ -265,7 +266,7 @@ Therefore, we can write
 $$A^{*} A = \sum_{k=1}^{r} \sum_{j=1}^{r} \sigma_{k} \sigma_{j}    v_{k} w_{k}^{*} w_{j} v_{j}^{*} = \sum_{k=1}^{r} \sigma_{k}^{2} v_{k} v_{k}^{*}$$
 
 If we multiply both sides by $v_{j}$, we get 
-$$A^{*} A v_{j} = \sum_{k=1}^{r} \sigma_{k}^{2} v_{k} v_{k}^{*}v_{j} = \sigma_{j}^{2} v_{j}$$
+$$A^{*} A v_{j} = \sum_{k=1}^{r} \sigma_{k}^{2} v_{k} v_{k}^{*}v_{j} = \sum_{k=1}^{r} \sigma_{k}^{2} v_{k} (v_{j}, v_{k}) = \sigma_{j}^{2} v_{j}$$
 
 which means $v_{1}, \cdots, v_{r}$ are eigenvectors of $A^{*} A$. 
 \end{proof}
@@ -291,16 +292,16 @@ The number of nonzero singular values of $A$ equals the rank of $A$.
 \begin{proof}
 Recall that the singular values of $A$ are the eigenvalues of $A^{*}A$, and the number of nonzero eigenvalues of a square matrix correspond with the matrix's rank.  
 
-Now we'll show $Ker(A) = Ker(A^{*}A)$. For $x \in Ker(A)$, we have $A^{*} (Ax) = 0$. For $x \in Ker(A^{*}A)$, we have $A^{*}Ax = 0$. Left-multiplying by $x^{*}$ gives us $x^{*} A^{*} A x = (Ax)^{*} (Ax) = 0$, so $Ax = 0$. 
+Now we'll show $\Ker A = \Ker A^{*}A$. For $x \in \Ker A$, clearly we have $A^{*}Ax = 0$. For $x \in \Ker A^{*}A$, we have $A^{*}Ax = 0$. Left-multiplying by $x^{*}$ gives us $x^{*} A^{*} A x = (Ax)^{*} (Ax) = 0$, which means $Ax = 0$. 
 
-Since $Ker(A) = Ker(A^{*}A)$, the rank-nullity theorem asserts that $A^{*}A$ and $A$ have the same rank. 
+Since $\Ker A = \Ker A^{*}A$, the rank-nullity theorem asserts that $A^{*}A$ and $A$ have the same rank. 
 \end{proof}
 
 If $A$ is invertible, then $m = n = r$, so $\widetilde{V}$ and $\widetilde{W}$ are unitary, and $\widetilde{\Sigma}$ is an invertible diagonal matrix. 
 
-Further, we can always write a similar representation with matrices $V$ and $W$, where $V$ is $n \times n$ and $W$ is $m \times m$. 
+Furthermore, we can always write a similar representation with matrices $V$ and $W$, where $V$ is $n \times n$ and $W$ is $m \times m$. 
 
-To find this representation, we need to complete the bases $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$ to orthogonal bases in $\F^{n}$ and $\F^{m}$, respectively. To do this for $V$, we need to only find an orthogonal basis $v_{r+1}, \cdots, v_{n}$ in $Ker(V^{*})$, and we can always do this using Gram-Schmidt. 
+To find this representation, we need to complete the bases $v_{1}, \cdots, v_{r}$ and $w_{1}, \cdots, w_{r}$ to orthogonal bases in $\F^{n}$ and $\F^{m}$, respectively. To do this for $V$, we need to only find an orthogonal basis $v_{r+1}, \cdots, v_{n}$ in $\Ker V^{*}$, and we can always do this using Gram-Schmidt. 
 
 Thus, we can write 
 $$A = W \Sigma V^{*}$$
@@ -313,7 +314,7 @@ so that spectral decomposition tells us that $\Sigma^{2}$ is the diagonal matrix
 Similarly, we can understand the reduced singular value decomposition as a \textit{matrix form} of the Schmidt decomposition for a \textit{non-invertible} matrix $A$. 
 
 \begin{theorem}
-If we have the singular value decomposition $A = W \Sigma V^{*}$, we can write the polar decomposition
+If we have the SVD $A = W \Sigma V^{*}$, we can write the polar decomposition
 $$A = (WV^{*}) (V \Sigma V^{*}) = U \abs{A}$$
 where $\abs{A} = V \Sigma V^{*}$ and $U = WV^{*}$ is unitary. 
 \end{theorem}
@@ -326,17 +327,17 @@ This indicates that $\abs{A} = V \Sigma V^{*}$.
 Finally, since $WV^{*}$ is the product of unitary operators, it must also be unitary. Note that this only works if $A$ is square because $W$ and $V$ must also be square so that $WV^{*}$ is defined. 
 \end{proof}
 
-I have skipped an in-depth explanation of the polar decomposition in this chapter. It will be revisited in the next chapter. 
+We'll skip an in-depth explanation of the polar decomposition for now. It will be revisited in the next chapter. 
 
 \section{Applications of Singular Value Decomposition}
 
-The SVD $A = W \Sigma V^{*}$ can be seen as the matrix $A$ in two different orthonormal bases: $v_{1}, \cdots, v_{n}$ and $w_{1}, \cdots, w_{n}$, ie $\Sigma = [A]_{B, A}$. Because this is with respect to two \textit{different} bases, it doesn't tell us much about $A$'s spectral properties. However, singular values do tell us a lot about the \textit{metric properties} of a linear transformation, as we'll see. 
+The SVD $A = W \Sigma V^{*}$ can be seen as the matrix $A$ in two different orthonormal bases: $v_{1}, \cdots, v_{n}$ and $w_{1}, \cdots, w_{n}$, so that $\Sigma = [A]_{WV}$. Because this is with respect to two \textit{different} bases, it doesn't tell us much about $A$'s spectral properties. However, singular values do tell us a lot about the \textit{metric properties} of a linear transformation. 
 
 \subsection{Operator Norm}
 
 Given $A: X \rightarrow Y$, we want to find the maximum of $\norm{Ax}$ on the closed unit ball $B = \{ x \in X : \norm{x} \leq 1 \}$. 
 
-First, consider a diagonal matrix $A$ with non-negative entries. The maximum is exactly the maximal diagonal entry. If there are $r$ non-zero diagonal entries of $A$ with $s_{1}$ being the maximum, we know $\norm{Ax} \leq s_{1} \norm{x}$ because 
+First, consider a diagonal matrix $A$ with non-negative entries. The maximum is exactly the maximal diagonal entry. If we have $r$ non-zero diagonal entries of $A$ with $s_{1}$ being the maximum, we know $\norm{Ax} \leq s_{1} \norm{x}$ because 
 $$\norm{Ax}^{2} = \sum_{k=1}^{r} s_{k}^{2} \abs{x_{k}}^{2} \leq s_{1}^{2} \sum_{k=1}^{r} \abs{x_{k}}^{2} = s_{1}^{2} \norm{x}^{2}$$
 
 For the general case, we can consider the SVD, $A = W \Sigma V^{*}$, where $W, V$ are unitary and $\Sigma$ is diagonal with non-negative entries. Since unitary transformations preserve the norm, we know the maximum of $\norm{Ax}$ on $B$ is the maximal diagonal entry of $\Sigma$, which is the maximal singular value of $A$. 
@@ -354,99 +355,89 @@ There is another common norm on the space of linear transformations.
 
 \begin{definition}
 The \textbf{Hilbert-Schmidt inner product} on operators $M$ and $N$ is defined as 
-$$ (M, N) = trace(N^{*} M)$$
+$$ (M, N) = \Trace(N^{*}M)$$
 so the induced norm is 
-$$\norm{M}_{HS} = \sqrt{(M, M)} = \sqrt{trace(M^{*} M)}$$
+$$\norm{M}_{HS} = \sqrt{(M, M)} = \sqrt{\Trace(M^{*}M)}$$
 \end{definition}
 
 To compare these two norms, let $s_{1}, \cdots, s_{r}$ be non-zero singular values of $A$ with $s_{1}$ being the largest. We know $s_{1}^{2}, \cdots, s_{r}^{2}$ are the non-zero eigenvalues of $A^{*} A$. Since the trace is the sum of the eigenvalues, we know that 
-$$\norm{A}_{HS}^{2} = trace(A^{*} A) = \sum_{k=1}^{r} s_{k}^{2}$$
+$$\norm{A}_{HS}^{2} = \Trace(A^{*}A) = \sum_{k=1}^{r} s_{k}^{2}$$
 We also know that the operator norm equals its largest singular value ($\norm{A} = s_{1}$), so we conclude that the operator norm of a matrix cannot be more than its Hilbert-Schmidt norm. 
 
 \subsection{Moore-Penrose Pseudoinverse}
 
 Recall that finding a least square solution amounts to solving the normal equation 
 $$A^{*} A \hat{x} = A^{*} b$$
-If $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$ is the reduced singular value decomposition of $A$, then 
+and that we can use this to write the matrix form of a projection as 
+$$P_{\Range A} = A(A^{*} A)^{-1} A^{*}$$
+If $A = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*}$ is the reduced singular value decomposition of $A$, then we can define 
 $$ x_{0} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b$$
 
-Indeed, $x_{0}$ is a least square solution of $Ax = b$, which means $Ax_{0} = P_{Ran(A)} b$. To see this, 
-$$Ax_{0} = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*} \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b = \widetilde{W} \widetilde{W}^{*} b = P_{Ran(\widetilde{W})} b = P_{Ran(A)} b $$
+Indeed, $x_{0}$ is a least square solution of $Ax = b$, which means $Ax_{0} = P_{\Range A} b$. To see this, 
+$$Ax_{0} = \widetilde{W} \, \widetilde{\Sigma} \, \widetilde{V}^{*} \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} b = \widetilde{W} \widetilde{W}^{*} b = P_{\Range \widetilde{W}} b = P_{\Range A} b $$
 
-Our final step uses the fact that $\widetilde{W} \widetilde{W}^{*} = P_{Ran(\widetilde{W})}$: 
-$$P_{Ran(\widetilde{W})} = \widetilde{W} (\widetilde{W}^{*} \widetilde{W})^{-1} \widetilde{W}^{*} = \widetilde{W} \widetilde{W}^{*}$$
-and that $Ran(\widetilde{W}) = Ran(A)$:
+Our final step uses the fact that $\widetilde{W} \widetilde{W}^{*} = P_{\Range \widetilde{W}}$: 
+$$P_{\Range \widetilde{W}} = \widetilde{W} (\widetilde{W}^{*} \widetilde{W})^{-1} \widetilde{W}^{*} = \widetilde{W} (I)^{-1} \widetilde{W}^{*} = \widetilde{W} \widetilde{W}^{*}$$
+and that $P_{\Range \widetilde{W}} = P_{\Range A}$:
 $$
 \begin{aligned}
-P_{Ran(A)} &= (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*}) \big( (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*})^{*} (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*}) \big)^{-1} (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*})^{*} \\
+P_{\Range A} &= (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*}) \big( (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*})^{*} (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*}) \big)^{-1} (\widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*})^{*} \\
 &= \widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*} ( \widetilde{V} \widetilde{\Sigma}^{*} \widetilde{W}^{*} \widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*} )^{-1} \widetilde{V} \widetilde{\Sigma}^{*} \widetilde{W}^{*} \\
 &= \widetilde{W} \widetilde{\Sigma} \widetilde{V}^{*} \widetilde{V} \widetilde{\Sigma}^{-1} \widetilde{\Sigma}^{*^{-1}} \widetilde{V}^{*}  \widetilde{V} \widetilde{\Sigma}^{*} \widetilde{W}^{*} \\
-&= \widetilde{W} \widetilde{W}^{*} = P_{Ran(\widetilde{W}}
+&= \widetilde{W} \widetilde{W}^{*} = P_{\Range \widetilde{W}}
 \end{aligned}
 $$
 
 \begin{definition}
-The operator $A^{\dagger} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} $ is called the \textbf{Moore-Penrose pseudoinverse} of the operator $A$. In other words, the Moore-Pensrose pseudoinverse gives the least square solution to the equation $Ax = b$. 
+The operator $A^{+} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*} $ is called the \textbf{Moore-Penrose pseudoinverse} of $A$. In other words, the Moore-Pensrose pseudoinverse gives the least square solution to the equation $Ax = b$. 
 
 The following properties of the Moore-Penrose pseudoinverse can be easily proved: 
 \begin{enumerate}
-	\item $AA^{\dagger}A = A$
-	\item $A^{\dagger} A A^{\dagger} = A^{\dagger}$
-	\item $(AA^{\dagger})^{*} = AA^{\dagger}$
-	\item $(A^{\dagger} A)^{*} = A^{\dagger} A$
+	\item $AA^{+}A = A$
+	\item $A^{+} A A^{+} = A^{+}$
+	\item $(AA^{+})^{*} = AA^{+}$
+	\item $(A^{+} A)^{*} = A^{+} A$
 \end{enumerate}
 \end{definition}
 
-\begin{lemma}
-Let matrix $P$ be self-adjoint ($P^{*} = P = P^{-1}$) and let $P^{2} = P$. Then $P$ is the matrix of an orthogonal projection.
-\end{lemma}
-
-\begin{lproof}
-$P$ is an orthogonal projection if and only if $(u - Pu, Pu) = 0$. This is equivalent to 
-$$(u, Pu) = (Pu, Pu)$$
-which is simplified to 
-$$(u, Pu) = (u, P^{*}Pu)$$
-which holds because $P$ is self-adjoint and $P^{2} = P$. 
-\end{lproof}
-
 \begin{theorem}
-The operator $A^{\dagger}$ satisfying the above 4 properties is unique. 
+The operator $A^{+}$ satisfying the above 4 properties is unique. 
 \end{theorem}
 
 \begin{proof}
-Left and right multiplying property 1 by $A^{\dagger}$ gives us: 
-$$(A^{\dagger} A)^{2} = A^{\dagger} A$$ 
+Left and right multiplying property 1 by $A^{+}$ gives us: 
+$$(A^{+} A)^{2} = A^{+} A$$ 
 and
-$$ (AA^{\dagger})^{2} = AA^{\dagger}$$
-Properties 3 and 4 mean these two projections are also self-adjoint, so by the previous lemma, they are orthogonal projections. 
+$$ (AA^{+})^{2} = AA^{+}$$
+Properties 3 and 4 mean these two projections are also self-adjoint. We know these two properties mean both $A^{+}A$ and $AA^{+}$ are orthogonal projections.  
 
-Clearly, $Ker(A) \subset Ker(A^{\dagger}A)$. To prove $Ker(A^{\dagger} A) \subset Ker(A)$, suppose we have some $u \in Ker(A^{\dagger} A)$. Right-multiplying property 1 by $u$ gives us $AA^{\dagger}Au = Au$, which simplifies to $A0 = Au$, so $u \in Ker(A)$. Thus, $Ker(A) = Ker(A^{\dagger}A)$, which means $A^{\dagger}A$ is the orthogonal projection onto $Ker(A)^{\perp} = Ran(A^{*})$, 
-$$A^{\dagger}A = P_{Ran(A^{*})}$$
+Clearly, $\Ker A \subset \Ker A^{+}A$. To prove $\Ker A^{+}A \subset \Ker A$, suppose we have some $u \in \Ker A^{+}A$. Right-multiplying property 1 by $u$ gives us $AA^{+}Au = Au$, which simplifies to $0 = Au$, so $u \in \Ker A$. Thus, $\Ker A = \Ker A^{+}A$, which means $A^{+}A$ is the orthogonal projection onto $(\Ker A)^{\perp} = \Range A^{*}$, 
+$$A^{+}A = P_{\Range A^{*}}$$
 
-Property 1 implies that $AA^{\dagger} y = y$ for any $y \in Ran(A)$, so $Ran(A) \subset Ran(AA^{\dagger})$. Clearly, $RAn(AA^{\dagger}) \subset Ran(A)$, so $AA^{\dagger}$ is the orthogonal projection onto $Ran(A)$, 
-$$AA^{\dagger} = P_{Ran(A)}$$
+Property 1 implies that $AA^{+} y = y$ for any $y \in \Range A$, so $\Range A \subset \Range AA^{+}$. Clearly, $\Range AA^{+} \subset \Range A$, so $\Range A = \Range AA^{+}$ which means $AA^{+}$ is the orthogonal projection onto $\Range A$, 
+$$AA^{+} = P_{\Range A}$$
 
 Now we can rewrite property 2 as 
-$$P_{Ran(A^{*})} A^{\dagger} = A^{\dagger} \text{ or } A^{\dagger} P_{Ran(A)} = A^{\dagger}$$
+$$P_{\Range A^{*}} A^{+} = A^{+} \qquad \text{ or } \qquad A^{+} P_{\Range A} = A^{+}$$
 
 Combining these gives us 
-$$P_{Ran(A^{*})} A^{\dagger} P_{Ran(A)} = A^{\dagger}$$
+$$P_{\Range A^{*}} A^{+} P_{\Range A} = A^{+}$$
 
-This means that for any $b \in Ran(A)$, 
-$$x_{0} := A^{\dagger} b = P_{Ran(A^{*})} A^{\dagger} b \in Ran(A^{*})$$
+This means that for any $b \in \Range A$, 
+$$x_{0} := A^{+} b = P_{\Range A^{*}} A^{+} b \in \Range A^{*}$$
 and that 
-$$Ax_{0} = AA^{\dagger} b = P_{Ran(A)} b$$
-In other words, $x_{0}$ is a least square solution to $Ax = b$. However, since $x_{0} \in Ran(A^{*}) = Ker(A)^{\perp}$, $x_{0}$ is the least square solution of minimal norm, which we know is given by $A^{\dagger} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*}$.
+$$Ax_{0} = AA^{+} b = P_{\Range A} b$$
+In other words, $x_{0}$ is a least square solution to $Ax = b$. However, since $x_{0} \in \Range A^{*} = (\Ker A)^{\perp}$, $x_{0}$ is the least square solution of minimal norm, which we know is given by $A^{+} = \widetilde{V} \, \widetilde{\Sigma}^{-1} \, \widetilde{W}^{*}$.
 \end{proof}
 
 \textbf{Generalize Moore-Penrose to the SVD: $A = W\Sigma V^{*}$. }
 
 \section{Structure of Orthogonal Matrices}
 
-An orthogonal matrix $U$ with $det(U) = 1$ is called a \textbf{rotation}. The following theorem illustrates why. 
+An orthogonal matrix $U$ with $\Det(U) = 1$ is called a \textbf{rotation}. The following theorem illustrates why. 
 
 \begin{theorem}
-Let $U$ be an orthogonal operator in $\R^{n}$ and let $det(U) = 1$. Then there exists an orthonormal basis $v_{1}, \cdots, v_{n}$ such that the matrix of $U$ in this basis has the \textit{block diagonal form}:
+Let $U$ be an orthogonal operator in $\R^{n}$ and let $\Det(U) = 1$. Then there exists an orthonormal basis $v_{1}, \cdots, v_{n}$ such that the matrix of $U$ in this basis has the \textit{block diagonal form}:
 $$\begin{bmatrix}
 R_{\varphi 1} & & & & \makebox{\Huge 0} \\
  & R_{\varphi 2} & & & \\ 
@@ -524,7 +515,7 @@ R_{a_{1}} & & & & & \makebox{\Huge 0} \\
  & & & & -I_{r} & \\
  \makebox{\Huge 0} & & & & & I_{l}
 \end{bmatrix}$$
-where $I_{r}$ and $I_{l}$ are identity matrices of size $r$ and $l$, respectively. Sicne $det(U) = 1$, the multiplicity of eigenvalue -1 must be even. 
+where $I_{r}$ and $I_{l}$ are identity matrices of size $r$ and $l$, respectively. Sicne $\Det(U) = 1$, the multiplicity of eigenvalue -1 must be even. 
 
 Finally, because a negative $2 \times 2$ identity matrix can be interpreted as the rotation through the angle $\pi$, we arrive at the form given in the theorem with $\varphi_{k} = \pi$. 
 \end{proof}
