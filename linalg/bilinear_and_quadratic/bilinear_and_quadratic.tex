@@ -1,4 +1,4 @@
-\chapter{Bilinear and Quadratic Forms - WIP}
+\chapter{Bilinear and Quadratic Forms}
 
 \section{Main Definitions}
 
@@ -49,7 +49,7 @@ $(Ax, x)$ is real for all $x \in \C^{n}$ if and only if $A = A^{*}$.
 To prove if: 
 $$(Ax, x) = (x, A^{*} x) = (x, Ax) = \overline{(Ax, x)}$$
 
-To prove only if: Consider the expression $(A (x + zy), x + zy)$. We assume it is real for all $z \in \C$. Now we can write 
+To prove only if: Consider the inner product $(A (x + zy), x + zy \Large)$. We assume it is real for all $z \in \C$. Now we can write 
 $$
 \begin{aligned}
 \Big( A (x + zy), x + zy \Big) &= ( Ax + Azy, x + zy) \\
@@ -60,28 +60,28 @@ $$
 
 We know that the final sum must be real. Since only the middle two terms can contribute to an imaginary solution, we know 
 $$\overline{z} (Ax, y) + z (Ay, x) \in \R$$
-Because $z$ can be any complex number, we know $z \neq \overline{z}$, so for the imaginary parts to cancel, we must have
+Because $z$ can be any complex number, we cannot assume $z = \overline{z}$, so for the imaginary parts to cancel, we must have
 $$(Ax, y) = (Ay, x)$$
 and because we know $(Ax, y) = (x, A^{*} y)$, this means that $A^{*} = A$. 
 \end{proof}
 
 \section{Diagonalization of Quadratic Forms}
 
-Quadratic forms are common; they appear in the study of curves in $\R^{2}$ and some surfaces in $\R^{3}$, for example. If we are given a set in $\R^{n}$ defined by $Q[x] = 1$, where $Q$ is some quadratic form, we might want to understand the structure of this set. We will try to do so using a change of variables. 
+Quadratic forms are common; they appear in the study of curves in $\R^{2}$ and some surfaces in $\R^{3}$, for example. If we are given a set in $\R^{n}$ defined by $Q[x] = 1$, where $Q$ is some quadratic form, we might want to understand the structure of this set. To intuitively understand a quadratic form, it helps if it's as simple as possible. In this section, we will simplify a general quadratic form $Q$ so that its corresponding matrix $A$ is diagonal, in other words, we want $Q[x] = (Ax, x) = a_{1} x_{1}^{2} + \cdots + a_{n} x_{n}^{2}$. 
 
 \subsection{Orthogonal Diagonalization}
 
 Suppose we have a quadratic form $Q[x] = (Ax, x)$ in $\F^{n}$. We define $y = S^{-1} x$, where $S$ is any invertible $n \times n$ matrix. Now, we have
 $$Q[x] = Q[Sy] = (ASy, Sy) = (S^{*} AS y, y)$$
-so when written in variable $y$, the quadratic form has matrix $S^{*}AS$. 
+so in terms of $y$, the quadratic form has matrix $S^{*}AS$. 
 
-Now our goal is to find an invertible matrix $S$ such that $S^{*} AS$ is diagonal. Using diagonalization, we can write $A = UDU^{*}$ because $A$ is symmetric, which means it's unitary and for unitary matrices $U^{*} = U^{-1}$. Then, we have $D = U^{*} AU$, so in $y = U^{-1} x$, the quadratic form has diagonal matrix. 
+Now our goal is to find an invertible matrix $S$ such that $S^{*} AS$ is diagonal. Using diagonalization, we can write $A = UDU^{*}$ because $A$ is symmetric, which means it's unitary and for unitary matrices $U^{*} = U^{-1}$. Then we have $D = U^{*} AU$, so if $y = U^{-1} x$, the quadratic form has diagonal matrix. 
 
-Geometrically, the columns of $U$ form an orthonormal basis in $\F^{n}$, which we'll call $B$. The change of coordinate matrix $[I]_{S, B}$ from $B$ to the standard basis is exactly $U$. Since $y = U^{-1} x$, the coordinates $y_{1}, \cdots, y_{n}$ can be interpreted as coordinates of the vector $x$ in the new basis $B$. So, orthogonal diagonalization allows us to visualize the set $Q[x] = 1$ very well if we can visualize it for diagonal matrices. 
+Geometrically, the columns of $U$ form an orthonormal basis in $\F^{n}$, which we'll call $B$. The change of coordinate matrix $[I]_{SB}$ from $B$ to the standard basis is exactly $U$. Since $y = U^{-1} x$, the coordinates $y_{1}, \cdots, y_{n}$ can be interpreted as coordinates of the vector $x$ in the new basis $B$. In other words, orthogonal diagonalization allows us to visualize the set $Q[x] = 1$ very well if we can visualize it for diagonal matrices. 
 
 \textbf{Example:} Consider $Q[x, y] = 2x^{2} + 2y^{2} + 2xy$. We want to describe the set of points $(x, y) \in \R^{2} : Q(x, y) = 1$. 
 
-The matrix $A$ of $Q$ is 
+Since $2x^{2} + 2y^{2} + 2xy = (Ax, x)$, we can easily check that the matrix $A$ of $Q$ is 
 $$A = \begin{bmatrix}
 2 & 1 \\
 1 & 2
@@ -110,7 +110,7 @@ This tells us the set $\{y : (Dy, y) = 1\}$ is the ellipse with half-axes $\frac
 
 \subsection{Non-orthogonal Diagonalization} 
 
-Orthogonal diagonalization requires computing eigenvalues and eigenvectors which can be hard to do for large $n$ without computers. Non-orthogonal diagonalization requires only finding an invertible $S$ without requiring $S^{-1} = S^{*}$ such that $D = S^{*}AS$ is diagonal, which is much easier to do. We will cover two of the most used methods of non-orthogonal diagonalization. 
+Orthogonal diagonalization requires computing eigenvalues and eigenvectors which can be hard to do for large $n$ without computers. Non-orthogonal diagonalization finds an invertible $S$ (without requiring $S^{-1} = S^{*}$) such that $D = S^{*}AS$ is diagonal, which is much easier to do. We will cover two of the most used methods of non-orthogonal diagonalization. 
 
 \subsubsection{Diagonalization by Completion of Squares} 
 
@@ -121,20 +121,16 @@ Consider again the quadratic form of two variables $Q[x] = 2x_{1}^{2} + 2x_{1} x
 $$2 \Big( x_{1} + \frac{1}{2} x_{2} \Big)^{2} = 2 \Big( x_{1}^{2} + 2 x_{1} \frac{1}{2} x_{2} + \frac{1}{4} x_{2}^{2} \Big) = 2x_{1}^{2} + 2x_{1}x_{2} + \frac{1}{2} x_{2}^{2}$$
 where the first two terms coincide with the first two terms of $Q$, we can write 
 $$Q[x] = 2 \Big( x_{1} + \frac{1}{2} x_{2} \Big)^{2} + \frac{3}{2} x_{2}^{2} = 2y_{1}^{2} + \frac{3}{2} y_{2}^{2}$$
-where $y_{1} = x_{1} + \frac{1}{2} x_{2}$ and $y_{2} = x_{2}$. We can use this same method for quadratic forms of more than 2 variables. Note that we can always split a product of two variables into a corresponding square using the identity, 
+where $y_{1} = x_{1} + \frac{1}{2} x_{2}$ and $y_{2} = x_{2}$. We can use this same method for quadratic forms of more than 2 variables. Note that we can always split a product of two different variables into a corresponding square using the identity, 
 
 $$4 x_{1} x_{2} = (x_{1} + x_{2})^{2} - (x_{1} - x_{2})^{2}$$
 
 \subsubsection{Diagonalization Using Row/Column Operations}
 
-Our second method is to perform row operations on the matrix $A$ of the quadratic form. Unlike normal Gauss-Jordan row reduction, after each row operation, we need to perform the same column operation (because we want to ensure $S^{*} AS$ is diagonal). 
-
-\textbf{Maybe insert an example. }
+A second method is to perform row operations on the matrix $A$ of the quadratic form. Unlike normal Gauss-Jordan row reduction, after each row operation, we need to perform the same column operation (because we want to ensure $S^{*} AS$ is diagonal). 
 
 To understand why this works, realize that a row operation corresponds to left multiplying by an elementary matrix while a column operation is equivalent to right multiplying by the transpose of the same elementary matrix. Thus, performing row operations $E_{1}, \cdots, E_{n}$ along with the same column operations gives us 
 $$E_{n} \cdots E_{1} A E_{1}^{*} \cdots E_{n}^{*} = EAE^{*}$$
-
-\textbf{Prove this including the complex case. }
 
 As for the identity matrix in the right side of the augmented matrix, we only performed row operations on it so we have 
 $$E_{n} \cdots E_{1} I = EI = E$$
@@ -162,21 +158,21 @@ where the first step is adding half of row 2 to row 1 (and then the correspondin
 
 \section{Silvester's Law of Inertia} 
 
-We now know there are many different ways to diagonalize a quadratic form. For example, if we have a diagonal matrix $D$, we can take another diagonal matrix $S$ and transform $D$ to 
+We now know there are many ways to diagonalize a quadratic form. For example, if we have a diagonal matrix $D$, we can take another diagonal matrix $S$ and transform $D$ to 
 $$S^{*} DS = \text{diag}\{ s_{1}^{2} \lambda_{1}, \cdots, s_{n}^{2} \lambda_{n} \}$$
 
-This transformation changes the diagonal entries of $D$, but it does not change the \textit{signs} of the entries. The following says this is always the case. 
+This transformation changes the diagonal entries of $D$, but it does not change the \textit{signs} of the entries. The following theorem says this is always the case. 
 
 \begin{theorem}[Silvester's Law of Inertia]
-For a Hermitian matrix $A$ (for a quadratic form $Q[x] = (Ax, x)$) and any of its diagonalizations $D = S^{*} AS$, the number of positive, negative, and zero diagonal entries of $D$ depends only on $A$, but not on a particular choice of diagonalization. 
+For a Hermitian matrix $A$ of a quadratic form $Q[x] = (Ax, x)$ and any of its diagonalizations $D = S^{*} AS$, the number of positive, negative, and zero diagonal entries of $D$ depends only on $A$, but not on a particular choice of diagonalization. 
 \end{theorem}
 
 We will need some more help to prove this. 
 
 \begin{definition}
-Given an $n \times n$ Hermitian matrix $A = A^{*}$ (a quadratic form $Q[x] = (Ax, x)$ on $\F^{n}$), we call a subspace $E \subset \F^{n}$ \textbf{positive} if 
-$$(Ax, x) > 0$$ 
-for all $x \in E, x \neq 0$. To emphasize the role of $A$ we will say $A$-positive. There are similar definitions for $A$-negative and $A$-neutral. 
+Given an $n \times n$ Hermitian matrix $A = A^{*}$ of a quadratic form $Q[x] = (Ax, x)$, we call a subspace $E \subset \F^{n}$ \textbf{positive} if 
+$$(Ax, x) > 0 \qquad \forall x \neq 0 \in E$$ 
+To emphasize the role of $A$, we will call this subspace $A$-positive. There are similar definitions for $A$-negative and $A$-neutral. 
 \end{definition}
 
 \begin{lemma}
@@ -188,7 +184,7 @@ By rearranging the standard basis in $\F^{n}$, we can assume that the positive d
 
 Now consider the subspace $E_{+}$ spanned by these $r_{+}$ coordinate vectors $e_{1}, \cdots, e_{r_{+}}$. Clearly, $E_{+}$ is a $D$-positive subspace with dimension $r_{+}$. 
 
-Now we'll show that for any other $D$-positive subspace $E$, we have $\Dim(E) \leq r_{+}$. Consider the orthogonal projection $P$ onto $E_{+}$, 
+Now we'll show that for any other $D$-positive subspace $E$, we have $\Dim E \leq r_{+}$. Consider the orthogonal projection $P$ onto $E_{+}$, 
 $$P[x_{1}, \cdots, x_{n}]^{T} = [x_{1}, \cdots, x_{r_{+}}, 0, \cdots, 0]^{T}$$
 
 Now define an operator $T: E \rightarrow E_{+}$ by 
@@ -198,12 +194,12 @@ In other words, since $P$ is defined on the whole space, $T$ is the restriction 
 
 Now we'll find the null space of $T$ so that we can apply the Rank Theorem. For any $x$ such that $Tx = Px = 0$, we know $x_{1} = \cdots = x_{r_{+}} = 0$, so 
 $$(Dx, x) = \sum_{r_{+} + 1}^{n} \lambda_{k} x_{k}^{2} \leq 0$$
-since $\lambda_{k} \leq 0$ for $k > r_{+}$. Because $x$ belongs to $D$-positive subspace $E$, the inequality only holds for $x = 0$, so $Ker(T) = \{0\}$. 
+since $\lambda_{k} \leq 0$ for $k > r_{+}$. Because $x$ belongs to $D$-positive subspace $E$, the inequality only holds for $x = 0$, so $\Ker T = \{0\}$. 
 
-We know $Rank(T) = \Dim(Ran(T)) \leq \Dim(E_{+}) = r_{+}$ since $Ran(T) \subset	E_{+}$. By the Rank Theorem, $\Dim(Ker(T)) + Rank(T) = \Dim(E)$. But we just proved $\Dim(Ker(T)) = 0$ which means 
-$$\Dim(E) = Rank(T) \leq r_{+}$$
+We know $\Rank T = \Dim(\Range T) \leq \Dim(E_{+}) = r_{+}$ since $\Range T \subset E_{+}$. By the Rank Theorem, $\Dim(\Ker T) + \Rank T = \Dim E$. But we just proved $\Dim(\Ker T) = 0$ which means 
+$$\Dim E = \Rank T \leq r_{+}$$
 
-To prove the lemma for negative entries, we just prove the above for $-D$. 
+To prove the lemma for negative entries, we repeat the proof for $-D$. 
 \end{lproof}
 
 This result proves the positive and negative diagonal entries of $D$ coincide with maximal dimensions of $D$-positive and $D$-negative subspaces. The following proves Silvester's Law of Inertia. 
@@ -217,10 +213,10 @@ Since $D = S^{*}AS$ is a diagonalization of $A$, we know
 $$(Dx, x) = (S^{*}ASx, x) = (ASx, Sx)$$
 which means that for any $D$-positive subspace $E$, the subspace $SE$ is an $A$-positive subspace. The same identity implies that for any $A$-positive subspace $F$, the subspace $S^{-1}F$ is $D$-positive. 
 
-Since $S$ is an invertible transformation, $\Dim(E) = \Dim(SE)$ and $\Dim(F) = \Dim(S^{-1}F)$. Thus, for any $D$-positive subspace $E$, we can find an $A$-positive subspace ($SE$ for example) of the same dimension, and for any $A$-positive subspace $F$, we can find a $D$-positive subspace ($S^{-}F$ for example) of the same dimension. Thus, the maximal possible dimensions of an $A$-positive and a $D$-positive subspace coincide, so by the above lemma, the theorem is proved. The same reasoning supports $A$-negative subspaces. 
+Since $S$ is an invertible transformation, $\Dim E = \Dim SE$ and $\Dim F = \Dim S^{-1}F$. Thus, for any $D$-positive subspace $E$, we can find an $A$-positive subspace ($SE$ for example) of the same dimension, and for any $A$-positive subspace $F$, we can find a $D$-positive subspace ($S^{-1}F$ for example) of the same dimension. Thus, the maximal possible dimensions of an $A$-positive and a $D$-positive subspace coincide, so by the above lemma, the theorem is proved. The same reasoning supports $A$-negative subspaces. 
 \end{proof}
 
-\section{Minimax Characterization of Eigenvalues and Silvester's Criterion of Positivity}
+\section{Silvester's Criterion of Positivity and Minimax Characterization of Eigenvalues}
 
 \begin{definition}
 A quadratic form is called 
@@ -233,10 +229,10 @@ A quadratic form is called
 \end{itemize}
 \end{definition}
 
-A Hermitian matrix $A = A^{*}$ is called positive definite if the corresponding quadratic forms $Q[x] = (Ax, x)$ is positive definite. 
+A \textit{Hermitian matrix} $A = A^{*}$ is called positive definite if the corresponding quadratic forms $Q[x] = (Ax, x)$ is positive definite. 
 
 \begin{theorem}
-Any Hermitian matrix $A$ is positive definite if and only if its eigenvalues are all positive.
+Any Hermitian matrix $A$ is positive definite if and only if all its eigenvalues are positive.
 \end{theorem}
 
 \begin{proof}
@@ -251,52 +247,90 @@ In fact, because of Silvester's Law of Inertia, we don't need to compute eigenva
 
 We'll begin by looking for a simple requirement for positivity. Let's analyze the matrix 
 $$\begin{bmatrix}
-a & b \\
-\overline{b} & c
+\; a & b \; \\
+\; \overline{b} & c \;
 \end{bmatrix}$$
-This matrix is positive definite if and only if $a > 0$ and $det(A)= ac - \abs{b}^{2} > 0$. To see this, note that if the above conditions are met, then $c > 0$, so $trace(A) = a + c > 0$. If $\lambda_{1}, \lambda_{2}$ are eigenvalues of $A$, then their product is positive ($det(A) > 0$) and their sum is positive($trace(A) > 0$), which is only possible if both eigenvalues are positive. \textbf{Prove only if direction.}
+This matrix is positive definite if and only if $a > 0$ and $\Det(A)= ac - \abs{b}^{2} > 0$. To see this, note that if the above conditions are met, then $c > 0$, so $\Trace(A) = a + c > 0$. If $\lambda_{1}, \lambda_{2}$ are eigenvalues of $A$, then their product is positive (since $\Det(A) > 0$) and their sum is positive (since $\Trace(A) > 0$), which is only possible if both eigenvalues are positive. To prove only if, note that if the matrix is positive definite with 2 eigenvalues, then by the previous theorem, the determinant and trace must both be positive, which necessitates the above conditions. 
 
 \begin{theorem}[Silvester's Criterion of Positivity] 
 A matrix $A = A^{*}$ is positive definite if and only if 
-$$det(A_{k}) > 0 \qquad \forall k = 1, \cdots, n$$
+$$\Det(A_{k}) > 0 \qquad \forall k = 1, \cdots, n$$
 where $A_{k}$ denotes the upper left $n \times n$ submatrix of $A$. 
 \end{theorem}
 
 \begin{proof}
-If $A > 0$, then $A_{k} > 0 \quad \forall k$, because all of $A$'s eigenvalues are positive. 
-\textbf{Finish proof!}
+Recall the previous theorem says a positive definite operator's eigenvalues must all be positive. 
+
+To prove only if, note that if $A > 0$, then $A_{k} > 0$ for any $k$, because all of $A$'s eigenvalues are positive, so $\Det(A_{k}) > 0$. 
+
+To prove if, we use non-orthogonal diagonalization using row/column operations, noting that if we perform row/column operations in natural order (that is, subtract the first row/column from all lower rows/columns, then subtract the second row/column from lower rows/columns, ...), we automatically diagonalize forms $A_{k}$ as well, so long as we don't do row/column interchanges. 
+
+Since we perform only row replacement and do the operations in order, we preserve determinants of $A_{k}$. Therefore, assuming $\Det(A_{k}) > 0$ ensures each additional diagonal entry is positive. 
+
+The final step is to guarantee that we will never require row/column swapping. The only way this can arise through this algorithm is if after subtracting the first $k$ rows/columns, the entry in the $k+1$th row and column is 0. This can never happen because it means $\Det(A_{k+1}) = 0$, which is a contradiction. 
 \end{proof}
+
+This proof works, but in the next section we will present a more advanced proof that demonstrates some important connections. 
 
 \subsection{Minimax Characterization of Eigenvalues}
 
-We will use the term \textbf{codimension} to denote the dimension of the orthogonal complement. For a subspace $E \subset X$, if $\Dim(X) = n$, then $\Codim(E) + \Dim(E) = n$. 
+We will use the term \textbf{codimension} to denote the dimension of the orthogonal complement. For a subspace $E \subset X$, if $\Dim X = n$, then $\Codim E + \Dim E = n$. 
 
 \begin{theorem}[Minimax Characterization of Eigenvalues]
 Let $A = A^{*}$ be an $n \times n$ matrix, and let $\lambda_{1}, \cdots, \lambda_{n}$ be its eigenvalues in decreasing order. Then, 
-$$\lambda_{k} = \max_{E: \Dim(E) = k} \quad \min_{x \in E: \norm{x} = 1} \quad (Ax, x) \quad = \quad \min_{F: \Codim(F)=k-1} \quad \max_{x \in F: \norm{x} = 1} \quad (Ax, x)$$
+$$\lambda_{k} = \max_{E: \Dim E = k} \quad \min_{x \in E: \norm{x} = 1} \quad (Ax, x) \quad = \quad \min_{F: \Codim F=k-1} \quad \max_{x \in F: \norm{x} = 1} \quad (Ax, x)$$
 
 \end{theorem}
 
 The first expression considers all subspaces $E$ with dimension $k$, and then for each subspace, finds the $x$ with norm 1 that results in the minimum $(Ax, x)$. Now, out of the chosen $(Ax, x)$, we pick the subspace that results in the maximal value. The second expression is defined similarly. 
 
-An important question regarding this theorem is: why must a maximum and minimum exist? One explanation is the set $x \in E : \norm{x} = 1$ is the unit sphere, which is closed (contains its limit points) and bounded (contains a highest and lowest point). Since $Q[x] = (Ax, x)$ is a continuous function, it will have a maximum and minimum on any compact set. \textbf{Remove if the proof proves existence.}
+An important question regarding this theorem is: why must a maximum and minimum exist? One explanation is the set $x \in E : \norm{x} = 1$ is the unit sphere, which is closed (contains its limit points) and bounded (contains a highest and lowest point). Since $Q[x] = (Ax, x)$ is a continuous function, it will have a maximum and minimum on any compact set. 
 
 \begin{proof}
 We can pick an orthonormal basis so that matrix $A$ is diagonal, $A = diag\{ \lambda_{1}, \cdots, \lambda_{n} \}$. We will also reorder the eigenvalues so that $\lambda_{1} \geq \cdots \geq \lambda_{n}$.
 
-We choose subspaces $E$ and $F$ such that $\Dim(E) = k$ and $\Codim(F) = k -1$. This means that $\Dim(E) + \Dim(F) = n + 1 > n$ so there exists a non-zero vector $x_{0} \in E \cap F$. After normalizing, we get $\norm{x} = 1$, and because $x$ also belongs to both $E$ and $F$, 
+We choose subspaces $E$ and $F$ such that $\Dim E = k$ and $\Codim F = k -1$ (so $\Dim F = n - k + 1$). This means that $\Dim E + \Dim F = n + 1 > n$ so there exists a non-zero vector $x_{0} \in E \cap F$. After normalizing $\norm{x_{0}} = 1$, we choose an $x$ that also belongs to both $E$ and $F$, such that
 $$\min_{x \in E: \norm{x} = 1} (Ax, x) \leq (Ax_{0}, x_{0}) \leq \max_{x \in F: \norm{x} = 1} (Ax, x)$$
 
-Since we only assumed dimensions of subspaces $E$ and $F$, the above inequality holds for all pairs of $E$ and $F$ with appropriate dimensions. Now we define 
+Since we only assumed dimensions of subspaces $E$ and $F$, the above inequality holds for all pairs of subspaces $E$ and $F$ with appropriate dimensions. Now we define 
 $$E_{0} := \Span\{e_{1}, \cdots, e_{k} \} \qquad F_{0} := \Span \{e_{k}, \cdots, e_{n} \}$$ 
 
-Since for any self-adjoint matrix $B$, the maximum and minimum of $(Bx, x) : \norm{x} = 1$ are the maximum and minimum eigenvalues, we get 
-$$\min_{x \in E_{0} : \norm{x} = 1} (Ax, x) = \max_{x \in F_{0} : \norm{x} = 1} (Ax, x) = \lambda_{k}$$
+Since for any self-adjoint matrix $B$, the maximum and minimum of $(Bx, x) : \norm{x} = 1$ are the maximum and minimum eigenvalues (this is easy to check on a diagonal matrix), we get 
+$$\min_{x \in E_{0} : \norm{x} = 1} (Ax, x) \quad = \max_{x \in F_{0} : \norm{x} = 1} (Ax, x) = \lambda_{k}$$
 
-It follows from our above inequality that for any subspace $E$ with $\Dim(E) = k$, 
-$$\min_{x \in E : \norm{x} = 1} (Ax, x) \leq \max_{x \in F_{0} : \norm{x} = 1} (Ax, x) = \lambda_{k}$$
-and for any subspace $F$ with $\Codim(F) = k - 1$, 
-$$\max_{x \in F : \norm{x} = 1} (Ax, x) \geq \min_{x \in E_{0} : \norm{x} = 1} (Ax, x) = \lambda_{k}$$
+It follows from our above inequality that for any subspace $E$ with $\Dim E = k$, 
+$$\min_{x \in E : \norm{x} = 1} (Ax, x) \quad \leq \max_{x \in F_{0} : \norm{x} = 1} (Ax, x) = \lambda_{k}$$
+and for any subspace $F$ with $\Codim F = k - 1$, 
+$$\max_{x \in F : \norm{x} = 1} (Ax, x) \quad \geq \min_{x \in E_{0} : \norm{x} = 1} (Ax, x) = \lambda_{k}$$
 
-But because on subspaces $E_{0}$ and $F_{0}$ both the maximum and minimum are $\lambda_{k}$, we know that $\min \max = \max \min = \lambda_{k}$. 
+But on subspaces $E_{0}$ and $F_{0}$ both the maximum and minimum are $\lambda_{k}$, which are the upper and lower bounds of the inequalities. So the theorem statement $\max \min = \min \max = \lambda_{k}$ reduces to choosing the $x$ that minimizes $(Ax, x)$ on $E_{0}$ and maximizes $(Ax, x)$ on $F_{0}$, which our above equality tells us gives us $\lambda_{k}$. 
+\end{proof}
+
+The following is a lemma for our second proof of Silvester's Criterion of Positivity, but I thought it was cool enough to be a theorem. 
+
+\begin{theorem}[Intertwining of Eigenvalues]
+Let $A = A^{*}$ be self-adjoint, and let $\widetilde{A}$ be its upper left $(n-1) \times (n-1)$ submatrix. Let $\lambda_{1}, \cdots, \lambda_{n}$ and $\mu_{1}, \cdots, \mu_{n-1}$ be the eigenvalues of $A$ and $\widetilde{A}$, respectively, in decreasing order. Then, 
+$$\lambda_{1} \geq \mu_{1} \geq \lambda_{2} \geq \mu_{2} \geq \cdots \geq \lambda_{n-1} \geq \mu_{n-1} \geq \lambda_{n}$$
+\end{theorem}
+
+\begin{proof}
+Let $\widetilde{X} \subset \F^{n}$ be the subspace spanned by the first $n-1$ basis vectors, $\widetilde{X} = \Span \{e_{1}, \cdots, e_{n-1}\}$. Since $(\widetilde{A}x, x) = (Ax, x) \: \forall x \in \widetilde{X}$, the Minimax Characterization implies that 
+$$\mu_{k} = \max_{E \subset \widetilde{X} : \Dim E = k} \quad \min_{x \in E : \norm{x} = 1} \quad (Ax, x)$$
+
+To get $\lambda_{k}$ we need to get the maximum over all subspaces of $\F^{n}$, $\Dim E = k$. The maximum over a larger set can only increase so,
+$$\mu_{k} \leq \lambda_{k}$$
+
+Now we must prove $\mu_{k} \leq \lambda_{k+1}$. Any subspace $E \subset \widetilde{X}$ with $\Codim k-1$ (codimension in $\widetilde{X}$) has dimension $n - 1 - (k - 1) = n - k$, so its codimension in $\F^{n}$ is $k$. 
+$$\mu_{k} \quad = \min_{E \subset \widetilde{X} : \Dim E = n - k} \quad \max_{x \in E : \norm{x} = 1} \quad (Ax, x) \quad \leq \min_{E \subset \F^{n} : \Dim E = n - k} \quad \max_{x \in E : \norm{x} =1} \quad (Ax,x) \quad = \quad \lambda_{k+1}$$
+since the minimum over a larger set can only decrease.
+\end{proof}
+
+With these results, we can demonstrate a second proof for Silvestor's Criterion of Positivity. 
+
+\begin{proof}
+We need only prove the if direction: if $\Det(A_{k}) > 0$ then $A = A^{*}$ is positive definite. We will use induction on $k$ to show that all $A_{k}$ (including $A$) are positive definite. 
+
+Clearly, $A_{1}$ is positive definite since $A_{1} = \Det(A_{1})$. Assuming $A_{k-1}$ is positive definite, we will show $A_{k}$ is positive definite. Let $\lambda_{1}, \cdots, \lambda_{k}$ and $\mu_{1}, \cdots, \mu_{k-1}$ be eigenvalues of $A_{k}$ and $A_{k-1}$, respectively. By the Intertwining of Eigenvalues Theorem, 
+$$\lambda_{j} \geq \mu_{j} > 0 \qquad \forall j = 1, \cdots, k-1$$
+Since $\Det(A_{k}) > 0$, $\lambda_{k} > 0$ to make the product of eigenvalues positive. Since all eigenvalues are positive, $A$ is positive definite. 
 \end{proof}

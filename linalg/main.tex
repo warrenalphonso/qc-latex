@@ -35,8 +35,9 @@
 \DeclareMathOperator{\Rank}{rank}
 \DeclareMathOperator{\Null}{null}
 \DeclareMathOperator{\Ker}{ker}
-%\DeclareMathOperator{\Trace}{Tr} %already defined
-\DeclareMathOperator{\Det}{Det}
+\let \Trace \relax %\Trace is already defined so resetting
+\DeclareMathOperator{\Trace}{tr} 
+\DeclareMathOperator{\Det}{det}
 
 
 %Augmented matrices
@@ -218,10 +219,6 @@
     urlcolor=black
 }
 
-
-
-\includeonly{outer_product_representation/outer_product_representation}
-
 \begin{document}
 
 \frontmatter 
@@ -242,7 +239,7 @@
 	\vfill
 	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, \textsc{Linear Algebra Done Wrong} by Treil, \textsc{Advanced Linear Algebra} by Surowski, and \textsc{Quantum Computation and Quantum Information} by Nielsen and Chuang. \par}
 	\vfill
-	{\large \today\par}
+	{\large Last updated: \today \par}
 \end{titlepage}
 
 \tableofcontents

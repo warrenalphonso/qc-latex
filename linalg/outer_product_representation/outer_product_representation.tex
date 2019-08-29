@@ -9,7 +9,7 @@ We can use inner products to derive a useful representations of linear operators
 \begin{definition}
 The \textbf{Dirac notation} represents vectors as 
 $$\ket*{\psi}$$ which is also known as a \textbf{ket}. The dual of this same vector (dual spaces will be defined later) is represented as 
-$$\bra*{\psi}$$ which is also known as a \textbf{bra}. For now, it suffices to know that the dual of a vector is simply the complex conjugate transpose of that vector. This notations allows us to represent the inner product of two vectors as 
+$$\bra*{\psi}$$ which is also known as a \textbf{bra}. For now, it suffices to think of the dual of a vector as the complex conjugate transpose. This notations allows us to represent the inner product of two vectors as 
 $$\bra*{\phi}\ket*{\psi}$$
 \end{definition}
 
@@ -57,39 +57,6 @@ $$
 
 where the inequality in the second step follows from the fact that we only use the first member of our basis and thus drop some non-negative terms.
 \end{proof}
-
-\section{Diagonalization}
-
-The spectral theorem for normal operators proved in the previous chapter ($N = UDU^{\dagger}$ where $U$ is a unitary matrix of eigenvectors and $D$ is a diagonal matrix of corresponding eigenvalues) states an operator is diagonalizable if and only if it is normal. We can also write the diagonal representation of a normal matrix in outer product representation.  
-
-\begin{theorem}
-A diagonal representation for a normal operator $N: V \rightarrow V$ is 
-$$N = \sum_{i}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
-where $\ket*{i}$ are an orthonormal set of eigenvectors of $V$ with corresponding eigenvalues $\lambda_{i}$. 
-\end{theorem}
-
-\begin{proof}
-Let $\ket*{e}$ be an orthonormal basis of $N$. Since each basis vector $\ket*{e}$ can be understood as providing a coordinate of $\ket*{v}$ in that basis through $\bra*{e}\ket*{v}$, we know $\bra*{e}\ket*{e}$ is the 0 matrix except with a 1 on the $e$th diagonal entry. Using the spectral theorem, we get 
-$$N = UDU^{\dagger} = U \Bigg( \sum_{i=1}^{n} \lambda_{i} \ket*{e}\bra*{e} \Bigg) U^{\dagger} = \sum_{i=1}^{n} \lambda_{i} U \ket*{e} \Bigg( U \ket*{e} \Bigg)^{\dagger}$$
-
-Now we define $U \ket*{e}$ to be the normalized eigenvectors $\ket*{i}$ to get 
-$$N = \sum_{i=1}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
-\end{proof}
-
-As an example, we will introduce the Pauli $Z = \begin{bmatrix}
-1 & 0 \\
-0 & -1
-\end{bmatrix}$ matrix, which is significant in quantum computation, and write its diagonal representation.  
-
-The characteristic equation $det(A - \lambda I)$ determines that the eigenvalues for $Z$ are 1 and -1. The corresponding eigenvectors are $\begin{bmatrix}
-1 \\ 0
-\end{bmatrix}$ and $\begin{bmatrix}
-0 \\ 1
-\end{bmatrix}$, which we will denote $\ket*{0}$ and $\ket*{1}$, respectively. This means our diagonal representation is 
-$$Z = \begin{bmatrix}
-1 & 0 \\
-0 & -1
-\end{bmatrix} = \ket*{0}\bra*{0} - \ket*{1}\bra*{1}$$
 
 \section{Adjoints and Hermitian Operators} 
 
@@ -143,7 +110,7 @@ The Completeness Relation also makes it clear that the orthogonal complement of 
 
 Recall, an operator $A$ is \textbf{normal} if $AA^{\dagger} = A^{\dagger}A$. Clearly, a Hermitian operator is also normal. 
 
-Recall, an operator $U$ is \textbf{unitary} if $U^{\dagger}U = I$, so unitary operators are also normal. In the Chapter 5, we proved unitary operators preserve the norm, but we can generalize this to prove that they also preserve inner products. 
+Recall, an operator $U$ is \textbf{unitary} if $U^{\dagger}U = I$, so unitary operators are also normal. In Chapter 5, we proved unitary operators preserve the norm, but we can generalize this to prove that they also preserve inner products. 
 
 \begin{theorem}
 Let $U$ be unitary. Then 
@@ -151,7 +118,7 @@ $$(U \ket*{v}, U \ket*{w}) = (\ket*{v}, \ket*{w})$$
 \end{theorem}
 
 \begin{proof}
-$$ (U \ket*{v}, U \ket*{w}) = \bra*{v} U^{\dagger} U \ket*{w} = \bra*{v} I \ket*{w} = \bra*{v}\ket*{w}$$
+$$ (U \ket*{v}, U \ket*{w}) = \bra*{v} U^{\dagger} U \ket*{w} = \bra*{v} I \ket*{w} = \bra*{v}\ket*{w} = (\ket*{v}, \ket*{w})$$
 \end{proof}
 
 This result allows an elegant outer product representation of $U$. Let $\ket*{v_{i}}$ be an orthonormal basis. We define $$\ket*{w_{i}} = U \ket*{v_{i}}$$ so that $\ket*{w_{i}}$ is also an orthonormal basis because unitary operators preserve inner products. Right multiplying both sides by $\bra*{v_{i}}$ and using the Completeness Relation, we get 
@@ -172,10 +139,42 @@ $$
 &= (B\ket*{v}, \ket*{v}) + (-iC\ket*{v}, \ket*{v}) 
 \end{aligned}
 $$
-
-This implies that $A = B - iC$, so  
+where the third equality follows from $B$ and $C$ being Hermitian. This implies that $A = B - iC$, so  
 $$A^{\dagger} = (B - iC)^{\dagger} = B^{\dagger} + i C^{\dagger} = B + iC = A$$
 \end{proof}
+
+\section{Diagonalization}
+
+The spectral theorem for normal operators proved in the previous chapter ($N = UDU^{\dagger}$ where $U$ is a unitary matrix of eigenvectors and $D$ is a diagonal matrix of corresponding eigenvalues) states an operator is diagonalizable if and only if it is normal. We can also write the diagonal representation of a normal matrix in outer product representation.  
+
+\begin{theorem}
+A diagonal representation for a normal operator $N: V \rightarrow V$ is 
+$$N = \sum_{i}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
+where $\ket*{i}$ are an orthonormal set of eigenvectors of $V$ with corresponding eigenvalues $\lambda_{i}$. 
+\end{theorem}
+
+\begin{proof}
+Let $\ket*{e}$ be an orthonormal basis of $N$. Since each basis vector $\ket*{e}$ can be understood as providing a coordinate of $\ket*{v}$ in that basis through $\bra*{e}\ket*{v}$, we know $\bra*{e}\ket*{e}$ \textbf{(should be $\ket*{e} \bra*{e}$ I think?} is the 0 matrix except with a 1 on the $e$th diagonal entry. Using the spectral theorem, we get 
+$$N = UDU^{\dagger} = U \Bigg( \sum_{i=1}^{n} \lambda_{i} \ket*{e}\bra*{e} \Bigg) U^{\dagger} = \sum_{i=1}^{n} \lambda_{i} U \ket*{e} \Bigg( U \ket*{e} \Bigg)^{\dagger}$$
+
+Now we define $U \ket*{e}$ to be the normalized eigenvectors $\ket*{i}$ to get 
+$$N = \sum_{i=1}^{n} \lambda_{i} \ket*{i} \bra*{i}$$
+\end{proof}
+
+As an example, we will introduce the Pauli $Z = \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix}$ matrix, which is significant in quantum computation, and write its diagonal representation.  
+
+The characteristic equation $\Det(A - \lambda I)$ determines that the eigenvalues for $Z$ are 1 and -1. The corresponding eigenvectors are $\begin{bmatrix}
+1 \\ 0
+\end{bmatrix}$ and $\begin{bmatrix}
+0 \\ 1
+\end{bmatrix}$, which we will denote $\ket*{0}$ and $\ket*{1}$, respectively. This means our diagonal representation is 
+$$Z = \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} = \ket*{0}\bra*{0} - \ket*{1}\bra*{1}$$
 
 \section{Tensor Products}
 
@@ -192,7 +191,7 @@ The tensor product satisfies the following properties:
 	\item For $\ket*{v} \in V$ and $\ket*{w_{1}}, \ket*{w_{2}} \in W$, $$\ket*{v} \otimes (\ket*{w_{1}} + \ket*{w_{2}}) = \ket*{v} \otimes \ket*{w_{1}} + \ket*{v} \otimes \ket*{w_{2}}$$
 \end{enumerate}
 
-If $A$ and $B$ are linear operators on $V$ and $W$, respectively, then we can define a linear operator $A \otimes B$ on $V \otimes W$ as 
+If $A$ and $B$ are linear operators on $V$ and $W$, respectively, then we can define a linear operator $A \otimes B$ on $V \otimes W$, 
 $$(A \otimes B)(\ket*{v} \otimes \ket*{w}) \equiv A\ket*{v} \otimes B\ket*{w}$$
 
 We can extend this definition of $A \otimes B$ to ensure linearity of $A \otimes B$ so 
@@ -201,6 +200,7 @@ $$(A \otimes B) \Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} \Bi
 An arbitrary linear operator $C$ mapping $V \otimes W$ to $V^{'} \otimes W^{'}$ can be represented as a linear combination of tensor products of operators mapping $A: V \rightarrow V^{'}$ and $B: W \rightarrow W^{'}$, 
 $$C = \sum_{i} c_{i} A_{i} \otimes B_{i}$$
 
+\textbf{Remove the '?}
 We can use the inner products on $V$ and $W$ to define an inner product on $V \otimes W$, 
 $$\Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} , \sum_{j} \beta_{j} \ket*{v_{j}^{'}} \otimes \ket*{w_{j}^{'}} \Bigg) \equiv \sum_{ij} \alpha_{i}^{*} b_{j} \bra*{v_{i}}\ket*{v_{j}^{'}} \bra*{w_{i}}\ket*{w_{j}^{'}}$$
 
@@ -243,9 +243,7 @@ $$X \otimes Y = \begin{bmatrix}
 i & 0 & 0 & 0
 \end{bmatrix}$$
 
-The notation $\ket*{\psi}^{\otimes k}$ denotes $\ket*{\psi}$ tensored with itself $k$ times. 
-
-Do problems from Nielsen and Chuang. 
+The notation $\ket*{\psi}^{\otimes k}$ denotes $\ket*{\psi}$ tensored with itself $k$ times. \textbf{Do problems from Nielsen and Chuang.} 
 
 \section{Operator Functions}
 
@@ -254,10 +252,10 @@ $$f(A) \equiv \sum_{a} f(a) \ket*{a} \bra*{a}$$
 
 We can use this construction to define the square root of a positive operator, the logarithm of a positive-definite operator, or the exponential of a normal operator. 
 
-One important matrix function is \textit{trace}. Since we know trace is \textit{cyclic} ($tr(AB) = tr(BA)$) then $tr(UAU^{\dagger}) = tr(U^{\dagger}UA) = tr(A)$. 
+One important matrix function is the trace. Since we know trace is \textit{cyclic} (that is, $\Tr(AB) = \Tr(BA)$) then $\Tr(UAU^{\dagger}) = \Tr(U^{\dagger}UA) = \Tr(A)$. 
 
-Suppose $\ket*{\psi}$ is a unit vector and $A$ is an arbitrary operator. To evaluate $tr(A\ket*{v} \bra*{v})$ use Gram-Schmidt to extend $\ket*{\psi}$ to an orthonormal basis $\ket*{i}$ which includes $\ket*{\psi}$ as the first element. Then 
-$$tr(A \ket*{\psi} \bra*{\psi}) = \sum_{i} \bra*{i}A\ket*{\psi} \bra*{\psi}\ket*{i} = \bra*{\psi}A\ket*{\psi}$$
+Suppose $\ket*{\psi}$ is a unit vector and $A$ is an arbitrary operator. To evaluate $\Tr(A\ket*{\psi} \bra*{\psi})$ use Gram-Schmidt to extend $\ket*{\psi}$ to an orthonormal basis $\ket*{i}$ which includes $\ket*{\psi}$ as the first element. Then \textbf{Don't understand below}
+$$\Tr(A \ket*{\psi} \bra*{\psi}) = \sum_{i} \bra*{i}A\ket*{\psi} \bra*{\psi}\ket*{i} = \bra*{\psi}A\ket*{\psi}$$
 
 \section{Commutator and Anti-commutator} 
 
@@ -268,10 +266,10 @@ $$[A, B] \equiv AB - BA$$
 If $[A, B] = 0$, then we say $A$ \textbf{commutes} with $B$. The \textbf{anti-commutator} is defined to be 
 $$\{A, B\} \equiv AB + BA$$
 
-We say $A$ \textit{anti-commutes} with $B$ if $\{ A, B\} = 0$.
+If $\{ A, B \} = 0$, then we say $A$ \textbf{anti-commutes} with $B$. 
 \end{definition}
 
-Many important properties of pairs of operators can be deduced from their commutator or anti-commutator. A useful relation is the connection between the commutator and the property of being able to \textit{simultaneously diagonalize} Hermitian operators $A$ and $B$, that is, write $A = \sum_{i} a_{i} \ket*{i} \bra*{i}, B = \sum_{i} b_{i} \ket*{i} \bra*{i}$, where $\ket*{i}$ is a common set of eigenvectors for $A$ and $B$. 
+Many important properties of pairs of operators can be deduced from their commutator or anti-commutator. A useful relation is the connection between the commutator and the property of being able to \textit{simultaneously diagonalize} Hermitian operators $A$ and $B$, that is, write $A = \sum_{i} a_{i} \ket*{i} \bra*{i}$ and $B = \sum_{i} b_{i} \ket*{i} \bra*{i}$, where $\ket*{i}$ is a common set of eigenvectors for $A$ and $B$. 
 
 \begin{theorem}[Simultaneous diagonalization theorem]
 Suppose $A$ and $B$ are Hermitian operators. Then $[A, B] = 0$ if and only if there exists an orthonormal basis such that both $A$ and $B$ are diagonal with respect to that basis. 
@@ -293,14 +291,14 @@ Another use of the commutator and anti-commutator is the following identity:
 $$AB = \frac{[A, B] + \{A, B\}}{2}$$
 
 \begin{lemma}
-Suppose $[A, B] = 0, \{A, B\} = 0,$ and $A$ is invertible. Then $B$ is 0. 
+Suppose $[A, B] = 0$, $\{A, B\} = 0,$ and $A$ is invertible. Then $B$ is 0. 
 \end{lemma}
 
 \begin{lproof}
 Using the identity we just defined, we know $AB = \frac{0 + 0}{2}$. Since $A$ is invertible we left multiply both sides by $A^{-1}$ to get $B = 0$. 
 \end{lproof}
 
-Two more easily verifiable identities: 
+Three more easily verifiable identities: 
 \begin{enumerate}
 	\item $[A, B]^{\dagger} = [B^{\dagger}, A^{\dagger}]$
 	\item $[A, B] = - [B, A]$ 
@@ -323,7 +321,7 @@ $$J = \sum_{i} \lambda_{i} \ket*{i} \bra*{i} \qquad (\lambda_{i} \geq 0)$$
 
 Define $\ket*{\psi_{i}} = A \ket*{i}$, so that $\bra*{\psi_{i}}\ket*{\psi_{i}} = \lambda_{i}^{2}$. 
 
-Now consider only the positive eigenvalues. With these eigenvalues, define $\ket*{e_{i}} = \ket*{\psi_{i}} / \lambda_{i}$, so the $\ket*{e_{i}}$ are normalized and are orthogonal, since if $i \neq j$, then $\bra*{e_{i}}\ket*{e_{j}} = \bra*{i}A^{\dagger}A\ket*{j} / \lambda_{i} \lambda_{j} = 0$. 
+Now consider only the positive eigenvalues. With these eigenvalues, define $\ket*{e_{i}} = \ket*{\psi_{i}} / \lambda_{i}$, so the $\ket*{e_{i}}$ are normalized and are orthogonal, since if $i \neq j$, then $\bra*{e_{i}}\ket*{e_{j}} = \bra*{i}A^{\dagger}A\ket*{j} / \lambda_{i} \lambda_{j} = 0$. \textbf{Hold up, why are eigenvectors orthogonal? What exactly is $\ket*{i}$?}
 
 Now we use Gram-Schmidt to extend the orthonormal set $\ket*{e_{i}}$ to form an orthonormal basis, which we'll also call $\ket*{e_{i}}$. 
 
