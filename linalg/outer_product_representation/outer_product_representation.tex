@@ -154,7 +154,7 @@ where $\ket*{i}$ are an orthonormal set of eigenvectors of $V$ with correspondin
 \end{theorem}
 
 \begin{proof}
-Let $\ket*{e}$ be an orthonormal basis of $N$. Since each basis vector $\ket*{e}$ can be understood as providing a coordinate of $\ket*{v}$ in that basis through $\bra*{e}\ket*{v}$, we know $\bra*{e}\ket*{e}$ \textbf{(should be $\ket*{e} \bra*{e}$ I think?} is the 0 matrix except with a 1 on the $e$th diagonal entry. Using the spectral theorem, we get 
+Let $\ket*{e}$ be an orthonormal basis of $N$. Since each basis vector $\ket*{e}$ can be understood as providing a coordinate of $\ket*{v}$ in that basis through $\bra*{e}\ket*{v}$, we know $\ket*{e}\bra*{e}$ is the 0 matrix except with a 1 on the $e$th diagonal entry. The spectral theorem tells us that if $U$ is unitary and $D$ is diagonal, then 
 $$N = UDU^{\dagger} = U \Bigg( \sum_{i=1}^{n} \lambda_{i} \ket*{e}\bra*{e} \Bigg) U^{\dagger} = \sum_{i=1}^{n} \lambda_{i} U \ket*{e} \Bigg( U \ket*{e} \Bigg)^{\dagger}$$
 
 Now we define $U \ket*{e}$ to be the normalized eigenvectors $\ket*{i}$ to get 
@@ -200,9 +200,8 @@ $$(A \otimes B) \Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} \Bi
 An arbitrary linear operator $C$ mapping $V \otimes W$ to $V^{'} \otimes W^{'}$ can be represented as a linear combination of tensor products of operators mapping $A: V \rightarrow V^{'}$ and $B: W \rightarrow W^{'}$, 
 $$C = \sum_{i} c_{i} A_{i} \otimes B_{i}$$
 
-\textbf{Remove the '?}
 We can use the inner products on $V$ and $W$ to define an inner product on $V \otimes W$, 
-$$\Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} , \sum_{j} \beta_{j} \ket*{v_{j}^{'}} \otimes \ket*{w_{j}^{'}} \Bigg) \equiv \sum_{ij} \alpha_{i}^{*} b_{j} \bra*{v_{i}}\ket*{v_{j}^{'}} \bra*{w_{i}}\ket*{w_{j}^{'}}$$
+$$\Bigg( \sum_{i} \alpha_{i} \ket*{v_{i}} \otimes \ket*{w_{i}} , \sum_{j} \beta_{j} \ket*{v_{j}} \otimes \ket*{w_{j}} \Bigg) \equiv \sum_{ij} \alpha_{i}^{*} b_{j} \bra*{v_{i}}\ket*{v_{j}} \bra*{w_{i}}\ket*{w_{j}}$$
 
 To make all this less abstract, we consider a matrix representation known as the \textit{Kronecker product}. Suppose $A$ is an $m \times n$ matrix and $B$ is a $p \times q$ matrix. Then 
 $$A \otimes B \equiv \overbrace{\left.\begin{bmatrix}
@@ -243,7 +242,9 @@ $$X \otimes Y = \begin{bmatrix}
 i & 0 & 0 & 0
 \end{bmatrix}$$
 
-The notation $\ket*{\psi}^{\otimes k}$ denotes $\ket*{\psi}$ tensored with itself $k$ times. \textbf{Do problems from Nielsen and Chuang.} 
+The notation $\ket*{\psi}^{\otimes k}$ denotes $\ket*{\psi}$ tensored with itself $k$ times. 
+
+\textbf{Do problems from Nielsen and Chuang.} 
 
 \section{Operator Functions}
 
@@ -254,7 +255,7 @@ We can use this construction to define the square root of a positive operator, t
 
 One important matrix function is the trace. Since we know trace is \textit{cyclic} (that is, $\Tr(AB) = \Tr(BA)$) then $\Tr(UAU^{\dagger}) = \Tr(U^{\dagger}UA) = \Tr(A)$. 
 
-Suppose $\ket*{\psi}$ is a unit vector and $A$ is an arbitrary operator. To evaluate $\Tr(A\ket*{\psi} \bra*{\psi})$ use Gram-Schmidt to extend $\ket*{\psi}$ to an orthonormal basis $\ket*{i}$ which includes $\ket*{\psi}$ as the first element. Then \textbf{Don't understand below}
+Suppose $\ket*{\psi}$ is a unit vector and $A$ is an arbitrary operator. To evaluate $\Tr(A\ket*{\psi} \bra*{\psi})$ use Gram-Schmidt to extend $\ket*{\psi}$ to an orthonormal basis $\ket*{i}$ which includes $\ket*{\psi}$ as the first element. Then, since all except the first basis vector are orthogonal to $\ket*{\psi}$,  
 $$\Tr(A \ket*{\psi} \bra*{\psi}) = \sum_{i} \bra*{i}A\ket*{\psi} \bra*{\psi}\ket*{i} = \bra*{\psi}A\ket*{\psi}$$
 
 \section{Commutator and Anti-commutator} 
@@ -321,11 +322,13 @@ $$J = \sum_{i} \lambda_{i} \ket*{i} \bra*{i} \qquad (\lambda_{i} \geq 0)$$
 
 Define $\ket*{\psi_{i}} = A \ket*{i}$, so that $\bra*{\psi_{i}}\ket*{\psi_{i}} = \lambda_{i}^{2}$. 
 
-Now consider only the positive eigenvalues. With these eigenvalues, define $\ket*{e_{i}} = \ket*{\psi_{i}} / \lambda_{i}$, so the $\ket*{e_{i}}$ are normalized and are orthogonal, since if $i \neq j$, then $\bra*{e_{i}}\ket*{e_{j}} = \bra*{i}A^{\dagger}A\ket*{j} / \lambda_{i} \lambda_{j} = 0$. \textbf{Hold up, why are eigenvectors orthogonal? What exactly is $\ket*{i}$?}
+Now consider only the positive eigenvalues. With these eigenvalues, define $\ket*{e_{i}} = \ket*{\psi_{i}} / \lambda_{i}$, so the $\ket*{e_{i}}$ are normalized and are orthogonal, since if $i \neq j$, then $\bra*{e_{i}}\ket*{e_{j}} = \bra*{i}A^{\dagger}A\ket*{j} / \lambda_{i} \lambda_{j} = 0$. 
 
 Now we use Gram-Schmidt to extend the orthonormal set $\ket*{e_{i}}$ to form an orthonormal basis, which we'll also call $\ket*{e_{i}}$. 
 
-We define the unitary operator $U = \sum_{i} \ket*{e_{i}} \bra*{i}$. When $\lambda_{i} \neq 0$, we have $UJ\ket*{i} = \lambda_{i} \ket*{e_{i}} = \ket*{\psi_{i}} = A \ket*{i}$. When $\lambda_{i} = 0$, we have $UJ \ket*{i} = 0 = \ket*{\psi_{i}}$. Since $A$ and $UJ$ agree on the basis $\ket*{i}$, we know $A = UJ$. 
+We define the unitary operator $U = \sum_{i} \ket*{e_{i}} \bra*{i}$. When $\lambda_{i} \neq 0$, we have $UJ\ket*{i} = \lambda_{i} \ket*{e_{i}} = \ket*{\psi_{i}} = A \ket*{i}$. When $\lambda_{i} = 0$, we have $UJ \ket*{i} = 0 = \ket*{\psi_{i}}$. 
+
+Since $A$ and $UJ$ agree on the basis $\ket*{i}$, we know $A = UJ$. 
 
 $J$ is unique since left-multiplying $A = UJ$ by $A^{\dagger} = JU^{\dagger}$ gives $A^{\dagger}A = J^{2}$, from which we get $J = \sqrt{A^{\dagger}A}$. The equation $A = UJ$ also means that if $A$ is invertible, so is $J$, which means $U$ is uniquely determined by $U = AJ^{-1}$. 
 
