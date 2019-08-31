@@ -224,22 +224,23 @@
 
 \frontmatter 
 {\let\cleardoublepage\clearpage 
-%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
 
+%Fancy shmancy title page - code from https://en.wikibooks.org/wiki/LaTeX/Title_Creation
 \begin{titlepage}
 	\centering
-	\vspace{1cm}
+	\vspace*{1cm}
 	{\scshape\LARGE University of California, Berkeley \par}
-	\vspace{4cm}
-	{\scshape\Large Literally everything I know about \par}
-	\vspace{1.5cm}
-	{\Huge\bfseries Linear Algebra\par}
-	\vspace{1cm}
-	\vspace{2.5cm}
-	{\Large\itshape Warren Alphonso\par}
-	\vfill
-	{\large A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, \textsc{Linear Algebra Done Wrong} by Treil, \textsc{Advanced Linear Algebra} by Surowski, and \textsc{Quantum Computation and Quantum Information} by Nielsen and Chuang. \par}
-	\vfill
+	\vspace*{1.5cm}
+	{\scshape\huge Literally everything I know about \par}
+	\vspace*{.5cm}
+	{\Huge\bfseries Linear Algebra \par}
+	\vspace*{.5cm}
+	{\Large\itshape Warren Alphonso \par}
+	\vspace*{1.5cm}
+	\includegraphics[width=.7\linewidth]{cover.png} \par
+	\vspace*{2cm}
+	{\small A very reductionist summary of \textsc{Linear Algebra and its Applications} by Lay, Lay, and McDonald, \textsc{Linear Algebra Done Wrong} by Treil, \textsc{Advanced Linear Algebra} by Surowski, and \textsc{Quantum Computation and Quantum Information} by Nielsen and Chuang. \par}
+	\vfill*
 	{\large Last updated: \today \par}
 \end{titlepage}
 

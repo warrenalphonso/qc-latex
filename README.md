@@ -6,3 +6,4 @@ A (probably dated) version of my largely plagiarized Linear Algebra notes are av
 - also [this](https://www.math3ma.com/blog/the-tensor-product-demystified)
 - read [this textbook](https://www.math.ksu.edu/~dbski/writings/Linear_Algebra.pdf) and add whatever I don't know
 - read [this](https://datajobs.com/data-science-repo/SVD-[Dan-Kalman].pdf) for SVD
+- incorporate Linear Operators for Quantum Mechanics
