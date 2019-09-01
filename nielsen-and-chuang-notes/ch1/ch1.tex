@@ -1,0 +1,135 @@
+\chapter{Introduction and overview}
+
+\section{Notes}
+
+``Instead of looking at quantum systems purely as phenomena to be explained..., they looked at them as systems that can be \textit{designed}...No longer is the quantum world taken merely as presented, but instead it can be \textit{created}." 
+
+\subsection{Bloch Spheres}
+
+For a complex number $z = x + iy$, where $x$ and $y$ are real, we can write 
+$$\abs{z}^{2} = z^{*} z = (x - iy)(x + iy) = x^{2} + y^{2}$$
+
+Using the polar representation gives us $z = r(\cos \theta + i \sin \theta)$. Substituting Euler's identity ($e^{i \theta} = \cos \theta + i \sin \theta$) results in 
+$$ z = re^{i \theta}$$
+
+We know qubits have complex amplitudes, so we can write
+$$\ket*{\psi} = r_{\A} e^{i \theta_{\A}} \ket*{0} + r_{\B} e^{i \theta_{\B}} \ket*{1}$$
+where all four variables are real. 
+
+It turns out the term $e^{i \gamma}$ doesn't affect the probabilities $\abs{\A}^{2}$ or $\abs{\B}^{2}$:
+$$ \abs{e^{i \gamma} \A}^{2} = (e^{i \gamma} \A)^{*} (e^{i \gamma} \A) = (e^{-i \gamma} \A^{*})(e^{i \gamma} \A) = \A^{*} \A = \abs{\A}^{2}$$
+so we can multiply by $e^{-i \theta_{\A}}$ to get 
+$$\ket*{\psi} = r_{\A} \ket*{0} + r_{\B} e^{i \theta} \ket*{1}$$
+with three real parameters: $r_{\A}$, $r{\B}$, and $\theta = \theta_{\B} - \theta_{\A}$. 
+
+Switching back to Cartesian coordinates and recalling the normalization condition, we have 
+$$
+\begin{aligned}
+\abs{r_{\A}}^{2} + \abs{x + iy}^{2} &= r_{\A}^{2} + (x - iy)(x + iy) \\
+&= r_{\A}^{2} + x^{2} + y^{2} = 1
+\end{aligned}
+$$
+which is the equation for a sphere. Renaming $r_{\A}$ as $z$, we can use the identities
+$$
+\begin{aligned}
+x &= r \sin \theta \cos \phi \\
+y &= r \sin \theta \sin \phi \\
+z &= r \cos \theta
+\end{aligned}
+$$
+and after subbing in $r = 1$, we can write 
+$$
+\begin{aligned}
+\ket*{\psi} &= z \ket*{0} + (x + iy) \ket*{1} \\
+&= \cos \theta \ket*{0} + \sin \theta (\cos \phi + i \sin \phi) \ket*{1} \\
+&= \cos \theta \ket*{0} + e^{i \phi} \sin \theta \ket*{1}
+\end{aligned}
+$$
+
+Notice that $\theta =0 \rightarrow \ket*{\psi} = \ket*{0}$ and $\theta = \frac{\pi}{2} \rightarrow \ket*{\psi} = e^{i \phi} \ket*{1}$, which suggests that $0 \leq \theta \leq \frac{\pi}{2}$ generates all superpositions. In fact, one can easily check that plugging in $\theta' = \pi - \theta$ and $\phi' = \phi + \pi$ (the opposite point on the sphere) results in $-\ket*{\psi}$. Since the lower hemisphere of the sphere differs only by a phase factor of -1, we can choose to only consider the upper hemisphere. 
+
+To map points in the upper hemisphere onto a sphere, we can write 
+$$\ket*{\psi} = \cos \frac{\theta}{2} \ket*{0} + e^{i \phi} \sin \frac{\theta}{2} \ket*{1}$$
+where $0 \leq \theta \leq \pi$ and $0 \leq \phi \leq 2\pi$. 
+
+{
+\centering \includegraphics[width=.3\linewidth]{ch1/bloch.png}\par }
+
+The poles represent classical states. When a qubit is measured, it has higher probability of collapsing to the pole it's closer to. This representation makes it clear that the Pauli Z gate results in only a \textit{phase change} because it does not affect the state the qubit will collapse to.\footnote{Image from \href{http://akyrillidis.github.io/notes/quant_post_7}{Anastasios Kyrillidis's notes}.} Now that we've derived Bloch spheres, there are two key properties we must understand:
+
+\begin{enumerate}
+	\item \textit{Orthogonality of opposite points:} Let $\ket*{\psi} = \cos \frac{\theta}{2} \ket*{0} + e^{i \phi} \sin \frac{\theta}{2} \ket*{1}$, and let $\ket*{\varphi}$ the opposite point on the Bloch sphere,
+$$\ket*{\varphi} = \cos \Big( \frac{\pi - \theta}{2} \Big) \ket*{0} + e^{i(\phi + \pi)} \sin \Big( \frac{\pi - \theta}{2} \Big) \ket*{1} = \cos \Big( \frac{\pi - \theta}{2} \Big) \ket*{0} - e^{i \phi} \sin \Big( \frac{\pi - \theta}{2} \Big) \ket*{1}$$
+Using the identity $\cos(a + b) = \cos a \cos b - \sin a \sin b$, we get
+$$(\varphi, \psi) = \cos \Big( \frac{\theta}{2} \Big) \cos \Big( \frac{\pi - \theta}{2} \Big) - \sin \Big( \frac{\theta}{2} \Big) \sin \Big( \frac{\pi - \theta}{2} \Big) = \cos \Big( \frac{\pi}{2} \Big) = 0$$
+
+	\item \textit{Rotations:} The Pauli X, Y, and Z gates are so-called because when exponentiated they yield rotation operators, which rotate the Bloch vector ($\sin \theta \cos \phi$, $\sin \theta \sin \phi$, $\cos \theta$) about the $x$, $y$, and $z$ axes. For example, the exponentiated Pauli X gate is
+	$$R_{X} (\theta) = e^{-i\theta X / 2}$$
+The exponentiated Pauli Y and Z gates are similarly defined. 
+
+To understand this, note that in the special case where $A^{2} = I$ (which holds for all the Pauli matrices), 
+$$
+\begin{aligned}
+e^{i \theta A} &= I + i\theta A - \frac{\theta^{2} I}{2!} - i \frac{\theta^{3} A}{3!} + \frac{\theta^{4} I}{4!} + i \frac{\theta^{5} A}{5!} + \cdots \\
+&= \Big( 1 - \frac{\theta^{2}}{2!} + \frac{\theta^{4}}{4!} + \cdots \Big) I + i \Big( \theta - \frac{\theta^{3}}{3!} + \frac{\theta^{5}}{5!} + \cdots \Big) A \\
+&= \cos (\theta) I + i \sin (\theta) A
+\end{aligned}
+$$
+
+Now we can exponentiate the Pauli X gate as 
+$$R_{X} (\theta) = e^{-i \theta X / 2} = \cos \frac{\theta}{2} I - i \sin \frac{\theta}{2} X = \begin{bmatrix}
+\cos \frac{\theta}{2} & -i \sin \frac{\theta}{2} \\
+-i \sin \frac{\theta}{2} & \cos \frac{\theta}{2}
+\end{bmatrix}$$
+
+Let's consider $R_{X}( \pi)$, 
+$$R_{X} (\pi) = \begin{bmatrix}
+\cos \frac{\pi}{2} & -i \sin \frac{\pi}{2} \\
+-i \sin \frac{\pi}{2} & \cos \frac{\pi}{2}
+\end{bmatrix} = \begin{bmatrix}
+0 & -i \\
+-i & 0
+\end{bmatrix} = -iX$$
+This is a 180 degree rotation across the x-axis since we swap amplitudes and the phase changes.\footnote{Most of this section is from \href{http://www.vcpc.univie.ac.at/~ian/hotlist/qc/talks/bloch-sphere.pdf}{Ian Glendinning's talk}.} \textbf{Todo:} Need an actual reason for why. 
+\end{enumerate}
+
+\subsection{Why must quantum gates be unitary?}
+
+For a quantum state $\ket{\psi} = \A \ket{0} + \B \ket{1}$, we know $\abs{\A}^{2} + \abs{\B}^{2} = 1$ must be true. Another way of writing this is $(\ket{\psi}, \ket{\psi}) = 1$. This must also be true after the application of a quantum gate $U$. Thus, we have 
+$$
+\begin{aligned}
+1 &= (U \ket{\psi}, U \ket{\psi}) = (\ket{\psi}, \ket{\psi}) \\
+&= (U^{\dagger} U \ket{\psi}, \ket{\psi}) = (\ket{\psi}, \ket{\psi})
+\end{aligned}
+$$
+which means $U^{\dagger}U = I$ is a fundamental constraint on quantum gates. 
+
+\subsection{Decomposing single qubit operations}
+
+Move to section 4.2 according to Box 1.1 on p20. 
+
+\subsection{What does the matrix representation of a quantum gate mean?}
+
+$$U_{CN} = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{bmatrix}$$
+
+This $U_{CN}$ gate acts on two qubits, so it is a transformation on basis vectors $\ket*{0} \otimes \ket*{0}$, $\ket*{0} \otimes \ket*{1}$, $\ket*{1} \otimes \ket*{0}$, and $\ket*{1} \otimes \ket*{1}$. The columns tell us that an input of the third basis vector, $\ket*{1} \otimes \ket*{0}$, will output the fourth basis vector, $\ket*{1} \otimes \ket*{1}$. 
+
+\textbf{Todo:} What does this say about superpositions?
+
+\subsection{Why must quantum gates be reversible?}
+Since quantum gates are unitary, we know $U^{\dagger} U = I$, which means quantum gates are invertible, and the inverse is also a quantum gate because it is unitary. 
+
+One implication of this is that classical gates like \textsc{XOR} and \textsc{NAND} have no quantum cousins because these gates are irreversible since they result in a loss of information. 
+
+Well, technically, the Toffoli gate can be used to simulate \textsc{NAND} gates (and therefore all classical gates), but it can only do so because it explicitly preserves all input bits. 
+
+\section{Solutions}
+
+\exercise
+
+\exercise 

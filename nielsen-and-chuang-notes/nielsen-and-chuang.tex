@@ -1,0 +1,119 @@
+%\documentclass[a4paper,10pt]{book}
+
+%Use the following for font size 8 or 9, as 10 is the minimum provided normally
+\documentclass[9pt]{extbook}
+
+%Preferred font and spacing
+\linespread{1.3}
+%\usepackage{lmodern}
+\usepackage{kpfonts}
+
+%Compilers
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%Graphics
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{physics}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[xcolor]{mdframed}
+
+%Math shortcuts 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\P}{\mathcal{P}}
+\renewcommand{\L}{\mathcal{L}}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Codim}{codim}
+\DeclareMathOperator{\Range}{range}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Ker}{ker}
+\let \Trace \relax %\Trace is already defined so resetting
+\DeclareMathOperator{\Trace}{tr} 
+\DeclareMathOperator{\Det}{det}
+\newcommand{\A}{\alpha}
+\newcommand{\B}{\beta}
+
+%Augmented matrices
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+   \hskip -\arraycolsep
+   \let\@ifnextchar\new@ifnextchar
+   \array{#1}}
+\makeatother
+
+%Remove auto-indentation
+\setlength{\parindent}{0cm}
+
+%Reducing margin
+\usepackage[margin=2cm]{geometry}
+
+%Change section, subsection 
+\usepackage{titlesec}
+\titleformat{\section}
+	{\huge\bfseries}{}
+	{0em}{}
+\titleformat{\subsection}
+	{\LARGE\bfseries}{}
+	{0em}{}
+
+%Header, footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\cfoot{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
+%Table of Contents 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\newcounter{exercise}
+\newcounter{problem}[exercise]
+
+\newcommand{\exercise}{
+	\stepcounter{exercise} 
+	\subsection*{Exercise \thechapter.\theexercise} 
+}
+
+
+
+
+\title{Notes and Solutions for Nielsen and Chuang's \textit{Quantum Computation and Quantum Information}}
+\date{2019}
+\author{Warren Alphonso}
+
+\begin{document}
+
+\frontmatter 
+\let\cleardoublepage\clearpage 
+\maketitle
+\tableofcontents
+
+\mainmatter
+
+\include{ch1/ch1}
+
+\chapter{Introduction to quantum mechanics}
+
+
+\end{document}
