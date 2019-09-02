@@ -1,0 +1,65 @@
+\chapter{Introduction to quantum mechanics}
+
+\textbf{Exercise 2.1: (Linear dependence: example)} 
+
+$$\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} + \begin{bmatrix}
+1 \\
+2
+\end{bmatrix} - \begin{bmatrix}
+2 \\ 
+1
+\end{bmatrix} = 0$$
+
+
+\textbf{Exercise 2.2: (Matrix representations: example)} 
+
+$A$ is the NOT gate, 
+$$A = \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}$$
+
+
+\textbf{Exercise 2.3: (Matrix representation for operator products)} 
+
+Figure 2.12 implies that we can write any linear transformation as a matrix whose columns are the transformed basis vectors. So
+$$A = \begin{bmatrix}
+A \ket{v_{1}} & \cdots & A \ket{v_{n}}
+\end{bmatrix}$$
+ so 
+$$BA = \begin{bmatrix}
+BA \ket{v_{1}} & \cdots & BA \ket{v_{n}}
+\end{bmatrix}$$
+I think this is a sufficient answer, though I'm not completely sure what the exercise is asking us to demonstrate. 
+
+
+\textbf{Exercise 2.4: (Matrix representation for identity)} 
+
+By definition of the identity operator, $$I \ket{v_{i}} = \ket{v_{i}}$$
+Using Figure 2.12, $$I \ket{v_{i}} = \sum_{i} I_{ii} \ket{v_{i}}$$ which means $I_{ii} = 1$. 
+
+\textbf{Exercise 2.5: }
+
+1. $$(\ket{v}, \lambda \ket{w}) = v_{1}^{*} \lambda w_{1} + \cdots + v_{n}^{*} \lambda w_{n} =  \lambda (\ket{v}, \ket{w})$$
+
+2. $$(\ket{v}, \ket{w}) = $$
+
+\textbf{Exercise 2.53: What are the eigenvalues and eigenvectors of $H$?}
+
+Solving $det(H - \lambda I) = 0$, 
+$$det\Bigg(\frac{1}{\sqrt{2}} \begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix} - \begin{bmatrix}
+\lambda & 0 \\
+0 & \lambda
+\end{bmatrix} \Bigg) = det\Bigg( \begin{bmatrix}
+\frac{1}{\sqrt{2}} - \lambda & \frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} - \lambda
+\end{bmatrix}\Bigg) = \lambda^{2} - 1 = 0$$
+So $\lambda^{2} = 1$.
+
+For $\lambda = 1$, the eigenvector is $\frac{1}{-1 + \sqrt{2}}$.
