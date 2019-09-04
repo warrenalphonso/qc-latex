@@ -1,65 +1,90 @@
 \chapter{Introduction to quantum mechanics}
 
-\textbf{Exercise 2.1: (Linear dependence: example)} 
+\section{Notes}
 
+\subsection{Matrix - Linear Operator Congruence}
+
+For a matrix to a be a linear operator, 
+$$A \Big( \sum_{i} a_{i} \ket*{v_{I}} \Big) = \sum_{i} a_{i} A \ket*{v_{i}}$$
+must be true. Note the LHS is the sum of vectors to which $A$ is applied which is certainly equal to the RHS. 
+
+Now suppose $A: V \rightarrow W$ is a linear operator and that $V$ has basis $\ket*{v_{i}}, \cdots, \ket*{v_{m}}$ and $W$ has basis $\ket*{w_{i}}, \cdots, \ket*{w_{n}}$. Since we know the $k$th column of a $A$ will be its transformation of $\ket*{v_{k}}$, 
+$$A \ket*{v_{j}} = \sum_{i} A_{ij} \ket*{w_{i}}$$
+Note this is just saying $A \ket*{v_{j}}$ is equal to the $j$th column of $A$, and we can think of $\ket*{w_{i}}$ as the coordinates of the transformed vector. Thus, we can find the matrix representation of any linear operator by finding a matrix $A$ with entries specified by the above equation. 
+
+\subsection{What's so special about the Pauli matrices?}
+
+Things to look into: \begin{itemize}
+\item they pop up in the Pauli equation 
+\item they form a basis for the vector space of $2 \times 2$ Hermitian matrices. Hermitian matrices represent observables? Look at Wikipedia page
+\end{itemize}
+
+\section{Solutions}
+
+\exercise
 $$\begin{bmatrix}
 1 \\
 -1
 \end{bmatrix} + \begin{bmatrix}
 1 \\
-2
+2 
 \end{bmatrix} - \begin{bmatrix}
-2 \\ 
+2 \\
 1
 \end{bmatrix} = 0$$
 
-
-\textbf{Exercise 2.2: (Matrix representations: example)} 
-
-$A$ is the NOT gate, 
+\exercise
 $$A = \begin{bmatrix}
 0 & 1 \\
 1 & 0
-\end{bmatrix}$$
+\end{bmatrix}$$ because $A\ket*{0}$ has coordinate 0 in $\ket*{0}$ and coordinate 1 in $\ket*{1}$. 
 
-
-\textbf{Exercise 2.3: (Matrix representation for operator products)} 
-
-Figure 2.12 implies that we can write any linear transformation as a matrix whose columns are the transformed basis vectors. So
+If we keep our input bases the same but reorder our output bases as $\ket*{1}$ and $\ket*{0}$, 
 $$A = \begin{bmatrix}
-A \ket{v_{1}} & \cdots & A \ket{v_{n}}
+1 & 0 \\
+0 & 1
 \end{bmatrix}$$
- so 
-$$BA = \begin{bmatrix}
-BA \ket{v_{1}} & \cdots & BA \ket{v_{n}}
-\end{bmatrix}$$
-I think this is a sufficient answer, though I'm not completely sure what the exercise is asking us to demonstrate. 
 
+\exercise 
+We know 
+$$A \ket*{v_{i}} = \sum_{j} A_{ji} \ket*{w_{j}}$$
+and 
+$$B \ket*{w_{j}} = \sum_{k} B_{kj} \ket*{x_{k}}$$
 
-\textbf{Exercise 2.4: (Matrix representation for identity)} 
+Now we can write 
+$$
+\begin{aligned}
+BA \ket*{v_{i}} = B ( A \ket*{v_{i}} ) = B \sum_{j} A_{ji} \ket*{w_{j}} &= \sum_{j} A_{ji} (B \ket*{w_{j}}) \\
+&= \sum_{j} A_{ji} \sum_{k} B_{kj} \ket*{x_{k}} \\
+&= \sum_{k} \sum_{j} B_{kj} A_{ji} \ket*{x_{k}} \\
+&= \sum_{k} (BA)_{ki} \ket*{x_{k}}
+\end{aligned}
+$$
+We know $\sum_{k} (BA)_{ki}$ is the matrix representation of operator $BA$, which the preceding step says is equal to $\sum_{k} \sum_{j} B_{kj} A_{ji}$, which is the matrix multiplication $BA$. 
 
-By definition of the identity operator, $$I \ket{v_{i}} = \ket{v_{i}}$$
-Using Figure 2.12, $$I \ket{v_{i}} = \sum_{i} I_{ii} \ket{v_{i}}$$ which means $I_{ii} = 1$. 
+\exercise 
+For the same input and output basis, we want some $I$ such that 
+$$I\ket*{v_{j}} = \sum_{i} I_{ij} \ket*{v_{i}} = \ket*{v_{j}}$$
+which means $I_{ij} = 0$ for all $i \neq j$ and 1 otherwise. 
 
-\textbf{Exercise 2.5: }
+\exercise
+For $\ket*{y}, \ket*{z_{i}} \in \C^{n}$ and $\lambda_{i} \in C$, 
+$$
+\begin{aligned}
+\Big( \ket*{y}, \sum_{i} \lambda_{i} \ket*{z_{i}} \Big) &= \ket*{y}^{*} \sum_{i} \lambda_{i} \ket*{z_{i}} \\
+&= \sum_{i} \lambda_{i} \ket*{y}^{*} \ket*{z_{i}} \\
+&= \Big( \sum_{i} \lambda_{i}^{*} \ket*{z_{i}}^{*} \ket*{y} \Big)^{*}
+\end{aligned}
+$$
+The second and third equalities demonstrate linearity in the second argument and $(\ket*{y}, \ket*{z}) = (\ket*{z}, \ket*{w})^{*}$. Finally, if $\ket*{w} = (w_{1}, \cdots, w_{n})$ where $w_{i} \in \C^{n}$, then
+$$(\ket*{w}, \ket*{w}) = \sum_{i} w_{i}^{*} w_{i} = \sum_{i} \abs{w_{i}}^{2}$$
+which proves the non-degeneracy and non-negativity condition. 
 
-1. $$(\ket{v}, \lambda \ket{w}) = v_{1}^{*} \lambda w_{1} + \cdots + v_{n}^{*} \lambda w_{n} =  \lambda (\ket{v}, \ket{w})$$
-
-2. $$(\ket{v}, \ket{w}) = $$
-
-\textbf{Exercise 2.53: What are the eigenvalues and eigenvectors of $H$?}
-
-Solving $det(H - \lambda I) = 0$, 
-$$det\Bigg(\frac{1}{\sqrt{2}} \begin{bmatrix}
-1 & 1 \\
-1 & -1
-\end{bmatrix} - \begin{bmatrix}
-\lambda & 0 \\
-0 & \lambda
-\end{bmatrix} \Bigg) = det\Bigg( \begin{bmatrix}
-\frac{1}{\sqrt{2}} - \lambda & \frac{1}{\sqrt{2}} \\
-\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} - \lambda
-\end{bmatrix}\Bigg) = \lambda^{2} - 1 = 0$$
-So $\lambda^{2} = 1$.
-
-For $\lambda = 1$, the eigenvector is $\frac{1}{-1 + \sqrt{2}}$.
+\exercise
+$$
+\begin{aligned}
+\Big( \sum_{i} \lambda_{i} \ket*{w_{i}}, \ket*{v} \Big) &= \Big( \ket*{v}^{*}, \sum_{i} \lambda_{i}^{*} \ket*{w_{i}}^{*} \Big)^{*} \\
+&= \sum_{i} \lambda_{i}^{*} \Big( \ket*{v}^{*}, \ket*{w_{i}}^{*} \Big)^{*} \\
+&= \sum_{i} \lambda_{i}^{*} \Big( \ket*{w_{i}}, \ket*{v} \Big)
+\end{aligned}
+$$

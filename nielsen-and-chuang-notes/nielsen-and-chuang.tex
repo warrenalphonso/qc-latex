@@ -60,15 +60,6 @@
 %Reducing margin
 \usepackage[margin=2cm]{geometry}
 
-%Change section, subsection 
-\usepackage{titlesec}
-\titleformat{\section}
-	{\huge\bfseries}{}
-	{0em}{}
-\titleformat{\subsection}
-	{\LARGE\bfseries}{}
-	{0em}{}
-
 %Header, footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -88,19 +79,27 @@
 }
 
 \newcounter{exercise}
-\newcounter{problem}[exercise]
 
 \newcommand{\exercise}{
 	\stepcounter{exercise} 
 	\subsection*{Exercise \thechapter.\theexercise} 
 }
 
-
+%Change section, subsection 
+\usepackage{titlesec}
+\titleformat{\section}
+	{\huge\bfseries}{\setcounter{exercise}{0}}
+	{0em}{}
+\titleformat{\subsection}
+	{\LARGE\bfseries}{}
+	{0em}{}
 
 
 \title{Notes and Solutions for Nielsen and Chuang's \textit{Quantum Computation and Quantum Information}}
 \date{2019}
 \author{Warren Alphonso}
+
+\includeonly{ch2/ch2}
 
 \begin{document}
 
