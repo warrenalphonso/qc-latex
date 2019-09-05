@@ -2,6 +2,10 @@
 
 \section{Notes}
 
+\subsection{Notation}
+
+For distinct vectors in an orthonormal set, we can write $\braket*{i}{j} = \delta_{ij}$, where $\delta_{ij}$ is the Kronecker product and is 1 if $i = j$ and 0 if $i \neq j$. 
+
 \subsection{Matrix - Linear Operator Congruence}
 
 For a matrix to a be a linear operator, 
@@ -18,6 +22,11 @@ Things to look into: \begin{itemize}
 \item they pop up in the Pauli equation 
 \item they form a basis for the vector space of $2 \times 2$ Hermitian matrices. Hermitian matrices represent observables? Look at Wikipedia page
 \end{itemize}
+
+\subsection{What does the Completeness Relation say about matrices?}
+
+I don't understand why $$\sum_{ij} \bra*{w_{j}} A \ket*{v_{i}} \ket*{w_{j}} \bra*{v_{i}}$$ implies $A$ has matrix element $\bra{w_{j}} A \ket*{v_{i}}$ in the $i$th column and $j$th row, with respect to input basis $\ket*{v_{i}}$ and output basis $\ket*{w_{j}}$. page 68. 
+
 
 \section{Solutions}
 
@@ -88,3 +97,91 @@ $$
 &= \sum_{i} \lambda_{i}^{*} \Big( \ket*{w_{i}}, \ket*{v} \Big)
 \end{aligned}
 $$
+
+\exercise
+$$(\ket*{w}, \ket*{v}) = \begin{bmatrix}
+1 & 1
+\end{bmatrix} \begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} = 1 - 1 = 0$$
+To normalize, divide each vector by $\sqrt{2}$. 
+
+\exercise
+Since at each step, we divide by the norm of the vector being added, the set is orthonormal. The set is a basis because at step $i$, we add the basis vector $\ket*{w_{i}}$ but subtract out the portion that was already in $\Span( \ket*{v_{1}}, \cdots, \ket*{v_{i-1}})$, so we still end up spanning the full vector space. 
+
+\exercise
+$$\sigma_{x} = \ket*{1} \bra*{0} + \ket*{0} \bra*{1} $$
+$$\sigma_{y} = i \ket*{1} \bra*{0} - i \ket*{0} \bra*{1}$$
+$$\sigma_{z} = \ket*{0} \bra*{0} - \ket*{1} \bra*{1}$$
+
+\exercise
+$$
+\begin{aligned}
+\ket*{v_{j}} \bra*{v_{k}} &= I \ket*{v_{j}} \bra*{v_{k}} I \\
+&= \sum_{a} \ket*{v_{a}} \braket*{v_{a}}{v_{j}} \sum_{b} \braket*{v_{k}}{v_{b}} \bra*{v_{b}} \\
+&= \sum_{a, b} \delta_{aj} \delta_{kb} \ket*{v_{a}} \bra*{v_{b}}
+\end{aligned}
+$$
+so the element $(\ket*{v_{j}} \bra*{v_{k}})_{ab} = \delta_{aj} \delta_{kb}$. 
+
+\exercise
+Each of the Pauli matrices has eigenvalues $\pm 1$. 
+
+For $\sigma_{x}$, 
+$$\sigma_{x+} = \begin{bmatrix}
+1 \\
+1
+\end{bmatrix} \text{ and } \sigma_{x-} = \begin{bmatrix}
+-1 \\
+1
+\end{bmatrix}$$
+
+For $\sigma_{y}$, 
+$$\sigma_{y+} = \begin{bmatrix}
+1 \\
+i
+\end{bmatrix} \text{ and } \sigma_{y-} = \begin{bmatrix}
+i \\
+1
+\end{bmatrix}$$
+
+For $\sigma_{z}$, 
+$$\sigma_{z+} = \begin{bmatrix}
+1 \\
+0
+\end{bmatrix} \text{ and } \sigma_{z-} = \begin{bmatrix}
+0 \\
+1
+\end{bmatrix}$$
+The diagonalization easily follows. 
+
+\exercise
+The characteristic equation is $(1 - \lambda)^{2}$, so we have eigenvalue $1$. Solving $(A - 1I)\ket*{v} = 0$ gives us $\ket*{v} = \begin{bmatrix}
+0 \\
+1
+\end{bmatrix}$. Our diagonal form should be $$A = \ket*{v} \bra*{v} = \begin{bmatrix}
+0 & 0 \\
+0 & 1
+\end{bmatrix} \neq \begin{bmatrix}
+1 & 0 \\ 
+1 & 1
+\end{bmatrix}$$
+
+\exercise
+$$(\ket*{w} \bra*{v})^{\dagger} = \bra*{v}^{\dagger} \ket*{w}^{dagger} = \ket*{v} \bra*{w}$$
+
+\exercise
+Since we know $(a + b)^{\dagger} = a^{\dagger} + b^{\dagger}$, so $$\Big( \sum_{i} a_{i} A_{i} \Big)^{\dagger} = \sum_{i} \Big( a_{i} A_{i} \Big)^{\dagger} = \sum_{i} \Big( a_{i}^{*} A_{i}^{\dagger} \Big)$$
+
+\exercise
+$$(\ket*{v}, A\ket*{w}) = (A^{\dagger} \ket*{v}, \ket*{w}) = \Big(\ket*{v}, (A^{\dagger})^{\dagger} \ket*{w} \Big)$$
+since this holds for all $\ket*{v}, \ket*{w}$, $A = (A^{\dagger})^{\dagger}$. 
+
+\exercise
+$$P^{2} = \sum_{i} \ket*{i} \bra*{i} \sum_{j} \ket*{j} \bra*{j} = \sum_{ij} \ket*{i} \braket*{i}{j} \bra*{j} = \sum_{ij} \delta_{ij} \ket*{i} \bra*{j}$$
+
+Intuitively, projecting some $\ket*{v} \in P $ wouldn't change $\ket*{v}$ at all. 
+
+\exercise
+Since $A$ is normal, we can diagonalize it. If the eigenvalues are all positive, then the adjoint of this diagonal matrix of eigenvalues equals itself. If $A$ is Hermitian, then so is its diagonal form. The adjoint of a diagonal matrix consists of the conjugates of its diagonal entries, so if $A = A^{\dagger}$, then the diagonal entries (eigenvalues) must all be positive. 
