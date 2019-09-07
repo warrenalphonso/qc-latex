@@ -185,3 +185,62 @@ Intuitively, projecting some $\ket*{v} \in P $ wouldn't change $\ket*{v}$ at all
 
 \exercise
 Since $A$ is normal, we can diagonalize it. If the eigenvalues are all positive, then the adjoint of this diagonal matrix of eigenvalues equals itself. If $A$ is Hermitian, then so is its diagonal form. The adjoint of a diagonal matrix consists of the conjugates of its diagonal entries, so if $A = A^{\dagger}$, then the diagonal entries (eigenvalues) must all be positive. 
+
+\exercise
+For an eigenvector $\ket*{v}$, we have $A \ket*{v} = \lambda \ket*{v} \rightarrow \bra*{v} A^{\dagger} = \lambda^{*} \bra*{v}$. Multiplying these two gives us $\bra*{v} A^{\dagger} A \ket*{v} = \lambda^{*} \lambda \braket*{v}{v}$, and because $A^{\dagger} A  = I$, 
+$$\norm{v}^{2} = \abs{\lambda}^{2} \, \norm{v}^{2} \rightarrow \abs{\lambda} = 1$$
+
+\exercise
+Omitted because it's just mechanical. 
+
+\exercise
+$$
+\begin{aligned}
+A^{'}_{ij} &= \bra*{v_{i}} A \ket*{v_{j}}\\ &= \bra*{v_{i}} U^{\dagger} U A U U^{\dagger} \ket*{v_{j}} \\
+&= \sum_{a} \sum_{b} \sum_{c} \sum_{d} \braket*{v_{i}}{w_{a}} \braket*{v_{a}}{v_{b}} \bra*{w_{b}} A \ket*{w_{c}} \braket*{v_{c}}{v_{d}} \braket*{w_{d}}{v_{j}} \\
+&= \sum_{a} \sum_{b} \sum_{c} \sum_{d} \delta_{ab} \delta_{cd} \braket*{v_{i}}{w_{a}} A^{''}_{bc} \braket*{w_{d}}{v_{j}} 
+\end{aligned}
+$$
+This tells us $a = b$ and $c = d$, so 
+$$A^{'}_{ij} = \sum_{a} \sum_{c} \braket*{v_{i}}{w_{a}} A^{''}_{ac} \braket*{w_{c}}{v_{j}} $$
+
+\exercise
+We will prove any Hermitian operator $M$ is diagonal with respect to some orthonormal basis $V$. 
+
+We proceed by induction on dimension $d$ on $V$. 
+
+\textbf{Base case: }$d = 1$
+
+Trivially, $M$ is diagonal. 
+
+\textbf{Inductive hypothesis: } Assume $d = n - 1$
+
+\textbf{Inductive step: } Prove $d = n$
+
+Let $\lambda$ be an eigenvalue of $M$, $P$ be a projection onto the $\lambda$ eigenspace, and $Q$ be $P$'s orthogonal complement. 
+
+We know $M = (P + Q) M (P + Q)$. First, note that $QMP = \lambda QP = 0$. Now for some $\ket*{v} \in P$, $M \ket*{v} = M^{\dagger} \ket*{v} = \lambda \ket*{v}$ because $M$ is Hermitian, which means $\ket*{v}$ is in the eigenspace $\lambda$ of $M^{\dagger}$. Now we have $QM^{\dagger} P \ket*{v} = QM^{\dagger} \ket*{v} = \lambda Q \ket*{v} = 0$. Taking the adjoint of this gives us $PMQ = 0$. Now we have $M = PMP + QMQ$.
+
+Since $PMP = \lambda P$, $QMQ$ must be nonzero also for $M = PMP + QMQ$ to hold, so they both have dimension less than $n$. Finally, $PMP = (PMP)^{\dagger} = PM^{\dagger}P$ and similarly for $QMQ$. Since they're both Hermitian, our inductive hypothesis proves the theorem. 
+
+\exercise
+For a Hermitian operator $A$, suppose $A \ket*{v} = \lambda \ket*{v}$ and $A \ket*{w} = \mu \ket*{w}$. 
+
+Since $\bra*{v} A = \lambda \bra*{v}$, we can write 
+$$\bra*{v} A^{2} \ket*{w} = \mu^{2} \bra*{v} \ket*{w} = \lambda \mu \bra*{v} \ket*{w}$$
+where the first equality follows from $A^{2} \ket*{w} = \mu^{2} \ket*{w}$. Since $\lambda \neq \mu$, $\braket*{v}{w} = 0$. 
+
+\exercise
+Suppose $\ket*{v}$ is an eigenvector of $P$ with eigenvalue $\lambda$, $P \ket*{v} = \lambda \ket*{v}$. Then
+$$P \ket*{v} = P^{2} \ket*{v} = \lambda^{2} \ket*{v}$$
+where the first equality follows from the property $P^{2} = P$. Since $\lambda^{2} = \lambda$, $P$'s eigenvalues must be 1 or 0. 
+
+\exercise
+Let $B = \frac{A + A^{\dagger}}{2}$ and $C = \frac{A - A^{\dagger}}{2i}$. This means 
+$$\bra*{v} A \ket*{v} = \bra*{v} B \ket*{v} + i \bra*{v} C \ket*{v}$$
+Since we cannot have an imaginary term in a positive operator, $C = 0$, so $A = A^{\dagger}$. 
+
+\exercise
+We can write $\braket*{Av}{Av} = \braket*{A^{\dagger} A v}{v}$.
+But since $\braket*{Av}{Av}$ can also be written as $\norm{Av}^{2} \geq 0$, $A^{\dagger} A$ must be positive. 
+ 
