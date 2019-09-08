@@ -364,3 +364,37 @@ H & -1
 1 & 1 & -1 & -1 \\
 1 & -1 & -1 & 1
 \end{bmatrix}$$
+
+\exercise
+Let $A = \begin{bmatrix}
+4 & 3 \\
+3 & 4
+\end{bmatrix}$. First, we find the eigenvalues and eigenvectors. 
+
+$$\Det(A - \lambda I) = (\lambda - 7)(\lambda - 1) \rightarrow \lambda = 7, 1$$
+with corresponding eigenvectors 
+$$\frac{1}{\sqrt{2}} \begin{bmatrix}
+1 \\
+1
+\end{bmatrix} \text{\qquad and \qquad} \frac{1}{\sqrt{2}}	 \begin{bmatrix}
+1 \\
+-1
+\end{bmatrix}$$
+We'll denote the eigenpairs as $(7, \ket*{a})$ and $(1, \ket*{b})$.  
+
+So, 
+$$\sqrt{A} = \sqrt{7} \ket*{a} \bra*{a} + 1 \ket*{b} \bra*{b}$$
+and 
+$$\log (A) = \log (7) \ket*{a} \bra*{a}$$
+
+\exercise
+Since $v \cdot \sigma$ is a weighted sum of the Pauli matrices, we know it will have eigenvalues of 1 and -1. Let the eigenpairs of $v \cdot \sigma$ be $(1, \ket*{\lambda_{1}})$ and $(-1, \ket*{\lambda_{-1}})$. 
+
+$$
+\begin{aligned}
+\exp (i \theta v \cdot \sigma) &= e^{i \theta} \ket*{\lambda_{1}} \bra*{\lambda_{1}} + e^{-i \theta} \ket*{\lambda_{-1}} \bra*{\lambda_{-1}} \\
+&= (\cos \theta + i \sin \theta) \ket*{\lambda_{1}} \bra*{\lambda_{1}} + (\cos \theta - i \sin \theta) \ket*{\lambda_{-1}} \bra*{\lambda_{-1}} \\
+&= \cos \theta \Big( \ket*{\lambda_{1}} \bra*{\lambda_{1}} + \ket*{\lambda_{-1}} \bra*{\lambda_{-1}} \Big) + i \sin \theta \Big(\ket*{\lambda_{1}} \bra*{\lambda_{1}} - \ket*{\lambda_{-1}} \bra*{\lambda_{-1}} \Big) \\
+&= \cos \theta I + i \sin \theta v \cdot \sigma 
+\end{aligned}
+$$
