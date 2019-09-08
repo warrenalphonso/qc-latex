@@ -243,4 +243,124 @@ Since we cannot have an imaginary term in a positive operator, $C = 0$, so $A = 
 \exercise
 We can write $\braket*{Av}{Av} = \braket*{A^{\dagger} A v}{v}$.
 But since $\braket*{Av}{Av}$ can also be written as $\norm{Av}^{2} \geq 0$, $A^{\dagger} A$ must be positive. 
- 
+
+\exercise
+As a tensor product:
+$$\ket*{\psi}^{\otimes 2} = \frac{1}{2} \Big( \ket*{0} + \ket*{1} \Big) \otimes \Big( \ket*{0} + \ket*{1} \Big) = \frac{1}{2} \Big( \ket*{00} + \ket*{01} + \ket*{10} + \ket*{11} \Big)$$ 
+
+As a Kronecker product: 
+Since $\frac{1}{\sqrt{2}} ( \ket*{0} + \ket*{1} ) = \begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}$, 
+$$\begin{bmatrix}
+\frac{1}{\sqrt{2}} \ket*{\psi} \\
+\frac{1}{\sqrt{2}} \ket*{\psi}
+\end{bmatrix} = \begin{bmatrix}
+\frac{1}{2} \\
+\frac{1}{2} \\
+\frac{1}{2} \\
+\frac{1}{2} 
+\end{bmatrix}$$
+
+As a tensor product: 
+$$\ket*{\psi}^{\otimes 3} = \ket*{\psi} \otimes \ket*{\psi}^{\otimes 2} = \frac{1}{\sqrt{2}} \Big( \ket*{0} + \ket*{1} \Big) \otimes \frac{1}{2} \Big( \ket*{00} + \ket*{01} + \ket*{10} + \ket*{11} \Big) = \frac{1}{2 \sqrt{2}} \Big( \ket*{000} + \ket*{001} + \ket*{010} + \ket*{011} + \ket*{100} + \ket*{101} + \ket*{110} + \ket*{111} \Big)$$
+
+As a Kronecker product: 
+$$\begin{bmatrix}
+\frac{1}{\sqrt{2}} \ket*{\psi}^{\otimes 2} \\
+\frac{1}{\sqrt{2}} \ket*{\psi}^{\otimes 2}
+\end{bmatrix} = \begin{bmatrix}
+\frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} & \frac{1}{2\sqrt{2}} 
+\end{bmatrix}^{T}$$
+
+\exercise
+$$X \otimes Z = \begin{bmatrix}
+0 \cdot Z & 1 \cdot Z \\
+1 \cdot Z & 0 \cdot Z
+\end{bmatrix} = \begin{bmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & -1 \\
+1 & 0 & 0 & 0 \\
+0 & -1 & 0 & 0
+\end{bmatrix}$$
+
+$$I \otimes X = \begin{bmatrix}
+1 \cdot X & 0 \cdot X \\
+0 \cdot X & 1 \cdot X
+\end{bmatrix} = \begin{bmatrix}
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{bmatrix}$$
+
+$$X \otimes I = \begin{bmatrix}
+0 \cdot I & 1 \cdot I \\
+1 \cdot I & 0 \cdot I 
+\end{bmatrix} = \begin{bmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0
+\end{bmatrix}$$
+
+Since $I \otimes X \neq X \otimes I$, the tensor product is not commutative. 
+
+\exercise
+Writing the Kronecker product, 
+$$(A \otimes B)^{\dagger} = \begin{bmatrix}
+A_{11} B & \cdots & A_{1n} B \\
+\vdots & \ddots & \vdots \\
+A_{n1} B & \cdots & A_{nn} B
+\end{bmatrix}^{\dagger} = \begin{bmatrix}
+A_{11}^{*} B^{\dagger} & \cdots & A_{n1}^{*} B^{\dagger} \\
+\vdots & \ddots & \vdots \\
+A_{1n}^{*} B^{\dagger} & \cdots & A_{nn}^{*} B^{\dagger}
+\end{bmatrix} = A^{\dagger} \otimes B^{\dagger}$$
+
+Proving the transpose is similar and proving the complex conjugate requires only using $B^{*}$ instead of $B^{\dagger}$. 
+
+\exercise
+Let $U_{1}$ and $U_{2}$ be unitary. 
+
+$$(U_{1} \otimes U_{2})^{\dagger} (U_{1} \otimes U_{2}) = (U_{1}^{\dagger} \otimes U_{2}^{\dagger})(U_{1} \otimes U_{2}) = U_{1}^{\dagger} U_{1} \otimes U_{2}^{\dagger} U_{2} = I \otimes I = I$$
+
+\exercise
+Let $A = A^{\dagger}$ and $B = B^{\dagger}$. 
+$$(A \otimes B)^{\dagger} = A^{\dagger} \otimes B^{\dagger} = A \otimes B$$
+
+\exercise
+Let $A$ and $B$ be positive operators. 
+$$\Big( (A \otimes B)(\ket*{v} \otimes \ket*{w}), (\ket*{v} \otimes \ket*{w} \Big) = \Big( A \ket*{v} \otimes B \ket*{w}, \ket*{v} \otimes \ket*{w} \Big) = \bra*{v} A^{\dagger} \ket*{v} \bra*{w} B^{\dagger} \ket*{w} = \bra*{v} A \ket*{v} \bra*{w} B \ket*{w}$$
+since we know positive operators are Hermitian. Since $\bra*{v} A \ket*{v}$ and $\bra*{w} B \ket*{w}$ are both non-negative, their product is also non-negative. 
+
+\exercise
+Let $P$ and $Q$ be projectors. Recall that if $P^{2} = P$, $P$ is a projector. 
+$$(P \otimes Q)(P \otimes Q) = P^{2} \otimes Q^{2} = P \otimes Q$$
+
+\exercise
+We proceed by induction on $n$. 
+
+\textbf{Base case: } $n = 1$
+
+We know $$H^{\otimes 1} = H = \frac{1}{\sqrt{2}} \Big[ (\ket*{0} + \ket*{1})\bra*{0} +  (\ket*{0} - \ket*{1})\bra*{1} \Big] = \frac{1}{\sqrt{2}} \sum_{x, y \in \{ 0, 1 \}^{1}} (-1)^{x \cdot y} \ket*{x} \bra*{y}$$
+
+\textbf{Inductive hypothesis: } Assume $n = k - 1$
+
+$$H^{\otimes k - 1} = \frac{1}{2^{k - 1 / 2}} \sum_{x, y \in \{0, 1\}^{k-1}} (-1)^{x \cdot y} \ket*{x} \bra*{y}$$
+
+\textbf{Inductive step: } Prove $n = k$
+
+$$H^{\otimes k} = H \otimes H^{\otimes k - 1} = \frac{1}{2^{k / 2}} \sum_{x_{1}, y_{1} \in \{0, 1\}} (-1)^{x_{1} \cdot y_{1}} \ket*{x_{1}} \bra*{y_{1}} \qquad \otimes \sum_{x_{2}, y_{2} \in \{ 0, 1\}^{k-1}} (-1)^{x_{2} \cdot y_{2}} \ket*{x_{2}} \bra*{y_{2}}$$
+Since this tensor product only flips the sign of the $H^{\otimes k - 1}$ if $x_{1} = y_{1} = 1$, it is easy to see that concatenating $x_{1}, x_{2}$ and $y_{1}, y_{2}$, would yield the dot product required to flip the signs when we want. 
+
+$$H^{\otimes 2} = \frac{1}{\sqrt{2}} \begin{bmatrix}
+H & H \\
+H & -1
+\end{bmatrix} = \frac{1}{2} \begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1
+\end{bmatrix}$$
