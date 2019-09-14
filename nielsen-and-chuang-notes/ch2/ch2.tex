@@ -27,6 +27,7 @@ Things to look into: \begin{itemize}
 
 I don't understand why $$\sum_{ij} \bra*{w_{j}} A \ket*{v_{i}} \ket*{w_{j}} \bra*{v_{i}}$$ implies $A$ has matrix element $\bra{w_{j}} A \ket*{v_{i}}$ in the $i$th column and $j$th row, with respect to input basis $\ket*{v_{i}}$ and output basis $\ket*{w_{j}}$. page 68. 
 
+\subsection{Lucien Hardy Postulates of QM}
 
 \section{Solutions}
 
@@ -398,3 +399,170 @@ $$
 &= \cos \theta I + i \sin \theta v \cdot \sigma 
 \end{aligned}
 $$
+
+\exercise
+$$\Tr(X) = 0 + 0$$
+$$\Tr(Y) = 0 + 0$$
+$$\Tr(Z) = 1 - 1$$
+
+\exercise
+$$\Tr(AB) = \sum_{i} (AB)_{ii} = \sum_{i} \sum_{j} A_{ij} B_{ji} = \sum_{j} \sum_{i} B_{ji} A_{ij} = \sum_{j} (BA)_{jj} = \Tr(BA)$$
+
+\exercise
+$$\Tr(A+B) = \sum_{i} (A + B)_{ii} = \sum_{i} A_{ii} + \sum_{j} B_{jj} = \Tr(A) + \Tr(B)$$
+
+$$\Tr(zA) = \sum_{i} (zA)_{ii} = z \sum_{i} A_{ii} = z \Tr(A)$$
+
+\exercise
+\begin{enumerate}
+\item 
+\begin{enumerate}[label=(\alph*)]
+\item Linearity in second argument:
+$$(A, \sum_{i} \lambda_{i} B) = \Tr ( A^{\dagger} \sum_{i} \lambda_{i} B ) = \Tr (\sum_{i} \lambda_{i} A^{\dagger} B) = \sum_{i} \lambda_{i} \Tr(A^{\dagger} B)$$
+
+\item 
+$$
+\begin{aligned}
+(B, A)^{*} = \Tr(B^{\dagger} A) &= \Big( \sum_{i} \bra*{i} B^{\dagger}A \ket*{i} \Big)^{*} \\
+&= \sum_{i} \bra*{i} A^{\dagger} B \ket*{i} \\
+&= \Tr(A^{\dagger} B) \\
+&= (A, B)
+\end{aligned}
+$$
+
+\item 
+$$(A, A) = \Tr (A^{\dagger} A)$$
+Since we know $A^{\dagger} A$ is a positive operator, the sum of its eigenvalues must be nonnegative. Additionally, the sum of its eigenvalues will only be zero if $A^{\dagger} A$ is the 0 matrix, which means $A$ was also the 0 matrix. 
+\end{enumerate}
+
+\item 
+We can fix a basis $\ket*{v_{1}}, \cdots, \ket*{v_{n}}$. In this basis, the columns of any $A \in L_{V}$ are defined as the vectors $A$ maps the $n$ basis vectors to. Since we need $n$ terms to describe each vector and we map $n$ basis vectors, $\Dim L_{V} = n^{2}$. 
+
+\item Not sure if we need $n^{2}$ matrices for a basis, but using the same basis vectors as before, we can define $n$ Hermitian matrices for each $i$: $A_{i} = \bra*{v_{i}} \ket*{v_{i}}$. Since any operator can be written as its action on the basis vectors, linear combinations of these Hermitian matrices span $V$. 
+
+The set is orthonormal because if the basis vectors are normalized, 
+$$(A_{i}, A_{i}) = \Tr (A_{i}^{\dagger} A_{i}) = \bra*{v_{i}} A^{\dagger} A \ket*{v_{i}} = \bra*{v_{i}} \ket*{v_{i}} \bra*{v_{i}} \ket*{v_{i}} \bra*{v_{i}} \ket*{v_{i}} = 1$$
+and 
+$$(A_{i}, A_{j}) = \Tr (A_{i}^{\dagger} A_{j}) = \Tr( \ket*{v_{i}} \bra*{v_{i}} \ket*{v_{j}} \bra*{v_{j}} ) = \Tr(\ket*{v_{i}} 0 \bra*{v_{j}}) = 0$$
+\end{enumerate}
+
+\exercise
+$$[X, Y] = XY - YX = \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix} \begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix} - \begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix} \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix} = \begin{bmatrix}
+i & 0 \\
+0 -i
+\end{bmatrix} - \begin{bmatrix}
+-i & 0 \\
+0 & i
+\end{bmatrix} = \begin{bmatrix}
+2i & 0 \\
+0 & -2i
+\end{bmatrix} = 2iZ$$
+
+$$[Y, Z] = YZ - ZY = \begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix} \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} - \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} \begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix} = \begin{bmatrix}
+0 & i \\
+i & 0
+\end{bmatrix} - \begin{bmatrix}
+0 & -i \\
+-i & 0
+\end{bmatrix} = \begin{bmatrix}
+0 & 2i \\
+2i & 0
+\end{bmatrix} = 2iX$$
+
+$$[Z, X] = ZX - XZ = \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix} - \begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix} \begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} = \begin{bmatrix}
+0 & 1 \\
+-1 & 0
+\end{bmatrix} - \begin{bmatrix}
+ 0 & -1 \\
+ 1 & 0
+\end{bmatrix} = \begin{bmatrix}
+0 & 2 \\
+-2 & 0
+\end{bmatrix} = 2iY$$
+
+The textbook explains an elegant way to represent this is:
+$$[ \sigma_{j}, \sigma_{k} ] = 2i \sum_{l = 1}^{3} \epsilon_{jkl} \sigma_{l}$$
+where $\epsilon_{jkl} = 0$ except for $\epsilon_{123} = \epsilon_{231} = \epsilon_{312} = 1$ and $\epsilon_{321} = \epsilon_{213} = \epsilon_{132} = -1$. 
+
+\exercise
+Consider the above exercise and add instead of subtract matrices. It is easy to see each equation would result in 0. This is sufficient for all the examples because $\{ A, B \} = \{ B, A \}$. 
+
+\exercise
+$$\frac{[A, B] + \{A, B \}}{2} = \frac{AB - BA + AB + BA}{2} = \frac{2AB}{2} = AB$$
+
+\exercise
+We know $$\sigma_{j} \sigma_{k} = \frac{[\sigma_{j}, \sigma_{k}] + \{ \sigma_{j}, \sigma_{k} \}}{2}$$
+
+Notice that if $j \neq k$, $\{ \sigma_{j}, \sigma_{k} \} = 0$, Exercise 2.40 lets us write
+$$\sigma_{j} \sigma_{k} = \frac{[\sigma_{j}, \sigma_{k}]}{2} = i \sum_{l=1}^{3} \epsilon_{jkl} \sigma_{l}$$
+
+Notice that if $j = k$, $[\sigma_{j}, \sigma_{k}] = 0$, so
+$$\sigma_{j} \sigma_{k} = \sigma_{j} \sigma_{j} = \frac{\{\sigma_{j}, \sigma_{j} \}}{2} = \frac{\sigma_{j}^{2} + \sigma_{j}^{2}}{2} = \sigma_{j}^{2} = I$$
+
+So we arrive at 
+$$\sigma_{j} \sigma_{k} = \delta_{jk} I + i \sum_{l=1}^{3} \epsilon_{jkl} \sigma_{l}$$
+
+\exercise
+Combining $AB - BA = 0$ and $AB + BA = 0$ yields
+$$2AB = 0 \rightarrow AB = 0 \rightarrow B = A^{-1} 0 = 0$$
+
+\exercise
+$$[A, B]^{\dagger} = (AB - BA)^{\dagger} = B^{\dagger} A^{\dagger} - A^{\dagger} B^{\dagger} = [B^{\dagger}, A^{\dagger}]$$
+
+\exercise
+$$[A, B] = AB - BA = - (BA - AB) = - [B, A]$$
+
+\exercise
+$$( i [A, B])^{\dagger} = -i [B^{\dagger}, A^{\dagger}] = i[A^{\dagger}, B^{\dagger}] = i [A, B]$$
+by using the results from the above two exercises. 
+
+\exercise
+For a positive matrix $P$, we have $P = IP$. 
+For a unitary matrix $U$, we have $U = UI$. 
+For a Hermitian matrix $H$, we know $J = \sqrt{H^{\dagger} H} = \sqrt{H^{2}} = \abs{H}$, so we have $H = U \abs{H}$. 
+
+\exercise
+If $A$ is normal, it must have a spectral decomposition $A = \sum_{i} \lambda_{i} \ket*{i} \bra*{i}$. We can now write 
+$$J = \sqrt{A^{\dagger}A} = \sum_{i} \abs{\lambda_{i}} \ket*{i} \bra*{i}$$. 
+Since $U = \sum_{i} \ket*{e_{i}} \bra*{i}$, 
+$$A = UJ = \sum_{i} \abs{\lambda_{i}} \ket*{e_{i}} \bra*{i}$$
+
+\exercise
+The calculations aren't turning out pretty so I'm skipping over this one. 
+
