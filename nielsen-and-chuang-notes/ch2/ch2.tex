@@ -566,3 +566,43 @@ $$A = UJ = \sum_{i} \abs{\lambda_{i}} \ket*{e_{i}} \bra*{i}$$
 \exercise
 The calculations aren't turning out pretty so I'm skipping over this one. 
 
+\exercise 
+$$H^{\dagger} H = \frac{1}{2} \begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix} \begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix} = \frac{1}{2} \begin{bmatrix}
+2 & 0 \\
+0 & 2
+\end{bmatrix} = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}$$
+
+Since $H = H^{\dagger}$, $HH^{\dagger} = I$ follows. 
+
+\exercise
+This follows from the above exercise since $H = H^{\dagger}$. 
+
+\exercise
+The characteristic equation $\Det (H - \lambda I) = 0$ yields eigenpairs: 
+$$\Big( 1, \begin{bmatrix}
+-1 \\
+1 - \sqrt{2}
+\end{bmatrix} \Big) \qquad \text{ and } \qquad \Big(-1, \begin{bmatrix}
+1 - \sqrt{2} \\
+1
+\end{bmatrix} \Big)$$
+
+\exercise
+Since $[A, B] = 0$, we know $A$ and $B$ are simultaneously diagonalizable, so $A = \sum_{i} a_{i} \ket*{i} \bra*{i}$ and $B = \sum_{i} b_{i} \ket*{i} \bra*{i}$. 
+
+$$
+\begin{aligned}
+\exp \Big( \sum_{i} a_{i} \ket*{i} \bra*{i} \Big) \exp \Big( \sum_{i} b_{i} \ket*{i} \bra*{i} \Big) &= \ket*{i} \bra*{i} \ket*{i} \bra*{i}  \exp (\sum_{i} a_{i} ) \exp (\sum_{i} b_{i})  \\
+&=\ket*{i} \bra*{i} \exp ( \sum_{i} a_{i} + b_{i} )\\
+&= \exp (\sum_{i} a_{i} + b_{i} \ket*{i} \bra*{i} ) = \exp(A + B)
+\end{aligned}
+$$
