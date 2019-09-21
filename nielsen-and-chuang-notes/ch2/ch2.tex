@@ -4,7 +4,7 @@
 
 \subsection{Notation}
 
-For distinct vectors in an orthonormal set, we can write $\braket*{i}{j} = \delta_{ij}$, where $\delta_{ij}$ is the Kronecker product and is 1 if $i = j$ and 0 if $i \neq j$. 
+For distinct vectors in an orthonormal set, we can write $\braket*{i}{j} = \delta_{ij}$, where $\delta_{ij}$ is the Kronecker product: $\delta_{ij} = 1$ if $i = j$ and $\delta_{ij} = 0$ if $i \neq j$. 
 
 \subsection{Matrix - Linear Operator Congruence}
 
@@ -606,3 +606,52 @@ $$
 &= \exp (\sum_{i} a_{i} + b_{i} \ket*{i} \bra*{i} ) = \exp(A + B)
 \end{aligned}
 $$
+
+\exercise
+Note $H = H^{\dagger}$ and $H = \sum_{E} E \ket*{E} \bra*{E}$. 
+$$
+\begin{aligned}
+U(t_{1}, t_{2}) \Big( U(t_{1}, t_{2}) \Big)^{\dagger} &= \exp \Big( \frac{-i H(t_{2} - t_{1}}{\hbar} \Big) \exp \Big( \frac{i H^{\dagger} (t_{2} - t_{1})}{\hbar} \Big) \\
+&= \exp \Big( \frac{-i \sum_{E} E \ket*{E} \bra*{E} (t_{2} - t_{1}}{\hbar} \Big) \exp \Big( \frac{i \sum_{E^{'}} E^{'} \ket*{E^{'}} \bra*{E^{'}} (t_{2} - t_{1})}{\hbar} \Big) \\
+&= \sum_{E, E^{'}} \ket*{E} \bra*{E} \ket*{E^{'}} \bra*{E^{'}} \exp \Big( \frac{-i E(t_{2} - t_{1}) + i E^{'} (t_{2} - t_{1})}{\hbar} \Big) \\
+&= \sum_{E} \ket*{E} \bra*{E} \exp \Big( \frac{E(t_{2} - t_{1}) (-i + i)}{\hbar} \Big) \\
+&= \sum_{E} \ket*{E} \bra*{E} \exp(0) = \sum_{E} \ket*{E} \bra*{E} = I
+\end{aligned}
+$$
+
+\exercise
+
+$K \equiv -i \log (U)$ for unitary $U$. 
+
+Since $U$ has a spectral decomposition, 
+$$ K = -i \sum_{u} \ket*{u} \bra*{u} \log(u)$$
+$$K^{\dagger} = i \sum_{u} \ket*{u} \bra*{u} (\log u)^{*} = i \sum_{u} \ket*{u} \bra*{u} \log (u^{*})$$
+
+Since $UU^{\dagger} = I$, 
+$$ \log(UU^{\dagger}) = \log(I) \rightarrow \sum_{u} \ket*{u} \bra*{u} \log(uu^{*}) = 0 \rightarrow \log(u) = -\log(u^{*})$$
+
+Plugging this in, 
+$$K^{\dagger} = -i \sum_{u} \ket*{u} \bra*{u} \log(u) = -i \log(U) = K$$
+
+Since $K$ is Hermitian, $U = \exp (iK)$ is unitary.  
+
+\exercise
+After applying some $L_{l}$, we get 
+$$\ket*{\phi} = \frac{L_{l} \ket*{\psi}}{\sqrt{\bra*{\psi} L_{l}^{\dagger} L_{l} \ket*{\psi}}}$$
+
+Now we apply some $M_{m}$. We'll calculate the numerator and denominator separately to simplify the result. 
+
+The numerator: 
+$$M_{m} \ket*{\phi} = \frac{M_{m} L_{l} \ket*{\psi}}{\sqrt{\bra*{\psi} L_{l}^{\dagger} L_{l} \ket*{\psi}}} = \frac{N_{lm} \ket*{\psi}}{\sqrt{\bra*{\psi} L_{l}^{\dagger} L_{l} \ket*{\psi}}}$$
+
+The denominator (squared):
+$$\bra*{\phi} M{m}^{\dagger} M_{m} \ket*{\phi} = \frac{\bra*{\psi} L_{l}^{\dagger} M_{m}^{\dagger} M_{m} L_{l} \ket*{\psi}}{\bra*{\psi} L_{l}^{\dagger} L_{l} \ket*{\psi}} = \frac{\bra*{\psi} N_{lm}^{\dagger} N_{lm} \ket*{\psi}}{\bra*{\psi} L_{l}^{\dagger} L_{l} \ket*{\psi}}$$
+
+After putting these together, we get 
+$$\frac{N_{lm} \ket*{\psi}}{\bra*{\psi} N_{lm}^{\dagger} N_{lm} \ket*{\psi}}$$
+
+\exercise 
+$$E(M) = \bra*{\psi} M \ket*{\psi} = m \braket*{\psi}{\psi} = m$$
+since $\ket*{\psi}$ is an eigenstate and $m$ is an eigenvalue. 
+
+$$\Delta (M) = \sqrt{\expval{M^{2}} - \expval{M}^{2}} = \sqrt{\bra*{\psi} M^{2} \ket*{\psi} - E(M)^{2}} = \sqrt{m^{2} - m^{2}} = 0$$
