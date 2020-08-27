@@ -1,0 +1,17 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}Introduction and overview}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Notes}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Bloch Spheres}{1}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Why must quantum gates be unitary?}{3}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Decomposing single qubit operations}{3}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}What does the matrix representation of a quantum gate mean?}{3}{subsection.1.1.4}
+\contentsline {subsection}{\numberline {1.1.5}Why must quantum gates be reversible?}{3}{subsection.1.1.5}
+\contentsline {section}{\numberline {1.2}Solutions}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Introduction to quantum mechanics}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Notes}{4}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Notation}{4}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Matrix - Linear Operator Congruence}{4}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}What's so special about the Pauli matrices?}{4}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}What does the Completeness Relation say about matrices?}{4}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Lucien Hardy Postulates of QM}{5}{subsection.2.1.5}
+\contentsline {section}{\numberline {2.2}Solutions}{5}{section.2.2}

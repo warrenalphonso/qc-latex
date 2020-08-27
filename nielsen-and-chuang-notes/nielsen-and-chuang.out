@@ -1,0 +1,16 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction and overview}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Notes}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{Bloch Spheres}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{Why must quantum gates be unitary?}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{Decomposing single qubit operations}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.4}{What does the matrix representation of a quantum gate mean?}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.5}{Why must quantum gates be reversible?}{section.1.1}% 7
+\BOOKMARK [1][-]{section.1.2}{Solutions}{chapter.1}% 8
+\BOOKMARK [0][-]{chapter.2}{Introduction to quantum mechanics}{}% 9
+\BOOKMARK [1][-]{section.2.1}{Notes}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.1.1}{Notation}{section.2.1}% 11
+\BOOKMARK [2][-]{subsection.2.1.2}{Matrix - Linear Operator Congruence}{section.2.1}% 12
+\BOOKMARK [2][-]{subsection.2.1.3}{What's so special about the Pauli matrices?}{section.2.1}% 13
+\BOOKMARK [2][-]{subsection.2.1.4}{What does the Completeness Relation say about matrices?}{section.2.1}% 14
+\BOOKMARK [2][-]{subsection.2.1.5}{Lucien Hardy Postulates of QM}{section.2.1}% 15
+\BOOKMARK [1][-]{section.2.2}{Solutions}{chapter.2}% 16
